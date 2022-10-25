@@ -3,7 +3,7 @@ import { store } from '../../store';
 import { IColumn, ISize } from './interfaces';
 
 export const COLLAPSED_HEIGHT = 34;
-export const BUTTON_HEIGHT = 50;
+export const BUTTON_HEIGHT = 34;
 const BUTTON_SPACING = 8;
 export const ITEM_SPACING = 8;
 const EXPANDED_HEIGHT = 140;
