@@ -7,6 +7,10 @@ on:
         required: true
         type: string
 
+defaults:
+  run:
+    working-directory: packages/${{ inputs.package }}
+
 jobs:
   build-package:
     name: Build
@@ -18,9 +22,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18.x
-
-    - name: cwd
-      run: cd packages/${{ inputs.package }}
 
     - name: npm build in ${{ inputs.package }}
       run: |
