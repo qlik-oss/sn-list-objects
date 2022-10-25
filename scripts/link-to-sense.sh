@@ -11,8 +11,8 @@ else
   rm ~/Qlik/Sense/Extensions/sn-filter-pane-ext/dist/sn-filter-pane.js
 fi
 npm run build
-ln ~/git/sn-filter-pane/dist/sn-filter-pane.js ~/Qlik/Sense/Extensions/sn-filter-pane-ext/dist/sn-filter-pane.js
-ln ~/git/sn-filter-pane/dist/sn-filter-pane.js.map ~/Qlik/Sense/Extensions/sn-filter-pane-ext/dist/sn-filter-pane.js.map
+ln ./dist/sn-filter-pane.js ~/Qlik/Sense/Extensions/sn-filter-pane-ext/dist/sn-filter-pane.js
+ln ./dist/sn-filter-pane.js.map ~/Qlik/Sense/Extensions/sn-filter-pane-ext/dist/sn-filter-pane.js.map
 echo "${GREEN} Press Y/y to refresh your current Chrome tab when rebuilding: ${NOCOLOR}"
 read CHOICE
 if [ "$CHOICE" = 'y' ] || [ "$CHOICE" = 'Y'  ]; then
