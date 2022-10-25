@@ -1,0 +1,43 @@
+name: "Create release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      choice:
+        type: choice
+        description: Pre release?
+        options:
+          - No pre release
+          - alpha
+          - beta
+          - rc
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: git config
+        run: |
+          git config user.name "github-action"
+          git config user.email "github-action@noreply.github.com"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: npm
+      # TODO: make sure this works nicely with multiple npm packages
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Add npm publish token to .npmrc
+        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+      - name: npm run release
+        run: |
+          [[ "${{ inputs.choice }}" == "No pre release" ]] && \
+          npm run release || \
+          npm run release -- --preRelease=${{ inputs.choice }}
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

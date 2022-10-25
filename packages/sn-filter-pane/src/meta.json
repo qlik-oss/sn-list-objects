@@ -1,0 +1,10 @@
+{
+  "name": "sn-filter-pane",
+  "icon": "extension",
+  "preview": "",
+  "version": "0.0.1",
+  "description": "",
+  "author": "QlikTech International AB",
+  "type": "visualization",
+  "supernova": true
+}
