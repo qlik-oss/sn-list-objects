@@ -1,4 +1,4 @@
-name: Build, test all packages
+name: Build, test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build-all:
+  build:
     strategy:
       matrix:
         package: [sn-filter-pane, sn-listbox]
