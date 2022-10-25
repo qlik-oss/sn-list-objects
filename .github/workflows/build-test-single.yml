@@ -19,16 +19,16 @@ jobs:
       with:
         node-version: 18.x
 
+    - name: cwd
+      run: cd packages/${{ inputs.package }}
+
     - name: npm build in ${{ inputs.package }}
-      working-directory: packages/${{ inputs.package }}
       run: |
         npm ci
         npm run build
 
     - name: lint
-      working-directory: packages/${{ inputs.package }}
       run: npm run lint
 
     - name: test
-      working-directory: packages/${{ inputs.package }}
       run: npm run test
