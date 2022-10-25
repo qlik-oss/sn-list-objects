@@ -24,7 +24,8 @@
     "build:dev": "node ./scripts/build.js --ext --mode development",
     "build:watch": "node ./scripts/build.js --ext --mode development -w",
     "lint": "eslint src",
-    "sense": "nebula sense --ext src/ext.js --meta src/meta.json"
+    "sense": "nebula sense --ext src/ext.js --meta src/meta.json",
+    "test": "echo No tests found..."
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
@@ -52,9 +53,12 @@
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-mocha": "10.1.0",
+    "eslint-plugin-only-warn": "1.0.3",
+    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "node-sass": "^7.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "node-sass": "^7.0.3",
     "release-it": "15.4.1",
     "sass": "^1.54.9",
     "zustand": "^4.1.1"
