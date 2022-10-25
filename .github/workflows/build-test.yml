@@ -1,4 +1,4 @@
-name: Build, test
+name: Build, test all packages
 
 on:
   push:
@@ -7,22 +7,10 @@ on:
     branches: ["main"]
 
 jobs:
-  # Refactor, so that it can all packages in one job?
-  build-filterpane:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-
-      - name: npm build
-        run: |
-          npm ci
-          npm run build
-
-      - run: npm run lint
-      - run: npm run test
+  build-all:
+    strategy:
+      matrix:
+        package: [sn-filter-pane, sn-listbox]
+    uses: qlik-oss/sn-list-objects/.github/workflows/build-test-single.yml@main
+    with:
+      package: ${{ matrix.package }}

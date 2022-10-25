@@ -7,6 +7,7 @@
 .npmrc
 
 sn-filter-pane-ext
+sn-listbox-ext
 node_modules
 coverage
 dist/
