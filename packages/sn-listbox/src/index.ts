@@ -53,7 +53,7 @@ export default function supernova() {
           return undefined;
         }
 
-        listboxInstance.mount(element, {...options, ...listboxOptions });
+        listboxInstance.mount(element, {...options, ...listboxOptions});
         // TODO: signal when rendering is done?
 
         return () => {
