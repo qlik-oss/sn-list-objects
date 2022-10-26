@@ -1,4 +1,4 @@
-name: Build, test all packages
+name: Build, test
 
 on:
   push:
