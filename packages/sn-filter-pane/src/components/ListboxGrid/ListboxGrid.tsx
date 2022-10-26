@@ -93,12 +93,12 @@ export default function ListboxGrid(props: ListboxGridProps) {
                   >
                     {item.expand
                       ? <ListboxContainer
-                        layout={item.layout}
-                        app={app}
-                        listboxOptions={listboxOptions}
-                        constraints={constraints}
-                        borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
-                      ></ListboxContainer>
+                          layout={item.layout}
+                          app={app}
+                          listboxOptions={listboxOptions}
+                          constraints={constraints}
+                          borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
+                        ></ListboxContainer>
                       : <FoldedListbox layout={item.layout}></FoldedListbox>
                     }
                   </ColumnItem>

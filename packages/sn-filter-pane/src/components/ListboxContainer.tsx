@@ -19,7 +19,7 @@ const ListboxContainer = ({
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
 
-  const { embed, model, selectionsApi } = store.getState();
+  const { embed, model } = store.getState();
 
   useEffect(() => {
     if (!layout || !embed) {
@@ -39,8 +39,7 @@ const ListboxContainer = ({
 
     listboxInstance.mount(elRef.current, {
       __DO_NOT_USE__: {
-        selectionsApi,
-        selectDisabled: () => !allowSelect,
+        selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       ...listboxOptions,
       dense: false,

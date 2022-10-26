@@ -14,12 +14,6 @@ interface ISessionModel {
   [key]: any;
 }
 
-interface ISelectionsApi {
-  isModal: () => boolean;
-  destroy: () => void;
-  allowedToSelect: () => boolean;
-}
-
 export interface IListBoxOptions {
   title?: string;
   direction?: stardust.Direction;
@@ -31,7 +25,6 @@ export interface IListBoxOptions {
   checkboxes?: boolean;
   dense?: boolean;
   dqEnabled?: boolean;
-  selectionsApi?: ISelectionsApi
   sessionModel?: ISessionModel;
   stateName?: string;
   properties?: object;

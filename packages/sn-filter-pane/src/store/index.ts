@@ -23,6 +23,5 @@ export const store = createVanilla(() => ({
   constraints: <stardust.Constraints | undefined>undefined,
   translator: <stardust.Translator | undefined>undefined,
   sense: <ISense | undefined>undefined,
-  selectionsApi: <stardust.ObjectSelections | undefined>undefined,
   embed: <stardust.Embed | undefined>undefined,
 }));
