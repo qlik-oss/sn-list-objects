@@ -7,14 +7,13 @@ import { store } from '../store';
 
 interface ListboxContainerProps {
   layout: IListLayout;
-  app?: EngineAPI.IApp;
   listboxOptions: IListBoxOptions;
   constraints?: IConstraints;
   borderBottom?: boolean;
 }
 
 const ListboxContainer = ({
-  layout, app, constraints, listboxOptions, borderBottom,
+  layout, constraints, listboxOptions, borderBottom,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
