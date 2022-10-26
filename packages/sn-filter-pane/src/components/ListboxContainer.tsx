@@ -7,19 +7,18 @@ import { store } from '../store';
 
 interface ListboxContainerProps {
   layout: IListLayout;
-  app?: EngineAPI.IApp;
   listboxOptions: IListBoxOptions;
   constraints?: IConstraints;
   borderBottom?: boolean;
 }
 
 const ListboxContainer = ({
-  layout, app, constraints, listboxOptions, borderBottom,
+  layout, constraints, listboxOptions, borderBottom,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
 
-  const { embed, model, selectionsApi } = store.getState();
+  const { embed, model } = store.getState();
 
   useEffect(() => {
     if (!layout || !embed) {
@@ -39,8 +38,7 @@ const ListboxContainer = ({
 
     listboxInstance.mount(elRef.current, {
       __DO_NOT_USE__: {
-        selectionsApi,
-        selectDisabled: () => !allowSelect,
+        selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       ...listboxOptions,
       dense: false,

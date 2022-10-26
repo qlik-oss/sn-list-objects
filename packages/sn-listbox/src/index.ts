@@ -1,4 +1,4 @@
-import { useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, useSelections, usePromise, useEmbed } from '@nebula.js/stardust';
+import { useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed } from '@nebula.js/stardust';
 import properties from './object-properties';
 import data from './data';
 import { stardust } from "@nebula.js/stardust";
@@ -37,7 +37,6 @@ export default function supernova() {
       const element = useElement();
       const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance | undefined>(undefined);
       const options = useOptions();
-      const selectionsApi = useSelections();
       const embed = useEmbed();
       
       usePromise(async () => {
@@ -54,7 +53,7 @@ export default function supernova() {
           return undefined;
         }
 
-        listboxInstance.mount(element, {...options, ...listboxOptions, __DO_NOT_USE__: { selectionsApi }});
+        listboxInstance.mount(element, {...options, ...listboxOptions});
         // TODO: signal when rendering is done?
 
         return () => {
