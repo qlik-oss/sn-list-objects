@@ -18,17 +18,18 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18.x
+        cache: 'yarn'
 
     - name: npm build in ${{ inputs.package }}
       working-directory: packages/${{ inputs.package }}
       run: |
-        npm ci
-        npm run build
+        yarn install --immutable --immutable-cache --check-cache
+        yarn build
 
     - name: lint
       working-directory: packages/${{ inputs.package }}
-      run: npm run lint
+      run: yarn run lint
 
     - name: test
       working-directory: packages/${{ inputs.package }}
-      run: npm run test
+      run: yarn run test
