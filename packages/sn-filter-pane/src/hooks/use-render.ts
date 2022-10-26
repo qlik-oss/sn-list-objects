@@ -23,7 +23,7 @@ export default function useRender() {
     getListBoxResources(app, fpLayout).then((resArr: ListboxResourcesArr) => {
       setResourcesArr(resArr || []);
     });
-  }, [app, fpLayout]);
+  }, []);
 
   useEffect(() => {
     if (!resourcesArr?.length || !app) {
