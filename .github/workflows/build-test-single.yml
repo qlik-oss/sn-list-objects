@@ -7,10 +7,6 @@ on:
         required: true
         type: string
 
-defaults:
-  run:
-    working-directory: packages/${{ inputs.package }}
-
 jobs:
   build-package:
     name: Build
@@ -24,12 +20,15 @@ jobs:
         node-version: 18.x
 
     - name: npm build in ${{ inputs.package }}
+      working-directory: packages/${{ inputs.package }}
       run: |
         npm ci
         npm run build
 
     - name: lint
+      working-directory: packages/${{ inputs.package }}
       run: npm run lint
 
     - name: test
+      working-directory: packages/${{ inputs.package }}
       run: npm run test
