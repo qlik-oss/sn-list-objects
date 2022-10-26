@@ -1,8 +1,9 @@
 import extend from 'extend';
 import { store } from '../store';
 import { defaultListboxProps } from './listbox-properties';
+import { IConfig, IEnv } from '../types/types';
 
-export default function getData(env) {
+export default function getData(env: IEnv) {
   const { translator } = env;
 
   return {
@@ -11,17 +12,6 @@ export default function getData(env) {
       max: 1000,
     },
     measures: { min: 0, max: 0 },
-    // qListObjectDef: {
-    //   qShowAlternatives: true,
-    //   qInitialDataFetch: [
-    //     {
-    //       qLeft: 0,
-    //       qWidth: 1,
-    //       qTop: 0,
-    //       qHeight: 100,
-    //     },
-    //   ],
-    // },
     targets: [
       {
         path: '/qChildListDef/qDef/qListObjectDef',
@@ -43,12 +33,7 @@ export default function getData(env) {
 
             filterPaneModel?.createChild(listboxProps, data);
           },
-          move(/* dimension, data */) {
-            // setMoveSort(data);
-            // setColorVars(data);
-            // customTooltipUtils.moveCallbackCustomTooltip(data, dimension);
-          },
-          remove(dimension, data, index) {
+          remove(_dimension: EngineAPI.INxDimension, data: EngineAPI.IGenericObjectProperties, index: number) {
             const { fpLayout, model: filterPaneModel } = store.getState();
 
             const { qItems = [] } = fpLayout?.qChildList || {};
@@ -58,10 +43,7 @@ export default function getData(env) {
               filterPaneModel?.destroyChild(qId, data);
             }
           },
-          replace(/* dimension, oldDimension, index, data */) {
-            console.log('replace dimension');
-          },
-          description(_: unknown, __: unknown, config: Config): string {
+          description(_: unknown, __: unknown, config: IConfig): string {
             const translationProperty = config && config.type === 'rows' ? 'Visualizations.Descriptions.Row' : 'Visualizations.Descriptions.Column';
             return translator.get(translationProperty);
           },
