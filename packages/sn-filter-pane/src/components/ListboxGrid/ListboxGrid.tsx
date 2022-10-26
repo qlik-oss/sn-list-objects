@@ -78,6 +78,7 @@ export default function ListboxGrid(props: ListboxGridProps) {
       <ConditionalWrapper condition={!isInSense}
         wrapper={(children: JSX.Element[]) => <Resizable width={1080} height={1000} minConstraints={[10, 10]} maxConstraints={[1220, 1820]}>{children}</Resizable>}
       >
+        <>
         <ElementResizeListener onResize={dHandleResize} />
         <Grid container columns={columns?.length} ref={gridRef as any} spacing={0} height='100%'>
 
@@ -113,6 +114,7 @@ export default function ListboxGrid(props: ListboxGridProps) {
             </ColumnGrid>
           ))}
         </Grid>
+        </>
       </ConditionalWrapper>
     </>
   );
