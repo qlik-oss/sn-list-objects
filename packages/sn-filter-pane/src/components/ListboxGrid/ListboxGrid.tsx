@@ -14,7 +14,7 @@ import ElementResizeListener from '../ElementResizeListener';
 import {
   setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources,
 } from './distribute-resources';
-import { FoldedListbox } from '../FoldedListbox';
+import { FoldedListbox } from '../FoldedListbox/FoldedListbox';
 import { ExpandButton } from '../ExpandButton';
 import { IColumn, ISize } from './interfaces';
 import { ColumnGrid } from './grid-components/ColumnGrid';

@@ -15,9 +15,11 @@ export const ExpandButton = ({ onClick, disabled }: FoldedListboxProps) => (
       disableRipple
       disabled={disabled}
       sx={{
-        backgroundColor: '#F0F0F0',
+        backgroundColor: '#FFFFFF',
         width: '100%',
         height: BUTTON_HEIGHT,
+        border: '1px solid #B3B3B3',
+        borderRadius: '3px',
       }}
     >
       <MoreHorizIcon sx={{ color: '#555555' }} />
