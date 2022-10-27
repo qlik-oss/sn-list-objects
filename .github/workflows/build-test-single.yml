@@ -19,8 +19,9 @@ jobs:
       with:
         node-version: 18.x
         cache: 'yarn'
+        cache-dependency-path: packages/${{ inputs.package }}/yarn.lock
 
-    - name: npm build in ${{ inputs.package }}
+    - name: build in ${{ inputs.package }}
       working-directory: packages/${{ inputs.package }}
       run: |
         yarn install --immutable --immutable-cache --check-cache
