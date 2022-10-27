@@ -79,41 +79,41 @@ export default function ListboxGrid(props: ListboxGridProps) {
         wrapper={(children: JSX.Element[]) => <Resizable width={1080} height={1000} minConstraints={[10, 10]} maxConstraints={[1220, 1820]}>{children}</Resizable>}
       >
         <>
-        <ElementResizeListener onResize={dHandleResize} />
-        <Grid container columns={columns?.length} ref={gridRef as any} spacing={0} height='100%'>
+          <ElementResizeListener onResize={dHandleResize} />
+          <Grid container columns={columns?.length} ref={gridRef as any} spacing={0} height='100%'>
 
-          {!!columns?.length && columns?.map((column: IColumn, i: number) => (
-            <ColumnGrid key={i} widthPercent={100 / columns.length}>
-              <Column lastColumn={columns.length === i + 1}>
+            {!!columns?.length && columns?.map((column: IColumn, i: number) => (
+              <ColumnGrid key={i} widthPercent={100 / columns.length}>
+                <Column lastColumn={columns.length === i + 1}>
 
-                {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
-                  <ColumnItem
-                    key={item.id}
-                    lastItem={column.items?.length === j + 1}
-                    listItem={item}
-                  >
-                    {item.expand
-                      ? <ListboxContainer
+                  {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
+                    <ColumnItem
+                      key={item.id}
+                      lastItem={column.items?.length === j + 1}
+                      listItem={item}
+                    >
+                      {item.expand
+                        ? <ListboxContainer
                           layout={item.layout}
                           app={app}
                           listboxOptions={listboxOptions}
                           constraints={constraints}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
                         ></ListboxContainer>
-                      : <FoldedListbox layout={item.layout}></FoldedListbox>
-                    }
-                  </ColumnItem>
-                ))}
+                        : <FoldedListbox layout={item.layout}></FoldedListbox>
+                      }
+                    </ColumnItem>
+                  ))}
 
-                {column.showAll
-                  && <ColumnItem height='100%'>
-                    <ExpandButton onClick={onExpand} disabled={constraints?.active}></ExpandButton>
-                  </ColumnItem>}
-              </Column>
+                  {column.showAll
+                    && <ColumnItem height='100%'>
+                      <ExpandButton onClick={onExpand} disabled={constraints?.active}></ExpandButton>
+                    </ColumnItem>}
+                </Column>
 
-            </ColumnGrid>
-          ))}
-        </Grid>
+              </ColumnGrid>
+            ))}
+          </Grid>
         </>
       </ConditionalWrapper>
     </>
