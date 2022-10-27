@@ -14,6 +14,10 @@ export default function useRender() {
     app, fpLayout, options, constraints,
   } = store.getState();
 
+  // Create a string representation of the dim identities so that only a 
+  // change to these identities will trigger a re-render (fixes issue #7).
+  const listboxIdsString = fpLayout?.qChildList?.qItems.map(qItem => qItem?.qInfo?.qId).join(',');
+
   const containerElement = <IContainerElement>useElement();
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export default function useRender() {
     getListBoxResources(app, fpLayout).then((resArr: ListboxResourcesArr) => {
       setResourcesArr(resArr || []);
     });
-  }, [app, fpLayout]);
+  }, [listboxIdsString]);
 
   useEffect(() => {
     if (!resourcesArr?.length || !app) {
