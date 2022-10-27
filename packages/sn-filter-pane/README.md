@@ -56,7 +56,7 @@ Now you can start the Filter pane with `yarn start` and get changes from the *lo
 
 ## Create a Qlik Sense extension
 
-Use the `yarn run sense` or `yarn run sense:dev` command to build a Qlik Sense extension. Then add the extension to your local Qlik Sense installation.
+Use the `yarn sense` or `yarn sense:dev` command to build a Qlik Sense extension. Then add the extension to your local Qlik Sense installation.
 
 For example:
 ```bash
