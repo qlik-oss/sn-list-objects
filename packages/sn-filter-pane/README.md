@@ -61,7 +61,7 @@ Use the `yarn sense` or `yarn sense:dev` command to build a Qlik Sense extension
 For example:
 ```bash
 cd ./sn-filter-pane
-yarn run build && yarn run sense && cp -r ./sn-filter-pane-ext ~/Qlik/Sense/Extensions
+yarn build && yarn sense && cp -r ./sn-filter-pane-ext ~/Qlik/Sense/Extensions
 ```
 
 
