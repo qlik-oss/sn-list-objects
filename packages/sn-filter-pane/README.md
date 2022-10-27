@@ -17,7 +17,7 @@ cd ./sn-filter-pane
 
 To view the viz using Nebula serve (and watch files for changes) use:
 ```
-npm start
+yarn start
 ```
 Then go to: http://localhost:8000 and select a backend Engine service and an app to connect to.
 
@@ -44,24 +44,24 @@ yarn build:dev
 
 ```bash
 cd ./nebula.js/commands/serve
-npm link
+yarn link
 ```
 
 ```bash
 cd ./sn-filter-pane
-npm link @nebula.js/cli-serve
+yarn link @nebula.js/cli-serve
 ```
 
-Now you can start the Filter pane with `npm start` and get changes from the *local* Nebula Listbox instead of the published version.
+Now you can start the Filter pane with `yarn start` and get changes from the *local* Nebula Listbox instead of the published version.
 
 ## Create a Qlik Sense extension
 
-Use the `npm run sense` or `npm run sense:dev` command to build a Qlik Sense extension. Then add the extension to your local Qlik Sense installation.
+Use the `yarn sense` or `yarn sense:dev` command to build a Qlik Sense extension. Then add the extension to your local Qlik Sense installation.
 
 For example:
 ```bash
 cd ./sn-filter-pane
-npm run build && npm run sense && cp -r ./sn-filter-pane-ext ~/Qlik/Sense/Extensions
+yarn build && yarn sense && cp -r ./sn-filter-pane-ext ~/Qlik/Sense/Extensions
 ```
 
 
