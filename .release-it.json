@@ -1,7 +1,5 @@
 {
-  "npm": {
-    "publish": true
-  },
+  "npm": false,
   "git": {
     "commitMessage": "chore(release): v${version}",
     "tagName": "v${version}",
@@ -12,7 +10,13 @@
     "releaseName": "v${version}"
   },
   "plugins": {
+    "@release-it-plugins/workspaces": {
+      "workspaces": [
+        "packages/*"
+      ]
+    },
     "@release-it/conventional-changelog": {
+      "header": "# Changelog for sn-filter-pane and sn-listbox",
       "infile": "CHANGELOG.md",
       "preset": {
         "name": "conventionalcommits"

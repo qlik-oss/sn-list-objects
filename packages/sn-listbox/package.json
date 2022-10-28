@@ -1,6 +1,6 @@
 {
   "name": "sn-listbox",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Filter pane supernova",
   "license": "MIT",
   "private": true,
@@ -10,6 +10,10 @@
     "nebula",
     "stardust"
   ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "dist"
   ],
@@ -39,7 +43,6 @@
     "@nebula.js/cli-build": "^3.0.0-alpha13",
     "@nebula.js/cli-sense": "^3.0.0-alpha13",
     "@nebula.js/cli-serve": "^3.0.0-alpha13",
-    "@release-it/conventional-changelog": "5.1.0",
     "@rollup/plugin-typescript": "^8.4.0",
     "@types/enigma.js": "^2.2.2",
     "@types/qlik-engineapi": "^12.67.12",
@@ -59,7 +62,6 @@
     "node-sass": "^7.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "release-it": "15.4.1",
     "sass": "^1.54.9",
     "typescript": "4.8.4",
     "zustand": "^4.1.1"
