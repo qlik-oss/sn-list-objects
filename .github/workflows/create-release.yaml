@@ -3,41 +3,61 @@ name: "Create release"
 on:
   workflow_dispatch:
     inputs:
-      choice:
+      release-type:
         type: choice
         description: Pre release?
         options:
-          - No pre release
-          - alpha
-          - beta
-          - rc
+        - No pre release
+        - alpha
+        - beta
+        - rc
+      dry:
+        type: boolean
+        description: Dry run
+        default: true
 
 jobs:
-  create-release:
+  build-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: git config
-        run: |
-          git config user.name "github-action"
-          git config user.email "github-action@noreply.github.com"
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-          cache: npm
-      # TODO: make sure this works nicely with multiple npm packages
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
-      - name: Add npm publish token to .npmrc
-        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-      - name: npm run release
-        run: |
-          [[ "${{ inputs.choice }}" == "No pre release" ]] && \
-          npm run release || \
-          npm run release -- --preRelease=${{ inputs.choice }}
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: git config
+      run: |
+        git config user.name "github-action"
+        git config user.email "github-action@noreply.github.com"
+
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - name: build sn-listbox
+      working-directory: packages/sn-listbox
+      run: |
+        yarn install --immutable --immutable-cache --check-cache
+        yarn build
+
+    - name: build sn-filter-pane
+      working-directory: packages/sn-filter-pane
+      run: |
+        yarn install --immutable --immutable-cache --check-cache
+        yarn build
+
+    - name: Add npm publish token to .npmrc
+      run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+    - name: yarn release
+      run: |
+        yarn install --immutable --immutable-cache --check-cache
+        echo dry-run is ${{ inputs.dry }}
+        [[ "${{ inputs.dry }}" == "true" ]] && \
+        DRY="--dry-run" || DRY=""
+
+        [[ "${{ inputs.release-type }}" == "No pre release" ]] && \
+        yarn release $DRY || \
+        yarn release --preRelease=${{ inputs.release-type }} $DRY
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
