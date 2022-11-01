@@ -1,4 +1,3 @@
-
 const autoSortCriterias = {
   qSortByState: 1,
   qSortByAscii: 1,
