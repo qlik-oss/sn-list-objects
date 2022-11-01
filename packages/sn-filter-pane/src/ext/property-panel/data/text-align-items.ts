@@ -4,9 +4,7 @@ const textAlignItems = {
     type: 'boolean',
     component: 'switch',
     translation: 'Common.Text.TextAlignment',
-    change: (data) => {
-      return data?.qDef?.textAlign?.align || 'left';
-    },
+    change: (data) => data?.qDef?.textAlign?.align || 'left',
     options: [
       {
         value: true,
@@ -49,7 +47,7 @@ const textAlignItems = {
     ],
     defaultValue: 'left',
     show(data) {
-      return data?.qListObjectDef?.qDef?.textAlign?.auto === false ? false : true;
+      return data?.qListObjectDef?.qDef?.textAlign?.auto !== false;
     },
   },
 };
