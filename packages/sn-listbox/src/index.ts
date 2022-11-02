@@ -1,12 +1,9 @@
 import {
-  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed,
-  stardust,
+  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust,
 } from '@nebula.js/stardust';
 import properties from './object-properties';
 import data from './data';
 import pp from './ext/property-panel';
-
-const getFieldName = (layout: any) => layout && (layout.title || layout.qListObject?.qDimensionInfo.qFallbackTitle) || '';
 
 const hasDimension = (layout: any) => !!layout?.qListObject.qDimensionInfo.qGroupFieldDefs.length;
 
