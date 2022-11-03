@@ -14,19 +14,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "files": [
-    "dist/",
-    "sn-filter-pane.qext",
-    "sn-filter-pane.js"
+    "core",
+    "dist",
+    "sn-filter-pane-ext"
   ],
   "engines": {
     "node": ">=8"
   },
   "main": "dist/sn-filter-pane.js",
-  "module": "dist/sn-filter-pane.esm.js",
   "scripts": {
     "start": "nebula serve --type filterpane --mode development",
-    "build": "nebula build --ext --mode development --typescript",
-    "build:watch": "nebula build --ext --mode development -w",
+    "build": "nebula build --core core --ext --mode development --typescript",
+    "build:watch": "nebula build --core core --ext --mode development -w",
     "lint": "eslint src",
     "sense": "nebula sense",
     "sense:dev": "nebula sense --minify false --sourcemap true",
