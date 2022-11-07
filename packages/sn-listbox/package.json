@@ -3,7 +3,6 @@
   "version": "0.1.0-alpha.0",
   "description": "Filter pane supernova",
   "license": "MIT",
-  "private": true,
   "author": "QlikTech International AB",
   "keywords": [
     "qlik",
