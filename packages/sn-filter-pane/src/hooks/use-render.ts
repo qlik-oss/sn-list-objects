@@ -5,7 +5,6 @@ import {
   IContainerElement, IListboxResource, ListboxResourcesArr,
 } from './types';
 import { render, teardown } from '../components/root';
-import './style.scss';
 
 export default function useRender() {
   const [resourcesArr, setResourcesArr] = useState<IListboxResource[] | undefined>(undefined);

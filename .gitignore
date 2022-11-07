@@ -6,8 +6,9 @@
 .vscode
 .npmrc
 
-sn-filter-pane-ext
-sn-listbox-ext
-node_modules
-coverage
-dist/
+**/sn-filter-pane-ext
+**/sn-listbox-ext
+**/node_modules
+**/coverage
+**/dist
+**/core/esm
