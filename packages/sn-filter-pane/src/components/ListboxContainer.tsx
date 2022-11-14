@@ -18,7 +18,7 @@ const ListboxContainer = ({
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
 
-  const { embed, model, fpLayout } = store.getState();
+  const { embed, model } = store.getState();
 
   useEffect(() => {
     if (!layout || !embed) {
@@ -41,12 +41,11 @@ const ListboxContainer = ({
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       ...listboxOptions,
-      dense: fpLayout?.layoutOptions?.compactData,
     });
     return () => {
       listboxInstance.unmount();
     };
-  }, [elRef.current, listboxInstance, constraints, fpLayout?.layoutOptions?.compactData]);
+  }, [elRef.current, listboxInstance, constraints]);
 
   return (
     <>
