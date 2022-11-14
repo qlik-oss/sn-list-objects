@@ -8,7 +8,20 @@ const settings = {
         },
       },
     },
-    simpleLabels: null,
+    presentation: {
+      type: 'items',
+      grouped: false,
+      translation: 'properties.presentation',
+      items: {
+        denseMode: {
+          ref: 'layoutOptions.compactData',
+          component: 'checkbox',
+          translation: 'properties.filterpane.dense',
+          defaultValue: false,
+        },
+      },
+    },
   },
 };
+
 export default settings;
