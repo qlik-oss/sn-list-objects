@@ -28,6 +28,8 @@ export default function useRender() {
     });
   }, [listboxIdsString]);
 
+  const optionsString = JSON.stringify(options.listboxOptions);
+
   useEffect(() => {
     if (!resourcesArr?.length || !app) {
       return undefined;
@@ -42,5 +44,5 @@ export default function useRender() {
     return (() => {
       teardown(root);
     });
-  }, [resourcesArr, constraints]);
+  }, [resourcesArr, constraints, optionsString]);
 }

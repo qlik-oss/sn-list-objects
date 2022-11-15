@@ -6,12 +6,18 @@ export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;
 const BUTTON_SPACING = 8;
 export const ITEM_SPACING = 8;
-const EXPANDED_HEIGHT = 140;
+const EXPANDED_HEIGHT = 181;
 const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 50;
-const EXPANDED_ROW_HEIGHT = 33;
-const SEARCH_BAR = 42;
+
+const dense = () => {
+  const { fpLayout } = store.getState();
+  return fpLayout?.layoutOptions?.compactData;
+};
+const getSearchBarHeight = () => (dense() ? 29 : 42);
+const getExpandedRowHeight = () => (dense() ? 20 : 33);
+
 const sm = () => {
   const { isSmallDevice } = store.getState();
   return isSmallDevice?.();
@@ -41,7 +47,7 @@ const getHeightOf = (collapsedItemCount: number) => {
 
 const getDimensionCardinal = (item: IListboxResource) => item.layout.qListObject.qDimensionInfo.qCardinal;
 
-const getHeightOfExpanded = (dimensionCardinal: number) => dimensionCardinal * EXPANDED_ROW_HEIGHT + EXPANDED_HEADER_HEIGHT + SEARCH_BAR + 4;
+const getHeightOfExpanded = (dimensionCardinal: number) => dimensionCardinal * getExpandedRowHeight() + EXPANDED_HEADER_HEIGHT + getSearchBarHeight() + 4;
 
 const doesAllFit = (itemsPerColumn: number, columnCount: number, itemCount: number) => itemCount <= itemsPerColumn * columnCount;
 

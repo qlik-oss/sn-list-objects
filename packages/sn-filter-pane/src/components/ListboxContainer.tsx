@@ -41,7 +41,6 @@ const ListboxContainer = ({
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       ...listboxOptions,
-      dense: false,
     });
     return () => {
       listboxInstance.unmount();

@@ -38,6 +38,9 @@ export interface IFilterPaneLayout {
   qChildList?: {
     qItems: { qInfo: { qId: string } }[];
   };
+  layoutOptions?:{
+    compactData?: boolean,
+  }
 }
 
 export interface IListboxResource {
