@@ -40,7 +40,6 @@ export default function ListboxGrid(props: ListboxGridProps) {
   } = props;
 
   const {
-    app,
     constraints,
     sense,
   } = store.getState();
@@ -95,7 +94,6 @@ export default function ListboxGrid(props: ListboxGridProps) {
                       {item.expand
                         ? <ListboxContainer
                           layout={item.layout}
-                          app={app}
                           listboxOptions={listboxOptions}
                           constraints={constraints}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}

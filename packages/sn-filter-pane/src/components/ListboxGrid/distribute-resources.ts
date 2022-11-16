@@ -6,7 +6,7 @@ export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;
 const BUTTON_SPACING = 8;
 export const ITEM_SPACING = 8;
-const EXPANDED_HEIGHT = 181;
+const EXPANDED_HEIGHT_LIMIT = 181;
 const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 50;
@@ -56,11 +56,11 @@ const haveRoomToExpandOne = (size: ISize, column: IColumn) => {
     return false;
   }
   const spacing = (column.itemCount ?? 0) > 1 ? ITEM_SPACING : 0;
-  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + EXPANDED_HEIGHT + spacing;
+  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + EXPANDED_HEIGHT_LIMIT + spacing;
 };
 
 export const calculateColumns = (size: ISize, columns: IColumn[]) => {
-  const canExpand = size.height > EXPANDED_HEIGHT && !sm();
+  const canExpand = size.height > EXPANDED_HEIGHT_LIMIT && !sm();
   const maxColumns = getMaxColumns(size);
   const maxPerColumn = getMaxItemsPerColumn(size);
   const usedCount = getColumnItemsCount(columns);
@@ -182,7 +182,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
       const sortedItems = column?.items?.concat().sort((a, b) => a.cardinal - b.cardinal);
 
       if ((sortedItems?.length ?? 0) > 1) {
-        while (leftOverHeight > EXPANDED_HEIGHT) {
+        while (leftOverHeight > EXPANDED_HEIGHT_LIMIT) {
           const expHeight = expandOne(sortedItems, leftOverHeight);
           if (expHeight) {
             expandedCount++;
@@ -203,7 +203,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
 
       const collapsedItems = sortedItems?.filter((item) => !item.expand);
 
-      if (leftOverHeight > EXPANDED_HEIGHT && collapsedItems?.length) {
+      if (leftOverHeight > EXPANDED_HEIGHT_LIMIT && collapsedItems?.length) {
         const item = collapsedItems[0];
 
         if (!item.expand) {
