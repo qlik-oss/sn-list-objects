@@ -1,5 +1,7 @@
 import { IListboxResource } from '../../../hooks/types';
-import { mergeColumnsAndResources, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues } from '../distribute-resources';
+import {
+  mergeColumnsAndResources, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues,
+} from '../distribute-resources';
 import { IColumn, ISize } from '../interfaces';
 
 const generateColumns = ({ collapsed, expanded }: { collapsed?: number[], expanded?: number[] }) => {
