@@ -7,6 +7,9 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   qStateName: string;
   qInfo: {
     qId: string;
+  },
+  layoutOptions?: {
+    dense: boolean,
   }
 }
 
@@ -53,6 +56,7 @@ export interface IListboxResource {
   cardinal: number;
   responsiveMode: string;
   fullyExpanded: boolean;
+  dense: boolean;
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];
