@@ -17,7 +17,7 @@ export const FoldedListbox = ({ layout }: FoldedListboxProps) => {
   const fieldName = useFieldName(layout);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const containerRef = useRef(null);
-  const { app, options, constraints } = store.getState();
+  const { options, constraints } = store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',
@@ -65,7 +65,6 @@ export const FoldedListbox = ({ layout }: FoldedListboxProps) => {
         >
           <ListboxContainer
             layout={layout}
-            app={app}
             listboxOptions={options.listboxOptions ?? {}}
             constraints={constraints}
           ></ListboxContainer>
