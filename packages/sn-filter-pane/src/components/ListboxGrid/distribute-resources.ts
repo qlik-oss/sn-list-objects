@@ -95,7 +95,7 @@ export const calculateColumns = (size: ISize, columns: IColumn[]) => {
     // Last columns and all items wont fit, show the fullscreen "..."-button to view the items that doesn't fit
     const columnsItemsCount = getColumnItemsCount(columns);
     if (columns.length >= maxColumns && maxPerColumn > 0 && columnsItemsCount < size.dimensionCount) {
-      columns[columns.length - 1].showAll = true;
+      columns[columns.length - 1].hiddenItems = true;
       if (BUTTON_HEIGHT + BUTTON_SPACING + ITEM_SPACING > size.height - getHeightOf(maxPerColumn)) {
         const lastItem = columns[columns.length - 1];
         columns[columns.length - 1].itemCount = Math.max((lastItem?.itemCount ?? 0) - 1, 0);
@@ -114,7 +114,7 @@ export const balanceColumns = (size: ISize, columns: IColumn[]) => {
   const expanded = columns.filter((column) => column.expand);
   const collapsed = columns.filter((column) => column.expand === false);
 
-  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].showAll && haveRoomToExpandOne(size, collapsed[collapsed.length - 1]);
+  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].hiddenItems && haveRoomToExpandOne(size, collapsed[collapsed.length - 1]);
   if (canExpand) {
     collapsed[collapsed.length - 1].expand = true;
   } else {
@@ -137,8 +137,7 @@ export const mergeColumnsAndResources = (columns: IColumn[], resources: IListbox
     column.items = resources.slice(0, column.itemCount);
     resources = resources.slice(column.itemCount);
   });
-
-  return columns;
+  return { columns, overflowing: resources };
 };
 
 const setFullyExpanded = (item: IListboxResource) => {

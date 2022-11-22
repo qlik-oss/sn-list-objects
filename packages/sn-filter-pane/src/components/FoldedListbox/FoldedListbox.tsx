@@ -1,23 +1,24 @@
-import {
-  Grid, Popover, styled, Typography,
-} from '@mui/material';
-import React, { useRef, useState } from 'react';
-import { IListLayout } from '../../hooks/types';
+import { Grid, styled, Typography } from '@mui/material';
+import React, { useRef } from 'react';
+import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
 import { store } from '../../store';
-import ListboxContainer from '../ListboxContainer';
 import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 
+export interface FoldedListboxClickEvent {
+  event: React.MouseEvent<HTMLDivElement>;
+  resource: IListboxResource;
+}
 export interface FoldedListboxProps {
-  layout: IListLayout;
+  resource: IListboxResource;
+  onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
 }
 
-export const FoldedListbox = ({ layout }: FoldedListboxProps) => {
-  const fieldName = useFieldName(layout);
-  const [popoverOpen, setPopoverOpen] = useState(false);
+export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
+  const fieldName = useFieldName(resource.layout);
   const containerRef = useRef(null);
-  const { app, options, constraints } = store.getState();
+  const { constraints } = store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',
@@ -26,22 +27,15 @@ export const FoldedListbox = ({ layout }: FoldedListboxProps) => {
     borderRadius: '3px',
     height: COLLAPSED_HEIGHT,
     overflow: 'hidden',
+    cursor: constraints?.active ? 'default' : 'pointer',
     ':hover': !constraints?.active && {
       border: '1px solid #595959',
     },
   }));
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.currentTarget.contains(event.target as Node) && !constraints?.active) {
-      setPopoverOpen(true);
-    }
-  };
-
-  const handleClose = () => setPopoverOpen(false);
-
   return (
     <div ref={containerRef}>
-      <StyledGrid container direction='column' onClick={handleClick}>
+      <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
         <Grid container flexGrow={1} alignItems={'center'} padding='0 8px'>
           <Typography variant="subtitle2" fontSize='13px'>
             {fieldName}
@@ -49,27 +43,9 @@ export const FoldedListbox = ({ layout }: FoldedListboxProps) => {
         </Grid>
         <Grid item width='100%'>
           <SelectionSegmentsIndicator
-            qDimensionInfo={layout.qListObject.qDimensionInfo}
+            qDimensionInfo={resource.layout.qListObject.qDimensionInfo}
           ></SelectionSegmentsIndicator>
         </Grid>
-        <Popover
-          open={popoverOpen}
-          onClose={handleClose}
-          anchorEl={containerRef.current}
-          PaperProps={{
-            style: {
-              height: '330px',
-              overflow: 'hidden',
-            },
-          }}
-        >
-          <ListboxContainer
-            layout={layout}
-            app={app}
-            listboxOptions={options.listboxOptions ?? {}}
-            constraints={constraints}
-          ></ListboxContainer>
-        </Popover>
       </StyledGrid>
     </div>
   );
