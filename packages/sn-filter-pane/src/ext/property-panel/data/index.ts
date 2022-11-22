@@ -99,6 +99,12 @@ export default function data(env: IEnv) {
         show: false,
       },
       ...textAlignItems,
+      denseMode: {
+        ref: 'layoutOptions.dense',
+        component: 'checkbox',
+        translation: 'properties.filterpane.dense',
+        defaultValue: false,
+      },
     },
   };
 
