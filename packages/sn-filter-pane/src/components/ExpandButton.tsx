@@ -1,6 +1,6 @@
 import { Avatar, Button, styled } from '@mui/material';
 import React from 'react';
-import { ExpandMore } from '@mui/icons-material';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import { BUTTON_HEIGHT } from './ListboxGrid/distribute-resources';
 import { store } from '../store';
 
