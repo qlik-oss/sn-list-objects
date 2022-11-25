@@ -61,9 +61,8 @@ export const ListboxPopoverContainer = ({ resources }: FoldedPopoverProps) => {
   return (
     <div ref={containerRef}>
       {isSingle
-        && <FoldedListbox onClick={handleOpen} resource={resources[0]} />}
-      {!isSingle
-        && <ExpandButton onClick={handleOpen} avatar={resources.length} opened={popoverOpen} />}
+        ? <FoldedListbox onClick={handleOpen} resource={resources[0]} />
+        : <ExpandButton onClick={handleOpen} avatar={resources.length} opened={popoverOpen} />}
       <Popover
         open={popoverOpen}
         onClose={handleClose}
