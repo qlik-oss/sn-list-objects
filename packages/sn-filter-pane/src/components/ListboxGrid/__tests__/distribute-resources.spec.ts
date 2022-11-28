@@ -57,7 +57,7 @@ describe('Listbox grid layout', () => {
       const columns: IColumn[] = new Array(4).fill({ itemCount: 2 });
       const resources: IListboxResource[] = new Array(8).fill({ id: '123' });
       expect(columns[0].items).toBeNull;
-      const resultColumns = mergeColumnsAndResources(columns, resources);
+      const { columns: resultColumns } = mergeColumnsAndResources(columns, resources);
       expect(resultColumns[0].items?.length).toBe(2);
       expect(resultColumns[0].items?.[0].id).toBe('123');
     });
@@ -65,7 +65,7 @@ describe('Listbox grid layout', () => {
     it('should drop dimensions from the end when all wont fit', () => {
       const columns = generateColumns({ collapsed: [2, 3] });
       const resources: IListboxResource[] = new Array(6).fill({ id: '123' });
-      const resultColumns = mergeColumnsAndResources(columns, resources);
+      const { columns: resultColumns } = mergeColumnsAndResources(columns, resources);
       expect(resultColumns[0].items?.length).toEqual(2);
       expect(resultColumns[1].items?.length).toEqual(3);
     });
@@ -83,7 +83,7 @@ describe('Listbox grid layout', () => {
         {
           expand: false,
           itemCount: 8,
-          showAll: true,
+          hiddenItems: true,
         },
       ]);
     });
@@ -102,7 +102,7 @@ describe('Listbox grid layout', () => {
         },
         {
           expand: false,
-          showAll: true,
+          hiddenItems: true,
           itemCount: 4,
         },
       ]);
@@ -186,7 +186,7 @@ describe('Listbox grid layout', () => {
       const calculatedColumns = calculateColumns(size, []);
       const balancedColumns = balanceColumns(size, calculatedColumns);
       const defaultValuesResources = setDefaultValues(resources);
-      const mergedColumns = mergeColumnsAndResources(balancedColumns, defaultValuesResources);
+      const { columns: mergedColumns } = mergeColumnsAndResources(balancedColumns, defaultValuesResources);
       const result = calculateExpandPriority(mergedColumns, size);
       expect(result[0].items?.[0].fullyExpanded).toBe(true);
       expect(result[0].items?.[0].expand).toBe(true);
