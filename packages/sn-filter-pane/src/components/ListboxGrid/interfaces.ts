@@ -3,7 +3,7 @@ import { IListboxResource } from '../../hooks/types';
 export interface IColumn {
   expand?: boolean;
   itemCount?: number;
-  showAll?: boolean;
+  hiddenItems?: boolean;
   items?: IListboxResource[];
 }
 
