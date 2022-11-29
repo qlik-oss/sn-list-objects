@@ -40,7 +40,7 @@ const settings = {
         dataLayout: {
           type: 'string',
           component: 'buttongroup',
-          ref: 'qListObjectDef.layouting.dataLayout',
+          ref: 'qListObjectDef.layoutOptions.dataLayout',
           translation: 'Show data in',
           defaultValue: 'singleColumn',
           options: [
@@ -59,7 +59,7 @@ const settings = {
         layoutOrder: {
           type: 'string',
           component: 'buttongroup',
-          ref: 'qListObjectDef.layouting.layoutOrder',
+          ref: 'qListObjectDef.layoutOptions.layoutOrder',
           translation: 'Order by',
           defaultValue: 'column',
           options: [
@@ -75,14 +75,14 @@ const settings = {
             },
           ],
           show: function (data) {
-            const { dataLayout } = data.qListObjectDef.layouting || {};
+            const { dataLayout } = data.qListObjectDef.layoutOptions || {};
             return dataLayout === 'grid';
           },
         },
         maxVisibleRowsAuto: {
           type: 'boolean',
           component: 'switch',
-          ref: 'qListObjectDef.layouting.maxVisibleRows.auto',
+          ref: 'qListObjectDef.layoutOptions.maxVisibleRows.auto',
           translation: 'Max visible rows',
           defaultValue: true,
           options: [
@@ -98,16 +98,16 @@ const settings = {
             },
           ],
           show: function (data) {
-            const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
+            const { dataLayout, layoutOrder } = data.qListObjectDef.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'column';
           },
         },
         maxVisibleRows: {
           type: 'number',
-          ref: 'qListObjectDef.layouting.maxVisibleRows.maxRows',
+          ref: 'qListObjectDef.layoutOptions.maxVisibleRows.maxRows',
           defaultValue: 3,
           show: function (data) {
-            const { dataLayout, layoutOrder, maxVisibleRows } = data.qListObjectDef.layouting || {};
+            const { dataLayout, layoutOrder, maxVisibleRows } = data.qListObjectDef.layoutOptions || {};
             const { auto } = maxVisibleRows || {};
             return dataLayout === 'grid' && layoutOrder === 'column' && !auto;
           },
@@ -115,7 +115,7 @@ const settings = {
         maxVisibleColumnsAuto: {
           type: 'boolean',
           component: 'switch',
-          ref: 'qListObjectDef.layouting.maxVisibleColumns.auto',
+          ref: 'qListObjectDef.layoutOptions.maxVisibleColumns.auto',
           translation: 'Max visible columns',
           defaultValue: true,
           options: [
@@ -131,16 +131,16 @@ const settings = {
             },
           ],
           show: function (data) {
-            const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
+            const { dataLayout, layoutOrder } = data.qListObjectDef.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'row';
           },
         },
         maxVisibleColumns: {
           type: 'number',
-          ref: 'qListObjectDef.layouting.maxVisibleColumns.maxColumns',
+          ref: 'qListObjectDef.layoutOptions.maxVisibleColumns.maxColumns',
           defaultValue: 3,
           show: function (data) {
-            const { dataLayout, layoutOrder, maxVisibleColumns } = data.qListObjectDef.layouting || {};
+            const { dataLayout, layoutOrder, maxVisibleColumns } = data.qListObjectDef.layoutOptions || {};
             const { auto } = maxVisibleColumns || {};
             return dataLayout === 'grid' && layoutOrder === 'row' && !auto;
           },
