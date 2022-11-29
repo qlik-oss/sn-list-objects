@@ -3,8 +3,8 @@ import { fireEvent, render } from '@testing-library/react';
 import { IListboxResource } from '../../hooks/types';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 
-const resource = {
-  id: '123',
+const getResource = (id: string) => ({
+  id,
   layout: {
     title: 'Foo',
     qListObject: {
@@ -19,13 +19,13 @@ const resource = {
       },
     },
   },
-};
-const resources: IListboxResource[] = [...Array(4)].map(() => ({ ...resource as IListboxResource }));
+});
+const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResource(String(i)) as IListboxResource }));
 
 describe('ListboxPopoverContainer render', () => {
   it('should render FoldedListbox with fieldname when one resource is provided', () => {
     const { queryByText } = render(
-      <ListboxPopoverContainer resources={[resource as IListboxResource]} />,
+      <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} />,
     );
     expect(queryByText('Foo')).toBeTruthy();
   });
