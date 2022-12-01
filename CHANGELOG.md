@@ -1,5 +1,14 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.2.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.1.0...v0.2.0) (2022-12-01)
+
+
+### Features
+
+* add dense mode ([#21](https://github.com/qlik-oss/sn-list-objects/issues/21)) ([2a1ee77](https://github.com/qlik-oss/sn-list-objects/commit/2a1ee7761b1874f85f78da115d5703303e8fc76a))
+* add dense option to each individual listbox ([#23](https://github.com/qlik-oss/sn-list-objects/issues/23)) ([743e423](https://github.com/qlik-oss/sn-list-objects/commit/743e42381f8e2565a56ad53d3e389ee0536a3e67))
+* popover container ([#24](https://github.com/qlik-oss/sn-list-objects/issues/24)) ([e64a30c](https://github.com/qlik-oss/sn-list-objects/commit/e64a30c8cc1ead7a819345b9c88db0147dfef4f4))
+
 ## [0.1.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.1.0-alpha.1...v0.1.0) (2022-11-14)
 
 ## [0.1.0-alpha.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.1.0-alpha.0...v0.1.0-alpha.1) (2022-11-07)
