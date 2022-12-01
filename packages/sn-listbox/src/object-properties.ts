@@ -8,17 +8,17 @@ const properties = {
       autoSort: true,
       textAlign: { auto: true },
     },
-    layoutOptions: {
-      dataLayout: 'singleColumn',
-      layoutOrder: 'row',
-      maxVisibleRows: {
-        auto: true,
-        maxRows: 3,
-      },
-      maxVisibleColumns: {
-        auto: false,
-        maxColumns: 3,
-      },
+  },
+  layoutOptions: {
+    dataLayout: 'grid',
+    layoutOrder: 'column',
+    maxVisibleRows: {
+      auto: true,
+      maxRows: 3,
+    },
+    maxVisibleColumns: {
+      auto: false,
+      maxColumns: 3,
     },
   },
   title: '',
