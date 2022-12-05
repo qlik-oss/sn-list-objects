@@ -70,7 +70,7 @@ export default function data(env: IEnv) {
         },
         translation: 'properties.frequencyCountMode',
         change(props) {
-          // props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== constants.FREQUENCY_NONE;
+          props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
         },
         options: [
           {
