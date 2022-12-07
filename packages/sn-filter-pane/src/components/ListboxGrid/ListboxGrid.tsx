@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import { ResizableBox } from 'react-resizable';
 import debounce from 'lodash/debounce';
 import getWidthHeight from './get-size';
-import { IListBoxOptions, IListboxResource } from '../../hooks/types';
+import { IListboxResource } from '../../hooks/types';
 import ListboxContainer from '../ListboxContainer';
 import 'react-resizable/css/styles.css';
 import ElementResizeListener from '../ElementResizeListener';
@@ -19,22 +19,17 @@ import { ColumnGrid } from './grid-components/ColumnGrid';
 import { Column } from './grid-components/Column';
 import { ColumnItem } from './grid-components/ColumnItem';
 import ConditionalWrapper from './ConditionalWrapper';
-import { store } from '../../store';
+import { store, useResourceStore } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
-
-export interface ListboxGridProps {
-  listboxOptions: IListBoxOptions;
-  resources: IListboxResource[];
-}
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-export default function ListboxGrid(props: ListboxGridProps) {
-  const { resources } = props;
+function ListboxGrid() {
   const { sense } = store.getState();
+  const resources = useResourceStore((state) => state.resources);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);
@@ -57,7 +52,7 @@ export default function ListboxGrid(props: ListboxGridProps) {
     if (gridRef.current) {
       handleResize();
     }
-  }, []);
+  }, [resources]);
 
   const dHandleResize = debounce(handleResize, isInSense ? 0 : 50);
 
@@ -105,3 +100,5 @@ export default function ListboxGrid(props: ListboxGridProps) {
     </>
   );
 }
+
+export default ListboxGrid;

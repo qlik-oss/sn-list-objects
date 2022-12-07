@@ -15,7 +15,12 @@ const ListboxContainer = ({
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
 
-  const { embed, model, constraints, options } = store.getState();
+  const {
+    embed,
+    model,
+    constraints,
+    options,
+  } = store.getState();
 
   useEffect(() => {
     if (!layout || !embed) {
