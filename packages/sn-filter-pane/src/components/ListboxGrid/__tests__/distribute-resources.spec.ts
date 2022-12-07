@@ -190,10 +190,10 @@ describe('Listbox grid layout', () => {
       const result = calculateExpandPriority(mergedColumns, size);
       expect(result[0].items?.[0].fullyExpanded).toBe(true);
       expect(result[0].items?.[0].expand).toBe(true);
-      expect(result[0].items?.[0].height).toBe('954px');
+      expect(result[0].items?.[0].height).toBe('946px');
       expect(result[0].items?.[1].fullyExpanded).toBe(false);
       expect(result[0].items?.[1].expand).toBe(true);
-      expect(result[0].items?.[1].height).toBe('315px');
+      expect(result[0].items?.[1].height).toBe('321px');
     });
   });
 });

@@ -38,6 +38,7 @@ export const ColumnItem = ({
       paddingTop='0px'
       width='100%'
       paddingBottom={getPaddingBottom()}
+      boxSizing='content-box'
       {...rest}>
       {children}
     </Grid>
