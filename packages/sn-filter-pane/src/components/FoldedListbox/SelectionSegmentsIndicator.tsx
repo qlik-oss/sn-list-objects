@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import { motion } from "framer-motion";
 import getSegmentsSizes from './get-segment-sizes';
 
 interface SelectionSegmentsIndicatorProps {
@@ -42,7 +43,10 @@ const SelectionSegmentsIndicator = ({ qDimensionInfo }: SelectionSegmentsIndicat
   return (
     <Grid container bgcolor='#a9a9a9' borderTop='1px solid #cccccc'>
       {segments.map((s) => (
-        <Grid item key={s.key} style={s.style} />
+        <>
+          {/* <Grid item key={s.key} style={s.style} /> */}
+          <motion.div key={s.key} style={{ display: 'flex', height: s.style.height, background: s.style.background }} animate={{ width: s.style.width }} transition={{ bounce: false }} />
+        </>
       ))}
     </Grid>
   );

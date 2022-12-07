@@ -84,6 +84,7 @@
     "@mui/icons-material": "5.10.9",
     "@mui/material": "5.10.10",
     "extend": "^3.0.2",
+    "framer-motion": "7.6.19",
     "lodash": "4.17.21",
     "uuid": "^9.0.0",
     "zustand": "^4.1.2"
