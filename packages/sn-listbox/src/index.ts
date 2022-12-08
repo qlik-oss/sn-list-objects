@@ -14,6 +14,7 @@ const listboxOptions = {
   histogram: false,
   checkboxes: false,
   dense: false,
+  direction: 'ltr',
 };
 
 export default function supernova() {

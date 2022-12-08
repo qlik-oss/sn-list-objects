@@ -22,6 +22,8 @@ const ListboxContainer = ({
     options,
   } = store.getState();
 
+  options.listboxOptions = { direction: options?.direction || 'ltr' };
+
   useEffect(() => {
     if (!layout || !embed) {
       return;
@@ -47,7 +49,7 @@ const ListboxContainer = ({
     return () => {
       listboxInstance.unmount();
     };
-  }, [elRef.current, listboxInstance, constraints]);
+  }, [elRef.current, listboxInstance, constraints, options?.direction]);
 
   return (
     <>
