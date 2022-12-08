@@ -1,4 +1,5 @@
 import { Grid, styled, Typography } from '@mui/material';
+import { stardust } from '@nebula.js/stardust';
 import React, { useRef } from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
@@ -15,10 +16,12 @@ export interface FoldedListboxProps {
   onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
 }
 
+const getThemeProp = (prop: string, stardustTheme?: stardust.Theme) => stardustTheme?.getStyle('object', '', `listBox.${prop}`);
+
 export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef(null);
-  const { constraints } = store.getState();
+  const { constraints, stardustTheme } = store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',
@@ -31,6 +34,8 @@ export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
     ':hover': !constraints?.active && {
       border: '1px solid #595959',
     },
+    backgroundColor: getThemeProp('backgroundColor', stardustTheme),
+    color: getThemeProp('title.main.color', stardustTheme),
   }));
 
   return (
