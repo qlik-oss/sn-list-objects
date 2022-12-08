@@ -2,14 +2,14 @@ import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
 import { IContainerElement } from '../hooks/types';
-import ListboxGrid, { ListboxGridProps } from './ListboxGrid/ListboxGrid';
+import ListboxGrid from './ListboxGrid/ListboxGrid';
 import theme from '../theme/theme';
 
-export function render(element: IContainerElement, gridProps: ListboxGridProps) {
+export function render(element: IContainerElement) {
   const root = createRoot(element);
   root.render(
     <ThemeProvider theme={theme}>
-      <ListboxGrid {...gridProps} />
+      <ListboxGrid />
     </ThemeProvider>,
   );
 
