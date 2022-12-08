@@ -14,7 +14,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
 }
 
 interface ISessionModel {
-  [key]: any;
+  [key]: unknown;
 }
 
 export interface IListBoxOptions {

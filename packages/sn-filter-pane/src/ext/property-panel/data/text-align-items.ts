@@ -4,7 +4,7 @@ const textAlignItems = {
     type: 'boolean',
     component: 'switch',
     translation: 'Common.Text.TextAlignment',
-    change: (data) => data?.qDef?.textAlign?.align || 'left',
+    change: (data: EngineAPI.IGenericListProperties) => data?.qDef?.textAlign?.align || 'left',
     options: [
       {
         value: true,
@@ -46,7 +46,8 @@ const textAlignItems = {
       },
     ],
     defaultValue: 'left',
-    show(data) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    show(data: EngineAPI.IGenericListProperties & any) {
       return data?.qListObjectDef?.qDef?.textAlign?.auto !== false;
     },
   },

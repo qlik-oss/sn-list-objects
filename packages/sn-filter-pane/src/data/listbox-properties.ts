@@ -1,4 +1,4 @@
-export const defaultListboxProps = {
+const defaultListboxProps = {
   qListObjectDef: {
     qDef: {
       qSortCriterias: [
@@ -34,3 +34,5 @@ export const defaultListboxProps = {
   // visualization: 'listbox',
   targets: [],
 };
+
+export default defaultListboxProps;

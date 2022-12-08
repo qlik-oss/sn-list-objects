@@ -11,7 +11,7 @@ const sorting = {
   translation: 'properties.sorting',
   allowMove: true,
   schemaIgnore: true,
-  //		grouped: true,
+  // grouped: true,
   items: {
     autoSort: {
       ref: 'qListObjectDef.qDef.autoSort',
@@ -29,7 +29,8 @@ const sorting = {
           translation: 'Common.Custom',
         },
       ],
-      change(itemData /* , handler */) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      change(itemData: EngineAPI.IGenericListProperties & any /* , handler */) {
         if (itemData.qListObjectDef.qDef.autoSort) {
           const dimension = itemData.qListObjectDef;
           for (let i = 0; i < dimension.qDef.qSortCriterias.length; i++) {
@@ -41,7 +42,8 @@ const sorting = {
     dimension: {
       component: 'sorting-dimension',
       ref: 'qListObjectDef',
-      show(itemData) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      show(itemData: EngineAPI.IGenericListProperties & any) {
         return !itemData.qListObjectDef.qDef.autoSort;
       },
       sortingItems: {

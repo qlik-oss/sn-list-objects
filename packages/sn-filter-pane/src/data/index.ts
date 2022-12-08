@@ -1,6 +1,6 @@
 import extend from 'extend';
 import { store } from '../store';
-import { defaultListboxProps } from './listbox-properties';
+import defaultListboxProps from './listbox-properties';
 import { IConfig, IEnv } from '../types/types';
 
 export default function getData(env: IEnv) {
@@ -19,7 +19,8 @@ export default function getData(env: IEnv) {
         dimensions: {
           min: 0,
           max: 1000,
-          add(dimension: EngineAPI.INxDimension, data: EngineAPI.IGenericObjectProperties /* , handler */) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          add(dimension: EngineAPI.INxDimension & any, data: EngineAPI.IGenericObjectProperties /* , handler */) {
             const { model: filterPaneModel } = store.getState();
 
             const listboxProps = extend(true, {}, defaultListboxProps, {

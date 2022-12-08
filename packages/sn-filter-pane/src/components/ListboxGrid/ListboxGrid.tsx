@@ -64,7 +64,7 @@ function ListboxGrid() {
       >
         <>
           <ElementResizeListener onResize={dHandleResize} />
-          <Grid container columns={columns?.length} ref={gridRef as any} spacing={0} height='100%'>
+          <Grid container columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
 
             {!!columns?.length && columns?.map((column: IColumn, i: number) => (
               <ColumnGrid key={i} widthPercent={100 / columns.length}>
