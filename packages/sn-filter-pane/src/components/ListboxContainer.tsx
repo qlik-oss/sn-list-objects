@@ -22,8 +22,6 @@ const ListboxContainer = ({
     options,
   } = store.getState();
 
-  const optionsString = JSON.stringify(options);
-
   useEffect(() => {
     if (!layout || !embed) {
       return;
@@ -44,12 +42,12 @@ const ListboxContainer = ({
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
-      ...options as IListBoxOptions,
+      direction: options?.direction,
     });
     return () => {
       listboxInstance.unmount();
     };
-  }, [elRef.current, listboxInstance, constraints, optionsString]);
+  }, [elRef.current, listboxInstance, constraints, options?.direction]);
 
   return (
     <>
