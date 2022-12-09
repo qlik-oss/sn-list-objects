@@ -1,3 +1,5 @@
+import { IGenericListPropertiesMissing } from '../../../hooks/types';
+
 const textAlignItems = {
   textAlignAuto: {
     ref: 'qListObjectDef.qDef.textAlign.auto',
@@ -46,8 +48,7 @@ const textAlignItems = {
       },
     ],
     defaultValue: 'left',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    show(data: EngineAPI.IGenericListProperties & any) {
+    show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
       return data?.qListObjectDef?.qDef?.textAlign?.auto !== false;
     },
   },

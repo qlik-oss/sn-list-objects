@@ -2,6 +2,7 @@ import extend from 'extend';
 import { store } from '../store';
 import defaultListboxProps from './listbox-properties';
 import { IConfig, IEnv } from '../types/types';
+import { INxDimensionMissing } from '../hooks/types';
 
 export default function getData(env: IEnv) {
   const { translator } = env;
@@ -19,8 +20,7 @@ export default function getData(env: IEnv) {
         dimensions: {
           min: 0,
           max: 1000,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          add(dimension: EngineAPI.INxDimension & any, data: EngineAPI.IGenericObjectProperties /* , handler */) {
+          add(dimension: EngineAPI.INxDimension & INxDimensionMissing, data: EngineAPI.IGenericObjectProperties /* , handler */) {
             const { model: filterPaneModel } = store.getState();
 
             const listboxProps = extend(true, {}, defaultListboxProps, {

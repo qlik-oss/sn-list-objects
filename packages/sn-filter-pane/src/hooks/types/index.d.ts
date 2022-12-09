@@ -41,7 +41,7 @@ export interface IFilterPaneLayout {
   qChildList?: {
     qItems: { qInfo: { qId: string } }[];
   };
-  layoutOptions?:{
+  layoutOptions?: {
     compactData?: boolean,
   }
 }
@@ -63,4 +63,28 @@ export type ListboxResourcesArr = array & IListboxResource[];
 
 export interface IUseOptions {
   listboxOptions?: IListBoxOptions;
+}
+
+// Missing properties in EngineAPI.IGenericListProperties are added in this interface until
+// EngineAPI.IGenericListProperties is updated
+export interface IGenericListPropertiesMissing {
+  qListObjectDef?: {
+    frequencyEnabled: boolean,
+    qDef?: {
+      qSortCriterias: EngineAPI.ISortCriteria[],
+      autoSort: boolean,
+      title: string,
+      textAlign?: {
+        auto?: boolean
+      }
+    }
+  }
+}
+
+// Missing properties in EngineAPI.INxDimensionMissing are added in this interface until
+// EngineAPI.INxDimensionMissing is updated
+export interface INxDimensionMissing {
+  qDef: {
+    title: string
+  }
 }

@@ -1,8 +1,10 @@
-const autoSortCriterias = {
-  qSortByState: 1,
-  qSortByAscii: 1,
-  qSortByNumeric: 1,
-  qSortByLoadOrder: 1,
+import { IGenericListPropertiesMissing } from '../../hooks/types';
+
+const autoSortCriterias: EngineAPI.ISortCriteria = {
+  qSortByState: '1' as EngineAPI.TypeSortDirection,
+  qSortByAscii: '1' as EngineAPI.TypeSortDirection,
+  qSortByNumeric: '1' as EngineAPI.TypeSortDirection,
+  qSortByLoadOrder: '1' as EngineAPI.TypeSortDirection,
 };
 
 const sorting = {
@@ -29,8 +31,7 @@ const sorting = {
           translation: 'Common.Custom',
         },
       ],
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      change(itemData: EngineAPI.IGenericListProperties & any /* , handler */) {
+      change(itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing /* , handler */) {
         if (itemData.qListObjectDef.qDef.autoSort) {
           const dimension = itemData.qListObjectDef;
           for (let i = 0; i < dimension.qDef.qSortCriterias.length; i++) {
@@ -42,8 +43,7 @@ const sorting = {
     dimension: {
       component: 'sorting-dimension',
       ref: 'qListObjectDef',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      show(itemData: EngineAPI.IGenericListProperties & any) {
+      show(itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
         return !itemData.qListObjectDef.qDef.autoSort;
       },
       sortingItems: {

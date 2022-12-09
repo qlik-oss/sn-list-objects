@@ -1,3 +1,4 @@
+import { IGenericListPropertiesMissing } from '../../../hooks/types';
 import { IEnv } from '../../../types/types';
 import frequencies from '../constants';
 import textAlignItems from './text-align-items';
@@ -69,8 +70,7 @@ export default function data(env: IEnv) {
           return isEnabled('LIST_BOX_FREQUENCY_COUNT');
         },
         translation: 'properties.frequencyCountMode',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        change(props: EngineAPI.IGenericListProperties & any) {
+        change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
           // eslint-disable-next-line no-param-reassign
           props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
         },
