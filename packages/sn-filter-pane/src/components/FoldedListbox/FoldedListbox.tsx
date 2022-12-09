@@ -1,5 +1,4 @@
 import { Grid, styled, Typography } from '@mui/material';
-import { stardust } from '@nebula.js/stardust';
 import React, { useRef } from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
