@@ -16,8 +16,6 @@ export interface FoldedListboxProps {
   onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
 }
 
-const getThemeProp = (prop: string, stardustTheme?: stardust.Theme) => stardustTheme?.getStyle('object', '', `listBox.${prop}`);
-
 export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef(null);
@@ -34,8 +32,8 @@ export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
     ':hover': !constraints?.active && {
       border: '1px solid #595959',
     },
-    backgroundColor: getThemeProp('backgroundColor', stardustTheme),
-    color: getThemeProp('title.main.color', stardustTheme),
+    backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
+    color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
   }));
 
   return (
