@@ -60,7 +60,3 @@ export interface IListboxResource {
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];
-
-export interface IUseOptions {
-  listboxOptions?: IListBoxOptions;
-}
