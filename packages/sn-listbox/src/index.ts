@@ -10,7 +10,6 @@ const hasDimension = (layout: any) => !!layout?.qListObject.qDimensionInfo.qGrou
 const listboxOptions = {
   search: false,
   toolbar: false,
-  frequencyMode: 'N' as stardust.FrequencyMode,
   histogram: false,
   checkboxes: false,
   dense: false,
