@@ -7,7 +7,7 @@ export interface ColumnGridProps {
 }
 
 export const ColumnGrid = ({ widthPercent, children }: ColumnGridProps) => (
-  <Grid item width={`${widthPercent}%`}>
+  <Grid item width={`${widthPercent}%`} height='100%'>
     {children}
   </Grid>
 );

@@ -6,17 +6,13 @@ export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;
 const BUTTON_SPACING = 8;
 export const ITEM_SPACING = 8;
-const EXPANDED_HEIGHT = 181;
+const EXPANDED_HEIGHT_LIMIT = 181;
 const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
-const EXPANDED_HEADER_HEIGHT = 50;
+const EXPANDED_HEADER_HEIGHT = 48;
 
-const dense = () => {
-  const { fpLayout } = store.getState();
-  return fpLayout?.layoutOptions?.compactData;
-};
-const getSearchBarHeight = () => (dense() ? 29 : 42);
-const getExpandedRowHeight = () => (dense() ? 20 : 33);
+const getSearchBarHeight = (dense: boolean) => (dense ? 27 : 40);
+const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 33);
 
 const sm = () => {
   const { isSmallDevice } = store.getState();
@@ -27,7 +23,7 @@ const sm = () => {
 
 const getMaxColumns = (size: ISize) => (sm() ? 1 : Math.floor((size.width + COLUMN_SPACING) / (COLUMN_MIN_WIDTH + COLUMN_SPACING)) || 1);
 
-const getMaxItemsPerColumn = (size: ISize) => Math.max(1, Math.floor((size.height + ITEM_SPACING) / (COLLAPSED_HEIGHT + ITEM_SPACING)));
+const getMaxCollapsedItemsPerColumn = (size: ISize) => Math.max(1, Math.floor((size.height + ITEM_SPACING) / (COLLAPSED_HEIGHT + ITEM_SPACING)));
 
 const getColumnItemsCount = (columns: IColumn[]) => {
   let count = 0;
@@ -47,22 +43,29 @@ const getHeightOf = (collapsedItemCount: number) => {
 
 const getDimensionCardinal = (item: IListboxResource) => item.layout.qListObject.qDimensionInfo.qCardinal;
 
-const getHeightOfExpanded = (dimensionCardinal: number) => dimensionCardinal * getExpandedRowHeight() + EXPANDED_HEADER_HEIGHT + getSearchBarHeight() + 4;
+const getHeightOfExpanded = (
+  dimensionCardinal: number,
+  dense: boolean,
+) => dimensionCardinal * getExpandedRowHeight(dense) + EXPANDED_HEADER_HEIGHT + getSearchBarHeight(dense);
 
-const doesAllFit = (itemsPerColumn: number, columnCount: number, itemCount: number) => itemCount <= itemsPerColumn * columnCount;
+const doesAllFit = (
+  itemsPerColumn: number,
+  columnCount: number,
+  itemCount: number,
+) => itemCount <= itemsPerColumn * columnCount;
 
 const haveRoomToExpandOne = (size: ISize, column: IColumn) => {
   if (sm()) {
     return false;
   }
   const spacing = (column.itemCount ?? 0) > 1 ? ITEM_SPACING : 0;
-  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + EXPANDED_HEIGHT + spacing;
+  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + EXPANDED_HEIGHT_LIMIT + spacing;
 };
 
 export const calculateColumns = (size: ISize, columns: IColumn[]) => {
-  const canExpand = size.height > EXPANDED_HEIGHT && !sm();
+  const canExpand = size.height > EXPANDED_HEIGHT_LIMIT && !sm();
   const maxColumns = getMaxColumns(size);
-  const maxPerColumn = getMaxItemsPerColumn(size);
+  const maxPerColumn = getMaxCollapsedItemsPerColumn(size);
   const usedCount = getColumnItemsCount(columns);
 
   if (canExpand && doesAllFit(maxPerColumn, maxColumns - columns.length - 1, size.dimensionCount - usedCount - 1)) {
@@ -92,7 +95,7 @@ export const calculateColumns = (size: ISize, columns: IColumn[]) => {
     // Last columns and all items wont fit, show the fullscreen "..."-button to view the items that doesn't fit
     const columnsItemsCount = getColumnItemsCount(columns);
     if (columns.length >= maxColumns && maxPerColumn > 0 && columnsItemsCount < size.dimensionCount) {
-      columns[columns.length - 1].showAll = true;
+      columns[columns.length - 1].hiddenItems = true;
       if (BUTTON_HEIGHT + BUTTON_SPACING + ITEM_SPACING > size.height - getHeightOf(maxPerColumn)) {
         const lastItem = columns[columns.length - 1];
         columns[columns.length - 1].itemCount = Math.max((lastItem?.itemCount ?? 0) - 1, 0);
@@ -111,7 +114,7 @@ export const balanceColumns = (size: ISize, columns: IColumn[]) => {
   const expanded = columns.filter((column) => column.expand);
   const collapsed = columns.filter((column) => column.expand === false);
 
-  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].showAll && haveRoomToExpandOne(size, collapsed[collapsed.length - 1]);
+  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].hiddenItems && haveRoomToExpandOne(size, collapsed[collapsed.length - 1]);
   if (canExpand) {
     collapsed[collapsed.length - 1].expand = true;
   } else {
@@ -134,18 +137,17 @@ export const mergeColumnsAndResources = (columns: IColumn[], resources: IListbox
     column.items = resources.slice(0, column.itemCount);
     resources = resources.slice(column.itemCount);
   });
-
-  return columns;
+  return { columns, overflowing: resources };
 };
 
 const setFullyExpanded = (item: IListboxResource) => {
-  if (parseFloat(item.height) >= getHeightOfExpanded(item.cardinal)) {
-    item.height = `${getHeightOfExpanded(item.cardinal)}px`;
+  if (parseFloat(item.height) >= getHeightOfExpanded(item.cardinal, item.dense)) {
+    item.height = `${getHeightOfExpanded(item.cardinal, item.dense)}px`;
     item.fullyExpanded = true;
   }
 };
 
-const expandOne = (sortedItems: IListboxResource[] | undefined, h: number) => {
+const expandOne = (sortedItems: IListboxResource[] | undefined, leftOverHeight: number) => {
   if (!sortedItems) return false;
   let i;
   let item;
@@ -154,12 +156,12 @@ const expandOne = (sortedItems: IListboxResource[] | undefined, h: number) => {
   for (i = 0; i < sortedItems.length; i++) {
     item = sortedItems[i];
     if (item.cardinal && !item.expand) {
-      expandedHeight = getHeightOfExpanded(item.cardinal);
-      if (expandedHeight < h) {
+      expandedHeight = getHeightOfExpanded(item.cardinal, item.dense);
+      if (leftOverHeight > expandedHeight) {
         item.expand = true;
         item.height = `${expandedHeight}px`;
         setFullyExpanded(item);
-        return expandedHeight + ITEM_SPACING;
+        return expandedHeight;
       }
     }
   }
@@ -182,7 +184,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
       const sortedItems = column?.items?.concat().sort((a, b) => a.cardinal - b.cardinal);
 
       if ((sortedItems?.length ?? 0) > 1) {
-        while (leftOverHeight > EXPANDED_HEIGHT) {
+        while (leftOverHeight > EXPANDED_HEIGHT_LIMIT) {
           const expHeight = expandOne(sortedItems, leftOverHeight);
           if (expHeight) {
             expandedCount++;
@@ -196,20 +198,21 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
         // Calculate total expanded height again as items might have been expanded before calculateExpandPriority
         totalExpandedHeight = 0;
         expandedItems?.forEach((item) => {
-          totalExpandedHeight += getHeightOfExpanded(item.cardinal) + ITEM_SPACING;
+          totalExpandedHeight += getHeightOfExpanded(item.cardinal, item.dense) + ITEM_SPACING;
         });
         leftOverHeight = size.height - getHeightOf((column?.itemCount ?? 0) - (expandedItems?.length ?? 0)) - totalExpandedHeight;
       }
 
       const collapsedItems = sortedItems?.filter((item) => !item.expand);
 
-      if (leftOverHeight > EXPANDED_HEIGHT && collapsedItems?.length) {
+      if (leftOverHeight > EXPANDED_HEIGHT_LIMIT && collapsedItems?.length) {
         const item = collapsedItems[0];
 
         if (!item.expand) {
           if ((sortedItems?.length ?? 0) > 1) {
             // Should only set specific height when multiple items in columns, otherwise 100% height from default value
-            item.height = `${size.height - getHeightOf(collapsedItems.length - 1) - totalExpandedHeight}px`;
+            const spacing = 2 + (collapsedItems.length === 1 ? 0 : ITEM_SPACING);
+            item.height = `${size.height - getHeightOf(collapsedItems.length - 1) - totalExpandedHeight - spacing}px`;
           }
           item.expand = true;
         }
@@ -231,5 +234,6 @@ export const setDefaultValues = (resources: IListboxResource[]) => resources.map
   resource.expand = false;
   resource.height = 'calc(100% - 2px)';
   resource.fullyExpanded = false;
+  resource.dense = resource.layout.layoutOptions?.dense ?? false;
   return resource;
 });

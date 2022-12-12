@@ -7,46 +7,33 @@ import { styled } from '@mui/material/styles';
 import { ResizableBox } from 'react-resizable';
 import debounce from 'lodash/debounce';
 import getWidthHeight from './get-size';
-import { IListBoxOptions, IListboxResource } from '../../hooks/types';
+import { IListboxResource } from '../../hooks/types';
 import ListboxContainer from '../ListboxContainer';
 import 'react-resizable/css/styles.css';
 import ElementResizeListener from '../ElementResizeListener';
 import {
   setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources,
 } from './distribute-resources';
-import { FoldedListbox } from '../FoldedListbox/FoldedListbox';
-import { ExpandButton } from '../ExpandButton';
 import { IColumn, ISize } from './interfaces';
 import { ColumnGrid } from './grid-components/ColumnGrid';
 import { Column } from './grid-components/Column';
 import { ColumnItem } from './grid-components/ColumnItem';
 import ConditionalWrapper from './ConditionalWrapper';
-import { store } from '../../store';
-
-export interface ListboxGridProps {
-  listboxOptions: IListBoxOptions;
-  resources: IListboxResource[];
-}
+import { store, useResourceStore } from '../../store';
+import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-export default function ListboxGrid(props: ListboxGridProps) {
-  const {
-    resources,
-    listboxOptions,
-  } = props;
-
-  const {
-    app,
-    constraints,
-    sense,
-  } = store.getState();
+function ListboxGrid() {
+  const { sense } = store.getState();
+  const resources = useResourceStore((state) => state.resources);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);
+  const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
   const isInSense = typeof (sense?.isSmallDevice) === 'function';
 
   const handleResize = useCallback(() => {
@@ -55,7 +42,8 @@ export default function ListboxGrid(props: ListboxGridProps) {
     const calculatedColumns = calculateColumns(size, []);
     const balancedColumns = balanceColumns(size, calculatedColumns);
     const resourcesWithDefaultValues = setDefaultValues(resources);
-    const mergedColumnsAndResources = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
+    const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
+    setOverflowingResources(overflowing);
     const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size);
     setColumns(expandedAndCollapsedColumns);
   }, [resources]);
@@ -64,11 +52,7 @@ export default function ListboxGrid(props: ListboxGridProps) {
     if (gridRef.current) {
       handleResize();
     }
-  }, []);
-
-  const onExpand = () => {
-    throw new Error('Not implemented');
-  };
+  }, [resources]);
 
   const dHandleResize = debounce(handleResize, isInSense ? 0 : 50);
 
@@ -95,19 +79,16 @@ export default function ListboxGrid(props: ListboxGridProps) {
                       {item.expand
                         ? <ListboxContainer
                           layout={item.layout}
-                          app={app}
-                          listboxOptions={listboxOptions}
-                          constraints={constraints}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
                         ></ListboxContainer>
-                        : <FoldedListbox layout={item.layout}></FoldedListbox>
+                        : <ListboxPopoverContainer resources={[item]} />
                       }
                     </ColumnItem>
                   ))}
 
-                  {column.showAll
+                  {column.hiddenItems && overflowingResources.length
                     && <ColumnItem height='100%'>
-                      <ExpandButton onClick={onExpand} disabled={constraints?.active}></ExpandButton>
+                      <ListboxPopoverContainer resources={overflowingResources} />
                     </ColumnItem>}
                 </Column>
 
@@ -119,3 +100,5 @@ export default function ListboxGrid(props: ListboxGridProps) {
     </>
   );
 }
+
+export default ListboxGrid;

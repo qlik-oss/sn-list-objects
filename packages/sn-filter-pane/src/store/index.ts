@@ -1,27 +1,37 @@
 import { stardust } from '@nebula.js/stardust';
 import createVanilla from 'zustand/vanilla';
-import { IFilterPaneLayout, IUseOptions } from '../hooks/types';
+import create from 'zustand';
+import { IFilterPaneLayout, IListBoxOptions, IListboxResource, } from '../hooks/types';
 import { ISense } from '../types/types';
 
 export interface IStore {
-  app?: EngineAPI.IApp | undefined;
-  setApp?: (app: EngineAPI.IApp) => Function;
+  app?: EngineAPI.IApp;
+  model?: EngineAPI.IGenericObject;
+  isSmallDevice?: (() => void);
+  fpLayout?: IFilterPaneLayout;
+  options: IListBoxOptions;
+  constraints?: stardust.Constraints;
+  translator?: stardust.Translator;
+  sense?: ISense;
+  embed?: stardust.Embed;
 }
 
-// import create from 'zustand';
-// export const useStore = create((set) => ({
-//   app: undefined,
-//   setApp: (app: EngineAPI.IApp) => set(() => ({ app })),
-// }));
+export const store = createVanilla<IStore>(() => ({
+  app: undefined,
+  model: undefined,
+  isSmallDevice: undefined,
+  fpLayout: undefined,
+  options: {},
+  constraints: undefined,
+  translator: undefined,
+  sense: undefined,
+  embed: undefined,
+}));
 
-export const store = createVanilla(() => ({
-  app: <EngineAPI.IApp | undefined>undefined,
-  model: <EngineAPI.IGenericObject | undefined>undefined,
-  isSmallDevice: <(() => boolean) | undefined>undefined,
-  fpLayout: <IFilterPaneLayout | undefined>undefined,
-  options: <IUseOptions>{},
-  constraints: <stardust.Constraints | undefined>undefined,
-  translator: <stardust.Translator | undefined>undefined,
-  sense: <ISense | undefined>undefined,
-  embed: <stardust.Embed | undefined>undefined,
+interface ResourceState {
+  resources: IListboxResource[];
+}
+
+export const useResourceStore = create<ResourceState>(() => ({
+  resources: [],
 }));

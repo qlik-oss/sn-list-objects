@@ -3,20 +3,11 @@ import {
 } from '@nebula.js/stardust';
 import { store } from '../store';
 import { IEnv } from '../types/types';
-import { IFilterPaneLayout, IUseOptions } from './types';
-
-const evaluateOptions = (options: IUseOptions, fpLayout: IFilterPaneLayout) => {
-  const evaluatedOptions = { ...options };
-  evaluatedOptions.listboxOptions = {
-    dense: fpLayout.layoutOptions?.compactData ?? options.listboxOptions?.dense,
-  };
-  return evaluatedOptions;
-};
+import { IFilterPaneLayout, IListBoxOptions } from './types';
 
 export default function useSetup({ sense }: IEnv) {
-  let options = useOptions() as IUseOptions;
+  const options = useOptions() as IListBoxOptions;
   const fpLayout = useLayout() as IFilterPaneLayout;
-  options = evaluateOptions(options, fpLayout);
   const constraints = useConstraints();
   const translator = useTranslator();
   const app = useApp() as EngineAPI.IApp;
