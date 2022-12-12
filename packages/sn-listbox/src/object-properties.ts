@@ -2,7 +2,7 @@ const properties = {
   qListObjectDef: {
     qShowAlternatives: true,
     frequencyEnabled: false, // TODO: look at this in listbox in nebula?
-    qFrequencyMode: "N",
+    qFrequencyMode: 'N',
     // qInitialDataFetch: [],
     qDef: {
       autoSort: true,
@@ -11,7 +11,7 @@ const properties = {
   },
   title: '',
   subtitle: '',
-  footnote: ''
+  footnote: '',
 };
 
 export default properties;
