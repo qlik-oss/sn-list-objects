@@ -3,9 +3,6 @@ import sorting from './sorting';
 import settings from './settings';
 
 export default function propertyDefinition() {
-  
-  
-
   // const dimension = {
   //   type: 'items',
   //   translation: 'Common.Dimension',
@@ -49,7 +46,7 @@ export default function propertyDefinition() {
   //     },
   //   },
   // };
-  
+
   return {
     type: 'items',
     component: 'accordion',
@@ -60,4 +57,4 @@ export default function propertyDefinition() {
       settings,
     },
   };
-};
+}

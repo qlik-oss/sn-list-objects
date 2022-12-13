@@ -1,7 +1,7 @@
 import { stardust } from '@nebula.js/stardust';
 import createVanilla from 'zustand/vanilla';
 import create from 'zustand';
-import { IFilterPaneLayout, IListboxResource, IUseOptions } from '../hooks/types';
+import { IFilterPaneLayout, IListBoxOptions, IListboxResource, } from '../hooks/types';
 import { ISense } from '../types/types';
 
 export interface IStore {
@@ -9,7 +9,7 @@ export interface IStore {
   model?: EngineAPI.IGenericObject;
   isSmallDevice?: (() => void);
   fpLayout?: IFilterPaneLayout;
-  options: IUseOptions;
+  options: IListBoxOptions;
   constraints?: stardust.Constraints;
   translator?: stardust.Translator;
   sense?: ISense;

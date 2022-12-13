@@ -3,10 +3,10 @@ import {
 } from '@nebula.js/stardust';
 import { store } from '../store';
 import { IEnv } from '../types/types';
-import { IFilterPaneLayout, IUseOptions } from './types';
+import { IFilterPaneLayout, IListBoxOptions } from './types';
 
 export default function useSetup({ sense }: IEnv) {
-  const options = useOptions() as IUseOptions;
+  const options = useOptions() as IListBoxOptions;
   const fpLayout = useLayout() as IFilterPaneLayout;
   const constraints = useConstraints();
   const translator = useTranslator();

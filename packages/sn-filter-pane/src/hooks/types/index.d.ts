@@ -61,10 +61,6 @@ export interface IListboxResource {
 
 export type ListboxResourcesArr = array & IListboxResource[];
 
-export interface IUseOptions {
-  listboxOptions?: IListBoxOptions;
-}
-
 // Missing properties in EngineAPI.IGenericListProperties are added in this interface until
 // EngineAPI.IGenericListProperties is updated
 export interface IGenericListPropertiesMissing {

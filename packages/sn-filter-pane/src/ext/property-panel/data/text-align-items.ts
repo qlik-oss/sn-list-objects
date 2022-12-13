@@ -49,7 +49,7 @@ const textAlignItems = {
     ],
     defaultValue: 'left',
     show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
-      return data?.qListObjectDef?.qDef?.textAlign?.auto !== false;
+      return data?.qListObjectDef?.qDef?.textAlign?.auto === false;
     },
   },
 };
