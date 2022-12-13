@@ -14,6 +14,7 @@ export interface IStore {
   translator?: stardust.Translator;
   sense?: ISense;
   embed?: stardust.Embed;
+  stardustTheme?: stardust.Theme;
 }
 
 export const store = createVanilla<IStore>(() => ({

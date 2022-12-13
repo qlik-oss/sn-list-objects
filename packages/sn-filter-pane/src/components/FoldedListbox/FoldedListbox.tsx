@@ -18,7 +18,7 @@ export interface FoldedListboxProps {
 export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef(null);
-  const { constraints } = store.getState();
+  const { constraints, stardustTheme } = store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',
@@ -31,6 +31,8 @@ export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
     ':hover': !constraints?.active && {
       border: '1px solid #595959',
     },
+    backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
+    color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
   }));
 
   return (

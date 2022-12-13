@@ -1,4 +1,5 @@
 import { Grid, PaperProps, Popover } from '@mui/material';
+import { stardust } from '@nebula.js/stardust';
 import React, { useState, useRef } from 'react';
 import { IListboxResource } from '../hooks/types';
 import { store } from '../store';
@@ -11,13 +12,14 @@ export interface FoldedPopoverProps {
   resources: IListboxResource[];
 }
 
-const popoverPaperProps = (selectedResource: boolean): PaperProps => (
+const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.Theme): PaperProps => (
   {
     style: {
       height: selectedResource ? '330px' : undefined,
       resize: selectedResource ? 'both' : undefined,
       width: '160px',
       overflow: 'hidden',
+      backgroundColor: stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor'),
     },
   }
 );
@@ -30,7 +32,7 @@ const popoverPaperProps = (selectedResource: boolean): PaperProps => (
  * FoldedLisbox:es are rendered which in themselves are clickable.
  */
 export const ListboxPopoverContainer = ({ resources }: FoldedPopoverProps) => {
-  const { constraints } = store.getState();
+  const { constraints, stardustTheme } = store.getState();
   const [popoverOpen, setPopoverOpen] = useState(false);
   const containerRef = useRef(null);
   const [selectedResource, setSelectedResource] = useState<IListboxResource | undefined>();
@@ -72,7 +74,7 @@ export const ListboxPopoverContainer = ({ resources }: FoldedPopoverProps) => {
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        PaperProps={popoverPaperProps(!!selectedResource)}
+        PaperProps={popoverPaperProps(!!selectedResource, stardustTheme)}
       >
         {(selectedResource || isSingle)
           ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} />

@@ -1,5 +1,5 @@
 import {
-  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useTranslator,
+  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useTranslator, useTheme,
 } from '@nebula.js/stardust';
 import { store } from '../store';
 import { IEnv } from '../types/types';
@@ -13,6 +13,7 @@ export default function useSetup({ sense }: IEnv) {
   const app = useApp() as EngineAPI.IApp;
   const model = useModel();
   const embed = useEmbed();
+  const stardustTheme = useTheme();
 
   store.setState({
     app,
@@ -23,5 +24,6 @@ export default function useSetup({ sense }: IEnv) {
     constraints,
     translator,
     embed,
+    stardustTheme,
   });
 }
