@@ -14,7 +14,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
 }
 
 interface ISessionModel {
-  [key]: any;
+  [key]: unknown;
 }
 
 export interface IListBoxOptions {
@@ -41,7 +41,7 @@ export interface IFilterPaneLayout {
   qChildList?: {
     qItems: { qInfo: { qId: string } }[];
   };
-  layoutOptions?:{
+  layoutOptions?: {
     compactData?: boolean,
   }
 }
@@ -60,3 +60,27 @@ export interface IListboxResource {
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];
+
+// Missing properties in EngineAPI.IGenericListProperties are added in this interface until
+// EngineAPI.IGenericListProperties is updated
+export interface IGenericListPropertiesMissing {
+  qListObjectDef?: {
+    frequencyEnabled: boolean,
+    qDef?: {
+      qSortCriterias: EngineAPI.ISortCriteria[],
+      autoSort: boolean,
+      title: string,
+      textAlign?: {
+        auto?: boolean
+      }
+    }
+  }
+}
+
+// Missing properties in EngineAPI.INxDimensionMissing are added in this interface until
+// EngineAPI.INxDimensionMissing is updated
+export interface INxDimensionMissing {
+  qDef: {
+    title: string
+  }
+}

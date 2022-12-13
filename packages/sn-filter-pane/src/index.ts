@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import properties from './object-properties';
 import getData from './data';
 
