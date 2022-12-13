@@ -12,6 +12,10 @@ const properties = {
           cId: '',
           autoSort: true,
           qFieldDefs: [],
+          textAlign: {
+            auto: true,
+            align: 'left'
+          },
           qSortCriterias: [],
           qChildListDef: {
             qData: {

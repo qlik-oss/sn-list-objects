@@ -47,7 +47,7 @@ const textAlignItems = {
     ],
     defaultValue: 'left',
     show(data) {
-      return data?.qListObjectDef?.qDef?.textAlign?.auto !== false;
+      return data?.qListObjectDef?.qDef?.textAlign?.auto === false;
     },
   },
 };
