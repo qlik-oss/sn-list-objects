@@ -1,8 +1,8 @@
 const frequencies = {
-  FREQUENCY_NONE: 'N',
-  FREQUENCY_VALUE: 'V',
-  FREQUENCY_PERCENT: 'P',
-  FREQUENCY_RELATIVE: 'R',
+  FREQUENCY_NONE: 'N' as EngineAPI.FrequencyModeType,
+  FREQUENCY_VALUE: 'V' as EngineAPI.FrequencyModeType,
+  FREQUENCY_PERCENT: 'P' as EngineAPI.FrequencyModeType,
+  FREQUENCY_RELATIVE: 'R' as EngineAPI.FrequencyModeType,
 };
 
 export default frequencies;

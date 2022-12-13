@@ -1,7 +1,18 @@
+/* eslint-disable no-param-reassign */
 import { IGenericListPropertiesMissing } from '../../../hooks/types';
 import { IEnv } from '../../../types/types';
 import frequencies from '../constants';
 import textAlignItems from './text-align-items';
+
+const getFreqMode = (props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing): EngineAPI.FrequencyModeType => {
+  if (props.qListObjectDef.frequencyEnabled) {
+    return props.showFrequencyCount;
+  }
+  if (props.histogram) {
+    return frequencies.FREQUENCY_VALUE;
+  }
+  return frequencies.FREQUENCY_NONE;
+};
 
 export default function data(env: IEnv) {
   const { isEnabled } = env?.flags || {};
@@ -48,31 +59,26 @@ export default function data(env: IEnv) {
           [def.qFieldLabels[0]] = def.qFieldDefs ?? [];
         },
       },
-      // label: {
-      //  type: "string",
-      //  ref: "qDef.qFieldLabels.0",
-      //  translation: "Common.Label",
-      //  show: function ( itemData ) {
-      //   return !itemData.qLibraryId;
-      //  }
-      // },
       title: {
         ref: 'title',
         type: 'string',
         expression: 'optional',
         translation: 'Common.Title',
       },
-      frequencyCountMode: {
-        ref: 'qListObjectDef.qFrequencyMode',
+      // 'showFrequencyCount' is only used in the propery panel to not conflict with 'qFrequencyMode' as
+      // 'qFrequencyMode' is also used in 'histogram'
+      showFrequencyCount: {
+        ref: 'showFrequencyCount',
         type: 'string',
         component: 'dropdown',
+        defaultValue: frequencies.FREQUENCY_NONE,
         show() {
           return isEnabled('LIST_BOX_FREQUENCY_COUNT');
         },
         translation: 'properties.frequencyCountMode',
         change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
-          // eslint-disable-next-line no-param-reassign
-          props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
+          props.qListObjectDef.frequencyEnabled = props.showFrequencyCount !== frequencies.FREQUENCY_NONE;
+          props.qListObjectDef.qFrequencyMode = getFreqMode(props);
         },
         options: [
           {
@@ -106,6 +112,23 @@ export default function data(env: IEnv) {
         component: 'checkbox',
         translation: 'properties.filterpane.dense',
         defaultValue: false,
+      },
+      checkboxes: {
+        ref: 'checkboxes',
+        component: 'checkbox',
+        translation: 'properties.filterpane.checkboxes',
+        defaultValue: false,
+      },
+      histogram: {
+        ref: 'histogram',
+        component: 'checkbox',
+        translation: 'properties.filterpane.histogram',
+        defaultValue: false,
+        change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+          props.qListObjectDef.qFrequencyMode = getFreqMode(props);
+          const [qDef] = props.qListObjectDef.qDef.qFieldDefs ?? [];
+          props.frequencyMax = props.histogram ? { qValueExpression: `Max(AGGR(Count([${qDef}]), [${qDef}]))` } : null;
+        },
       },
     },
   };
