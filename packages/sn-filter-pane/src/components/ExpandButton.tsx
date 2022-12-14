@@ -17,6 +17,8 @@ export interface IconProps {
 export const ExpandButton = ({
   onClick, opened, avatar,
 }: FoldedListboxProps) => {
+  const { constraints, stardustTheme } = store.getState();
+
   const ExpandIcon = styled(ExpandMore)<IconProps>(({ open }) => ({
     color: '#555555',
     fontSize: '1em',
@@ -24,7 +26,7 @@ export const ExpandButton = ({
   }));
 
   const StyledButton = styled(Button)(() => ({
-    backgroundColor: '#FFFFFF',
+    backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
     width: '100%',
     height: BUTTON_HEIGHT,
     border: '1px solid #B3B3B3',
@@ -38,8 +40,6 @@ export const ExpandButton = ({
     backgroundColor: '#00873D',
     fontSize: '12px',
   }));
-
-  const { constraints } = store.getState();
 
   return (
     <>

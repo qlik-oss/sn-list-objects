@@ -6,7 +6,7 @@ const properties = {
     // qInitialDataFetch: [],
     qDef: {
       autoSort: true,
-      textAlign: { auto: true },
+      textAlign: { auto: true, align: 'left' },
     },
   },
   layoutOptions: {

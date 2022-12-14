@@ -1,13 +1,11 @@
 import { useEffect, useElement, useState } from '@nebula.js/stardust';
-import { store } from '../store';
+import { store, useResourceStore } from '../store';
 import getListBoxResources from './listbox/get-listbox-resources';
-import {
-  IContainerElement, IListboxResource, ListboxResourcesArr,
-} from './types';
+import { IContainerElement, ListboxResourcesArr } from './types';
 import { render, teardown } from '../components/root';
 
 export default function useRender() {
-  const [resourcesArr, setResourcesArr] = useState<IListboxResource[] | undefined>(undefined);
+  const [resourcesReady, setResourcesReady] = useState<boolean>(false);
 
   const {
     app, fpLayout, options, constraints,
@@ -19,30 +17,22 @@ export default function useRender() {
 
   const containerElement = <IContainerElement>useElement();
 
-  useEffect(() => {
-    if (!app || !fpLayout) {
-      return;
-    }
+  if (app && fpLayout) {
     getListBoxResources(app, fpLayout).then((resArr: ListboxResourcesArr) => {
-      setResourcesArr(resArr || []);
+      useResourceStore.setState({ resources: resArr });
+      setResourcesReady(true);
     });
-  }, [listboxIdsString]);
+  }
 
   const optionsString = JSON.stringify(options.listboxOptions);
 
   useEffect(() => {
-    if (!resourcesArr?.length || !app) {
+    if (!fpLayout || !app || !resourcesReady) {
       return undefined;
     }
-    const root = render(
-      containerElement,
-      {
-        listboxOptions: options.listboxOptions ?? {},
-        resources: resourcesArr,
-      },
-    );
+    const root = render(containerElement);
     return (() => {
       teardown(root);
     });
-  }, [resourcesArr, constraints, optionsString]);
+  }, [constraints, optionsString, listboxIdsString, resourcesReady]);
 }

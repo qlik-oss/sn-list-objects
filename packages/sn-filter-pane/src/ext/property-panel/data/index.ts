@@ -1,11 +1,12 @@
+import { IGenericListPropertiesMissing } from '../../../hooks/types';
 import { IEnv } from '../../../types/types';
-import { frequencies } from '../constants';
+import frequencies from '../constants';
 import textAlignItems from './text-align-items';
 
 export default function data(env: IEnv) {
   const { isEnabled } = env?.flags || {};
 
-  const data = {
+  const dataProperties = {
     classification: {
       section: 'data',
       tags: ['simple'],
@@ -26,7 +27,7 @@ export default function data(env: IEnv) {
         libraryItemType: 'dimension',
         ref: 'qListObjectDef.qLibraryId',
         translation: 'Common.Dimension',
-        show(itemData) {
+        show(itemData: EngineAPI.IGenericListProperties) {
           return itemData.qListObjectDef.qLibraryId;
         },
       },
@@ -36,25 +37,25 @@ export default function data(env: IEnv) {
         expressionType: 'dimension',
         ref: 'qListObjectDef.qDef.qFieldDefs.0',
         translation: 'Common.Field',
-        show(itemData) {
+        show(itemData: EngineAPI.IGenericListProperties) {
           return !itemData.qListObjectDef.qLibraryId;
         },
-        change(data) {
-          const def = data.qListObjectDef.qDef;
+        change(itemData: EngineAPI.IGenericListProperties) {
+          const def = itemData.qListObjectDef.qDef;
           if (!def.qFieldLabels) {
             def.qFieldLabels = [];
           }
-          def.qFieldLabels[0] = def.qFieldDefs[0];
+          [def.qFieldLabels[0]] = def.qFieldDefs ?? [];
         },
       },
-      //			label: {
-      //				type: "string",
-      //				ref: "qDef.qFieldLabels.0",
-      //				translation: "Common.Label",
-      //				show: function ( itemData ) {
-      //					return !itemData.qLibraryId;
-      //				}
-      //			},
+      // label: {
+      //  type: "string",
+      //  ref: "qDef.qFieldLabels.0",
+      //  translation: "Common.Label",
+      //  show: function ( itemData ) {
+      //   return !itemData.qLibraryId;
+      //  }
+      // },
       title: {
         ref: 'title',
         type: 'string',
@@ -69,8 +70,9 @@ export default function data(env: IEnv) {
           return isEnabled('LIST_BOX_FREQUENCY_COUNT');
         },
         translation: 'properties.frequencyCountMode',
-        change(props) {
-          // props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== constants.FREQUENCY_NONE;
+        change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+          // eslint-disable-next-line no-param-reassign
+          props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
         },
         options: [
           {
@@ -108,5 +110,5 @@ export default function data(env: IEnv) {
     },
   };
 
-  return data;
+  return dataProperties;
 }
