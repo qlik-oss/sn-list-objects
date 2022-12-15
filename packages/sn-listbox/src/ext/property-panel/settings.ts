@@ -1,4 +1,5 @@
-import { frequencies } from './constants';
+import { IGenericListPropertiesMissing } from '../../../../../types/global';
+import frequencies from './constants';
 
 const settings = {
   uses: 'settings',
@@ -19,7 +20,8 @@ const settings = {
           type: 'string',
           component: 'dropdown',
           translation: 'properties.frequencyCountMode',
-          change(props) {
+          change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+            // eslint-disable-next-line no-param-reassign
             props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
           },
           options: [
@@ -74,7 +76,7 @@ const settings = {
               tooltipTranslation: 'Column',
             },
           ],
-          show: function (data) {
+          show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
             const { dataLayout } = data.qListObjectDef.layouting || {};
             return dataLayout === 'grid';
           },
@@ -97,7 +99,7 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show: function (data) {
+          show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
             const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
             return dataLayout === 'grid' && layoutOrder === 'column';
           },
@@ -106,7 +108,7 @@ const settings = {
           type: 'number',
           ref: 'qListObjectDef.layouting.maxVisibleRows.maxRows',
           defaultValue: 3,
-          show: function (data) {
+          show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
             const { dataLayout, layoutOrder, maxVisibleRows } = data.qListObjectDef.layouting || {};
             const { auto } = maxVisibleRows || {};
             return dataLayout === 'grid' && layoutOrder === 'column' && !auto;
@@ -130,7 +132,7 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show: function (data) {
+          show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
             const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
             return dataLayout === 'grid' && layoutOrder === 'row';
           },
@@ -139,13 +141,13 @@ const settings = {
           type: 'number',
           ref: 'qListObjectDef.layouting.maxVisibleColumns.maxColumns',
           defaultValue: 3,
-          show: function (data) {
+          show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
             const { dataLayout, layoutOrder, maxVisibleColumns } = data.qListObjectDef.layouting || {};
             const { auto } = maxVisibleColumns || {};
             return dataLayout === 'grid' && layoutOrder === 'row' && !auto;
           },
         },
-      }
+      },
     },
   },
 };

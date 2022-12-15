@@ -41,15 +41,12 @@ const data = {
       translation: 'Common.Field',
       defaultValue: '',
       expressionType: 'dimension',
-      options: (action, hyperCubeHandler, args) =>
-        !args.app
-          ? []
-          : args.app.getFieldList().then((fields) =>
-              fields.map((field) => ({
-                label: field.qName,
-                value: field.qName,
-              }))
-            ),
+      options: (action: unknown, hyperCubeHandler: unknown, args: { app?: { getFieldList: () => Promise<[{qName: string}]> } }) => (!args.app
+        ? []
+        : args.app.getFieldList().then((fields) => fields.map((field) => ({
+          label: field.qName,
+          value: field.qName,
+        })))),
     },
     label: {
       type: 'string',
@@ -57,82 +54,82 @@ const data = {
       expressionType: 'StringExpr',
       ref: 'qListObjectDef.qDef.qFieldLabels.0',
       translation: 'Common.Label',
-      show: function (data) {
-        return data.qListObjectDef.qDef.qFieldDefs.length && !data.qListObjectDef.qLibraryId;
+      show(itemData: EngineAPI.IGenericListProperties) {
+        return itemData?.qListObjectDef?.qDef.qFieldDefs?.length && !itemData.qListObjectDef.qLibraryId;
       },
     },
-    ...textAlignItems
+    ...textAlignItems,
   },
 };
 
-const data2 = {
-  classification: {
-    section: 'data',
-    tags: ['simple'],
-  },
-  type: 'array',
-  component: 'filterpane-data',
-  translation: 'Common.Data',
-  allowAdd: true,
-  allowRemove: true,
-  allowMove: true,
-  addTranslation: 'properties.dimensions.add',
-  grouped: false,
-  ref: 'qListObjectDef',
-  items: {
-    libraryId: {
-      type: 'string',
-      component: 'library-item',
-      libraryItemType: 'dimension',
-      ref: 'qLibraryId',
-      translation: 'Common.Dimension',
-      show(itemData) {
-        return itemData.qListObjectDef.qLibraryId;
-      },
-    },
-    field: {
-      type: 'string',
-      component: 'expression',
-      expressionType: 'dimension',
-      ref: 'qDef.qFieldDefs.0',
-      translation: 'Common.Field',
-      show(itemData) {
-        return !itemData.qListObjectDef.qLibraryId;
-      },
-      change(data) {
-        const def = data.qListObjectDef.qDef;
-        if (!def.qFieldLabels) {
-          def.qFieldLabels = [];
-        }
-        def.qFieldLabels[0] = def.qFieldDefs[0];
-      },
-    },
-    //			label: {
-    //				type: "string",
-    //				ref: "qDef.qFieldLabels.0",
-    //				translation: "Common.Label",
-    //				show: function ( itemData ) {
-    //					return !itemData.qLibraryId;
-    //				}
-    //			},
-    title: {
-      ref: 'title',
-      type: 'string',
-      expression: 'optional',
-      translation: 'Common.Title',
-    },
-    autoSort: {
-      ref: 'qListObjectDef.qDef.autoSort',
-      type: 'boolean',
-      defaultValue: true,
-      show: false,
-    },
-    // cId: {
-    //   ref: 'qListObjectDef.qDef.cId',
-    //   type: 'string',
-    //   show: false,
-    // },
-  },
-};
+// const data2 = {
+//   classification: {
+//     section: 'data',
+//     tags: ['simple'],
+//   },
+//   type: 'array',
+//   component: 'filterpane-data',
+//   translation: 'Common.Data',
+//   allowAdd: true,
+//   allowRemove: true,
+//   allowMove: true,
+//   addTranslation: 'properties.dimensions.add',
+//   grouped: false,
+//   ref: 'qListObjectDef',
+//   items: {
+//     libraryId: {
+//       type: 'string',
+//       component: 'library-item',
+//       libraryItemType: 'dimension',
+//       ref: 'qLibraryId',
+//       translation: 'Common.Dimension',
+//       show(itemData: EngineAPI.IGenericListProperties) {
+//         return itemData.qListObjectDef.qLibraryId;
+//       },
+//     },
+//     field: {
+//       type: 'string',
+//       component: 'expression',
+//       expressionType: 'dimension',
+//       ref: 'qDef.qFieldDefs.0',
+//       translation: 'Common.Field',
+//       show(itemData: EngineAPI.IGenericListProperties) {
+//         return !itemData.qListObjectDef.qLibraryId;
+//       },
+//       change(itemData: EngineAPI.IGenericListProperties) {
+//         const def = itemData.qListObjectDef.qDef;
+//         if (!def.qFieldLabels) {
+//           def.qFieldLabels = [];
+//         }
+//         [def.qFieldLabels[0]] = def.qFieldDefs ?? [];
+//       },
+//     },
+//     // label: {
+//     //  type: "string",
+//     //  ref: "qDef.qFieldLabels.0",
+//     //  translation: "Common.Label",
+//     //  show: function ( itemData ) {
+//     //   return !itemData.qLibraryId;
+//     //  }
+//     // },
+//     title: {
+//       ref: 'title',
+//       type: 'string',
+//       expression: 'optional',
+//       translation: 'Common.Title',
+//     },
+//     autoSort: {
+//       ref: 'qListObjectDef.qDef.autoSort',
+//       type: 'boolean',
+//       defaultValue: true,
+//       show: false,
+//     },
+//     // cId: {
+//     //   ref: 'qListObjectDef.qDef.cId',
+//     //   type: 'string',
+//     //   show: false,
+//     // },
+//   },
+// };
 
 export default data;
