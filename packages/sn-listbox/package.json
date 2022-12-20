@@ -28,7 +28,7 @@
     "build:dev": "node ./scripts/build.js --ext --core core --mode development",
     "build:watch": "node ./scripts/build.js --ext --core core --mode development -w",
     "lint": "eslint src",
-    "sense": "nebula sense --ext src/ext.js --meta src/meta.json",
+    "sense": "nebula sense --ext src/ext.ts --meta src/meta.json",
     "test": "echo No tests found..."
   },
   "devDependencies": {
