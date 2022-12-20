@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { IGenericListPropertiesMissing } from '../../../hooks/types';
 import { IEnv } from '../../../types/types';
 import frequencies from '../constants';
@@ -48,14 +49,6 @@ export default function data(env: IEnv) {
           [def.qFieldLabels[0]] = def.qFieldDefs ?? [];
         },
       },
-      // label: {
-      //  type: "string",
-      //  ref: "qDef.qFieldLabels.0",
-      //  translation: "Common.Label",
-      //  show: function ( itemData ) {
-      //   return !itemData.qLibraryId;
-      //  }
-      // },
       title: {
         ref: 'title',
         type: 'string',
@@ -64,16 +57,44 @@ export default function data(env: IEnv) {
       },
       frequencyCountMode: {
         ref: 'qListObjectDef.qFrequencyMode',
+        convertFunctions: {
+          get(
+            getter: () => EngineAPI.FrequencyModeType,
+            definition: unknown,
+            args: unknown,
+            itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing,
+          ) {
+            if (itemData.qListObjectDef.frequencyEnabled) {
+              return getter();
+            }
+            return frequencies.FREQUENCY_NONE;
+          },
+          set(
+            value: EngineAPI.FrequencyModeType,
+            setter: (type: string, newValue: EngineAPI.FrequencyModeType) => void,
+            definition: unknown,
+            args: unknown,
+            itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing,
+          ) {
+            if (value !== frequencies.FREQUENCY_NONE) {
+              setter('string', value);
+              itemData.qListObjectDef.frequencyEnabled = true;
+            } else if (itemData.histogram) {
+              itemData.qListObjectDef.frequencyEnabled = false;
+              setter('string', frequencies.FREQUENCY_VALUE);
+            } else {
+              itemData.qListObjectDef.frequencyEnabled = false;
+              setter('string', frequencies.FREQUENCY_NONE);
+            }
+          },
+        },
         type: 'string',
         component: 'dropdown',
+        defaultValue: frequencies.FREQUENCY_NONE,
         show() {
           return isEnabled('LIST_BOX_FREQUENCY_COUNT');
         },
         translation: 'properties.frequencyCountMode',
-        change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
-          // eslint-disable-next-line no-param-reassign
-          props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
-        },
         options: [
           {
             value: frequencies.FREQUENCY_NONE,
@@ -106,6 +127,25 @@ export default function data(env: IEnv) {
         component: 'checkbox',
         translation: 'properties.filterpane.dense',
         defaultValue: false,
+      },
+      checkboxes: {
+        ref: 'checkboxes',
+        component: 'checkbox',
+        translation: 'properties.filterpane.checkboxes',
+        defaultValue: false,
+      },
+      histogram: {
+        ref: 'histogram',
+        component: 'checkbox',
+        translation: 'properties.filterpane.histogram',
+        defaultValue: false,
+        change(itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+          if (itemData.histogram && itemData.qListObjectDef.qFrequencyMode === frequencies.FREQUENCY_NONE) {
+            itemData.qListObjectDef.qFrequencyMode = frequencies.FREQUENCY_VALUE;
+          }
+          const [qDef] = itemData.qListObjectDef.qDef.qFieldDefs ?? [];
+          itemData.frequencyMax = itemData.histogram ? { qValueExpression: `Max(AGGR(Count([${qDef}]), [${qDef}]))` } : null;
+        },
       },
     },
   };
