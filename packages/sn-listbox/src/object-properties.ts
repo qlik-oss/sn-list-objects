@@ -1,7 +1,7 @@
 const properties = {
   qListObjectDef: {
     qShowAlternatives: true,
-    frequencyEnabled: false, // TODO: look at this in listbox in nebula?
+    frequencyEnabled: false,
     qFrequencyMode: 'N',
     // qInitialDataFetch: [],
     qDef: {

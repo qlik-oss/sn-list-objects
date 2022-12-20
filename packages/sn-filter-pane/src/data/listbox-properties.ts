@@ -1,5 +1,7 @@
 const defaultListboxProps = {
   qListObjectDef: {
+    frequencyEnabled: false,
+    qFrequencyMode: 'P',
     qDef: {
       qSortCriterias: [
         {
@@ -20,6 +22,8 @@ const defaultListboxProps = {
       },
     ],
   },
+  checkboxes: true,
+  histogram: true, // note that histogram will only show if qFrequencyMode != 'N'
   showTitles: true,
   // title: 'Dim1',
   subtitle: '',
