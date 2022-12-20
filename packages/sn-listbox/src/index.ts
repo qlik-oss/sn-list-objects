@@ -10,9 +10,6 @@ const hasDimension = (layout: any) => !!layout?.qListObject.qDimensionInfo.qGrou
 const listboxOptions = {
   search: false,
   toolbar: false,
-  histogram: false,
-  checkboxes: false,
-  dense: false,
   direction: 'ltr',
 };
 
