@@ -1,7 +1,7 @@
 const defaultListboxProps = {
   qListObjectDef: {
     frequencyEnabled: false,
-    qFrequencyMode: 'P',
+    qFrequencyMode: 'N',
     qDef: {
       qSortCriterias: [
         {
@@ -22,9 +22,22 @@ const defaultListboxProps = {
       },
     ],
   },
-  checkboxes: true,
-  histogram: true, // note that histogram will only show if qFrequencyMode != 'N'
-  showTitles: true,
+  layoutOptions: {
+    dense: false,
+    dataLayout: 'singleColumn',
+    layoutOrder: 'row',
+    maxVisibleRows: {
+      auto: true,
+      maxRows: 3,
+    },
+    maxVisibleColumns: {
+      auto: true,
+      maxColumns: 3,
+    },
+  },
+  checkboxes: false,
+  histogram: false, // note that histogram will not show as long as qFrequencyMode == 'N'
+  showTitles: false,
   // title: 'Dim1',
   subtitle: '',
   footnote: '',

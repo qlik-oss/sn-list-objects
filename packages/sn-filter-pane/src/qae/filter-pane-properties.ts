@@ -1,8 +1,23 @@
 const properties = {
-  showTitles: true,
+  showTitles: false,
   title: '',
   subtitle: '',
   footnote: '',
+  histogram: false,
+  checkboxes: false,
+  layoutOptions: {
+    dense: false,
+    dataLayout: 'singleColumn',
+    layoutOrder: 'row',
+    maxVisibleRows: {
+      auto: true,
+      maxRows: 3,
+    },
+    maxVisibleColumns: {
+      auto: true,
+      maxColumns: 3,
+    },
+  },
   qChildListDef: {
     qDef: {
       qListObjectDef: {
@@ -14,7 +29,7 @@ const properties = {
           qFieldDefs: [],
           textAlign: {
             auto: true,
-            align: 'left'
+            align: 'left',
           },
           qSortCriterias: [],
           qChildListDef: {

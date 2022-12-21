@@ -10,17 +10,17 @@ const properties = {
     },
   },
   checkboxes: false,
-  histogram: false, // note that histogram will only show if qFrequencyMode != 'N'
+  histogram: false, // note that histogram will not show as long as qFrequencyMode == 'N'
   layoutOptions: {
     dense: false,
-    dataLayout: 'grid',
-    layoutOrder: 'column',
+    dataLayout: 'singleColumn',
+    layoutOrder: 'row',
     maxVisibleRows: {
       auto: true,
       maxRows: 3,
     },
     maxVisibleColumns: {
-      auto: false,
+      auto: true,
       maxColumns: 3,
     },
   },

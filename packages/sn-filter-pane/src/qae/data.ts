@@ -27,7 +27,6 @@ export default function getData(env: IEnv) {
               title: dimension.qDef?.title || dimension.qDef?.qFieldLabels?.[0] || dimension.qDef?.qFieldDefs?.[0],
               qListObjectDef: {
                 qDef: dimension.qDef,
-                // cId: `listbox-${uid()}`, // <-- This will be generated automatically in lo-handler in Nebula.js
               },
             });
 
