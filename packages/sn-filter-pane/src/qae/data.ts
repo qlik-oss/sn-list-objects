@@ -23,6 +23,9 @@ export default function getData(env: IEnv) {
           add(dimension: EngineAPI.INxDimension & INxDimensionMissing, data: EngineAPI.IGenericObjectProperties /* , handler */) {
             const { model: filterPaneModel } = store.getState();
 
+            // Create a Listbox child, using these properties (overriding each other in this order):
+            //  - default listbox properties
+            //  - dimension properties
             const listboxProps = extend(true, {}, defaultListboxProps, dimension, {
               title: dimension.qDef?.title || dimension.qDef?.qFieldLabels?.[0] || dimension.qDef?.qFieldDefs?.[0],
               qListObjectDef: {
