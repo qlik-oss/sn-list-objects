@@ -1,6 +1,11 @@
 const defaultListboxProps = {
   qListObjectDef: {
+    qShowAlternatives: true,
+    frequencyEnabled: false,
+    qFrequencyMode: 'N',
     qDef: {
+      autoSort: true,
+      textAlign: { auto: true, align: 'left' },
       qSortCriterias: [
         {
           qSortByState: 1,
@@ -10,7 +15,6 @@ const defaultListboxProps = {
         },
       ],
     },
-    qShowAlternatives: true,
     qInitialDataFetch: [
       {
         qTop: 0,
@@ -20,8 +24,23 @@ const defaultListboxProps = {
       },
     ],
   },
-  showTitles: true,
-  // title: 'Dim1',
+  checkboxes: false,
+  histogram: false, // note that histogram will not show as long as qFrequencyMode == 'N'
+  layoutOptions: {
+    dense: false,
+    dataLayout: 'singleColumn',
+    layoutOrder: 'row',
+    maxVisibleRows: {
+      auto: true,
+      maxRows: 3,
+    },
+    maxVisibleColumns: {
+      auto: true,
+      maxColumns: 3,
+    },
+  },
+  title: '',
+  showTitles: false,
   subtitle: '',
   footnote: '',
   disableNavMenu: false,

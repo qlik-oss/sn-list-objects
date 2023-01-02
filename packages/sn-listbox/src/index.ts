@@ -1,5 +1,5 @@
 import {
-  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust,
+  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust, useConstraints,
 } from '@nebula.js/stardust';
 import properties from './object-properties';
 import data from './data';
@@ -10,9 +10,6 @@ const hasDimension = (layout: any) => !!layout?.qListObject.qDimensionInfo.qGrou
 const listboxOptions = {
   search: false,
   toolbar: false,
-  histogram: false,
-  checkboxes: false,
-  dense: false,
   direction: 'ltr',
 };
 
@@ -28,6 +25,7 @@ export default function supernova() {
     component() {
       const app = useApp();
       const model = useModel();
+      const constraints = useConstraints();
       const layout = useStaleLayout();
       const element = useElement();
       const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance | undefined>(undefined);
@@ -48,13 +46,21 @@ export default function supernova() {
           return undefined;
         }
 
-        listboxInstance.mount(element, { ...options, ...listboxOptions });
+        const allowSelect = !constraints?.select && !constraints?.active;
+
+        listboxInstance.mount(element, {
+          ...options,
+          ...listboxOptions,
+          __DO_NOT_USE__: {
+            selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+          },
+        });
         // TODO: signal when rendering is done?
 
         return () => {
           listboxInstance.unmount();
         };
-      }, [listboxInstance, options]);
+      }, [listboxInstance, options, constraints]);
     },
   };
 }

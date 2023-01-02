@@ -40,7 +40,7 @@ const settings = {
         dataLayout: {
           type: 'string',
           component: 'buttongroup',
-          ref: 'qListObjectDef.layouting.dataLayout',
+          ref: 'layoutOptions.dataLayout',
           translation: 'Show data in',
           defaultValue: 'singleColumn',
           options: [
@@ -59,7 +59,7 @@ const settings = {
         layoutOrder: {
           type: 'string',
           component: 'buttongroup',
-          ref: 'qListObjectDef.layouting.layoutOrder',
+          ref: 'layoutOptions.layoutOrder',
           translation: 'Order by',
           defaultValue: 'column',
           options: [
@@ -74,15 +74,15 @@ const settings = {
               tooltipTranslation: 'Column',
             },
           ],
-          show: function (data) {
-            const { dataLayout } = data.qListObjectDef.layouting || {};
+          show(data) {
+            const { dataLayout } = data.layoutOptions || {};
             return dataLayout === 'grid';
           },
         },
         maxVisibleRowsAuto: {
           type: 'boolean',
           component: 'switch',
-          ref: 'qListObjectDef.layouting.maxVisibleRows.auto',
+          ref: 'layoutOptions.maxVisibleRows.auto',
           translation: 'Max visible rows',
           defaultValue: true,
           options: [
@@ -97,17 +97,17 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show: function (data) {
-            const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
+          show(data) {
+            const { dataLayout, layoutOrder } = data.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'column';
           },
         },
         maxVisibleRows: {
           type: 'number',
-          ref: 'qListObjectDef.layouting.maxVisibleRows.maxRows',
+          ref: 'layoutOptions.maxVisibleRows.maxRows',
           defaultValue: 3,
-          show: function (data) {
-            const { dataLayout, layoutOrder, maxVisibleRows } = data.qListObjectDef.layouting || {};
+          show(data) {
+            const { dataLayout, layoutOrder, maxVisibleRows } = data.layoutOptions || {};
             const { auto } = maxVisibleRows || {};
             return dataLayout === 'grid' && layoutOrder === 'column' && !auto;
           },
@@ -115,7 +115,7 @@ const settings = {
         maxVisibleColumnsAuto: {
           type: 'boolean',
           component: 'switch',
-          ref: 'qListObjectDef.layouting.maxVisibleColumns.auto',
+          ref: 'layoutOptions.maxVisibleColumns.auto',
           translation: 'Max visible columns',
           defaultValue: true,
           options: [
@@ -130,22 +130,22 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show: function (data) {
-            const { dataLayout, layoutOrder } = data.qListObjectDef.layouting || {};
+          show(data) {
+            const { dataLayout, layoutOrder } = data.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'row';
           },
         },
         maxVisibleColumns: {
           type: 'number',
-          ref: 'qListObjectDef.layouting.maxVisibleColumns.maxColumns',
+          ref: 'layoutOptions.maxVisibleColumns.maxColumns',
           defaultValue: 3,
-          show: function (data) {
-            const { dataLayout, layoutOrder, maxVisibleColumns } = data.qListObjectDef.layouting || {};
+          show(data) {
+            const { dataLayout, layoutOrder, maxVisibleColumns } = data.layoutOptions || {};
             const { auto } = maxVisibleColumns || {};
             return dataLayout === 'grid' && layoutOrder === 'row' && !auto;
           },
         },
-      }
+      },
     },
   },
 };

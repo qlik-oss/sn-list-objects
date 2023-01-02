@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import properties from './object-properties';
-import getData from './data';
+import properties from './qae/filter-pane-properties';
+import getData from './qae/data';
 
 import useSetup from './hooks/use-setup';
 import useRender from './hooks/use-render';
