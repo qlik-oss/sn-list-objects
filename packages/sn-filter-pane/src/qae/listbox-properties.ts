@@ -27,7 +27,7 @@ const defaultListboxProps = {
   checkboxes: false,
   histogram: false, // note that histogram will not show as long as qFrequencyMode == 'N'
   layoutOptions: {
-    dense: true,
+    dense: false,
     dataLayout: 'singleColumn',
     layoutOrder: 'row',
     maxVisibleRows: {

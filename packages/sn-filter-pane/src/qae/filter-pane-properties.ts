@@ -6,6 +6,7 @@ const properties = {
   qChildListDef: {
     qDef: {
       // Listbox (default) properties (listbox-properties.ts) go here… See "add"-function in data.ts
+      qListObjectDef: {},
     },
   },
 };
