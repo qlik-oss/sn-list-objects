@@ -1,5 +1,6 @@
 import pp from './property-panel';
 import { IEnv } from '../types/types';
+import { createImportProperties, exportProperties } from './conversion';
 
 export default function ext(env: IEnv) {
   return {
@@ -12,5 +13,7 @@ export default function ext(env: IEnv) {
       sharing: false,
       viewData: true,
     },
+    importProperties: createImportProperties(env),
+    exportProperties,
   };
 }
