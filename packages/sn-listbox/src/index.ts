@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
-  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust,
+  useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust, useConstraints,
 } from '@nebula.js/stardust';
 import properties from './object-properties';
 import data from './data';
@@ -28,6 +28,7 @@ export default function supernova() {
       const app = useApp();
       const model = useModel();
       const layout = useStaleLayout() as unknown as IListLayout;
+      const constraints = useConstraints();
       const element = useElement();
       const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance | undefined>(undefined);
       const options = useOptions();
@@ -47,13 +48,21 @@ export default function supernova() {
           return undefined;
         }
 
-        listboxInstance.mount(element, { ...options, ...listboxOptions });
+        const allowSelect = !constraints?.select && !constraints?.active;
+
+        listboxInstance.mount(element, {
+          ...options,
+          ...listboxOptions,
+          __DO_NOT_USE__: {
+            selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+          },
+        });
         // TODO: signal when rendering is done?
 
         return () => {
           listboxInstance.unmount();
         };
-      }, [listboxInstance, options]);
+      }, [listboxInstance, options, constraints]);
     },
   };
 }
