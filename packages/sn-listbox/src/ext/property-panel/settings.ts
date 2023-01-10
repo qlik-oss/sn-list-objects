@@ -1,4 +1,5 @@
-import { frequencies } from './constants';
+import { IGenericListPropertiesMissing } from '../../../../../types/global';
+import frequencies from './constants';
 
 const settings = {
   uses: 'settings',
@@ -19,7 +20,8 @@ const settings = {
           type: 'string',
           component: 'dropdown',
           translation: 'properties.frequencyCountMode',
-          change(props) {
+          change(props: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+            // eslint-disable-next-line no-param-reassign
             props.qListObjectDef.frequencyEnabled = props.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_NONE;
           },
           options: [
@@ -74,7 +76,7 @@ const settings = {
               tooltipTranslation: 'Column',
             },
           ],
-          show(data) {
+          show(data: EngineAPI.IGenericListProperties) {
             const { dataLayout } = data.layoutOptions || {};
             return dataLayout === 'grid';
           },
@@ -97,7 +99,7 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show(data) {
+          show(data: EngineAPI.IGenericListProperties) {
             const { dataLayout, layoutOrder } = data.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'column';
           },
@@ -106,7 +108,7 @@ const settings = {
           type: 'number',
           ref: 'layoutOptions.maxVisibleRows.maxRows',
           defaultValue: 3,
-          show(data) {
+          show(data: EngineAPI.IGenericListProperties) {
             const { dataLayout, layoutOrder, maxVisibleRows } = data.layoutOptions || {};
             const { auto } = maxVisibleRows || {};
             return dataLayout === 'grid' && layoutOrder === 'column' && !auto;
@@ -130,7 +132,7 @@ const settings = {
               tooltipTranslation: 'Custom',
             },
           ],
-          show(data) {
+          show(data: EngineAPI.IGenericListProperties) {
             const { dataLayout, layoutOrder } = data.layoutOptions || {};
             return dataLayout === 'grid' && layoutOrder === 'row';
           },
@@ -139,7 +141,7 @@ const settings = {
           type: 'number',
           ref: 'layoutOptions.maxVisibleColumns.maxColumns',
           defaultValue: 3,
-          show(data) {
+          show(data: EngineAPI.IGenericListProperties) {
             const { dataLayout, layoutOrder, maxVisibleColumns } = data.layoutOptions || {};
             const { auto } = maxVisibleColumns || {};
             return dataLayout === 'grid' && layoutOrder === 'row' && !auto;
