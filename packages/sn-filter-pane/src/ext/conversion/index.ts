@@ -21,7 +21,8 @@ export function createImportProperties(exportFormat: ExportFormat, initialProper
 }
 
 export function exportProperties(expFormat: ExportFormat) {
-  expFormat.data = [
+  const out = { ...expFormat };
+  out.data = [
     {
       dimensions: [
         {
@@ -34,11 +35,11 @@ export function exportProperties(expFormat: ExportFormat) {
       interColumnSortOrder: [],
     },
   ];
-  expFormat.properties = {
+  out.properties = {
     qInfo: {
       qType: 'filterpane',
     },
   };
 
-  return expFormat;
+  return out;
 }
