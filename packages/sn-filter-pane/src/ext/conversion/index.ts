@@ -1,26 +1,44 @@
-import conversion from 'qlik-object-conversion';
-import getData from '../../qae/data';
-import { IEnv } from '../../types/types';
+import { ExportFormat, PropTree } from './types';
 
-interface ExportFormat {
-    data: unknown[];
-    properties: EngineAPI.IGenericHyperCubeProperties;
-  }
-
-  interface PropTree {
-    qChildren: unknown[];
-  }
-
-export function createImportProperties(env: IEnv) {
+export function createImportProperties(exportFormat: ExportFormat, initialProperties: PropTree) {
   // TODO: add properties for unquarantine
+
+  const propTree: PropTree = {
+    qChildren: [
+      {
+        qProperty: {
+          qInfo: { qType: 'listbox' },
+        },
+      },
+    ],
+    qProperty: {
+      qInfo: {
+        qType: 'filterpane',
+      },
+    },
+  };
+  return propTree;
 }
 
-export function exportProperties(propertyTree: PropTree): ExportFormat {
-  const expFormat = conversion.hypercube.exportProperties({
-    propertyTree,
-  });
-
-  conversion.conditionalShow.quarantine(expFormat.properties);
+export function exportProperties(expFormat: ExportFormat) {
+  expFormat.data = [
+    {
+      dimensions: [
+        {
+          qDef: {},
+        },
+      ],
+      measures: [],
+      excludedDimensions: [],
+      excludedMeasures: [],
+      interColumnSortOrder: [],
+    },
+  ];
+  expFormat.properties = {
+    qInfo: {
+      qType: 'filterpane',
+    },
+  };
 
   return expFormat;
 }
