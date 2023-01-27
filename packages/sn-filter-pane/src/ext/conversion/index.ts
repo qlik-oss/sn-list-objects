@@ -12,7 +12,6 @@ export function createImportProperties(exportedFmt: ExportFormat, initialPropert
   const dataGroup = exportedFmt.data[0] as EngineAPI.IGenericHyperCubeProperties;
   newProperties.qLayoutExclude = { disabled: {} };
   let i;
-  // for (key in exportedFmt.properties)
   Object.keys(exportedFmt.properties).forEach((key) => {
     if (key === 'qLayoutExclude') {
       if (exportedFmt.properties[key].quarantine) {
