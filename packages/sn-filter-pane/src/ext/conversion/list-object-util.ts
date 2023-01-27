@@ -2,6 +2,7 @@ import extend from 'extend';
 
 export default {
   createDefaultListBox(dimensionDef, title) {
+    let newTitle = title;
     const listboxDef = extend(true, {}, dimensionDef);
     let i;
     listboxDef.qShowAlternatives = true;
@@ -9,21 +10,21 @@ export default {
     for (i = 0; i < listboxDef.qDef.qSortCriterias.length; ++i) {
       listboxDef.qDef.qSortCriterias[i].qSortByState = 1;
     }
-    if (!title && dimensionDef.qDef.qLabelExpression) {
-      title = {
+    if (!newTitle && dimensionDef.qDef.qLabelExpression) {
+      newTitle = {
         qStringExpression: {
           qExpr: dimensionDef.qDef.qLabelExpression,
         },
       };
     } else if (
-      !title
+      !newTitle
       && (!dimensionDef.qDef.qFieldLabels
         || !dimensionDef.qDef.qFieldLabels.length
         || dimensionDef.qDef.qFieldLabels[0] === '')
     ) {
-      title = dimensionDef.qDef.qFieldDefs[0];
+      [newTitle] = dimensionDef.qDef.qFieldDefs;
     } else {
-      title = title
+      newTitle = newTitle
         || (dimensionDef.qDef.qFieldLabels && dimensionDef.qDef.qFieldLabels.length
           ? dimensionDef.qDef.qFieldLabels[0]
           : '');
@@ -34,7 +35,7 @@ export default {
         qType: 'listbox',
       },
       qListObjectDef: listboxDef,
-      title,
+      newTitle,
       visualization: 'listbox',
     };
   },

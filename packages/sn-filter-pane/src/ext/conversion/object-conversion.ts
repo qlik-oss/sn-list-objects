@@ -1,12 +1,13 @@
 import { ExportFormat } from './types';
 
 function importCommonProperties(newProperties: EngineAPI.IGenericHyperCubeProperties, exportedFmt: ExportFormat, initialProperties: EngineAPI.IGenericHyperCubeProperties) {
+  const newProps = newProperties;
   if (exportedFmt.properties.qInfo.qType === 'masterobject') {
-    newProperties.qInfo.qType = 'masterobject';
+    newProps.qInfo.qType = 'masterobject';
   } else {
-    newProperties.qInfo.qType = initialProperties.qInfo.qType;
+    newProps.qInfo.qType = initialProperties.qInfo.qType;
   }
-  newProperties.visualization = initialProperties.visualization;
+  newProps.visualization = initialProperties.visualization;
 }
 
 /**
