@@ -111,26 +111,96 @@ export function createImportProperties(exportedFmt: ExportFormat, initialPropert
   return newPropertyTree;
 }
 
-export function exportProperties(expFormat: ExportFormat) {
-  const out = { ...expFormat };
-  out.data = [
-    {
-      dimensions: [
-        {
-          qDef: {},
-        },
-      ],
-      measures: [],
-      excludedDimensions: [],
-      excludedMeasures: [],
-      interColumnSortOrder: [],
-    },
-  ];
-  out.properties = {
-    qInfo: {
-      qType: 'filterpane',
-    },
-  };
+function createExportFormatObj() {
+  const expFmt: ExportFormat = { data: [], properties: {} as EngineAPI.IGenericHyperCubeProperties };
+  expFmt.data.push({
+    dimensions: [],
+    measures: [],
+    excludedDimensions: [],
+    excludedMeasures: [],
+    interColumnSortOrder: [],
+  });
 
-  return out;
+  return expFmt;
+}
+
+export function exportProperties(propertyTree: PropTree) {
+  const exportFmt = createExportFormatObj();
+  const properties: EngineAPI.IGenericHyperCubeProperties = propertyTree.qProperty;
+  const dataGroup = exportFmt.data[0] as EngineAPI.IGenericHyperCubeProperties;
+  let childProp;
+  let i;
+  let j;
+  let propName;
+
+  // export dimensions, a filterpane's children are qListObjectDefs
+  if (propertyTree.qChildren) {
+    for (i = 0; i < propertyTree.qChildren.length; ++i) {
+      childProp = propertyTree.qChildren[i].qProperty;
+      dataGroup.dimensions.push({
+        qDef: childProp.qListObjectDef.qDef,
+        qLibraryId: childProp.qListObjectDef.qLibraryId,
+        qOtherTotalSpec: childProp.qListObjectDef.qOtherTotalSpec || {
+          qOtherMode: 'OTHER_OFF',
+          qOtherCounted: {
+            // We need to default to 10 since PP can't handle this
+            qv: '10',
+          },
+        },
+        title: childProp.title,
+      });
+    }
+  }
+  if (properties.qLayoutExclude && properties.qLayoutExclude.qHyperCubeDef) {
+    if (properties.qLayoutExclude.qHyperCubeDef.qDimensions) {
+      for (i = 0; i < properties.qLayoutExclude.qHyperCubeDef.qDimensions.length; ++i) {
+        dataGroup.excludedDimensions.push(properties.qLayoutExclude.qHyperCubeDef.qDimensions[i]);
+      }
+    }
+    if (properties.qLayoutExclude.qHyperCubeDef.qMeasures) {
+      for (i = 0; i < properties.qLayoutExclude.qHyperCubeDef.qMeasures.length; ++i) {
+        dataGroup.excludedMeasures.push(properties.qLayoutExclude.qHyperCubeDef.qMeasures[i]);
+      }
+    }
+    if (properties.qLayoutExclude.qHyperCubeDef.qInterColumnSortOrder) {
+      for (i = 0; i < properties.qLayoutExclude.qHyperCubeDef.qInterColumnSortOrder.length; ++i) {
+        dataGroup.interColumnSortOrder.push(properties.qLayoutExclude.qHyperCubeDef.qInterColumnSortOrder[i]);
+      }
+    }
+  }
+
+  Object.keys(properties).forEach((key) => {
+    if (key !== 'qChildListDef') {
+      // don't export qChildListDef property
+      exportFmt.properties[key] = properties[key];
+    }
+  });
+
+  if (!properties.qLayoutExclude) {
+    properties.qLayoutExclude = {};
+  }
+
+  if (properties.qLayoutExclude.disabled) {
+    Object.keys(properties.qLayoutExclude.disabled).forEach((key) => {
+      propName = key;
+      if (!exportFmt.properties.hasOwnProperty(propName)) {
+        exportFmt.properties[propName] = properties.qLayoutExclude.disabled[key];
+      }
+    });
+    if (properties.qLayoutExclude.disabled.previousShowTitles) {
+      exportFmt.properties.showTitles = true;
+    }
+  }
+
+  delete properties.qLayoutExclude;
+
+  // fix sort by frequency. simply turn it off
+  for (i = 0; i < dataGroup.dimensions.length; ++i) {
+    for (j = 0; j < dataGroup.dimensions[i].qDef.qSortCriterias.length; ++j) {
+      dataGroup.dimensions[0].qDef.qSortCriterias[j].qSortByFrequency = 0;
+      dataGroup.dimensions[0].qDef.qSortCriterias[j].qSortByState = 0;
+    }
+  }
+
+  return exportFmt;
 }
