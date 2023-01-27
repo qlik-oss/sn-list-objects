@@ -40,7 +40,6 @@ export function exportProperties(propertyTree: PropTree) {
   let childProp;
   let i;
   let j;
-  let key;
   let propName;
 
   // export dimensions, a filterpane's children are qListObjectDefs
@@ -79,24 +78,24 @@ export function exportProperties(propertyTree: PropTree) {
     }
   }
 
-  for (key in properties) {
+  Object.keys(properties).forEach((key) => {
     if (key !== 'qChildListDef') {
       // don't export qChildListDef property
       exportFmt.properties[key] = properties[key];
     }
-  }
+  });
 
   if (!properties.qLayoutExclude) {
     properties.qLayoutExclude = {};
   }
 
   if (properties.qLayoutExclude.disabled) {
-    for (key in properties.qLayoutExclude.disabled) {
+    Object.keys(properties.qLayoutExclude.disabled).forEach((key) => {
       propName = key;
       if (!exportFmt.properties.hasOwnProperty(propName)) {
         exportFmt.properties[propName] = properties.qLayoutExclude.disabled[key];
       }
-    }
+    });
     if (properties.qLayoutExclude.disabled.previousShowTitles) {
       exportFmt.properties.showTitles = true;
     }
