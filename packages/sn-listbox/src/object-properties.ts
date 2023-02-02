@@ -25,6 +25,7 @@ const properties = {
     ],
   },
   checkboxes: false,
+  wildCardSearch: true,
   histogram: false, // note that histogram will not show as long as qFrequencyMode == 'N'
   layoutOptions: {
     dense: false,

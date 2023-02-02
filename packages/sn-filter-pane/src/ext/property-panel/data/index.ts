@@ -134,6 +134,12 @@ export default function data(env: IEnv) {
         translation: 'properties.filterpane.checkboxes',
         defaultValue: false,
       },
+      wildCardSearch: {
+        ref: 'wildCardSearch',
+        component: 'checkbox',
+        translation: 'properties.filterpane.wildCardSearch',
+        defaultValue: true,
+      },
       histogram: {
         ref: 'histogram',
         component: 'checkbox',
