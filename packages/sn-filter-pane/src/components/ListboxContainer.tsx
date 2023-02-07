@@ -37,13 +37,15 @@ const ListboxContainer = ({
     }
 
     const allowSelect = !constraints?.select && !constraints?.active;
-
-    listboxInstance.mount(elRef.current, {
+    const listboxOptions: IListBoxOptions = {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       direction: options?.direction,
-    });
+      search: 'toggle',
+    };
+
+    listboxInstance.mount(elRef.current, listboxOptions);
     return () => {
       listboxInstance.unmount();
     };
