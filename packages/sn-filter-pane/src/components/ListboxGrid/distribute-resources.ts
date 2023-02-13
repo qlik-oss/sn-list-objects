@@ -11,7 +11,6 @@ const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 48;
 
-const getSearchBarHeight = (dense: boolean) => (dense ? 27 : 40);
 const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 33);
 
 const sm = () => {
@@ -46,7 +45,7 @@ const getDimensionCardinal = (item: IListboxResource) => item.layout.qListObject
 const getHeightOfExpanded = (
   dimensionCardinal: number,
   dense: boolean,
-) => dimensionCardinal * getExpandedRowHeight(dense) + EXPANDED_HEADER_HEIGHT + getSearchBarHeight(dense);
+) => dimensionCardinal * getExpandedRowHeight(dense) + EXPANDED_HEADER_HEIGHT;
 
 const doesAllFit = (
   itemsPerColumn: number,

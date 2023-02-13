@@ -1,12 +1,12 @@
+import { IGenericListPropertiesMissing } from '../../../../../../types/global';
+
 const textAlignItems = {
   textAlignAuto: {
     ref: 'qListObjectDef.qDef.textAlign.auto',
     type: 'boolean',
     component: 'switch',
     translation: 'Common.Text.TextAlignment',
-    change: (data) => {
-      return data?.qDef?.textAlign?.align || 'left';
-    },
+    change: (data: EngineAPI.IGenericListProperties) => data?.qDef?.textAlign?.align || 'left',
     options: [
       {
         value: true,
@@ -48,7 +48,7 @@ const textAlignItems = {
       },
     ],
     defaultValue: 'left',
-    show(data) {
+    show(data: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
       return !data?.qListObjectDef?.qDef?.textAlign?.auto;
     },
   },

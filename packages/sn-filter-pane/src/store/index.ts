@@ -1,7 +1,7 @@
 import { stardust } from '@nebula.js/stardust';
 import createVanilla from 'zustand/vanilla';
 import create from 'zustand';
-import { IFilterPaneLayout, IListBoxOptions, IListboxResource, } from '../hooks/types';
+import { IFilterPaneLayout, IListBoxOptions, IListboxResource } from '../hooks/types';
 import { ISense } from '../types/types';
 
 export interface IStore {

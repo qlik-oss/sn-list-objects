@@ -8,7 +8,7 @@ export default function useRender() {
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
 
   const {
-    app, fpLayout, options, constraints,
+    app, fpLayout, constraints,
   } = store.getState();
 
   // Create a string representation of the dim identities so that only a
@@ -24,8 +24,6 @@ export default function useRender() {
     });
   }
 
-  const optionsString = JSON.stringify(options.listboxOptions);
-
   useEffect(() => {
     if (!fpLayout || !app || !resourcesReady) {
       return undefined;
@@ -34,5 +32,5 @@ export default function useRender() {
     return (() => {
       teardown(root);
     });
-  }, [constraints, optionsString, listboxIdsString, resourcesReady]);
+  }, [constraints, listboxIdsString, resourcesReady]);
 }

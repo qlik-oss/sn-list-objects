@@ -1,16 +1,10 @@
+import { IListLayout as GlobalIListLayout, IGenericListPropertiesMissing as IGenericListPropertiesMissingGlobal } from '../../../../../types/global';
+
+export type IListLayout = GlobalIListLayout;
+export type IGenericListPropertiesMissing = IGenericListPropertiesMissingGlobal;
+
 export interface IContainerElement extends HTMLDivElement {
   current: HTMLElement
-}
-
-export interface IListLayout extends EngineAPI.IGenericListLayout {
-  title: string;
-  qStateName: string;
-  qInfo: {
-    qId: string;
-  },
-  layoutOptions?: {
-    dense: boolean,
-  }
 }
 
 interface ISessionModel {
@@ -60,22 +54,6 @@ export interface IListboxResource {
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];
-
-// Missing properties in EngineAPI.IGenericListProperties are added in this interface until
-// EngineAPI.IGenericListProperties is updated
-export interface IGenericListPropertiesMissing {
-  qListObjectDef?: {
-    frequencyEnabled: boolean,
-    qDef?: {
-      qSortCriterias: EngineAPI.ISortCriteria[],
-      autoSort: boolean,
-      title: string,
-      textAlign?: {
-        auto?: boolean
-      }
-    }
-  }
-}
 
 // Missing properties in EngineAPI.INxDimensionMissing are added in this interface until
 // EngineAPI.INxDimensionMissing is updated

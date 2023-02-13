@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
-import { IListBoxOptions, IListLayout } from '../hooks/types';
+import { IListLayout } from '../hooks/types';
 import { store } from '../store';
 
 interface ListboxContainerProps {
@@ -37,13 +37,15 @@ const ListboxContainer = ({
     }
 
     const allowSelect = !constraints?.select && !constraints?.active;
-
-    listboxInstance.mount(elRef.current, {
+    const listboxOptions: IListBoxOptions = {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       direction: options?.direction,
-    });
+      search: 'toggle',
+    };
+
+    listboxInstance.mount(elRef.current, listboxOptions);
     return () => {
       listboxInstance.unmount();
     };

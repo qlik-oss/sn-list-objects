@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
   useApp, useModel, useElement, useStaleLayout, useState, useEffect, useOptions, usePromise, useEmbed, stardust, useConstraints,
 } from '@nebula.js/stardust';
 import properties from './object-properties';
 import data from './data';
 import pp from './ext/property-panel';
+import { IListLayout } from '../../../types/global';
 
-const hasDimension = (layout: any) => !!layout?.qListObject.qDimensionInfo.qGroupFieldDefs.length;
+const hasDimension = (layout: IListLayout) => !!layout?.qListObject.qDimensionInfo.qGroupFieldDefs.length;
 
 const listboxOptions = {
   search: false,
   toolbar: false,
-  direction: 'ltr',
+  direction: 'ltr' as stardust.Direction,
 };
 
 export default function supernova() {
@@ -25,8 +27,8 @@ export default function supernova() {
     component() {
       const app = useApp();
       const model = useModel();
+      const layout = useStaleLayout() as unknown as IListLayout;
       const constraints = useConstraints();
-      const layout = useStaleLayout();
       const element = useElement();
       const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance | undefined>(undefined);
       const options = useOptions();
