@@ -55,6 +55,13 @@ export default function data(env: IEnv) {
         expression: 'optional',
         translation: 'Common.Title',
       },
+      showTitle: {
+        ref: 'toolbar',
+        component: 'checkbox',
+        type: 'boolean',
+        translation: 'properties.filterpane.showTitle',
+        defaultValue: true,
+      },
       frequencyCountMode: {
         ref: 'qListObjectDef.qFrequencyMode',
         convertFunctions: {

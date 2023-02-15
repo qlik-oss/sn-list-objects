@@ -6,7 +6,8 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   },
   layoutOptions?: {
     dense: boolean,
-  }
+  },
+  toolbar?: boolean,
 }
 
 // Missing properties in EngineAPI.IGenericListProperties are added in this interface until

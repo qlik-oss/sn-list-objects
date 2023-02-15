@@ -11,7 +11,7 @@ const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 48;
 
-const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 33);
+const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 29);
 
 const sm = () => {
   const { isSmallDevice } = store.getState();
@@ -45,7 +45,8 @@ const getDimensionCardinal = (item: IListboxResource) => item.layout.qListObject
 const getHeightOfExpanded = (
   dimensionCardinal: number,
   dense: boolean,
-) => dimensionCardinal * getExpandedRowHeight(dense) + EXPANDED_HEADER_HEIGHT;
+  hiddenHeader: boolean,
+) => dimensionCardinal * getExpandedRowHeight(dense) + (hiddenHeader ? 0 : EXPANDED_HEADER_HEIGHT);
 
 const doesAllFit = (
   itemsPerColumn: number,
@@ -140,8 +141,8 @@ export const mergeColumnsAndResources = (columns: IColumn[], resources: IListbox
 };
 
 const setFullyExpanded = (item: IListboxResource) => {
-  if (parseFloat(item.height) >= getHeightOfExpanded(item.cardinal, item.dense)) {
-    item.height = `${getHeightOfExpanded(item.cardinal, item.dense)}px`;
+  if (parseFloat(item.height) >= getHeightOfExpanded(item.cardinal, item.dense, item.hiddenHeader)) {
+    item.height = `${getHeightOfExpanded(item.cardinal, item.dense, item.hiddenHeader)}px`;
     item.fullyExpanded = true;
   }
 };
@@ -155,7 +156,7 @@ const expandOne = (sortedItems: IListboxResource[] | undefined, leftOverHeight: 
   for (i = 0; i < sortedItems.length; i++) {
     item = sortedItems[i];
     if (item.cardinal && !item.expand) {
-      expandedHeight = getHeightOfExpanded(item.cardinal, item.dense);
+      expandedHeight = getHeightOfExpanded(item.cardinal, item.dense, item.hiddenHeader);
       if (leftOverHeight > expandedHeight) {
         item.expand = true;
         item.height = `${expandedHeight}px`;
@@ -197,7 +198,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
         // Calculate total expanded height again as items might have been expanded before calculateExpandPriority
         totalExpandedHeight = 0;
         expandedItems?.forEach((item) => {
-          totalExpandedHeight += getHeightOfExpanded(item.cardinal, item.dense) + ITEM_SPACING;
+          totalExpandedHeight += getHeightOfExpanded(item.cardinal, item.dense, item.hiddenHeader) + ITEM_SPACING;
         });
         leftOverHeight = size.height - getHeightOf((column?.itemCount ?? 0) - (expandedItems?.length ?? 0)) - totalExpandedHeight;
       }
@@ -234,5 +235,6 @@ export const setDefaultValues = (resources: IListboxResource[]) => resources.map
   resource.height = 'calc(100% - 2px)';
   resource.fullyExpanded = false;
   resource.dense = resource.layout.layoutOptions?.dense ?? false;
+  resource.hiddenHeader = resource.layout.toolbar !== undefined ? !resource.layout.toolbar : false;
   return resource;
 });
