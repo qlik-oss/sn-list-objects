@@ -1,8 +1,8 @@
 import sorting from './sorting';
 // import simpleSorting from "./simple-sorting";
 import settings from './settings';
-import getData from './data';
 import { IEnv } from '../../types/types';
+import getData from './data';
 
 export default function pp(env: IEnv) {
   const out = {
