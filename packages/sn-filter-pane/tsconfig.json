@@ -13,6 +13,7 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true
   },
+  "files": ["../../types/fix-engineapi.d.ts"],
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
