@@ -15,6 +15,7 @@ export interface IStore {
   sense?: ISense;
   embed?: stardust.Embed;
   stardustTheme?: stardust.Theme;
+  selections?: stardust.ObjectSelections;
 }
 
 export const store = createVanilla<IStore>(() => ({

@@ -7,10 +7,12 @@ import { store } from '../store';
 interface ListboxContainerProps {
   layout: IListLayout;
   borderBottom?: boolean;
+  disableSearch?: boolean;
+  handleActive?: (id: string, active: boolean) => void;
 }
 
 const ListboxContainer = ({
-  layout, borderBottom,
+  layout, borderBottom, disableSearch = false, handleActive,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -27,7 +29,7 @@ const ListboxContainer = ({
       return;
     }
     embed.field(layout.qInfo).then((inst) => {
-      setListboxInstance(inst);
+      setListboxInstance(inst as stardust.FieldInstance);
     });
   }, []);
 
@@ -37,12 +39,12 @@ const ListboxContainer = ({
     }
 
     const allowSelect = !constraints?.select && !constraints?.active;
-    const listboxOptions: IListBoxOptions = {
+    const listboxOptions = {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       direction: options?.direction,
-      search: 'toggle',
+      search: disableSearch ? false : 'inSelection' as stardust.SearchMode,
     };
 
     listboxInstance.mount(elRef.current, listboxOptions);
@@ -50,6 +52,21 @@ const ListboxContainer = ({
       listboxInstance.unmount();
     };
   }, [elRef.current, listboxInstance, constraints, options?.direction]);
+
+  useEffect(() => {
+    if (!listboxInstance) {
+      return undefined;
+    }
+    const handleActivate = () => handleActive?.(layout.qInfo.qId, true);
+    const handleDeactivate = () => handleActive?.(layout.qInfo.qId, false);
+    listboxInstance.on?.('selectionActivated', handleActivate);
+    listboxInstance.on?.('selectionDeactivated', handleDeactivate);
+
+    return () => {
+      listboxInstance.removeListener?.('selectionActivated', handleActivate);
+      listboxInstance.removeListener?.('selectionDeactivated', handleDeactivate);
+    };
+  }, [listboxInstance]);
 
   return (
     <>

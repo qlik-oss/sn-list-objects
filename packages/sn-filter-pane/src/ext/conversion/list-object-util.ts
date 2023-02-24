@@ -1,14 +1,20 @@
 import extend from 'extend';
 
+interface StringExpression {
+  qStringExpression: {
+    qExpr: string
+  }
+}
+
 export default {
-  createDefaultListBox(dimensionDef, title) {
-    let newTitle = title;
+  createDefaultListBox(dimensionDef: EngineAPI.IListObjectDef, title: string) {
+    let newTitle : string | StringExpression = title;
     const listboxDef = extend(true, {}, dimensionDef);
     let i;
     listboxDef.qShowAlternatives = true;
     // listboxDef.qDirectQuerySimplifiedView = directQueryAdaptService.adaptationsEnabled();
-    for (i = 0; i < listboxDef.qDef.qSortCriterias.length; ++i) {
-      listboxDef.qDef.qSortCriterias[i].qSortByState = 1;
+    for (i = 0; i < listboxDef.qDef.qSortCriterias!.length; ++i) {
+      listboxDef.qDef.qSortCriterias![i].qSortByState = 1;
     }
     if (!newTitle && dimensionDef.qDef.qLabelExpression) {
       newTitle = {

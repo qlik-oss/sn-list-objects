@@ -53,6 +53,7 @@ export default function supernova() {
         listboxInstance.mount(element, {
           ...options,
           ...listboxOptions,
+          // @ts-ignore
           __DO_NOT_USE__: {
             selectDisabled: () => !allowSelect, // can we hook this into the selections api?
           },

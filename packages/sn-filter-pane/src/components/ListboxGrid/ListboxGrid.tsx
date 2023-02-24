@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 // @ts-ignore
 import { ResizableBox } from 'react-resizable';
 import debounce from 'lodash/debounce';
+import { stardust } from '@nebula.js/stardust';
 import getWidthHeight from './get-size';
 import { IListboxResource } from '../../hooks/types';
 import ListboxContainer from '../ListboxContainer';
@@ -21,6 +22,7 @@ import { ColumnItem } from './grid-components/ColumnItem';
 import ConditionalWrapper from './ConditionalWrapper';
 import { store, useResourceStore } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
+import useHandleActive, { ActiveOnly } from './use-handle-active';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -28,7 +30,7 @@ const Resizable = styled(ResizableBox)(() => ({
 }));
 
 function ListboxGrid() {
-  const { sense } = store.getState();
+  const { sense, selections } = store.getState();
   const resources = useResourceStore((state) => state.resources);
 
   const gridRef = useRef<HTMLDivElement>();
@@ -54,6 +56,7 @@ function ListboxGrid() {
     }
   }, [resources]);
 
+  const handleActive = useHandleActive(isInSense, selections as stardust.ObjectSelections & ActiveOnly);
   const dHandleResize = debounce(handleResize, isInSense ? 0 : 50);
 
   // TODO: Remove Resizable, only for developing purposes
@@ -80,6 +83,8 @@ function ListboxGrid() {
                         ? <ListboxContainer
                           layout={item.layout}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
+                          disableSearch={item.cardinal <= 3}
+                          handleActive={handleActive}
                         ></ListboxContainer>
                         : <ListboxPopoverContainer resources={[item]} />
                       }
