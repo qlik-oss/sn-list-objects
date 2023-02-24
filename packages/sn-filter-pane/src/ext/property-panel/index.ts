@@ -1,5 +1,3 @@
-import sorting from './sorting';
-// import simpleSorting from "./simple-sorting";
 import settings from './settings';
 import { IEnv } from '../../types/types';
 import getData from './data';
@@ -10,8 +8,6 @@ export default function pp(env: IEnv) {
     component: 'accordion',
     items: {
       data: getData(env),
-      sorting,
-      // simpleSorting,
       settings,
     },
   };

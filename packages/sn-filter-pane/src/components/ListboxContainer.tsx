@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
-import { IListLayout } from '../hooks/types';
+import { IListBoxOptions, IListLayout } from '../hooks/types';
 import { store } from '../store';
 
 interface ListboxContainerProps {
