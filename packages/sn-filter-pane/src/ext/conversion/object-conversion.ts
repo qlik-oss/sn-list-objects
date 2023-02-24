@@ -1,6 +1,6 @@
 import { ExportFormat } from './types';
 
-function importCommonProperties(newProperties: EngineAPI.IGenericHyperCubeProperties, exportedFmt: ExportFormat, initialProperties: EngineAPI.IGenericHyperCubeProperties) {
+function importCommonProperties(newProperties: EngineAPI.IGenericObjectProperties, exportedFmt: ExportFormat, initialProperties: EngineAPI.IGenericObjectProperties) {
   const newProps = newProperties;
   if (exportedFmt.properties.qInfo.qType === 'masterobject') {
     newProps.qInfo.qType = 'masterobject';

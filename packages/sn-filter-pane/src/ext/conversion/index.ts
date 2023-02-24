@@ -6,10 +6,10 @@ import listObjectUtil from './list-object-util';
 const MAX_DIMENSIONS = 1000;
 const MIN_DIMENSIONS = 1;
 
-export function createImportProperties(exportedFmt: ExportFormat, initialProperties: EngineAPI.IGenericHyperCubeProperties) {
-  const newPropertyTree: PropTree = { qChildren: [], qProperty: {} as EngineAPI.IGenericHyperCubeProperties };
-  let newProperties = {} as EngineAPI.IGenericHyperCubeProperties;
-  const dataGroup = exportedFmt.data[0] as EngineAPI.IGenericHyperCubeProperties;
+export function createImportProperties(exportedFmt: ExportFormat, initialProperties: EngineAPI.IGenericObjectProperties) {
+  const newPropertyTree: PropTree = { qChildren: [], qProperty: {} as EngineAPI.IGenericObjectProperties };
+  let newProperties = {} as EngineAPI.IGenericObjectProperties;
+  const dataGroup = exportedFmt.data[0] as EngineAPI.IGenericObjectProperties;
   newProperties.qLayoutExclude = { disabled: {} };
   let i;
   Object.keys(exportedFmt.properties).forEach((key) => {
@@ -111,7 +111,7 @@ export function createImportProperties(exportedFmt: ExportFormat, initialPropert
 }
 
 function createExportFormatObj() {
-  const expFmt: ExportFormat = { data: [], properties: {} as EngineAPI.IGenericHyperCubeProperties };
+  const expFmt: ExportFormat = { data: [], properties: {} as EngineAPI.IGenericObjectProperties };
   expFmt.data.push({
     dimensions: [],
     measures: [],
@@ -125,8 +125,8 @@ function createExportFormatObj() {
 
 export function exportProperties(propertyTree: PropTree) {
   const exportFmt = createExportFormatObj();
-  const properties: EngineAPI.IGenericHyperCubeProperties = propertyTree.qProperty;
-  const dataGroup = exportFmt.data[0] as EngineAPI.IGenericHyperCubeProperties;
+  const properties: EngineAPI.IGenericObjectProperties = propertyTree.qProperty;
+  const dataGroup = exportFmt.data[0] as EngineAPI.IGenericObjectProperties;
   let childProp;
   let i;
   let j;

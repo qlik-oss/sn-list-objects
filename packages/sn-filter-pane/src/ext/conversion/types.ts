@@ -1,9 +1,9 @@
 export interface ExportFormat {
     data: unknown[];
-    properties: EngineAPI.IGenericHyperCubeProperties;
+    properties: EngineAPI.IGenericObjectProperties;
 }
 
 export interface PropTree {
-    qChildren: unknown[];
-    qProperty: EngineAPI.IGenericHyperCubeProperties;
+    qChildren: PropTree[];
+    qProperty: EngineAPI.IGenericObjectProperties;
 }
