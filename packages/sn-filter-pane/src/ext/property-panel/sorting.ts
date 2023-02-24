@@ -1,10 +1,10 @@
 import { IGenericListPropertiesMissing } from '../../hooks/types';
 
 const autoSortCriterias: EngineAPI.ISortCriteria = {
-  qSortByState: '1' as EngineAPI.TypeSortDirection,
-  qSortByAscii: '1' as EngineAPI.TypeSortDirection,
-  qSortByNumeric: '1' as EngineAPI.TypeSortDirection,
-  qSortByLoadOrder: '1' as EngineAPI.TypeSortDirection,
+  qSortByState: 1,
+  qSortByAscii: 1,
+  qSortByNumeric: 1,
+  qSortByLoadOrder: 1,
 };
 
 const sorting = {
