@@ -1907,7 +1907,7 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@nebula.js/cli-build@3.2.1", "@nebula.js/cli-build@^3.2.1":
+"@nebula.js/cli-build@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-3.2.1.tgz#df201eda686a56cc7ea4b828da2e220ce99c8387"
   integrity sha512-zjrqSkrNauxHg+RWM5lnT1oc3kAbw+aqr+cdNCezNJqAEQkke9PccTePC5VP1Lef9WOCqerCfZ/F9EfY0Jz4Ug==
@@ -1940,7 +1940,7 @@
     fs-extra "11.1.0"
     inquirer "8.2.5"
 
-"@nebula.js/cli-sense@3.2.1":
+"@nebula.js/cli-sense@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-3.2.1.tgz#c639bcc77ded80ec25feb6145b7dd8b0991bafef"
   integrity sha512-4BPitoCImhAbxqCWambtS3/8oVjGxHFshqgu9IOFnIte9pOUVSiKvVJWykCaYonx4EAqVrCyiIL2euvupC33Vg==
@@ -1960,7 +1960,7 @@
     rollup "3.12.1"
     yargs "17.6.2"
 
-"@nebula.js/cli-serve@3.2.1":
+"@nebula.js/cli-serve@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-3.2.1.tgz#5c4cc77588bb0fbb3112dabc446a2354a908d098"
   integrity sha512-79CbPKN3nA11hi4K26GfLA0Jb0q949CVg1XQKPbnJegY3Zgvj5TdNxXz7Hqq9IWr00cvkZ/xE290GN+ILeH/Mg==
@@ -1984,7 +1984,7 @@
     ws "8.12.0"
     yargs "17.6.2"
 
-"@nebula.js/cli@3.2.1":
+"@nebula.js/cli@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-3.2.1.tgz#013286bbf2abe02325e9d045132e1beca890ddf2"
   integrity sha512-zXsY2aSAss9LA+H6HuNPF39LzQdKa2qk6voJWdvG59xMD1Iwy78dXA8J32VM1GeJFBFfHD2qd1/+CHt2S2iZPw==
