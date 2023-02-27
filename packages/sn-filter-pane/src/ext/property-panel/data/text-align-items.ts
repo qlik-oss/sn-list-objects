@@ -58,7 +58,6 @@ const textAlignItems = {
       },
     },
   },
-
 };
 
 export default textAlignItems;

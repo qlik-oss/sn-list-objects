@@ -53,19 +53,7 @@ const defaultListboxProps = {
     qType: 'listbox',
   },
   // visualization: 'listbox',
-  targets: [
-    {
-      path: '/qChildListDef/qDef/qListObjectDef',
-      measures: { min: 0, max: 0 },
-      dimensions: {
-        min: 0,
-        max: 1000,
-        add(dimension: EngineAPI.INxDimension & INxDimensionMissing, data: EngineAPI.IGenericObjectProperties /* , handler */) {
-          console.log('adddddd');
-        },
-      },
-    },
-  ],
+  targets: [],
 };
 
 export default defaultListboxProps;

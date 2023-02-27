@@ -86,12 +86,6 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    // wildCardSearch: {
-    //   ref: 'wildCardSearch',
-    //   component: 'checkbox',
-    //   translation: 'properties.filterpane.wildCardSearch',
-    //   defaultValue: true,
-    // },
     otherSettings: {
       translation: 'Accordion',
       component: 'expandable-items',
