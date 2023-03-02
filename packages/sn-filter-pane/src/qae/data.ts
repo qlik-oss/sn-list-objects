@@ -18,7 +18,7 @@ export default function getData(env: IEnv) {
         path: '/qChildListDef/qDef/qListObjectDef',
         measures: { min: 0, max: 0 },
         dimensions: {
-          min: 0,
+          min: 1,
           max: 1000,
           add(dimension: EngineAPI.INxDimension & INxDimensionMissing, data: EngineAPI.IGenericObjectProperties /* , handler */) {
             const { model: filterPaneModel } = store.getState();
