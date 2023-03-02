@@ -20,34 +20,35 @@ const generateColumns = ({ collapsed, expanded }: { collapsed?: number[], expand
   }
   return c;
 };
+const isSmallDevice = false;
 
 describe('Listbox grid layout', () => {
   describe('balance columns', () => {
     it('should balance collpased columns 3-3-3-1 as 3-3-2-2 when last column cant expand one', () => {
       const size: ISize = { height: 100, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [3, 3, 3, 1] });
-      const balancedColumns = balanceColumns(size, columns);
+      const balancedColumns = balanceColumns(size, columns, isSmallDevice);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [3, 3, 2, 2] }));
     });
 
     it('should balance collapsed columns 4-4-1 as 3-3-3 when last column cant expand one', () => {
       const size: ISize = { height: 100, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns);
+      const balancedColumns = balanceColumns(size, columns, isSmallDevice);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [3, 3, 3] }));
     });
 
     it('should expand last collapsed column when possible and all columns are collapsed', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns);
+      const balancedColumns = balanceColumns(size, columns, isSmallDevice);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [4, 4], expanded: [1] }));
     });
 
     it('should expand last collapsed column when possible and mix of collapsed and expanded columns', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1], expanded: [1, 1] });
-      const balancedColumns = balanceColumns(size, columns);
+      const balancedColumns = balanceColumns(size, columns, isSmallDevice);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [4, 4], expanded: [1, 1, 1] }));
     });
   });
@@ -78,7 +79,7 @@ describe('Listbox grid layout', () => {
         dimensionCount: 10,
         width: 5,
       };
-      const result = calculateColumns(size, []);
+      const result = calculateColumns(size, [], isSmallDevice);
       expect(result).toEqual([
         {
           expand: false,
@@ -94,7 +95,7 @@ describe('Listbox grid layout', () => {
         dimensionCount: 20,
         width: 500,
       };
-      const result = calculateColumns(size, []);
+      const result = calculateColumns(size, [], isSmallDevice);
       expect(result).toEqual([
         {
           expand: false,
@@ -114,7 +115,7 @@ describe('Listbox grid layout', () => {
         dimensionCount: 10,
         width: 500,
       };
-      const result = calculateColumns(size, []);
+      const result = calculateColumns(size, [], isSmallDevice);
       expect(result).toEqual([
         {
           expand: true,
@@ -133,7 +134,7 @@ describe('Listbox grid layout', () => {
         dimensionCount: 2,
         width: 500,
       };
-      const result = calculateColumns(size, []);
+      const result = calculateColumns(size, [], isSmallDevice);
       expect(result).toEqual([
         {
           expand: true,
@@ -183,8 +184,8 @@ describe('Listbox grid layout', () => {
         dimensionCount: resources.length,
       };
 
-      const calculatedColumns = calculateColumns(size, []);
-      const balancedColumns = balanceColumns(size, calculatedColumns);
+      const calculatedColumns = calculateColumns(size, [], isSmallDevice);
+      const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice);
       const defaultValuesResources = setDefaultValues(resources);
       const { columns: mergedColumns } = mergeColumnsAndResources(balancedColumns, defaultValuesResources);
       const result = calculateExpandPriority(mergedColumns, size);

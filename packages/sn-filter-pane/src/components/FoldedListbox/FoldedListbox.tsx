@@ -2,7 +2,7 @@ import { Grid, styled, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
-import { store } from '../../store';
+import type { IStores } from '../../store';
 import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 
@@ -13,12 +13,13 @@ export interface FoldedListboxClickEvent {
 export interface FoldedListboxProps {
   resource: IListboxResource;
   onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
+  stores: IStores;
 }
 
-export const FoldedListbox = ({ resource, onClick }: FoldedListboxProps) => {
+export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef(null);
-  const { constraints, stardustTheme } = store.getState();
+  const { constraints, stardustTheme } = stores.store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',

@@ -4,12 +4,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { IContainerElement } from '../hooks/types';
 import ListboxGrid from './ListboxGrid/ListboxGrid';
 import theme from '../theme/theme';
+import type { IStores } from '../store';
 
-export function render(element: IContainerElement) {
+export function render(element: IContainerElement, stores: IStores) {
   const root = createRoot(element);
   root.render(
     <ThemeProvider theme={theme}>
-      <ListboxGrid />
+      <ListboxGrid stores={stores} />
     </ThemeProvider>,
   );
 

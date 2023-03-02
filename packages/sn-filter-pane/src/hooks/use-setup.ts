@@ -1,11 +1,13 @@
 import {
-  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useTranslator, useTheme, useSelections,
+  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections,
 } from '@nebula.js/stardust';
-import { store } from '../store';
+import { create } from '../store';
 import { IEnv } from '../types/types';
 import { IFilterPaneLayout, IListBoxOptions } from './types';
 
 export default function useSetup({ sense }: IEnv) {
+  const [stores] = useState(() => create());
+  const { store } = stores;
   const options = useOptions() as IListBoxOptions;
   const fpLayout = useLayout() as IFilterPaneLayout;
   const constraints = useConstraints();
@@ -28,4 +30,6 @@ export default function useSetup({ sense }: IEnv) {
     stardustTheme,
     selections,
   });
+
+  return stores;
 }

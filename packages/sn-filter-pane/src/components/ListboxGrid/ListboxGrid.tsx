@@ -20,7 +20,7 @@ import { ColumnGrid } from './grid-components/ColumnGrid';
 import { Column } from './grid-components/Column';
 import { ColumnItem } from './grid-components/ColumnItem';
 import ConditionalWrapper from './ConditionalWrapper';
-import { store, useResourceStore } from '../../store';
+import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
 
@@ -29,7 +29,8 @@ const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-function ListboxGrid() {
+function ListboxGrid({ stores }: { stores: IStores }) {
+  const { store, useResourceStore } = stores;
   const { sense, selections } = store.getState();
   const resources = useResourceStore((state) => state.resources);
 
@@ -41,8 +42,9 @@ function ListboxGrid() {
   const handleResize = useCallback(() => {
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
-    const calculatedColumns = calculateColumns(size, []);
-    const balancedColumns = balanceColumns(size, calculatedColumns);
+    const isSmallDevice = store.getState().isSmallDevice?.() ?? false;
+    const calculatedColumns = calculateColumns(size, [], isSmallDevice);
+    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice);
     const resourcesWithDefaultValues = setDefaultValues(resources);
     const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
     setOverflowingResources(overflowing);
@@ -85,15 +87,16 @@ function ListboxGrid() {
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
                           disableSearch={item.cardinal <= 3}
                           handleActive={handleActive}
+                          stores={stores}
                         ></ListboxContainer>
-                        : <ListboxPopoverContainer resources={[item]} />
+                        : <ListboxPopoverContainer resources={[item]} stores={stores} />
                       }
                     </ColumnItem>
                   ))}
 
                   {column.hiddenItems && overflowingResources.length
                     && <ColumnItem height='100%'>
-                      <ListboxPopoverContainer resources={overflowingResources} />
+                      <ListboxPopoverContainer resources={overflowingResources} stores={stores} />
                     </ColumnItem>}
                 </Column>
 
