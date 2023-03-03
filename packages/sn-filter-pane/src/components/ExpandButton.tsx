@@ -2,12 +2,13 @@ import { Avatar, Button, styled } from '@mui/material';
 import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { BUTTON_HEIGHT } from './ListboxGrid/distribute-resources';
-import { store } from '../store';
+import type { IStores } from '../store';
 
 export interface FoldedListboxProps {
   onClick?: (event: { event: React.MouseEvent<HTMLButtonElement> }) => void;
   opened?: boolean;
   avatar: number;
+  stores: IStores;
 }
 
 export interface IconProps {
@@ -15,9 +16,9 @@ export interface IconProps {
 }
 
 export const ExpandButton = ({
-  onClick, opened, avatar,
+  onClick, opened, avatar, stores,
 }: FoldedListboxProps) => {
-  const { constraints, stardustTheme } = store.getState();
+  const { constraints, stardustTheme } = stores.store.getState();
 
   const ExpandIcon = styled(ExpandMore)<IconProps>(({ open }) => ({
     color: '#555555',

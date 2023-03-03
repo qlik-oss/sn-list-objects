@@ -1,6 +1,6 @@
 import { stardust } from '@nebula.js/stardust';
 import createVanilla from 'zustand/vanilla';
-import create from 'zustand';
+import createHook from 'zustand';
 import { IFilterPaneLayout, IListBoxOptions, IListboxResource } from '../hooks/types';
 import { ISense } from '../types/types';
 
@@ -18,22 +18,25 @@ export interface IStore {
   selections?: stardust.ObjectSelections;
 }
 
-export const store = createVanilla<IStore>(() => ({
-  app: undefined,
-  model: undefined,
-  isSmallDevice: undefined,
-  fpLayout: undefined,
-  options: {},
-  constraints: undefined,
-  translator: undefined,
-  sense: undefined,
-  embed: undefined,
-}));
-
 interface ResourceState {
   resources: IListboxResource[];
 }
 
-export const useResourceStore = create<ResourceState>(() => ({
-  resources: [],
-}));
+export const create = () => ({
+  store: createVanilla<IStore>(() => ({
+    app: undefined,
+    model: undefined,
+    isSmallDevice: undefined,
+    fpLayout: undefined,
+    options: {},
+    constraints: undefined,
+    translator: undefined,
+    sense: undefined,
+    embed: undefined,
+  })),
+  useResourceStore: createHook<ResourceState>(() => ({
+    resources: [],
+  })),
+});
+
+export type IStores = ReturnType<typeof create>;

@@ -1,10 +1,11 @@
 import { useEffect, useElement, useState } from '@nebula.js/stardust';
-import { store, useResourceStore } from '../store';
+import type { IStores } from '../store';
 import getListBoxResources from './listbox/get-listbox-resources';
 import { IContainerElement, ListboxResourcesArr } from './types';
 import { render, teardown } from '../components/root';
 
-export default function useRender() {
+export default function useRender(stores: IStores) {
+  const { store, useResourceStore } = stores;
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
 
   const {
@@ -28,7 +29,7 @@ export default function useRender() {
     if (!fpLayout || !app || !resourcesReady) {
       return undefined;
     }
-    const root = render(containerElement);
+    const root = render(containerElement, stores);
     return (() => {
       teardown(root);
     });
