@@ -29,7 +29,8 @@
     "build:watch": "node ./scripts/build.js --ext --core core --mode development -w",
     "lint": "eslint src",
     "sense": "nebula sense --ext src/ext.ts --meta src/meta.json",
-    "test": "echo No tests found..."
+    "test": "echo No tests found...",
+    "types:check": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
