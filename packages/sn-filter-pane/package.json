@@ -35,6 +35,7 @@
     "test": "yarn test:unit",
     "test:unit": "jest",
     "test:integration": "aw puppet --testExt '*.int.js' --glob 'test/integration/**/*.int.js'",
+    "types:check": "tsc --noEmit",
     "link:nebula": "yarn link '@nebula.js/cli-serve' && echo 'To use react from nebula replace react and react-dom version number \nin package.json e.g. 18.2.0 with:' && echo '\"file:\\c' && (readlink -f ./node_modules/@nebula.js/cli-serve | sed -r 's/\\/commands\\/serve/\\/node_modules\\/react\"/g') && echo '\"file:\\c' && (readlink -f ./node_modules/@nebula.js/cli-serve | sed -r 's/\\/commands\\/serve/\\/node_modules\\/react-dom\"/g')",
     "debug-in-sense": "../../scripts/link-to-sense.sh"
   },

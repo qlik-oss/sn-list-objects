@@ -2,17 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import { IListBoxOptions, IListLayout } from '../hooks/types';
-import { store } from '../store';
+import type { IStores } from '../store';
 
 interface ListboxContainerProps {
   layout: IListLayout;
   borderBottom?: boolean;
   disableSearch?: boolean;
   handleActive?: (id: string, active: boolean) => void;
+  stores: IStores;
 }
 
 const ListboxContainer = ({
-  layout, borderBottom, disableSearch = false, handleActive,
+  layout, borderBottom, disableSearch = false, handleActive, stores,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -22,7 +23,7 @@ const ListboxContainer = ({
     model,
     constraints,
     options,
-  } = store.getState();
+  } = stores.store.getState();
 
   useEffect(() => {
     if (!layout || !embed) {

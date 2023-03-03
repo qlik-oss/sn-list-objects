@@ -3,10 +3,10 @@ import { IGenericListPropertiesMissing } from '../../../../hooks/types';
 import getPresentation from './presentation';
 
 const autoSortCriterias: EngineAPI.ISortCriteria = {
-  qSortByState: '1' as EngineAPI.TypeSortDirection,
-  qSortByAscii: '1' as EngineAPI.TypeSortDirection,
-  qSortByNumeric: '1' as EngineAPI.TypeSortDirection,
-  qSortByLoadOrder: '1' as EngineAPI.TypeSortDirection,
+  qSortByState: 1,
+  qSortByAscii: 1,
+  qSortByNumeric: 1,
+  qSortByLoadOrder: 1,
 };
 
 export default function getDataPanelItems(env: IEnv) {
