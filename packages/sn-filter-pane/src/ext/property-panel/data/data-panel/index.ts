@@ -21,7 +21,7 @@ export default function getDataPanelItems(env: IEnv) {
       component: 'library-item',
       libraryItemType: 'dimension',
       ref: 'qListObjectDef.qLibraryId',
-      translation: 'Common.Fields',
+      translation: 'Common.Dimension',
       show(itemData: EngineAPI.IGenericListProperties) {
         return itemData.qListObjectDef.qLibraryId;
       },
