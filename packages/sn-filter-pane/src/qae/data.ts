@@ -17,8 +17,7 @@ export default function getData(env: IEnv) {
           min: 1,
           max: 1000,
           description(_: unknown, __: unknown, config: IConfig): string {
-            const translationProperty = config && config.type === 'rows' ? 'Visualizations.Descriptions.Row' : 'Visualizations.Descriptions.Column';
-            return translator.get(translationProperty);
+            return translator.get('Object.ListBox');
           },
         },
       },

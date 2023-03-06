@@ -12,29 +12,17 @@ export default function getPresentation(env: IEnv) {
     translation: 'properties.presentation',
     items: {
       ...textAlignItems,
-      denseModeGroup: {
-        type: 'items',
-        grouped: true,
-        items: {
-          denseMode: {
-            ref: 'layoutOptions.dense',
-            component: 'checkbox',
-            translation: 'properties.filterpane.showDense',
-            defaultValue: false,
-          },
-        },
+      denseMode: {
+        ref: 'layoutOptions.dense',
+        component: 'checkbox',
+        translation: 'properties.filterpane.showDense',
+        defaultValue: false,
       },
-      checkboxesGroup: {
-        type: 'items',
-        grouped: true,
-        items: {
-          checkboxes: {
-            ref: 'checkboxes',
-            translation: 'properties.filterpane.showCheckboxes',
-            component: 'checkbox',
-            defaultValue: false,
-          },
-        },
+      checkboxes: {
+        ref: 'checkboxes',
+        translation: 'properties.filterpane.showCheckboxes',
+        component: 'checkbox',
+        defaultValue: false,
       },
       histogram: {
         ref: 'histogram',

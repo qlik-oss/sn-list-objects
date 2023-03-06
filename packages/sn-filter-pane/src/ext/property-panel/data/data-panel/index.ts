@@ -3,10 +3,10 @@ import { IGenericListPropertiesMissing } from '../../../../hooks/types';
 import getPresentation from './presentation';
 
 const autoSortCriterias: EngineAPI.ISortCriteria = {
-  qSortByState: 1,
-  qSortByAscii: 1,
-  qSortByNumeric: 1,
-  qSortByLoadOrder: 1,
+  qSortByState: 1 as EngineAPI.TypeSortDirection,
+  qSortByAscii: 1 as EngineAPI.TypeSortDirection,
+  qSortByNumeric: 1 as EngineAPI.TypeSortDirection,
+  qSortByLoadOrder: 1 as EngineAPI.TypeSortDirection,
 };
 
 export default function getDataPanelItems(env: IEnv) {
@@ -21,7 +21,7 @@ export default function getDataPanelItems(env: IEnv) {
       component: 'library-item',
       libraryItemType: 'dimension',
       ref: 'qListObjectDef.qLibraryId',
-      translation: 'Common.Fields',
+      translation: 'Common.Dimension',
       show(itemData: EngineAPI.IGenericListProperties) {
         return itemData.qListObjectDef.qLibraryId;
       },
@@ -63,26 +63,46 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    searchMode: {
+    searchGroup: {
       type: 'items',
       translation: 'properties.filterpane.searchMode',
       grouped: false,
       items: {
+        showSearch: {
+          ref: 'searchEnabled',
+          type: 'boolean',
+          component: 'switch',
+          translation: 'properties.filterpane.searchField',
+          options: [
+            {
+              value: true,
+              translation: 'properties.show',
+            },
+            {
+              value: false,
+              translation: 'properties.hide',
+            },
+          ],
+          defaultValue: true,
+        },
         wildCardSearch: {
           translation: 'properties.filterpane.searchMode',
           ref: 'wildCardSearch',
           component: 'dropdown',
-          defaultValue: true,
+          defaultValue: false,
           options: [
-            {
-              value: true,
-              translation: 'properties.filterpane.wildCardSearch',
-            },
             {
               value: false,
               translation: 'properties.filterpane.simpleSearch',
             },
+            {
+              value: true,
+              translation: 'properties.filterpane.wildCardSearch',
+            },
           ],
+          show(data: EngineAPI.IGenericListProperties) {
+            return data.searchEnabled !== false;
+          },
         },
       },
     },
