@@ -18,7 +18,6 @@ jobs:
 
   validate:
     runs-on: ubuntu-latest
-    steps:
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
       - store_test_results:
