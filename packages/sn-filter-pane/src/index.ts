@@ -4,6 +4,7 @@ import getData from './qae/data';
 
 import useSetup from './hooks/use-setup';
 import useRender from './hooks/use-render';
+import useContextMenu from './hooks/use-context-menu';
 import ext from './ext';
 import { IEnv } from './types/types';
 
@@ -16,6 +17,7 @@ export default function supernova(env: IEnv) {
     },
     component() {
       const stores = useSetup({ ...env });
+      useContextMenu();
       useRender(stores);
     },
   };
