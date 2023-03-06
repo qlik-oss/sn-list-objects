@@ -12,7 +12,6 @@ export default function getData(env: IEnv) {
     targets: [
       {
         path: '/qChildListDef',
-        skipValidation: true,
         measures: { min: 0, max: 0 },
         dimensions: {
           min: 1,
