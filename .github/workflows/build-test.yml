@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - run: yarn
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
       - uses: actions/upload-artifact@v3
