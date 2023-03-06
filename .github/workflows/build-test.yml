@@ -27,6 +27,11 @@ jobs:
         run: |
           yarn
           yarn build
+      - name: build listbox
+        working-directory: packages/sn-listbox
+        run: |
+          yarn
+          yarn build
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
       - uses: actions/upload-artifact@v3
