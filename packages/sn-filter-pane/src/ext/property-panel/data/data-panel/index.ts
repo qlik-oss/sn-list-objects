@@ -73,7 +73,6 @@ export default function getDataPanelItems(env: IEnv) {
           type: 'boolean',
           component: 'switch',
           translation: 'properties.filterpane.searchField',
-          change: (data: EngineAPI.IGenericListProperties) => data?.qDef?.textAlign?.align || 'left',
           options: [
             {
               value: true,
