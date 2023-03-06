@@ -31,6 +31,10 @@ jobs:
       working-directory: packages/${{ inputs.package }}
       run: yarn run lint
 
+    - name: types
+      working-directory: packages/${{ inputs.package }}
+      run: yarn types:check
+
     - name: test
       working-directory: packages/${{ inputs.package }}
       run: yarn run test

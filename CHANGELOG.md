@@ -1,5 +1,25 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.3.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.1...v0.3.2) (2023-02-28)
+
+### [0.3.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.1-No.0...v0.3.1) (2023-02-27)
+
+## [0.3.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.2.0...v0.3.0) (2023-02-27)
+
+
+### Features
+
+* add searchEnabled property ([#46](https://github.com/qlik-oss/sn-list-objects/issues/46)) ([db4c1c2](https://github.com/qlik-oss/sn-list-objects/commit/db4c1c29d8a7f333b3d18ed96c0adb0408ef46cc))
+* add wildcard property ([#45](https://github.com/qlik-oss/sn-list-objects/issues/45)) ([ac3c442](https://github.com/qlik-oss/sn-list-objects/commit/ac3c442ed9fb9acd2dde880afa5b9c15ab65b2bc))
+* signal selection event to sense-client ([#47](https://github.com/qlik-oss/sn-list-objects/issues/47)) ([cf8657f](https://github.com/qlik-oss/sn-list-objects/commit/cf8657f2de821adcaa90cd019ce09d6b829bdcb6))
+* toggle search ([#38](https://github.com/qlik-oss/sn-list-objects/issues/38)) ([3d82670](https://github.com/qlik-oss/sn-list-objects/commit/3d82670512d6ad2134b86d189638d80dee09afe7))
+
+
+### Bug Fixes
+
+* more type fixes ([#52](https://github.com/qlik-oss/sn-list-objects/issues/52)) ([405e6a1](https://github.com/qlik-oss/sn-list-objects/commit/405e6a13db80009c7ef79789c176cc5fe1cf2abd))
+* some type fixes ([#51](https://github.com/qlik-oss/sn-list-objects/issues/51)) ([a7c8a38](https://github.com/qlik-oss/sn-list-objects/commit/a7c8a38ed3b16b9167bf4229ca1855f2c8f64397))
+
 ## [0.2.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.1.0...v0.2.0) (2023-01-31)
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IListboxResource } from '../../hooks/types';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
+import { create } from '../../store';
 
 const getResource = (id: string) => ({
   id,
@@ -25,21 +26,21 @@ const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResou
 describe('ListboxPopoverContainer render', () => {
   it('should render FoldedListbox with fieldname when one resource is provided', () => {
     const { queryByText } = render(
-      <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} />,
+      <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} stores={create()} />,
     );
     expect(queryByText('Foo')).toBeTruthy();
   });
 
   it('should render ExpandButton with number of hidden Listboxes when multiple resources are provided', () => {
     const { queryByText } = render(
-      <ListboxPopoverContainer resources={resources as IListboxResource[]} />,
+      <ListboxPopoverContainer resources={resources as IListboxResource[]} stores={create()} />,
     );
     expect(queryByText('4')).toBeTruthy();
   });
 
   it('should render 4 "Foo" items when clicked', () => {
     const { queryByText, getAllByText } = render(
-      <ListboxPopoverContainer resources={resources as IListboxResource[]} />,
+      <ListboxPopoverContainer resources={resources as IListboxResource[]} stores={create()} />,
     );
     fireEvent.click(queryByText('4') as Element);
     const items = getAllByText('Foo');
