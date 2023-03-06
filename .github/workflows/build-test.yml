@@ -15,16 +15,3 @@ jobs:
     uses: qlik-oss/sn-list-objects/.github/workflows/build-test-single.yml@main
     with:
       package: ${{ matrix.package }}
-
-  test-rendering:
-    runs-on: ubuntu-latest
-    steps:
-      - run: yarn playwright install --with-deps
-      - run: yarn run test:rendering
-        id: rendering
-        with:
-          name: rendering-output
-          path: |
-            test/rendering/reports/html/
-            test-results/
-          retention-days: 3
