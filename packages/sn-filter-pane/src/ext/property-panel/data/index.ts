@@ -12,7 +12,6 @@ export default function getData(env: IEnv) {
     component: 'filterpane-data',
     translation: 'Common.Data',
     titleTranslation: 'Common.Fields',
-    itemDescriptionTranslation: 'Object.ListBox',
     addTranslation: 'DataManager.GridEditor.AddField',
     allowAdd: true,
     allowRemove: true,
