@@ -1,5 +1,5 @@
 {
-  "name": "sn-listbox",
+  "name": "@nebula.js/sn-listbox",
   "version": "0.3.2",
   "description": "Filter pane supernova",
   "license": "MIT",
