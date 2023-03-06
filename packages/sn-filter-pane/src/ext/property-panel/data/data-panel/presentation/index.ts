@@ -4,6 +4,8 @@ import textAlignItems from '../../text-align-items';
 import { IEnv } from '../../../../../types/types';
 import frequencies from '../../../constants';
 
+const DEFAULT_LAYOUT_ORDER = 'column';
+
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
   const { isEnabled } = env?.flags || {};
@@ -122,13 +124,19 @@ export default function getPresentation(env: IEnv) {
                 tooltipTranslation: 'properties.filterpane.grid',
               },
             ],
+            change(itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
+              // Make sure layoutOrder is not undefined when we are in grid mode.
+              if (itemData.layoutOptions.dataLayout === 'grid') {
+                itemData.layoutOptions.layoutOrder = itemData.layoutOptions.layoutOrder ?? DEFAULT_LAYOUT_ORDER;
+              }
+            },
           },
           layoutOrder: {
             type: 'string',
             component: 'buttongroup',
             ref: 'layoutOptions.layoutOrder',
             translation: 'properties.filterpane.layoutOrder',
-            defaultValue: 'column',
+            defaultValue: DEFAULT_LAYOUT_ORDER,
             options: [
               {
                 value: 'row',
@@ -165,7 +173,7 @@ export default function getPresentation(env: IEnv) {
               },
             ],
             show(data: EngineAPI.IGenericListProperties) {
-              const { dataLayout, layoutOrder } = data.layoutOptions || {};
+              const { dataLayout, layoutOrder = DEFAULT_LAYOUT_ORDER } = data.layoutOptions || {};
               return dataLayout === 'grid' && layoutOrder === 'column';
             },
           },
@@ -175,9 +183,9 @@ export default function getPresentation(env: IEnv) {
             translation: 'properties.filterpane.gridModeMaxRows',
             defaultValue: 3,
             show(data: EngineAPI.IGenericListProperties) {
-              const { dataLayout, layoutOrder, maxVisibleRows } = data.layoutOptions || {};
-              const { auto } = maxVisibleRows || {};
-              return dataLayout === 'grid' && layoutOrder === 'column' && !auto;
+              const { dataLayout, layoutOrder = DEFAULT_LAYOUT_ORDER, maxVisibleRows } = data.layoutOptions || {};
+              const { auto = true } = maxVisibleRows || {};
+              return dataLayout === 'grid' && layoutOrder === 'column' && auto !== true;
             },
           },
           maxVisibleColumnsAuto: {
@@ -210,8 +218,8 @@ export default function getPresentation(env: IEnv) {
             defaultValue: 3,
             show(data: EngineAPI.IGenericListProperties) {
               const { dataLayout, layoutOrder, maxVisibleColumns } = data.layoutOptions || {};
-              const { auto } = maxVisibleColumns || {};
-              return dataLayout === 'grid' && layoutOrder === 'row' && !auto;
+              const { auto = true } = maxVisibleColumns || {};
+              return dataLayout === 'grid' && layoutOrder === 'row' && auto !== true;
             },
           },
         },
