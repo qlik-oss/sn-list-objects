@@ -23,4 +23,11 @@ jobs:
       - uses: actions/setup-node@v3
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
-
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
+        with:
+          name: rendering-output
+          path: |
+            test/rendering/reports/html/
+            test-results/
+          retention-days: 3
