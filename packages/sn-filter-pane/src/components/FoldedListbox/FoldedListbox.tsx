@@ -1,4 +1,6 @@
-import { Grid, styled, Typography } from '@mui/material';
+import {
+  Grid, styled, Tooltip, Typography
+} from '@mui/material';
 import React, { useRef } from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
@@ -18,7 +20,7 @@ export interface FoldedListboxProps {
 
 export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { constraints, stardustTheme } = stores.store.getState();
 
   const StyledGrid = styled(Grid)(() => ({
@@ -34,16 +36,19 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
     },
     backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
     color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
+    width: containerRef?.current?.clientWidth,
   }));
 
   return (
     <div ref={containerRef}>
       <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
-        <Grid container flexGrow={1} alignItems={'center'} padding='0 8px'>
-          <Typography variant="subtitle2" fontSize='13px'>
-            {fieldName}
-          </Typography>
-        </Grid>
+        <Tooltip title={fieldName} enterDelay={2000}>
+          <Grid container flexGrow={1} alignItems={'center'} padding='0 8px'>
+            <Typography variant="subtitle2" fontSize='13px' noWrap>
+              {fieldName}
+            </Typography>
+          </Grid>
+        </Tooltip>
         <Grid item width='100%'>
           <SelectionSegmentsIndicator
             qDimensionInfo={resource.layout.qListObject.qDimensionInfo}
