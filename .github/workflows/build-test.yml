@@ -21,17 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - run: yarn
       - name: build filterpane
         working-directory: packages/sn-filter-pane
         run: |
           yarn
           yarn build
-      - name: build listbox
-        working-directory: packages/sn-listbox
-        run: |
-          yarn
-          yarn build
-      - run: yarn
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
       - uses: actions/upload-artifact@v3

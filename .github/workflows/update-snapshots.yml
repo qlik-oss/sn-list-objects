@@ -1,0 +1,27 @@
+# Run on a branch to update rendering test snapshots
+name: Update Snapshots [Experimental]
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  update-snapshots:
+    runs-on: ubuntu-latest
+    if: github.event.repository.fork == false
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_BUILD }}
+      - uses: actions/setup-node@v3
+      - run: yarn
+      - name: build filterpane
+        working-directory: packages/sn-filter-pane
+        run: |
+          yarn
+          yarn build
+      - run: yarn playwright install --with-deps
+      - run: yarn run test:rendering --update-snapshots
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test: update rendering test screenshots'
+
