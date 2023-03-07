@@ -26,7 +26,6 @@ export default async ({ logLevel } = {}) => {
     page,
     goto: async (url, { waitSelector = '.njs-viz[data-render-count="1"]', waitOptions } = {}) => {
       await page.goto(url);
-      await page.pause();
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
     style: async (styles) => {
