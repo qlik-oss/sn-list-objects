@@ -44,7 +44,7 @@ export interface IListboxResource {
   id: string;
   model: GenericObjectModel;
   layout: IListLayout;
-  properties: EngineAPI.IGenericObjectProperties;
+  properties?: EngineAPI.IGenericObjectProperties;
   height: string;
   expand: boolean;
   cardinal: number;
