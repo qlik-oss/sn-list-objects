@@ -1,5 +1,26 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.4.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.2...v0.4.0) (2023-03-09)
+
+
+### Features
+
+* bump nebula "3.3.0-alpha.0" ([#116](https://github.com/qlik-oss/sn-list-objects/issues/116)) ([6c1b211](https://github.com/qlik-oss/sn-list-objects/commit/6c1b2113120cf3c6d481f58e36779b1986cd9645))
+* copy cell value context menu ([#112](https://github.com/qlik-oss/sn-list-objects/issues/112)) ([8c40688](https://github.com/qlik-oss/sn-list-objects/commit/8c406884fb224017656fea2eb9a7d0df413dde84))
+* truncate title, use toggle search ([#110](https://github.com/qlik-oss/sn-list-objects/issues/110)) ([8f26439](https://github.com/qlik-oss/sn-list-objects/commit/8f2643972da32e113b89fbf7614c0dc0bd7867b5))
+
+
+### Bug Fixes
+
+* create stores for each filterpane ([#92](https://github.com/qlik-oss/sn-list-objects/issues/92)) ([319a7cd](https://github.com/qlik-oss/sn-list-objects/commit/319a7cd1a2d134891286ec234c9ed2c67ee50043))
+* disable snapshot export & viewData ([#108](https://github.com/qlik-oss/sn-list-objects/issues/108)) ([4bf6312](https://github.com/qlik-oss/sn-list-objects/commit/4bf631252d602453ef12efda8898a398dc8f1d07))
+* fix path for counting the number of dimensions ([#106](https://github.com/qlik-oss/sn-list-objects/issues/106)) ([090ae5d](https://github.com/qlik-oss/sn-list-objects/commit/090ae5d65c1e04ae89df270cdcaa31d7a46f052a))
+* grid mode fixes ([#109](https://github.com/qlik-oss/sn-list-objects/issues/109)) ([50a86dd](https://github.com/qlik-oss/sn-list-objects/commit/50a86dd2c6b6e81f5a8678b24a764dade6b42660))
+* remove getProperties request on selection ([#113](https://github.com/qlik-oss/sn-list-objects/issues/113)) ([80fd079](https://github.com/qlik-oss/sn-list-objects/commit/80fd079c0690439b97b3f6c7cadc9d57d640c135))
+* set minimum number of dimensions to 1 ([#87](https://github.com/qlik-oss/sn-list-objects/issues/87)) ([c31161c](https://github.com/qlik-oss/sn-list-objects/commit/c31161cb449a9495f5cc612ef8d507954a1b6c9d))
+* **sn-filter-pane:** adapt side panel properties ([#104](https://github.com/qlik-oss/sn-list-objects/issues/104)) ([9bd1e51](https://github.com/qlik-oss/sn-list-objects/commit/9bd1e5157b09c6818afad5b648640a9bbc2a658c))
+* update sn-listbox to be in the [@nebula](https://github.com/nebula).js namespace ([#50](https://github.com/qlik-oss/sn-list-objects/issues/50)) ([e55fd94](https://github.com/qlik-oss/sn-list-objects/commit/e55fd940aa09b64baa2e01accd8db787c453a8fe))
+
 ### [0.3.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.1...v0.3.2) (2023-02-28)
 
 ### [0.3.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.1-No.0...v0.3.1) (2023-02-27)
