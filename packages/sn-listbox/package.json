@@ -1,6 +1,6 @@
 {
   "name": "@nebula.js/sn-listbox",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Filter pane supernova",
   "license": "MIT",
   "author": "QlikTech International AB",
@@ -40,10 +40,10 @@
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
     "@mui/material": "5.10.4",
-    "@nebula.js/cli": "^3.2.1",
-    "@nebula.js/cli-build": "^3.2.1",
-    "@nebula.js/cli-sense": "^3.2.1",
-    "@nebula.js/cli-serve": "^3.2.1",
+    "@nebula.js/cli": "3.3.0-alpha.0",
+    "@nebula.js/cli-build": "3.3.0-alpha.0",
+    "@nebula.js/cli-sense": "3.3.0-alpha.0",
+    "@nebula.js/cli-serve": "3.3.0-alpha.0",
     "@rollup/plugin-typescript": "^8.4.0",
     "@types/enigma.js": "^2.2.2",
     "@types/qlik-engineapi": "^12.67.12",
@@ -68,6 +68,6 @@
     "zustand": "^4.1.1"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": "^3.2.1"
+    "@nebula.js/stardust": "3.3.0-alpha.0"
   }
 }
