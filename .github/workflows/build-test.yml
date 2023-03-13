@@ -31,7 +31,6 @@ jobs:
       - run: yarn run test:rendering
         id: rendering
       - uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
         with:
           name: rendering-report
           path: test/rendering/reports/html/
