@@ -68,12 +68,6 @@ export default ({ suiteName, serveConfig, fixturePath, styles = [], debug = unde
 
         const element = await testAssistant.goto(url);
 
-        styles.forEach(async (style) => {
-          if (style.fixture === name) {
-            await testAssistant.style(style.styles);
-          }
-        });
-
         const img = await testAssistant.screenshot(element);
 
         if (DEBUG_MODE) {
