@@ -28,18 +28,6 @@ export default async ({ logLevel } = {}) => {
       await page.goto(url);
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
-    style: async (styles) => {
-      await page.evaluate((matrix) => {
-        matrix.forEach((config) => {
-          const [selector, property, value] = config;
-          // eslint-disable-next-line no-undef
-          const element = document.querySelector(selector);
-          if (element) {
-            element.style[property] = value;
-          }
-        });
-      }, styles);
-    },
     
     screenshot: async (element) => page.screenshot({ clip: await element.boundingBox() }),
   };
