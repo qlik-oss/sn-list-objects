@@ -33,8 +33,12 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
         with:
+          name: rendering-report
+          path: test/rendering/reports/html/
+          retention-days: 3
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
+        with:
           name: rendering-output
-          path: |
-            test/rendering/reports/html/
-            test-results/
+          path: test-results/
           retention-days: 3
