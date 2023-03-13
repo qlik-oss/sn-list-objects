@@ -15,7 +15,5 @@
 
 # testing
 test-results
-test/rendering/reports
+test-reports
 test/rendering/baselines-local
-test/integration/reports
-test/integration/baselines-local
