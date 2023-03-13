@@ -42,7 +42,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const handleResize = useCallback(() => {
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
-    const isSmallDevice = store.getState().isSmallDevice?.() ?? false;
+    const isSmallDevice = sense?.isSmallDevice?.() ?? false;
     const calculatedColumns = calculateColumns(size, [], isSmallDevice);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice);
     const resourcesWithDefaultValues = setDefaultValues(resources);

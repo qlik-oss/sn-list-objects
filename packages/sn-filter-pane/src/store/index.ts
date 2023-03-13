@@ -7,7 +7,6 @@ import { ISense } from '../types/types';
 export interface IStore {
   app?: EngineAPI.IApp;
   model?: EngineAPI.IGenericObject;
-  isSmallDevice?: (() => void);
   fpLayout?: IFilterPaneLayout;
   options: IListBoxOptions;
   constraints?: stardust.Constraints;
@@ -26,7 +25,6 @@ export const create = () => ({
   store: createVanilla<IStore>(() => ({
     app: undefined,
     model: undefined,
-    isSmallDevice: undefined,
     fpLayout: undefined,
     options: {},
     constraints: undefined,
