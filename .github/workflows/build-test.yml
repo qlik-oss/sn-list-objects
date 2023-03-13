@@ -31,13 +31,10 @@ jobs:
       - run: yarn run test:rendering
         id: rendering
       - uses: actions/upload-artifact@v3
-        with:
-          name: rendering-report
-          path: test/rendering/reports/html/
-          retention-days: 3
-      - uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
         with:
           name: rendering-output
-          path: test-results/
+          path: |
+            test-reports/reports/html/
+            test-results/
           retention-days: 3
