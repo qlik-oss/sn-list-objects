@@ -15,23 +15,3 @@ jobs:
     uses: qlik-oss/sn-list-objects/.github/workflows/build-test-single.yml@main
     with:
       package: ${{ matrix.package }}
-
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: yarn
-      - name: build filterpane
-        working-directory: packages/sn-filter-pane
-        run: |
-          yarn
-          yarn build
-      - run: yarn playwright install --with-deps
-      - run: yarn run test:rendering
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: rendering-output 
-          path: packages/sn-filter-pane/
-          retention-days: 3
