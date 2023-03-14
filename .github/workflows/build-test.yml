@@ -34,7 +34,7 @@ jobs:
         if: always()
         with:
           name: rendering-report
-          path: test-reports/reports/html/
+          path: test-reports/
           retention-days: 3
       - uses: actions/upload-artifact@v3
         if: always()
