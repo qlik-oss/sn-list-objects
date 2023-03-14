@@ -1,7 +1,7 @@
 const normalReporters = [
   ['dot'],
-  ['html', { outputFolder: '../../test-reports/reports/html' }],
-  ['junit', { outputFile: '../../test-reports/xml/report.xml' }],
+  ['html', { outputFolder: './reports/html' }],
+  ['junit', { outputFile: './reports/xml/report.xml' }],
 ];
 const config = {
   reporter: process.env.CI ? 'github' : normalReporters,
