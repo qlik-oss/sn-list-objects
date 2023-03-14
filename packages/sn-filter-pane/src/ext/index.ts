@@ -16,5 +16,15 @@ export default function ext(env: IEnv) {
     },
     importProperties: (exportFormat:ExportFormat, initialProperties: EngineAPI.IGenericHyperCubeProperties) => createImportProperties(exportFormat, initialProperties),
     exportProperties,
+    getDropFieldOptions(builder:any, propertyHandler:any, model: EngineAPI.IGenericObject/* , showMenu, object */) {
+      if (propertyHandler.getDimensions().length < propertyHandler.maxDimensions()) {
+        propertyHandler.setModel(model);
+        builder.Add(model, propertyHandler);
+        builder.menu?.items?.[0]?.select();
+      }
+    },
+    getDropMeasureOptions(builder:any, propertyHandler:any, model: EngineAPI.IGenericObject, showMenu: () => void) {
+      showMenu();
+    },
   };
 }
