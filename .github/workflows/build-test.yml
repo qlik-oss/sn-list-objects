@@ -40,6 +40,6 @@ jobs:
         if: always()
         with:
           name: rendering-report
-          path: test-reports/reports/html/
+          path: packages/sn-filter-pane/test-reports/reports/html/
           retention-days: 3
 
