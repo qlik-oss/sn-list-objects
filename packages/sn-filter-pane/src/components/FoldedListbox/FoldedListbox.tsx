@@ -21,7 +21,8 @@ export interface FoldedListboxProps {
 export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { constraints, stardustTheme } = stores.store.getState();
+  const { constraints, stardustTheme, options } = stores.store.getState();
+  const isRtl = options.direction === 'rtl';
 
   const StyledGrid = styled(Grid)(() => ({
     justifyContent: 'space-between',
@@ -43,7 +44,7 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
     <div ref={containerRef}>
       <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
         <Tooltip title={fieldName} enterDelay={2000}>
-          <Grid container flexGrow={1} alignItems={'center'} padding='0 8px'>
+          <Grid container flexGrow={1} alignItems={'center'}  sx={{ justifyContent: isRtl ? 'flex-end' : 'flex-start' }} padding='0 8px'>
             <Typography variant="subtitle2" fontSize='13px' noWrap>
               {fieldName}
             </Typography>
