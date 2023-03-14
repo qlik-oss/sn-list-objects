@@ -33,8 +33,12 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: rendering-output
-          path: |
-            test-reports/reports/html/
-            test-results/
-          retention-days: 3
+          name: rendering-report
+          path: test-reports/reports/html/
+            retention-days: 3
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: rendering-output 
+          path:  test-results/
+            retention-days: 3
