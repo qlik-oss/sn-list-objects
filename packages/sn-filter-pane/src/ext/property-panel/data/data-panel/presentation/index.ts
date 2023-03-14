@@ -3,8 +3,11 @@ import { IGenericListPropertiesMissing } from '../../../../../../../../types/glo
 import textAlignItems from '../../text-align-items';
 import { IEnv } from '../../../../../types/types';
 import frequencies from '../../../constants';
+import updateFrequencyMax from '../update-frequency-max';
 
 const DEFAULT_LAYOUT_ORDER = 'column';
+
+const change = updateFrequencyMax;
 
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
@@ -32,13 +35,7 @@ export default function getPresentation(env: IEnv) {
         component: 'checkbox',
         translation: 'properties.filterpane.showHistogram',
         defaultValue: false,
-        change(itemData: EngineAPI.IGenericListProperties & IGenericListPropertiesMissing) {
-          if (itemData.histogram && itemData.qListObjectDef.qFrequencyMode === frequencies.FREQUENCY_NONE) {
-            itemData.qListObjectDef.qFrequencyMode = frequencies.FREQUENCY_VALUE;
-          }
-          const [qDef] = itemData.qListObjectDef.qDef.qFieldDefs ?? [];
-          itemData.frequencyMax = itemData.histogram ? { qValueExpression: `Max(AGGR(Count([${qDef}]), [${qDef}]))` } : null;
-        },
+        change,
       },
       frequencyCountModeGroup: {
         translation: 'properties.frequencyCountMode',
@@ -68,6 +65,7 @@ export default function getPresentation(env: IEnv) {
                 translation: 'properties.frequencyCountAsPercent',
               },
             ],
+            change,
             convertFunctions: {
               get(
                 getter: () => EngineAPI.FrequencyModeType,
