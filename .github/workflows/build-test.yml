@@ -33,5 +33,5 @@ jobs:
         if: always()
         with:
           name: rendering-output 
-          path: test/
+          path: packages/sn-filter-pane/
           retention-days: 3
