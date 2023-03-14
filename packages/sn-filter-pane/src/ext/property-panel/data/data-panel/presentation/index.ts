@@ -3,11 +3,11 @@ import { IGenericListPropertiesMissing } from '../../../../../../../../types/glo
 import textAlignItems from '../../text-align-items';
 import { IEnv } from '../../../../../types/types';
 import frequencies from '../../../constants';
-import updateFrequencyMax from '../update-frequency-max';
+import updateForFrequencyMax from '../update-frequency-max';
 
 const DEFAULT_LAYOUT_ORDER = 'column';
 
-const change = updateFrequencyMax;
+const change = updateForFrequencyMax;
 
 export default function getPresentation(env: IEnv) {
   const { translator } = env;

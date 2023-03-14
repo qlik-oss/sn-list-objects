@@ -1,7 +1,7 @@
 import { IEnv } from '../../../../types/types';
 import { IGenericListPropertiesMissing } from '../../../../hooks/types';
 import getPresentation from './presentation';
-import updateFrequencyMax from './update-frequency-max';
+import updateForFrequencyMax from './update-frequency-max';
 
 const autoSortCriterias: EngineAPI.ISortCriteria = {
   qSortByState: 1 as EngineAPI.TypeSortDirection,
@@ -42,7 +42,7 @@ export default function getDataPanelItems(env: IEnv) {
           def.qFieldLabels = [];
         }
         [def.qFieldLabels[0]] = def.qFieldDefs ?? [];
-        updateFrequencyMax(itemData);
+        updateForFrequencyMax(itemData);
       },
     },
     title: {
