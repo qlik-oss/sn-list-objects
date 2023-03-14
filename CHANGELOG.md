@@ -1,5 +1,13 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.4.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.4.0...v0.4.1) (2023-03-14)
+
+
+### Bug Fixes
+
+* fix drop filed/measure to a filter pane ([#136](https://github.com/qlik-oss/sn-list-objects/issues/136)) ([335aff6](https://github.com/qlik-oss/sn-list-objects/commit/335aff666ffdc262bf88199bce9d47c55a7a12b9))
+* get isSmallSize from sense ([#128](https://github.com/qlik-oss/sn-list-objects/issues/128)) ([2adda6a](https://github.com/qlik-oss/sn-list-objects/commit/2adda6ae40afe799eb2311a70a292b42b99c9dcc))
+
 ## [0.4.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.3.2...v0.4.0) (2023-03-09)
 
 
