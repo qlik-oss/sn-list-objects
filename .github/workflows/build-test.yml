@@ -29,9 +29,9 @@ jobs:
           yarn build
       - name: run test
         working-directory: ./  
-        run: yarn playwright install --with-deps
-        run: yarn run test:rendering
-        id: rendering
+        run: | 
+          yarn playwright install --with-deps
+          yarn run test:rendering
       - uses: actions/upload-artifact@v3
         if: always()
         with:
