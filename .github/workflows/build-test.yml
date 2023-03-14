@@ -35,10 +35,10 @@ jobs:
         with:
           name: rendering-report
           path: test-reports/reports/html/
-            retention-days: 3
+          retention-days: 3
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: rendering-output 
           path:  test-results/
-            retention-days: 3
+          retention-days: 3
