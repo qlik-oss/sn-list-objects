@@ -27,8 +27,8 @@ jobs:
         run: |
           yarn
           yarn build
-        run: yarn playwright install --with-deps
-        run: yarn run test:rendering
+      - run: yarn playwright install --with-deps
+      - run: yarn run test:rendering
       - uses: actions/upload-artifact@v3
         if: always()
         with:
