@@ -17,7 +17,7 @@ jobs:
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
         id: rendering
-      - run: ls
+      - run: ls -lR
       - run: ls test-report  
       - uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
