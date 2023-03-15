@@ -80,6 +80,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === KeyCodes.ESC && keyboard?.enabled) {
       preventDefaultBehavior(event);
+      // @ts-ignore
       keyboard.blur?.(true);
     } else if (event.key === KeyCodes.LEFT || event.key === KeyCodes.RIGHT) {
       let elementToFocus;
