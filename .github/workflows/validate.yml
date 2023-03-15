@@ -23,7 +23,5 @@ jobs:
         if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
         with:
           name: rendering-output
-          path: |
-            test-report/
-            test-results/
+          path: reports/
           retention-days: 3
