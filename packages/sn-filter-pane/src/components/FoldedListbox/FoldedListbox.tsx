@@ -44,7 +44,7 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
     <div ref={containerRef}>
       <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
         <Tooltip title={fieldName} enterDelay={2000}>
-          <Grid container flexGrow={1} alignItems={'center'}  sx={{ justifyContent: isRtl ? 'flex-end' : 'flex-start' }} padding='0 8px'>
+          <Grid container flexGrow={1} alignItems={'center'} sx={{ justifyContent: isRtl ? 'flex-end' : 'flex-start' }} padding='0 8px'>
             <Typography variant="subtitle2" fontSize='13px' noWrap>
               {fieldName}
             </Typography>
