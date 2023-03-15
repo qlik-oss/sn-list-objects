@@ -31,7 +31,7 @@ const Resizable = styled(ResizableBox)(() => ({
 
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, useResourceStore } = stores;
-  const { sense, selections } = store.getState();
+  const { sense, selections, keyboard } = store.getState();
   const resources = useResourceStore((state) => state.resources);
 
   const gridRef = useRef<HTMLDivElement>();
@@ -52,11 +52,70 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     setColumns(expandedAndCollapsedColumns);
   }, [resources]);
 
+  const KeyCodes = {
+    ENTER: 'Enter',
+    SPACE: ' ',
+    ESC: 'Escape',
+    TAB: 'Tab',
+    SHIFT: 'Shift',
+    LEFT: 'ArrowLeft',
+    RIGHT: 'ArrowRight',
+    UP: 'ArrowUp',
+    DOWN: 'ArrowDown',
+    C: 'c',
+  };
+
+  const preventDefaultBehavior = (event: React.KeyboardEvent | MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
+  const findIndex = (element: EventTarget, nodeList: NodeList) => {
+    for (let i = 0; i < nodeList.length; i++) {
+      if (element === nodeList.item(i)) return i;
+    }
+    return -1;
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === KeyCodes.ESC && keyboard?.enabled) {
+      preventDefaultBehavior(event);
+      keyboard.blur?.(true);
+    } else if (event.key === KeyCodes.LEFT || event.key === KeyCodes.RIGHT) {
+      let elementToFocus;
+      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll('.listbox-container');
+      if (listboxList?.length) {
+        const activeIndex = findIndex(event.target, listboxList);
+        if (activeIndex < 0) {
+          elementToFocus = listboxList.item(0);
+        } else if (!(listboxList.length === 1 || (activeIndex === 0 && event.key === KeyCodes.LEFT) || (activeIndex === listboxList.length - 1 && event.key === KeyCodes.RIGHT))) {
+          const nextIndex = event.key === KeyCodes.LEFT ? activeIndex - 1 : activeIndex + 1;
+          elementToFocus = listboxList.item(nextIndex);
+        }
+        if (elementToFocus) {
+          (elementToFocus as HTMLElement).focus();
+        }
+      }
+      preventDefaultBehavior(event);
+    }
+  };
+
   useEffect(() => {
     if (gridRef.current) {
       handleResize();
     }
   }, [resources]);
+
+  useEffect(() => {
+    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container') as HTMLDivElement;
+    if (keyboard?.active) {
+      firstChild?.setAttribute('tabindex', '0');
+      firstChild?.focus();
+    } else {
+      firstChild?.setAttribute('tabindex', '-1');
+      firstChild?.blur();
+    }
+  }, [keyboard]);
 
   const handleActive = useHandleActive(isInSense, selections as stardust.ObjectSelections & ActiveOnly);
   const dHandleResize = debounce(handleResize, isInSense ? 0 : 50);
@@ -69,7 +128,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       >
         <>
           <ElementResizeListener onResize={dHandleResize} />
-          <Grid container columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
+          <Grid container onKeyDown={handleKeyDown} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
 
             {!!columns?.length && columns?.map((column: IColumn, i: number) => (
               <ColumnGrid key={i} widthPercent={100 / columns.length}>
