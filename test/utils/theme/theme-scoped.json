@@ -1,0 +1,41 @@
+{
+  "_inherit": false,
+  "color": "#ffffff",
+  "fontSize": "20px",
+  "fontFamily": "Helvetica",
+  "backgroundColor": "#849c10",
+  "object": {
+    "label": {
+      "color": "red",
+      "fontFamily": "Arial",
+      "fontSize": "5px"
+    },
+    "filterpane": {
+      "backgroundColor": "@light",
+      "title": {
+        "main": {
+          "color": "@default",
+          "fontSize": "@font-normal",
+          "fontFamily": "sans-serif"
+        },
+        "subTitle": {
+          "color": "@default",
+          "fontSize": "@font-normal",
+          "fontFamily": "sans-serif"
+        },
+        "footer": {
+          "color": "@default",
+          "fontSize": "@font-normal",
+          "fontFamily": "sans-serif",
+          "backgroundColor": "@light"
+        }
+      }
+    }
+  },
+  "dataColors": {
+    "primaryColor": "#a6e22e",
+    "othersColor": "#a5a5a5",
+    "errorColor": "#ff4444",
+    "nullColor": "#d2d2d2"
+  }
+}

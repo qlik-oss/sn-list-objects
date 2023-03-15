@@ -12,3 +12,8 @@
 **/coverage
 **/dist
 **/core/esm
+
+# testing
+test/rendering/reports
+test/rendering/baselines-local
+test-results

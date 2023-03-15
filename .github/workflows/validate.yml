@@ -1,0 +1,25 @@
+name: Validate rendering
+
+on: push
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: yarn
+      - name: build filterpane
+        working-directory: packages/sn-filter-pane
+        run: |
+          yarn
+          yarn build
+      - run: yarn playwright install --with-deps
+      - run: yarn run test:rendering
+        id: rendering 
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
+        with:
+          name: rendering-output
+          path: test/rendering/reports/
+          retention-days: 3

@@ -3,7 +3,8 @@
   "version": "0.4.1",
   "description": "Workspace for sn-listbox and sn-filter-pane",
   "scripts": {
-    "release": "release-it"
+    "release": "release-it",
+    "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   "devDependencies": {
     "@release-it-plugins/workspaces": "3.2.0",
     "@release-it/conventional-changelog": "5.1.1",
-    "release-it": "15.5.0"
+    "release-it": "15.5.0",
+    "@playwright/test": "1.30.0",
+    "@nebula.js/cli-serve": "3.3.0-alpha.0"
   }
 }

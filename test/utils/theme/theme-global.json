@@ -1,0 +1,28 @@
+{
+  "_inherit": false,
+  "color": "#ffffff",
+  "fontSize": "20px",
+  "fontFamily": "Helvetica",
+  "backgroundColor": "#849c10",
+  "object": {
+    "label": {
+      "color": "#c414e3",
+      "fontFamily": "Arial",
+      "fontSize": "5px"
+    },
+    "branch": {
+      "backgroundColor": "red",
+      "label": {
+        "color": "blue",
+        "fontFamily": "Arial",
+        "fontSize": "50px"
+      }
+    }
+  },
+  "dataColors": {
+    "primaryColor": "#a6e22e",
+    "othersColor": "#a5a5a5",
+    "errorColor": "#ff4444",
+    "nullColor": "#d2d2d2"
+  }
+}
