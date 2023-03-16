@@ -29,6 +29,11 @@ const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
+export interface ExpandProps {
+  isSingleGridLayout: boolean,
+  hasHeader: boolean,
+}
+
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, useResourceStore } = stores;
   const { sense, selections } = store.getState();
@@ -43,12 +48,17 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     const isSmallDevice = sense?.isSmallDevice?.() ?? false;
-    const calculatedColumns = calculateColumns(size, [], isSmallDevice);
-    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice);
+    const isSingleItem = resources.length === 1;
+    const expandProps: ExpandProps = {
+      isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
+      hasHeader: isSingleItem && resources[0].layout?.title !== '',
+    };
+    const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
+    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
     const resourcesWithDefaultValues = setDefaultValues(resources);
     const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
     setOverflowingResources(overflowing);
-    const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size);
+    const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
     setColumns(expandedAndCollapsedColumns);
   }, [resources]);
 

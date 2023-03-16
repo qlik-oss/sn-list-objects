@@ -1,16 +1,22 @@
 import { IListboxResource } from '../../hooks/types';
 import { IColumn, ISize } from './interfaces';
+import { ExpandProps } from './ListboxGrid';
 
 export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;
 const BUTTON_SPACING = 8;
 export const ITEM_SPACING = 8;
-const EXPANDED_HEIGHT_LIMIT = 181;
 const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 48;
+const SINGLE_GRID_ROW_HEIGHT = 28;
+const SCROLL_BAR_HEIGHT = 10;
 
 const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 29);
+const getExpandedHeightLimit = (expandProps: ExpandProps) => {
+  const headerHeight = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
+  return expandProps.isSingleGridLayout ? SINGLE_GRID_ROW_HEIGHT + SCROLL_BAR_HEIGHT + headerHeight : 90;
+};
 
 /* eslint-disable no-param-reassign */
 
@@ -48,16 +54,16 @@ const doesAllFit = (
   itemCount: number,
 ) => itemCount <= itemsPerColumn * columnCount;
 
-const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolean) => {
+const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolean, expandProps: ExpandProps) => {
   if (isSmallDevice) {
     return false;
   }
   const spacing = (column.itemCount ?? 0) > 1 ? ITEM_SPACING : 0;
-  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + EXPANDED_HEIGHT_LIMIT + spacing;
+  return size.height > getHeightOf((column.itemCount ?? 0) - 1) + getExpandedHeightLimit(expandProps) + spacing;
 };
 
-export const calculateColumns = (size: ISize, columns: IColumn[], isSmallDevice: boolean) => {
-  const canExpand = size.height > EXPANDED_HEIGHT_LIMIT && !isSmallDevice;
+export const calculateColumns = (size: ISize, columns: IColumn[], isSmallDevice: boolean, expandProps: ExpandProps) => {
+  const canExpand = size.height > getExpandedHeightLimit(expandProps) && !isSmallDevice;
   const maxColumns = getMaxColumns(size, isSmallDevice);
   const maxPerColumn = getMaxCollapsedItemsPerColumn(size);
   const usedCount = getColumnItemsCount(columns);
@@ -68,7 +74,7 @@ export const calculateColumns = (size: ISize, columns: IColumn[], isSmallDevice:
       itemCount: 1,
     });
     if (usedCount + 1 < size.dimensionCount) {
-      columns = calculateColumns(size, columns, isSmallDevice);
+      columns = calculateColumns(size, columns, isSmallDevice, expandProps);
     }
   } else {
     let itemCount;
@@ -97,18 +103,19 @@ export const calculateColumns = (size: ISize, columns: IColumn[], isSmallDevice:
     }
 
     if (getColumnItemsCount(columns) < size.dimensionCount && columns.length < maxColumns) {
-      columns = calculateColumns(size, columns, isSmallDevice);
+      columns = calculateColumns(size, columns, isSmallDevice, expandProps);
     }
   }
   return columns;
 };
 
-export const balanceColumns = (size: ISize, columns: IColumn[], isSmallDevice: boolean) => {
+export const balanceColumns = (size: ISize, columns: IColumn[], isSmallDevice: boolean, expandProps: ExpandProps) => {
   let collapsedItems = 0;
   const expanded = columns.filter((column) => column.expand);
   const collapsed = columns.filter((column) => column.expand === false);
 
-  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].hiddenItems && haveRoomToExpandOne(size, collapsed[collapsed.length - 1], isSmallDevice);
+  const canExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].hiddenItems
+    && haveRoomToExpandOne(size, collapsed[collapsed.length - 1], isSmallDevice, expandProps);
   if (canExpand) {
     collapsed[collapsed.length - 1].expand = true;
   } else {
@@ -163,7 +170,7 @@ const expandOne = (sortedItems: IListboxResource[] | undefined, leftOverHeight: 
   return false;
 };
 
-export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
+export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandProps: ExpandProps) => {
   columns.forEach((column: IColumn) => {
     if (column.expand) {
       let expandedCount = 0;
@@ -178,7 +185,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
       const sortedItems = column?.items?.concat().sort((a, b) => a.cardinal - b.cardinal);
 
       if ((sortedItems?.length ?? 0) > 1) {
-        while (leftOverHeight > EXPANDED_HEIGHT_LIMIT) {
+        while (leftOverHeight > getExpandedHeightLimit(expandProps)) {
           const expHeight = expandOne(sortedItems, leftOverHeight);
           if (expHeight) {
             expandedCount++;
@@ -199,7 +206,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize) => {
 
       const collapsedItems = sortedItems?.filter((item) => !item.expand);
 
-      if (leftOverHeight > EXPANDED_HEIGHT_LIMIT && collapsedItems?.length) {
+      if (leftOverHeight > getExpandedHeightLimit(expandProps) && collapsedItems?.length) {
         const item = collapsedItems[0];
 
         if (!item.expand) {
