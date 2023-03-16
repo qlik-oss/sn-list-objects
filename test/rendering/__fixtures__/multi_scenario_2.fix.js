@@ -7072,9 +7072,9 @@ export default () => ({
         ];
       },
     },
-        // listbox object City
-        {
-          getLayout() {
+      // listbox object City
+    {
+      getLayout() {
             return {
               qInfo: {
                 qId: 'b077bcbe-9636-456f-9cd4-a9bfde6fcity',
@@ -7150,9 +7150,9 @@ export default () => ({
               showDetailsExpression: false,
               visualization: 'listbox',
             };
-          },
-          // listbox data
-          getListObjectData() {
+      },
+      // listbox data
+      getListObjectData() {
             return [
               {
                 qMatrix: [
@@ -8777,7 +8777,7 @@ export default () => ({
                 },
               },
             ];
-          },
-        },
+      },
+    },
   ],
 });
