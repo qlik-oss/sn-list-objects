@@ -64,7 +64,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   // TODO: Remove Resizable, only for developing purposes
   return (
     <>
-      <ConditionalWrapper condition={!isInSense}
+      <ConditionalWrapper condition={process.env.NODE_ENV === 'development'}
         wrapper={(children: JSX.Element[]) => <Resizable width={1080} height={1000} minConstraints={[10, 10]} maxConstraints={[1220, 1820]}>{children}</Resizable>}
       >
         <>
