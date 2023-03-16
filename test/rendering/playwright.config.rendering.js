@@ -19,7 +19,7 @@ const config = {
     browserName: 'chromium',
     actionTimeout: 30000,
     headless: true,
-    viewport: { width: 1024, height: 768 },
+    viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
