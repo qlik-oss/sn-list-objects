@@ -23,6 +23,7 @@ import ConditionalWrapper from './ConditionalWrapper';
 import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
+import KEYS from './keys';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -52,19 +53,6 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     setColumns(expandedAndCollapsedColumns);
   }, [resources]);
 
-  const KeyCodes = {
-    ENTER: 'Enter',
-    SPACE: ' ',
-    ESC: 'Escape',
-    TAB: 'Tab',
-    SHIFT: 'Shift',
-    LEFT: 'ArrowLeft',
-    RIGHT: 'ArrowRight',
-    UP: 'ArrowUp',
-    DOWN: 'ArrowDown',
-    C: 'c',
-  };
-
   const preventDefaultBehavior = (event: React.KeyboardEvent | MouseEvent | React.MouseEvent<HTMLLIElement>) => {
     event.stopPropagation();
     event.preventDefault();
@@ -78,7 +66,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === KeyCodes.ESC && keyboard?.enabled) {
+    if (event.key === KEYS.ESC && keyboard?.enabled) {
       // @ts-ignore
       if (event.target.classList.contains('listbox-container')) {
         // Focus currently on a listbox
@@ -86,15 +74,15 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         // @ts-ignore
         keyboard.blur?.(true);
       }
-    } else if (event.key === KeyCodes.LEFT || event.key === KeyCodes.RIGHT) {
+    } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
       let elementToFocus;
       const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll('.listbox-container');
       if (listboxList?.length) {
         const activeIndex = findIndex(event.target, listboxList);
         if (activeIndex < 0) {
           elementToFocus = listboxList.item(0);
-        } else if (!(listboxList.length === 1 || (activeIndex === 0 && event.key === KeyCodes.LEFT) || (activeIndex === listboxList.length - 1 && event.key === KeyCodes.RIGHT))) {
-          const nextIndex = event.key === KeyCodes.LEFT ? activeIndex - 1 : activeIndex + 1;
+        } else if (!(listboxList.length === 1 || (activeIndex === 0 && event.key === KEYS.LEFT) || (activeIndex === listboxList.length - 1 && event.key === KEYS.RIGHT))) {
+          const nextIndex = event.key === KEYS.LEFT ? activeIndex - 1 : activeIndex + 1;
           elementToFocus = listboxList.item(nextIndex);
         }
         if (elementToFocus) {
