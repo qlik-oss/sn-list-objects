@@ -1,5 +1,5 @@
 import {
-  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections,
+  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections, useKeyboard,
 } from '@nebula.js/stardust';
 import { create } from '../store';
 import { IEnv } from '../types/types';
@@ -17,6 +17,7 @@ export default function useSetup({ sense }: IEnv) {
   const embed = useEmbed();
   const stardustTheme = useTheme();
   const selections = useSelections();
+  const keyboard = useKeyboard();
 
   store.setState({
     app,
@@ -29,6 +30,7 @@ export default function useSetup({ sense }: IEnv) {
     embed,
     stardustTheme,
     selections,
+    keyboard,
   });
 
   return stores;
