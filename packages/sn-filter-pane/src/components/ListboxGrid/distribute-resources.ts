@@ -1,6 +1,5 @@
 import { IListboxResource } from '../../hooks/types';
-import { IColumn, ISize } from './interfaces';
-import { ExpandProps } from './ListboxGrid';
+import { ExpandProps, IColumn, ISize } from './interfaces';
 
 export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;

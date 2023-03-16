@@ -15,7 +15,7 @@ import ElementResizeListener from '../ElementResizeListener';
 import {
   setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources,
 } from './distribute-resources';
-import { IColumn, ISize } from './interfaces';
+import { ExpandProps, IColumn, ISize } from './interfaces';
 import { ColumnGrid } from './grid-components/ColumnGrid';
 import { Column } from './grid-components/Column';
 import { ColumnItem } from './grid-components/ColumnItem';
@@ -28,11 +28,6 @@ import useHandleActive, { ActiveOnly } from './use-handle-active';
 const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
-
-export interface ExpandProps {
-  isSingleGridLayout: boolean,
-  hasHeader: boolean,
-}
 
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, useResourceStore } = stores;
