@@ -41,7 +41,7 @@ export default {
         qType: 'listbox',
       },
       qListObjectDef: listboxDef,
-      newTitle,
+      title: newTitle,
       visualization: 'listbox',
     };
   },
