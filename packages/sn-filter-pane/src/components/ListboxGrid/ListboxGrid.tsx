@@ -79,9 +79,13 @@ function ListboxGrid({ stores }: { stores: IStores }) {
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === KeyCodes.ESC && keyboard?.enabled) {
-      preventDefaultBehavior(event);
       // @ts-ignore
-      keyboard.blur?.(true);
+      if (event.target.classList.contains('listbox-container')) {
+        // Focus currently on a listbox
+        preventDefaultBehavior(event);
+        // @ts-ignore
+        keyboard.blur?.(true);
+      }
     } else if (event.key === KeyCodes.LEFT || event.key === KeyCodes.RIGHT) {
       let elementToFocus;
       const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll('.listbox-container');
@@ -110,10 +114,10 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   useEffect(() => {
     const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container') as HTMLDivElement;
     if (keyboard?.active) {
-      firstChild?.setAttribute('tabindex', '0');
+      firstChild?.setAttribute('tabIndex', '0');
       firstChild?.focus();
     } else {
-      firstChild?.setAttribute('tabindex', '-1');
+      firstChild?.setAttribute('tabIndex', '-1');
       firstChild?.blur();
     }
   }, [keyboard]);
