@@ -38,6 +38,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const [columns, setColumns] = useState<IColumn[]>([]);
   const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
   const isInSense = typeof (sense?.isSmallDevice) === 'function';
+  const { options } = stores.store.getState();
 
   const handleResize = useCallback(() => {
     const { width, height } = getWidthHeight(gridRef);
@@ -51,6 +52,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size);
     setColumns(expandedAndCollapsedColumns);
   }, [resources]);
+
+  const isRtl = options.direction === 'rtl';
 
   useEffect(() => {
     if (gridRef.current) {
@@ -69,11 +72,11 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       >
         <>
           <ElementResizeListener onResize={dHandleResize} />
-          <Grid container columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
+          <Grid container sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
 
             {!!columns?.length && columns?.map((column: IColumn, i: number) => (
               <ColumnGrid key={i} widthPercent={100 / columns.length}>
-                <Column lastColumn={columns.length === i + 1}>
+                <Column lastColumn={!isRtl ? columns.length === i + 1 : i === 0}>
 
                   {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
                     <ColumnItem
