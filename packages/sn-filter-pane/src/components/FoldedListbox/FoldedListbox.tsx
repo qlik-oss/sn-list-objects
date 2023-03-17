@@ -22,7 +22,9 @@ export interface FoldedListboxProps {
 export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { constraints, stardustTheme, options, translator } = stores.store.getState();
+  const {
+    constraints, stardustTheme, options, translator,
+  } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
 
