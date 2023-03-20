@@ -1598,10 +1598,10 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@nebula.js/cli-build@4.0.0-alpha.1", "@nebula.js/cli-build@^4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.1.tgz#96e6f17c7b7940d878a398f63488deec318f41d4"
-  integrity sha512-3dbT1sOTWvXeu7q1rEN9m4ao33swezFSBb/I1R/peqsXTQgwd1wC59FUbhhildJMCokde3cjIvSGXh7zjkz+eg==
+"@nebula.js/cli-build@4.0.0-alpha.2", "@nebula.js/cli-build@^4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.2.tgz#9b535052aa0e411a38c95bebe54d1334d3b9ebf4"
+  integrity sha512-NYG1Af8IDF8xaJcZMgd7S8FX7BZTkSrNnrZJZk47YOT6v56lYDYylHGAFjudBJKlAIDARLpGr24FjZVfo1prZA==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
@@ -1621,25 +1621,25 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-create@^4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.0.0-alpha.1.tgz#76783ff9076e1bf9055529313c6251c1768aab24"
-  integrity sha512-yepCo4sFZhhMDbMuY6gSBI0OghHJQyvXdDz55aVu9yFeDVXK4lCVSVhir22MmMQ7piLK+nx+ooq/0UZFsNhebA==
+"@nebula.js/cli-create@^4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.0.0-alpha.2.tgz#24f293b039d243331494c4ea893804e2201dbd5a"
+  integrity sha512-cZGq82zVsodLuXrnQotyhxAjKOn4/vBuLjpNEttw0+E5hHa2imGyVf5FyqMu74tHWlr3yL8otfPIzOsSxIQfNg==
   dependencies:
     chalk "4.1.2"
     ejs "3.1.8"
     fs-extra "11.1.0"
     inquirer "8.2.5"
 
-"@nebula.js/cli-sense@4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.0.0-alpha.1.tgz#c4488696984cc4b72e5e762f1d7c7035ec87c55e"
-  integrity sha512-uf2/RvovZyFemsQQTu2D5+4q/f57Jv07Y4uzde6/IZpi0XXTR3TLktECJJ5/yb6+ENE5lDvirGMU+PAYweqkmg==
+"@nebula.js/cli-sense@4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.0.0-alpha.2.tgz#9669be53f56800e28ee84b439965374d39a3c535"
+  integrity sha512-76v+rm72M7lxMu70njXx99ti58rKtq+gQcTmm1Vl01wBRpkJ1OstZqzuM4I1RpTp4bn2ut/q5e6qxMZelb32HA==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
     "@babel/preset-env" "7.20.2"
-    "@nebula.js/stardust" "^4.0.0-alpha.1"
+    "@nebula.js/stardust" "^4.0.0-alpha.2"
     "@rollup/plugin-babel" "6.0.3"
     "@rollup/plugin-commonjs" "24.0.1"
     "@rollup/plugin-node-resolve" "15.0.1"
@@ -1651,12 +1651,12 @@
     rollup "3.17.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-serve@4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.1.tgz#62f22280c4bbc1974aa53367a83fbe1fb1719368"
-  integrity sha512-qhqk1VNdWxkwQraBNBMIQmrRJtBZ+kYk3ldmZqavK0uJ6ijzm2DD6qIk0cfPuAQoNCutBKU2QyEzP/qxrd+5/w==
+"@nebula.js/cli-serve@4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.2.tgz#55d5646b881a35ba469756c50385581a076f29bc"
+  integrity sha512-uQV80HVXp7vMX3q1h4xZuRNLB/6TuUJqH89HwC6NPCYTK4uTyp3Kz7yS2fxSqtU0BMt4WZprQdBxcq6LL93gog==
   dependencies:
-    "@nebula.js/cli-build" "^4.0.0-alpha.1"
+    "@nebula.js/cli-build" "^4.0.0-alpha.2"
     "@qlik/sdk" "^0.19.1"
     body-parser "1.20.2"
     chalk "4.1.2"
@@ -1669,25 +1669,25 @@
     puppeteer "14.4.1"
     regenerator-runtime "0.13.11"
     source-map-loader "4.0.1"
-    webpack "5.75.0"
+    webpack "5.76.0"
     webpack-cli "5.0.1"
     webpack-dev-server "4.11.1"
     ws "8.12.1"
     yargs "17.7.1"
 
-"@nebula.js/cli@4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.0.0-alpha.1.tgz#80600aeb6d9430f55de42157690e734219acb1c9"
-  integrity sha512-XIMReoy2PKw6ybkGncVJv/rVNZv6y5EJpn78l9fNpwlxtjge6yOtu9NlaJH/BMTjQZofzzFdbpuEQjUYWlUiDA==
+"@nebula.js/cli@4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.0.0-alpha.2.tgz#431a55d59ea70f080eb81e071bd7f72782d57067"
+  integrity sha512-A2fSugo/CyFTxXQeH0OHnxnvqAHxUMbWg7b+cujRGcP2560ZAGZ0kpaJqfyYMf2UCzhFNrkNuLl+IsJAbCH9zw==
   dependencies:
-    "@nebula.js/cli-create" "^4.0.0-alpha.1"
+    "@nebula.js/cli-create" "^4.0.0-alpha.2"
     import-cwd "3.0.0"
     yargs "17.7.1"
 
-"@nebula.js/stardust@^4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.0.0-alpha.1.tgz#aaf252b696bfa584c9d27710699c0ac70c7b6761"
-  integrity sha512-t7S6+Gm307xAUadoLz5Lj6hyrUDd6o3TmuAH14lIoDJaYlzpXXlTlIl+0WF0nHOWfnT2fdrAnnn3is3fn+UxLw==
+"@nebula.js/stardust@^4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.0.0-alpha.2.tgz#c6e16098d611a7739ab3efe0d1b3ec26743ee8f5"
+  integrity sha512-BIPXmTuXuUH9/QRrgQ3pFf+g7Nk5i/BPdvIgCAq9FlgkZHg8kVHObfxwdF/9Tgn37mG0gWq1xiCGNK3IuXpHvw==
   dependencies:
     "@types/qlik-engineapi" "12.67.12"
 
@@ -7800,10 +7800,10 @@ webpack-sources@^3.2.3:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.3.tgz#2d4daab8451fd4b240cc27055ff6a0c2ccea0cde"
   integrity sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==
 
-webpack@5.75.0:
-  version "5.75.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.75.0.tgz#1e440468647b2505860e94c9ff3e44d5b582c152"
-  integrity sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==
+webpack@5.76.0:
+  version "5.76.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.0.tgz#f9fb9fb8c4a7dbdcd0d56a98e56b8a942ee2692c"
+  integrity sha512-l5sOdYBDunyf72HW8dF23rFtWq/7Zgvt/9ftMof71E/yUb1YLOBmTgA2K4vQthB3kotMrSj609txVE0dnr2fjA==
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"
