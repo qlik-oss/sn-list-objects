@@ -12,3 +12,8 @@ export interface ISize {
   height: number;
   dimensionCount: number;
 }
+
+export interface ExpandProps {
+  isSingleGridLayout: boolean,
+  hasHeader: boolean,
+}
