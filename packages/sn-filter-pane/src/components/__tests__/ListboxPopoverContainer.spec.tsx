@@ -4,6 +4,11 @@ import { IListboxResource } from '../../hooks/types';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import { create } from '../../store';
 
+jest.mock('../../services/render-tracker', () => ({
+  __esModule: true,
+  default: () => ({}),
+}));
+
 const getResource = (id: string) => ({
   id,
   layout: {
@@ -23,7 +28,7 @@ const getResource = (id: string) => ({
 });
 const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResource(String(i)) as IListboxResource }));
 
-describe('ListboxPopoverContainer render', () => {
+describe.only('ListboxPopoverContainer render', () => {
   it('should render FoldedListbox with fieldname when one resource is provided', () => {
     const { queryByText } = render(
       <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} stores={create()} />,
