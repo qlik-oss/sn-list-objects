@@ -15,6 +15,8 @@ const updateForFrequencyMax = (itemData: EngineAPI.IGenericListProperties & IGen
   }
   if (!itemData.histogram || itemData.qListObjectDef.qFrequencyMode !== frequencies.FREQUENCY_VALUE) {
     itemData.frequencyMax = null;
+  } else if (itemData.qListObjectDef.qLibraryId) {
+    itemData.frequencyMax = 'fetch';
   } else {
     const [qDef] = itemData.qListObjectDef.qDef.qFieldDefs ?? [];
     const exp = escapeField(qDef as string);

@@ -1012,10 +1012,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@nebula.js/cli-build@^4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.1.tgz#96e6f17c7b7940d878a398f63488deec318f41d4"
-  integrity sha512-3dbT1sOTWvXeu7q1rEN9m4ao33swezFSBb/I1R/peqsXTQgwd1wC59FUbhhildJMCokde3cjIvSGXh7zjkz+eg==
+"@nebula.js/cli-build@^4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.2.tgz#9b535052aa0e411a38c95bebe54d1334d3b9ebf4"
+  integrity sha512-NYG1Af8IDF8xaJcZMgd7S8FX7BZTkSrNnrZJZk47YOT6v56lYDYylHGAFjudBJKlAIDARLpGr24FjZVfo1prZA==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
@@ -1035,12 +1035,12 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-serve@4.0.0-alpha.1":
-  version "4.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.1.tgz#62f22280c4bbc1974aa53367a83fbe1fb1719368"
-  integrity sha512-qhqk1VNdWxkwQraBNBMIQmrRJtBZ+kYk3ldmZqavK0uJ6ijzm2DD6qIk0cfPuAQoNCutBKU2QyEzP/qxrd+5/w==
+"@nebula.js/cli-serve@4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.2.tgz#55d5646b881a35ba469756c50385581a076f29bc"
+  integrity sha512-uQV80HVXp7vMX3q1h4xZuRNLB/6TuUJqH89HwC6NPCYTK4uTyp3Kz7yS2fxSqtU0BMt4WZprQdBxcq6LL93gog==
   dependencies:
-    "@nebula.js/cli-build" "^4.0.0-alpha.1"
+    "@nebula.js/cli-build" "^4.0.0-alpha.2"
     "@qlik/sdk" "^0.19.1"
     body-parser "1.20.2"
     chalk "4.1.2"
@@ -1053,7 +1053,7 @@
     puppeteer "14.4.1"
     regenerator-runtime "0.13.11"
     source-map-loader "4.0.1"
-    webpack "5.75.0"
+    webpack "5.76.0"
     webpack-cli "5.0.1"
     webpack-dev-server "4.11.1"
     ws "8.12.1"
@@ -7242,10 +7242,10 @@ webpack-sources@^3.2.3:
   resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.2.3.tgz#2d4daab8451fd4b240cc27055ff6a0c2ccea0cde"
   integrity sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==
 
-webpack@5.75.0:
-  version "5.75.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.75.0.tgz#1e440468647b2505860e94c9ff3e44d5b582c152"
-  integrity sha512-piaIaoVJlqMsPtX/+3KTTO6jfvrSYgauFVdt8cr9LTHKmcq/AMd4mhzsiP7ZF/PGRNPGA8336jldh9l2Kt2ogQ==
+webpack@5.76.0:
+  version "5.76.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.76.0.tgz#f9fb9fb8c4a7dbdcd0d56a98e56b8a942ee2692c"
+  integrity sha512-l5sOdYBDunyf72HW8dF23rFtWq/7Zgvt/9ftMof71E/yUb1YLOBmTgA2K4vQthB3kotMrSj609txVE0dnr2fjA==
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"

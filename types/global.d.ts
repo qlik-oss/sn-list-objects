@@ -6,6 +6,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   },
   layoutOptions?: {
     dense: boolean,
+    dataLayout?: 'grid' | 'singleColumn',
   },
   toolbar?: boolean,
 }

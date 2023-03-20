@@ -1,6 +1,7 @@
-import { Grid, PaperProps, Popover } from '@mui/material';
+import { Grid, PaperProps, Popover, Theme } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import React, { useState, useRef } from 'react';
+import { useTheme } from '@mui/material/styles';
 import { IListboxResource } from '../hooks/types';
 import type { IStores } from '../store';
 import { ExpandButton } from './ExpandButton';
@@ -13,17 +14,20 @@ export interface FoldedPopoverProps {
   stores: IStores;
 }
 
-const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.Theme): PaperProps => (
-  {
+const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.Theme, muiTheme?: Theme): PaperProps => {
+  let backgroundColor = stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor');
+  if (!backgroundColor || backgroundColor === 'transparent') {
+    backgroundColor = muiTheme?.palette.background.default;
+  }
+  return {
     style: {
       height: selectedResource ? '330px' : undefined,
-      resize: selectedResource ? 'both' : undefined,
-      width: '160px',
+      width: '234px',
       overflow: 'hidden',
-      backgroundColor: stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor'),
+      backgroundColor,
     },
-  }
-);
+  };
+};
 
 /**
  * If a single resource is passed to this component a FoldedListbox is rendered.
@@ -38,6 +42,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
   const containerRef = useRef(null);
   const [selectedResource, setSelectedResource] = useState<IListboxResource | undefined>();
   const transitionDuration = 200;
+  const muiTheme = useTheme();
 
   const handleOpen = ({ event }: FoldedListboxClickEvent | { event: React.MouseEvent<HTMLButtonElement, MouseEvent> }) => {
     if (event.currentTarget.contains(event.target as Node) && !constraints?.active) {
@@ -75,7 +80,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        PaperProps={popoverPaperProps(!!selectedResource, stardustTheme)}
+        PaperProps={popoverPaperProps(!!selectedResource, stardustTheme, muiTheme)}
       >
         {(selectedResource || isSingle)
           ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} />

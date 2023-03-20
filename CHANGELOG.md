@@ -1,5 +1,25 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.5.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.4.2...v0.5.0) (2023-03-20)
+
+
+### Features
+
+* mark frequencyMax for master dim to be fetched later ([#155](https://github.com/qlik-oss/sn-list-objects/issues/155)) ([310be44](https://github.com/qlik-oss/sn-list-objects/commit/310be4450cbfa5880b61bacd2468d6814200ee98))
+
+
+### Bug Fixes
+
+* adaptive collapse height ([#154](https://github.com/qlik-oss/sn-list-objects/issues/154)) ([b84f666](https://github.com/qlik-oss/sn-list-objects/commit/b84f66613a112eb48f9697d343005522dfb1e578))
+* add drill down icon ([#164](https://github.com/qlik-oss/sn-list-objects/issues/164)) ([f3f95ed](https://github.com/qlik-oss/sn-list-objects/commit/f3f95ed07d4ab5faf8d95152acf4b3bdef3e1945))
+* don't use transparent background for popover ([#173](https://github.com/qlik-oss/sn-list-objects/issues/173)) ([02dc400](https://github.com/qlik-oss/sn-list-objects/commit/02dc400b0569f327810d54faf219d921d528dd0e))
+* fields label ([#178](https://github.com/qlik-oss/sn-list-objects/issues/178)) ([0949d5b](https://github.com/qlik-oss/sn-list-objects/commit/0949d5b7af5e6f3ed31547ab4ae0554a50dfb5d3))
+* **filter-pane:** rtl mode ([#142](https://github.com/qlik-oss/sn-list-objects/issues/142)) ([d038308](https://github.com/qlik-oss/sn-list-objects/commit/d038308b7caae04e9966b7701fa3f46b86ce50b2))
+* fix setting focus on keyboard navigation ([#150](https://github.com/qlik-oss/sn-list-objects/issues/150)) ([f33d07f](https://github.com/qlik-oss/sn-list-objects/commit/f33d07ff0af17d6e680f78899ca9636c68c6d1fa))
+* remove resize and increase width of the popover ([#168](https://github.com/qlik-oss/sn-list-objects/issues/168)) ([be9e1ad](https://github.com/qlik-oss/sn-list-objects/commit/be9e1adce7524e538c6fafe70b2fd09498863354))
+* rename .js to .ts to get rid of build warning ([#157](https://github.com/qlik-oss/sn-list-objects/issues/157)) ([4c2a857](https://github.com/qlik-oss/sn-list-objects/commit/4c2a8576a9851bbcad5321b8c7b1ced77a030341))
+* set title on correct property on conversion ([#143](https://github.com/qlik-oss/sn-list-objects/issues/143)) ([1de4cfc](https://github.com/qlik-oss/sn-list-objects/commit/1de4cfcac8b8d77ff25fa682933ddef6ffb8ff08))
+
 ### [0.4.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.4.1...v0.4.2) (2023-03-15)
 
 
