@@ -24,13 +24,14 @@ import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
 import KEYS from './keys';
+import { RenderTrackerService } from '../../services/render-tracker';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-const prepareRenderTracker = (columns: IColumn[], renderTracker) => {
+const prepareRenderTracker = (columns: IColumn[], renderTracker: RenderTrackerService) => {
   let visibleListboxCount = 0;
   columns.forEach((column: IColumn) => {
     column.items?.forEach((item: IListboxResource) => {
@@ -43,11 +44,12 @@ const prepareRenderTracker = (columns: IColumn[], renderTracker) => {
 };
 
 function ListboxGrid({ stores }: { stores: IStores }) {
-  const { store, useResourceStore } = stores;
+  const { store, useResourceStore, useServices } = stores;
   const {
-    sense, selections, keyboard, renderTracker,
+    sense, selections, keyboard,
   } = store.getState();
   const resources = useResourceStore((state) => state.resources);
+  const renderTracker = useServices((state) => state.renderTracker);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);

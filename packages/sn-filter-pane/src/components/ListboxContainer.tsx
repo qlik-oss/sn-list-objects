@@ -24,10 +24,11 @@ const ListboxContainer = ({
     model,
     constraints,
     options,
-    renderTracker,
   } = stores.store.getState();
 
-  const key = useState(uid());
+  const renderTracker = stores.useServices((state) => state.renderTracker);
+
+  const [key] = useState(uid());
 
   useEffect(() => {
     if (!layout || !embed) {

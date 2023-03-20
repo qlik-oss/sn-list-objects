@@ -3,6 +3,7 @@ import createVanilla from 'zustand/vanilla';
 import createHook from 'zustand';
 import { IFilterPaneLayout, IListBoxOptions, IListboxResource } from '../hooks/types';
 import { ISense } from '../types/types';
+import useRenderTrackerService, { RenderTrackerService } from '../services/render-tracker';
 
 export interface IStore {
   app?: EngineAPI.IApp;
@@ -16,11 +17,14 @@ export interface IStore {
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
   keyboard?: stardust.Keyboard;
-  renderTracker?: any;
 }
 
 interface ResourceState {
   resources: IListboxResource[];
+}
+
+interface Services {
+  renderTracker: RenderTrackerService,
 }
 
 export const create = () => ({
@@ -33,10 +37,12 @@ export const create = () => ({
     translator: undefined,
     sense: undefined,
     embed: undefined,
-    renderTracker: undefined,
   })),
   useResourceStore: createHook<ResourceState>(() => ({
     resources: [],
+  })),
+  useServices: createHook<Services>(() => ({
+    renderTracker: useRenderTrackerService(),
   })),
 });
 
