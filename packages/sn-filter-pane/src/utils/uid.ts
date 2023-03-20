@@ -8,7 +8,7 @@ const idGen = [
   [0, 31],
   [0, 31],
 ];
-function toChar([min, max]) {
+function toChar([min, max]: number[]) {
   return (min + ((Math.random() * (max - min)) | 0)).toString(32);
 }
 

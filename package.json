@@ -21,6 +21,6 @@
     "@release-it/conventional-changelog": "5.1.1",
     "release-it": "15.5.0",
     "@playwright/test": "1.30.0",
-    "@nebula.js/cli-serve": "4.0.0-alpha.2"
+    "@nebula.js/cli-serve": "4.0.0-alpha.3"
   }
 }

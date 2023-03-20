@@ -3,6 +3,7 @@ import createVanilla from 'zustand/vanilla';
 import createHook from 'zustand';
 import { IFilterPaneLayout, IListBoxOptions, IListboxResource } from '../hooks/types';
 import { ISense } from '../types/types';
+import useRenderTrackerService, { RenderTrackerService } from '../services/render-tracker';
 
 export interface IStore {
   app?: EngineAPI.IApp;
@@ -22,6 +23,10 @@ interface ResourceState {
   resources: IListboxResource[];
 }
 
+interface Services {
+  renderTracker: RenderTrackerService,
+}
+
 export const create = () => ({
   store: createVanilla<IStore>(() => ({
     app: undefined,
@@ -35,6 +40,9 @@ export const create = () => ({
   })),
   useResourceStore: createHook<ResourceState>(() => ({
     resources: [],
+  })),
+  useServices: createHook<Services>(() => ({
+    renderTracker: useRenderTrackerService(),
   })),
 });
 

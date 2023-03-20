@@ -24,16 +24,32 @@ import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
 import KEYS from './keys';
+import { RenderTrackerService } from '../../services/render-tracker';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
+const prepareRenderTracker = (columns: IColumn[], renderTracker: RenderTrackerService) => {
+  let visibleListboxCount = 0;
+  columns.forEach((column: IColumn) => {
+    column.items?.forEach((item: IListboxResource) => {
+      if (item.expand) {
+        visibleListboxCount++;
+      }
+    });
+  });
+  renderTracker.setNumberOfListboxes(visibleListboxCount);
+};
+
 function ListboxGrid({ stores }: { stores: IStores }) {
-  const { store, useResourceStore } = stores;
-  const { sense, selections, keyboard } = store.getState();
+  const { store, useResourceStore, useServices } = stores;
+  const {
+    sense, selections, keyboard,
+  } = store.getState();
   const resources = useResourceStore((state) => state.resources);
+  const renderTracker = useServices((state) => state.renderTracker);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);
@@ -57,6 +73,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     setOverflowingResources(overflowing);
     const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
     setColumns(expandedAndCollapsedColumns);
+    prepareRenderTracker(expandedAndCollapsedColumns, renderTracker);
   }, [resources]);
 
   const preventDefaultBehavior = (event: React.KeyboardEvent | MouseEvent | React.MouseEvent<HTMLLIElement>) => {
@@ -132,35 +149,35 @@ function ListboxGrid({ stores }: { stores: IStores }) {
           <Grid container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
 
             {!!columns?.length && columns?.map((column: IColumn, i: number) => (
-              <ColumnGrid key={i} widthPercent={100 / columns.length}>
+                <ColumnGrid key={i} widthPercent={100 / columns.length}>
                 <Column lastColumn={!isRtl ? columns.length === i + 1 : i === 0}>
 
                   {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
-                    <ColumnItem
-                      key={item.id}
-                      lastItem={column.items?.length === j + 1}
-                      listItem={item}
-                    >
+                        <ColumnItem
+                          key={item.id}
+                          lastItem={column.items?.length === j + 1}
+                          listItem={item}
+                        >
                       {item.expand
                         ? <ListboxContainer
-                          layout={item.layout}
+                              layout={item.layout}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
-                          disableSearch={item.cardinal <= 3}
-                          handleActive={handleActive}
-                          stores={stores}
-                        ></ListboxContainer>
+                              disableSearch={item.cardinal <= 3}
+                              handleActive={handleActive}
+                              stores={stores}
+                            ></ListboxContainer>
                         : <ListboxPopoverContainer resources={[item]} stores={stores} />
                       }
-                    </ColumnItem>
+                        </ColumnItem>
                   ))}
 
                   {column.hiddenItems && overflowingResources.length
                     && <ColumnItem height='100%'>
                       <ListboxPopoverContainer resources={overflowingResources} stores={stores} />
                     </ColumnItem>}
-                </Column>
+                  </Column>
 
-              </ColumnGrid>
+                </ColumnGrid>
             ))}
           </Grid>
         </>
