@@ -15,6 +15,7 @@ export interface IStore {
   embed?: stardust.Embed;
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
+  keyboard?: stardust.Keyboard;
 }
 
 interface ResourceState {
