@@ -23,6 +23,7 @@ const ListboxContainer = ({
     model,
     constraints,
     options,
+    sense,
   } = stores.store.getState();
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const ListboxContainer = ({
     const listboxOptions = {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+        isInSenseClientAndAlowEdittingTitle: !!sense,
       },
       direction: options?.direction,
       search: disableSearch ? false : 'toggle' as stardust.SearchMode,
