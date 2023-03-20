@@ -32,7 +32,7 @@ export default function getDataPanelItems(env: IEnv) {
       component: 'expression',
       expressionType: 'dimension',
       ref: 'qListObjectDef.qDef.qFieldDefs.0',
-      translation: 'Common.Fields',
+      translation: 'Common.Field',
       show(itemData: EngineAPI.IGenericListProperties) {
         return !itemData.qListObjectDef.qLibraryId;
       },
