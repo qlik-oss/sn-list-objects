@@ -17,8 +17,7 @@ const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.T
   {
     style: {
       height: selectedResource ? '330px' : undefined,
-      resize: selectedResource ? 'both' : undefined,
-      width: '160px',
+      width: '234px',
       overflow: 'hidden',
       backgroundColor: stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor'),
     },
