@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.5.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.0...v0.5.1) (2023-03-20)
+
+
+### Bug Fixes
+
+* await listbox renderings ([#171](https://github.com/qlik-oss/sn-list-objects/issues/171)) ([103e18a](https://github.com/qlik-oss/sn-list-objects/commit/103e18ad0ca471ca9cc10f629c93f12389e1468a))
+
 ## [0.5.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.4.2...v0.5.0) (2023-03-20)
 
 
