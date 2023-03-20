@@ -3,6 +3,7 @@ import { Box } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import { IListLayout } from '../hooks/types';
 import type { IStores } from '../store';
+import uid from '../utils/uid';
 
 interface ListboxContainerProps {
   layout: IListLayout;
@@ -23,7 +24,10 @@ const ListboxContainer = ({
     model,
     constraints,
     options,
+    renderTracker,
   } = stores.store.getState();
+
+  const key = useState(uid());
 
   useEffect(() => {
     if (!layout || !embed) {
@@ -45,10 +49,13 @@ const ListboxContainer = ({
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       direction: options?.direction,
-      search: disableSearch ? false : 'toggle' as stardust.SearchMode,
+      search: disableSearch ? false : ('toggle' as stardust.SearchMode),
     };
 
-    listboxInstance.mount(elRef.current, listboxOptions);
+    // @ts-ignore
+    listboxInstance.mount(elRef.current, listboxOptions).then(() => {
+      renderTracker.renderedCallback(key);
+    });
     return () => {
       listboxInstance.unmount();
     };

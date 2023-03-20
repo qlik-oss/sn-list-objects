@@ -16,6 +16,7 @@ export interface IStore {
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
   keyboard?: stardust.Keyboard;
+  renderTracker?: any;
 }
 
 interface ResourceState {
@@ -32,6 +33,7 @@ export const create = () => ({
     translator: undefined,
     sense: undefined,
     embed: undefined,
+    renderTracker: undefined,
   })),
   useResourceStore: createHook<ResourceState>(() => ({
     resources: [],
