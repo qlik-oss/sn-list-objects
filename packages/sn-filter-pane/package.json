@@ -22,6 +22,10 @@
     "node": ">=8"
   },
   "main": "dist/sn-filter-pane.js",
+  "systemjs": "dist/sn-filter-pane.systemjs.js",
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "scripts": {
     "start": "nebula serve --type filterpane --mode development",
     "build": "nebula build --core core --ext --mode production --typescript",
