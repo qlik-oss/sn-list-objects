@@ -25,9 +25,9 @@
   "systemjs": "dist/sn-listbox.systemjs.js",
   "scripts": {
     "start": "nebula serve --type sn-listbox --mode development",
-    "build": "node ./scripts/build.js --ext --core core",
-    "build:dev": "node ./scripts/build.js --ext --core core --mode development",
-    "build:watch": "node ./scripts/build.js --ext --core core --mode development -w",
+    "build": "node ./scripts/build.js --core core",
+    "build:dev": "node ./scripts/build.js --core core --mode development",
+    "build:watch": "node ./scripts/build.js --core core --mode development -w",
     "lint": "eslint src",
     "sense": "nebula sense --ext src/ext.ts --meta src/meta.json",
     "test": "echo No tests found...",

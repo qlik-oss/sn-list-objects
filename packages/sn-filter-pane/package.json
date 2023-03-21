@@ -28,9 +28,9 @@
   },
   "scripts": {
     "start": "nebula serve --type filterpane --mode development",
-    "build": "nebula build --core core --ext --mode production --typescript",
-    "build:dev": "nebula build --core core --ext --mode development --typescript",
-    "build:watch": "nebula build --core core --ext --mode development -w",
+    "build": "nebula build --core core --mode production --typescript",
+    "build:dev": "nebula build --core core --mode development --typescript",
+    "build:watch": "nebula build --core core --mode development -w",
     "lint": "eslint src",
     "sense": "nebula sense",
     "sense:dev": "nebula sense --minify false --sourcemap true",
