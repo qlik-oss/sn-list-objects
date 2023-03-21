@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.5.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.1...v0.5.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* small screen listbox popover opens as a full window ([#186](https://github.com/qlik-oss/sn-list-objects/issues/186)) ([a685e57](https://github.com/qlik-oss/sn-list-objects/commit/a685e578d0a85b1a97ee8c5e4a52d73edfb9b2e2))
+
 ### [0.5.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.0...v0.5.1) (2023-03-20)
 
 
