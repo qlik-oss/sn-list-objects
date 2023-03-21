@@ -1,4 +1,6 @@
-import { Grid, PaperProps, Popover, Theme } from '@mui/material';
+import {
+  Grid, PaperProps, Popover, Theme,
+} from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import React, { useState, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -14,17 +16,20 @@ export interface FoldedPopoverProps {
   stores: IStores;
 }
 
-const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.Theme, muiTheme?: Theme): PaperProps => {
+const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, stardustTheme?: stardust.Theme, muiTheme?: Theme): PaperProps => {
   let backgroundColor = stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor');
+  const calcHeight = isSmallDevice ? '100%' : '330px';
   if (!backgroundColor || backgroundColor === 'transparent') {
     backgroundColor = muiTheme?.palette.background.default;
   }
   return {
     style: {
-      height: selectedResource ? '330px' : undefined,
-      width: '234px',
+      height: selectedResource ? calcHeight : undefined,
+      width: isSmallDevice ? '100%' : '234px',
       overflow: 'hidden',
       backgroundColor,
+      maxWidth: isSmallDevice ? '100%' : 'calc(100% - 32px)',
+      maxHeight: isSmallDevice ? '100%' : 'calc(100% - 32px)',
     },
   };
 };
@@ -37,12 +42,13 @@ const popoverPaperProps = (selectedResource: boolean, stardustTheme?: stardust.T
  * FoldedLisbox:es are rendered which in themselves are clickable.
  */
 export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProps) => {
-  const { constraints, stardustTheme } = stores.store.getState();
+  const { constraints, stardustTheme, sense } = stores.store.getState();
   const [popoverOpen, setPopoverOpen] = useState(false);
   const containerRef = useRef(null);
   const [selectedResource, setSelectedResource] = useState<IListboxResource | undefined>();
   const transitionDuration = 200;
   const muiTheme = useTheme();
+  const isSmallDevice = sense?.isSmallDevice?.() ?? false;
 
   const handleOpen = ({ event }: FoldedListboxClickEvent | { event: React.MouseEvent<HTMLButtonElement, MouseEvent> }) => {
     if (event.currentTarget.contains(event.target as Node) && !constraints?.active) {
@@ -80,7 +86,10 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        PaperProps={popoverPaperProps(!!selectedResource, stardustTheme, muiTheme)}
+        PaperProps={popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme)}
+        anchorReference= {isSmallDevice ? 'anchorPosition' : 'anchorEl'}
+        anchorPosition= {{ left: 0, top: 0 }}
+        marginThreshold= {isSmallDevice ? 0 : 16}
       >
         {(selectedResource || isSingle)
           ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} />
