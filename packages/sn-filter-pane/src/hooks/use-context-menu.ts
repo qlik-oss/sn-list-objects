@@ -43,10 +43,15 @@ export default function useContextMenu() {
     if (!text) {
       return;
     }
+    const tid = 'copy-cell-context-item';
+    // @ts-ignore
+    if (menu.items.filter((item) => item.tid === tid).length) {
+      return;
+    }
     menu.addItem({
       translation: 'contextMenu.copyCellValue',
       icon: 'lui-icon lui-icon--copy',
-      tid: 'copy-cell-context-item',
+      tid,
       select: async () => {
         copyToClipboard(text);
       },
