@@ -4,7 +4,8 @@
   "description": "Workspace for sn-listbox and sn-filter-pane",
   "scripts": {
     "release": "release-it",
-    "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js"
+    "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js",
+    "test:integration": "playwright test --config=./test/integration/playwright.config.integration.js"
   },
   "repository": {
     "type": "git",

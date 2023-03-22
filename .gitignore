@@ -17,3 +17,5 @@
 test/rendering/reports
 test/rendering/baselines-local
 test-results
+test/integration/reports
+test/integration/baselines-local
