@@ -1,8 +1,8 @@
 import path from 'path';
 import serve from '@nebula.js/cli-serve';
-import { test, expect, chromium } from '@playwright/test';
+import { test, chromium } from '@playwright/test';
 import createNebulaRoutes from '../utils/routes';
-import { checkScreenshot, getTooltipContent } from '../utils/shared';
+import { checkScreenshot } from '../utils/shared';
 
 test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => {
   let s;
@@ -76,6 +76,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
         'selection_filterpane.png'
       );
     });
+
     test.describe('Different viewport to ', () => {
       test.use({ viewport: { width: 250, height: 450 } });
       test('Open multiple collapsed filterpane', async () => {
@@ -84,16 +85,23 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
         const context = await browser.newContext();
         const page = await context.newPage();
         await page.goto(renderUrl, { waitUntil: 'networkidle' });
+        
+        await checkScreenshot(
+          '.njs-viz[data-render-count="1"]',
+          page,
+          'multiple_collapsed_filterpane.png'
+        );
+        
         await (
           await page.waitForSelector('[data-testid="ExpandMoreIcon"]')
         ).click();
+    
         await page.waitForTimeout(500);
         await checkScreenshot(
           '.njs-viz[data-render-count="1"]',
           page,
           'open_multiple_collapsed_filterpane.png'
         );
-        // await page.pause();
         await (
           await page.waitForSelector(
             '[data-testid="collapsed-title-Family Class Desc"]'
