@@ -14,7 +14,7 @@ const config = {
     toMatchSnapshot: { threshold: 0.00025 },
     timeout: 30000,
   },
-  workers: 1,
+  workers: process.env.CI ? 1 : undefined,
   use: {
     browserName: 'chromium',
     actionTimeout: 30000,

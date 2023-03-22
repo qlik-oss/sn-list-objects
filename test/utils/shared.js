@@ -10,7 +10,7 @@ async function getTooltipContent(page) {
 }
 
 async function checkScreenshot(selector, page, nameOfFile) {
-  const element = page.locator(selector); // , { state: 'visible' }
+  const element = page.locator(selector , { state: 'visible' });
   const image = await page.screenshot({ clip: await element.boundingBox() });
   expect(image).toMatchSnapshot(nameOfFile);
 }

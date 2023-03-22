@@ -66,9 +66,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       const context = await browser.newContext();
       const page = await context.newPage();
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
-      await (
-        await page.waitForSelector('[title="Aug"]')
-      ).click();
+      await (await page.waitForSelector('[title="Aug"]')).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
         '.njs-viz[data-render-count="1"]',
@@ -76,44 +74,42 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
         'selection_filterpane.png'
       );
     });
+    // test.use({ viewport: { width: 250, height: 450 } });
+    test('Open multiple collapsed filterpane', async () => {
+      const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
+      const browser = await chromium.launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.setViewportSize({ width: 250, height: 450 });
+      await page.goto(renderUrl, { waitUntil: 'networkidle' });
 
-    test.describe('Different viewport to ', () => {
-      test.use({ viewport: { width: 250, height: 450 } });
-      test('Open multiple collapsed filterpane', async () => {
-        const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
-        const browser = await chromium.launch();
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        await page.goto(renderUrl, { waitUntil: 'networkidle' });
-        
-        await checkScreenshot(
-          '.njs-viz[data-render-count="1"]',
-          page,
-          'multiple_collapsed_filterpane.png'
-        );
-        
-        await (
-          await page.waitForSelector('[data-testid="ExpandMoreIcon"]')
-        ).click();
-    
-        await page.waitForTimeout(500);
-        await checkScreenshot(
-          '.njs-viz[data-render-count="1"]',
-          page,
-          'open_multiple_collapsed_filterpane.png'
-        );
-        await (
-          await page.waitForSelector(
-            '[data-testid="collapsed-title-Family Class Desc"]'
-          )
-        ).click();
-        await page.waitForTimeout(500);
-        await checkScreenshot(
-          '.njs-viz[data-render-count="1"]',
-          page,
-          'open_listbox_in_multiple_collapsed_filterpane.png'
-        );
-      });
+      await checkScreenshot(
+        '.njs-viz[data-render-count="1"]',
+        page,
+        'multiple_collapsed_filterpane.png'
+      );
+
+      await (
+        await page.waitForSelector('[data-testid="ExpandMoreIcon"]')
+      ).click();
+
+      await page.waitForTimeout(500);
+      await checkScreenshot(
+        '.njs-viz[data-render-count="1"]',
+        page,
+        'open_multiple_collapsed_filterpane.png'
+      );
+      await (
+        await page.waitForSelector(
+          '[data-testid="collapsed-title-Family Class Desc"]'
+        )
+      ).click();
+      await page.waitForTimeout(500);
+      await checkScreenshot(
+        '.njs-viz[data-render-count="1"]',
+        page,
+        'open_listbox_in_multiple_collapsed_filterpane.png'
+      );
     });
   });
 });
