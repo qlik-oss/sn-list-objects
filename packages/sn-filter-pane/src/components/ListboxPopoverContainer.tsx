@@ -62,10 +62,8 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     }, transitionDuration);
   };
 
-  const closePopover = (close : boolean) => {
-    if (close) {
-      handleClose();
-    }
+  const closePopover = () => {
+    handleClose();
   };
 
   const isSingle = resources.length === 1;

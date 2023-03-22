@@ -11,7 +11,7 @@ interface ListboxContainerProps {
   disableSearch?: boolean;
   handleActive?: (id: string, active: boolean) => void;
   stores: IStores;
-  closePopover?: (close: boolean) => void;
+  closePopover?: () => void;
 }
 
 const ListboxContainer = ({
@@ -70,7 +70,7 @@ const ListboxContainer = ({
     const handleActivate = () => handleActive?.(layout.qInfo.qId, true);
     const handleDeactivate = () => {
       handleActive?.(layout.qInfo.qId, false);
-      closePopover?.(true);
+      closePopover?.();
     };
     listboxInstance.on?.('selectionActivated', handleActivate);
     listboxInstance.on?.('selectionDeactivated', handleDeactivate);
