@@ -60,9 +60,25 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
         'open_collapsed_filterpane.png'
       );
     });
+    test('selection in filterpane to open action toolbar', async () => {
+      const renderUrl = await route.renderFixture('multi_scenario_1.fix.js');
+      const browser = await chromium.launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.goto(renderUrl, { waitUntil: 'networkidle' });
+      await (
+        await page.waitForSelector('[title="Aug"]')
+      ).click();
+      await page.waitForTimeout(500);
+      await checkScreenshot(
+        '.njs-viz[data-render-count="1"]',
+        page,
+        'selection_filterpane.png'
+      );
+    });
     test.describe('Different viewport to ', () => {
       test.use({ viewport: { width: 250, height: 450 } });
-      test.only('Open multiple collapsed filterpane', async () => {
+      test('Open multiple collapsed filterpane', async () => {
         const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
         const browser = await chromium.launch();
         const context = await browser.newContext();
