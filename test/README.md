@@ -18,7 +18,7 @@ There is also an easier way of updating the snapshots. You can trigger the workf
 
 # Integration tests
 
-Run rendering tests with
+Run integration tests with
 
 ```sh
 yarn test:integration
