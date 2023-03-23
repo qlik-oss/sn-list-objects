@@ -170,6 +170,7 @@ const expandOne = (sortedItems: IListboxResource[] | undefined, leftOverHeight: 
 };
 
 export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandProps: ExpandProps) => {
+  let allExpandedItems = <IListboxResource[]>[];
   columns.forEach((column: IColumn) => {
     if (column.expand) {
       let expandedCount = 0;
@@ -219,6 +220,8 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
         setFullyExpanded(item);
       }
     }
+    const expandedInColumn = column?.items?.filter((item) => item.expand) ?? [];
+    allExpandedItems = [...allExpandedItems, ...expandedInColumn];
 
     // Set the render mode for collapsed LBs
     if (column?.items?.length === 1 && size.height < COLLAPSED_HEIGHT - 4) {
@@ -227,7 +230,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
       column.items[0].height = `${size.height}px`;
     }
   });
-  return columns;
+  return { columns, expandedItemsCount: allExpandedItems.length };
 };
 
 export const setDefaultValues = (resources: IListboxResource[]) => resources.map((resource: IListboxResource) => {
