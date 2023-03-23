@@ -11,10 +11,11 @@ interface ListboxContainerProps {
   disableSearch?: boolean;
   handleActive?: (id: string, active: boolean) => void;
   stores: IStores;
+  closePopover?: () => void;
 }
 
 const ListboxContainer = ({
-  layout, borderBottom, disableSearch = false, handleActive, stores,
+  layout, borderBottom, disableSearch = false, handleActive, stores, closePopover,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -67,7 +68,10 @@ const ListboxContainer = ({
       return undefined;
     }
     const handleActivate = () => handleActive?.(layout.qInfo.qId, true);
-    const handleDeactivate = () => handleActive?.(layout.qInfo.qId, false);
+    const handleDeactivate = () => {
+      handleActive?.(layout.qInfo.qId, false);
+      closePopover?.();
+    };
     listboxInstance.on?.('selectionActivated', handleActivate);
     listboxInstance.on?.('selectionDeactivated', handleDeactivate);
 

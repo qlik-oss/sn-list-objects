@@ -62,6 +62,10 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     }, transitionDuration);
   };
 
+  const closePopover = () => {
+    handleClose();
+  };
+
   const isSingle = resources.length === 1;
 
   const selectResource = ({ resource }: FoldedListboxClickEvent) => {
@@ -92,7 +96,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         marginThreshold= {isSmallDevice ? 0 : 16}
       >
         {(selectedResource || isSingle)
-          ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} />
+          ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={ closePopover } />
           : <Grid container direction='column' spacing={1} padding='8px'>
             {!!resources?.length && resources?.map((resource) => (
               <Grid item key={resource.id}>
