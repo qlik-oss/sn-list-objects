@@ -17,14 +17,11 @@ export interface IStore {
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
   keyboard?: stardust.Keyboard;
+  renderTracker: RenderTrackerService;
 }
 
 interface ResourceState {
   resources: IListboxResource[];
-}
-
-interface Services {
-  renderTracker: RenderTrackerService,
 }
 
 export const create = () => ({
@@ -37,12 +34,10 @@ export const create = () => ({
     translator: undefined,
     sense: undefined,
     embed: undefined,
+    renderTracker: undefined!,
   })),
   useResourceStore: createHook<ResourceState>(() => ({
     resources: [],
-  })),
-  useServices: createHook<Services>(() => ({
-    renderTracker: useRenderTrackerService(),
   })),
 });
 

@@ -44,12 +44,11 @@ const prepareRenderTracker = (columns: IColumn[], renderTracker: RenderTrackerSe
 };
 
 function ListboxGrid({ stores }: { stores: IStores }) {
-  const { store, useResourceStore, useServices } = stores;
+  const { store, useResourceStore } = stores;
   const {
-    sense, selections, keyboard,
+    sense, selections, keyboard, renderTracker,
   } = store.getState();
   const resources = useResourceStore((state) => state.resources);
-  const renderTracker = useServices((state) => state.renderTracker);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);

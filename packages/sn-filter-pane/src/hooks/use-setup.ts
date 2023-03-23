@@ -4,6 +4,7 @@ import {
 import { create } from '../store';
 import { IEnv } from '../types/types';
 import { IFilterPaneLayout, IListBoxOptions } from './types';
+import useRenderTrackerService from '../services/render-tracker';
 
 export default function useSetup({ sense }: IEnv) {
   const [stores] = useState(() => create());
@@ -18,6 +19,7 @@ export default function useSetup({ sense }: IEnv) {
   const stardustTheme = useTheme();
   const selections = useSelections();
   const keyboard = useKeyboard();
+  const renderTracker = useRenderTrackerService();
 
   store.setState({
     app,
@@ -31,6 +33,7 @@ export default function useSetup({ sense }: IEnv) {
     stardustTheme,
     selections,
     keyboard,
+    renderTracker,
   });
 
   return stores;
