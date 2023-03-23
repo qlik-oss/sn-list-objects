@@ -74,6 +74,21 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
         'selection_filterpane.png'
       );
     });
+
+    test('Test to seperate', async () => {
+      const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
+      const browser = await chromium.launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.setViewportSize({ width: 350, height: 500 });
+      await page.goto(renderUrl, { waitUntil: 'networkidle' });
+      await page.waitForTimeout(500);
+      await checkScreenshot(
+        '.njs-viz[data-render-count="0"]',
+        page,
+        'test.png'
+      );
+    });
     // test.use({ viewport: { width: 250, height: 450 } });
     test('Open multiple collapsed filterpane', async () => {
       const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
@@ -84,7 +99,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
 
       await checkScreenshot(
-        '.njs-viz[data-render-count="1"]',
+        '.njs-viz[data-render-count="0"]',
         page,
         'multiple_collapsed_filterpane.png'
       );
@@ -95,7 +110,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
 
       await page.waitForTimeout(500);
       await checkScreenshot(
-        '.njs-viz[data-render-count="1"]',
+        '.njs-viz[data-render-count="0"]',
         page,
         'open_multiple_collapsed_filterpane.png'
       );
@@ -106,7 +121,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       ).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
-        '.njs-viz[data-render-count="1"]',
+        '.njs-viz[data-render-count="0"]',
         page,
         'open_listbox_in_multiple_collapsed_filterpane.png'
       );
