@@ -1,5 +1,20 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.6.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.3...v0.6.0) (2023-03-23)
+
+
+### Features
+
+* add show title checkbox to pp ([#203](https://github.com/qlik-oss/sn-list-objects/issues/203)) ([7ba87d0](https://github.com/qlik-oss/sn-list-objects/commit/7ba87d0512ca5ceef55249a21b5a57b8b30c93e6))
+
+
+### Bug Fixes
+
+* close popover when selections confirmed or cancelled ([#202](https://github.com/qlik-oss/sn-list-objects/issues/202)) ([5be44e5](https://github.com/qlik-oss/sn-list-objects/commit/5be44e5d2f8743b3e0a4ce58baf24f7f51386d8e))
+* remove labels from simple properties ([#197](https://github.com/qlik-oss/sn-list-objects/issues/197)) ([8555036](https://github.com/qlik-oss/sn-list-objects/commit/855503609c644b53007e14a65cde4f7125d010c6))
+* resolve render tracker if zero listboxes ([#207](https://github.com/qlik-oss/sn-list-objects/issues/207)) ([bc3f78f](https://github.com/qlik-oss/sn-list-objects/commit/bc3f78f3fe4bded887084fd632468aec1abe4f74))
+* wrong use of hooks ([#206](https://github.com/qlik-oss/sn-list-objects/issues/206)) ([34477a4](https://github.com/qlik-oss/sn-list-objects/commit/34477a481545f6b43096334e4455622099885fa5))
+
 ### [0.5.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.2...v0.5.3) (2023-03-21)
 
 ### [0.5.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.1...v0.5.2) (2023-03-21)
