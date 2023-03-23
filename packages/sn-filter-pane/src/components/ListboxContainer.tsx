@@ -25,9 +25,8 @@ const ListboxContainer = ({
     model,
     constraints,
     options,
+    renderTracker,
   } = stores.store.getState();
-
-  const renderTracker = stores.useServices((state) => state.renderTracker);
 
   const [key] = useState(uid());
 
