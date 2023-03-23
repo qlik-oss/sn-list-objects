@@ -46,7 +46,7 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
 
   return (
     <div ref={containerRef}>
-      <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
+      <StyledGrid container direction='column' data-testid={`collapsed-title-${fieldName}`} onClick={(event) => onClick({ event, resource })}>
         <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
           {isDrillDown
             && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>

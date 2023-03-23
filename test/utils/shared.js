@@ -9,14 +9,10 @@ async function getTooltipContent(page) {
   return tooltipContent.join(' ');
 }
 
-async function checkScreenshotBrushing(selector, page, nameOfFile) {
-  const sourceToMoveMouse = await page.waitForSelector('[data-key="lasso"]');
-  const moveMouseToAvoidTooltip = await sourceToMoveMouse.boundingBox();
-  await page.mouse.move(moveMouseToAvoidTooltip.x, moveMouseToAvoidTooltip.y);
-  await page.waitForTimeout(250);
-  const element = page.locator(selector, { state: 'visible' });
+async function checkScreenshot(selector, page, nameOfFile) {
+  const element = page.locator(selector , { state: 'visible' });
   const image = await page.screenshot({ clip: await element.boundingBox() });
   expect(image).toMatchSnapshot(nameOfFile);
 }
 
-export { checkScreenshotBrushing, getTooltipContent };
+export { checkScreenshot, getTooltipContent };
