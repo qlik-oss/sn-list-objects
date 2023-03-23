@@ -75,21 +75,21 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       );
     });
 
-    test('Test to seperate', async () => {
+    test('Multiple collapsed filterpane', async () => {
       const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
       const browser = await chromium.launch();
       const context = await browser.newContext();
       const page = await context.newPage();
-      await page.setViewportSize({ width: 350, height: 500 });
+      await page.setViewportSize({ width: 250, height: 450 });
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
       await page.waitForTimeout(500);
       await checkScreenshot(
         '.njs-viz[data-render-count="0"]',
         page,
-        'test.png'
+        'multiple_collapsed_filterpane.png'
       );
     });
-    // test.use({ viewport: { width: 250, height: 450 } });
+
     test('Open multiple collapsed filterpane', async () => {
       const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
       const browser = await chromium.launch();
@@ -97,23 +97,27 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       const page = await context.newPage();
       await page.setViewportSize({ width: 250, height: 450 });
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
-
-      await checkScreenshot(
-        '.njs-viz[data-render-count="0"]',
-        page,
-        'multiple_collapsed_filterpane.png'
-      );
-
       await (
         await page.waitForSelector('[data-testid="ExpandMoreIcon"]')
       ).click();
-
       await page.waitForTimeout(500);
       await checkScreenshot(
         '.njs-viz[data-render-count="0"]',
         page,
         'open_multiple_collapsed_filterpane.png'
       );
+    });
+      
+    test('Open listbox in multiple collapsed filterpane', async () => {
+      const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
+      const browser = await chromium.launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.setViewportSize({ width: 250, height: 450 });
+      await page.goto(renderUrl, { waitUntil: 'networkidle' });
+      await (
+        await page.waitForSelector('[data-testid="ExpandMoreIcon"]')
+      ).click();
       await (
         await page.waitForSelector(
           '[data-testid="collapsed-title-Family Class Desc"]'
