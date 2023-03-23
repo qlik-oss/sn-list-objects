@@ -25,7 +25,11 @@ export class RenderTrackerService {
     this.numberOfListboxes = listboxCount;
   }
 
-  public renderedCallback(key: string) {
+  public renderedCallback(key?: string) {
+    if (!key) {
+      this.resolveCallback?.();
+      return;
+    }
     if (!this.fullyRendered) {
       this.renderedItemKeys[key] = true;
       this.itemsRendered = Object.keys(this.renderedItemKeys).length;

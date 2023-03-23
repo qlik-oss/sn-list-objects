@@ -161,7 +161,7 @@ describe('Listbox grid layout', () => {
         dimensionCount: 4,
       };
 
-      const result = calculateExpandPriority(columns, size, expandProps);
+      const { columns: result } = calculateExpandPriority(columns, size, expandProps);
       expect(result[0].expand).toBe(false);
       expect(result[1].expand).toBe(true);
       expect(result[2].expand).toBe(true);
@@ -192,7 +192,7 @@ describe('Listbox grid layout', () => {
       const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
       const defaultValuesResources = setDefaultValues(resources);
       const { columns: mergedColumns } = mergeColumnsAndResources(balancedColumns, defaultValuesResources);
-      const result = calculateExpandPriority(mergedColumns, size, expandProps);
+      const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps);
       expect(result[0].items?.[0].fullyExpanded).toBe(true);
       expect(result[0].items?.[0].expand).toBe(true);
       expect(result[0].items?.[0].height).toBe('802px');

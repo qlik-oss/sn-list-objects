@@ -84,7 +84,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
       await page.waitForTimeout(500);
       await checkScreenshot(
-        '.njs-viz[data-render-count="0"]',
+        '.njs-viz[data-render-count="1"]',
         page,
         'multiple_collapsed_filterpane.png'
       );
@@ -102,12 +102,12 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       ).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
-        '.njs-viz[data-render-count="0"]',
+        '.njs-viz[data-render-count="1"]',
         page,
         'open_multiple_collapsed_filterpane.png'
       );
     });
-      
+
     test('Open listbox in multiple collapsed filterpane', async () => {
       const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
       const browser = await chromium.launch();
@@ -125,7 +125,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       ).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
-        '.njs-viz[data-render-count="0"]',
+        '.njs-viz[data-render-count="1"]',
         page,
         'open_listbox_in_multiple_collapsed_filterpane.png'
       );

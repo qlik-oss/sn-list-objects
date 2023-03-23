@@ -31,16 +31,11 @@ const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-const prepareRenderTracker = (columns: IColumn[], renderTracker: RenderTrackerService) => {
-  let visibleListboxCount = 0;
-  columns.forEach((column: IColumn) => {
-    column.items?.forEach((item: IListboxResource) => {
-      if (item.expand) {
-        visibleListboxCount++;
-      }
-    });
-  });
-  renderTracker.setNumberOfListboxes(visibleListboxCount);
+const prepareRenderTracker = (listboxCount: number, renderTracker: RenderTrackerService) => {
+  renderTracker.setNumberOfListboxes(listboxCount);
+  if (listboxCount === 0) {
+    renderTracker.renderedCallback();
+  }
 };
 
 function ListboxGrid({ stores }: { stores: IStores }) {
@@ -70,9 +65,9 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     const resourcesWithDefaultValues = setDefaultValues(resources);
     const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
     setOverflowingResources(overflowing);
-    const expandedAndCollapsedColumns = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
+    const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
     setColumns(expandedAndCollapsedColumns);
-    prepareRenderTracker(expandedAndCollapsedColumns, renderTracker);
+    prepareRenderTracker(expandedItemsCount, renderTracker);
   }, [resources]);
 
   const preventDefaultBehavior = (event: React.KeyboardEvent | MouseEvent | React.MouseEvent<HTMLLIElement>) => {
