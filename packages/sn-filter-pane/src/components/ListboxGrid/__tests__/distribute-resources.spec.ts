@@ -24,6 +24,7 @@ const isSmallDevice = false;
 const expandProps: ExpandProps = {
   hasHeader: true,
   isSingleGridLayout: false,
+  hasHorizontalScroll: false,
 };
 
 describe('Listbox grid layout', () => {
