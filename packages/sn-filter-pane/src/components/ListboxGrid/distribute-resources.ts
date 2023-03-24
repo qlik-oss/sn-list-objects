@@ -238,6 +238,6 @@ export const setDefaultValues = (resources: IListboxResource[]) => resources.map
   resource.height = 'calc(100% - 2px)';
   resource.fullyExpanded = false;
   resource.dense = resource.layout.layoutOptions?.dense ?? false;
-  resource.hiddenHeader = resource.layout.toolbar !== undefined ? !resource.layout.toolbar : false;
+  resource.hiddenHeader = resource.layout.showTitle !== undefined ? !resource.layout.showTitle : false;
   return resource;
 });

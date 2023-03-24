@@ -42,7 +42,7 @@ const properties = {
     },
   },
   title: '',
-  toolbar: true,
+  showTitle: true,
   showTitles: false,
   subtitle: '',
   footnote: '',

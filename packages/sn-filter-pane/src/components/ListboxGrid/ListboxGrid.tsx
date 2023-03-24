@@ -58,7 +58,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     const isSingleItem = resources.length === 1;
     const expandProps: ExpandProps = {
       isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
-      hasHeader: resources[0].layout?.title !== '' && resources[0].layout?.toolbar !== false,
+      hasHeader: resources[0].layout?.title !== '' && resources[0].layout?.showTitle !== false,
     };
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);

@@ -52,7 +52,7 @@ export default function getDataPanelItems(env: IEnv) {
       translation: 'Common.Title',
     },
     showTitle: {
-      ref: 'toolbar',
+      ref: 'showTitle',
       component: 'checkbox',
       type: 'boolean',
       translation: 'properties.filterpane.showTitle',

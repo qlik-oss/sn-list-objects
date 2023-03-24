@@ -8,7 +8,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
     dense: boolean,
     dataLayout?: 'grid' | 'singleColumn',
   },
-  toolbar?: boolean,
+  showTitle?: boolean,
 }
 
 // Missing properties in EngineAPI.IGenericListProperties are added in this interface until
