@@ -16,4 +16,5 @@ export interface ISize {
 export interface ExpandProps {
   isSingleGridLayout: boolean,
   hasHeader: boolean,
+  hasHorizontalScroll: boolean,
 }
