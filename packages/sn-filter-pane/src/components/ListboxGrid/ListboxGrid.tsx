@@ -83,9 +83,13 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'INPUT') {
+      return;
+    }
     if (event.key === KEYS.ESC && keyboard?.enabled) {
       // @ts-ignore
-      if (event.target.classList.contains('listbox-container')) {
+      if (target.classList.contains('listbox-container')) {
         // Focus currently on a listbox
         preventDefaultBehavior(event);
         // @ts-ignore
@@ -93,7 +97,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       }
     } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
       let elementToFocus;
-      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll('.listbox-container');
+      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container');
       if (listboxList?.length) {
         const activeIndex = findIndex(event.target, listboxList);
         if (activeIndex < 0) {
@@ -103,7 +107,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
           elementToFocus = listboxList.item(nextIndex);
         }
         if (elementToFocus) {
-          (elementToFocus as HTMLElement).focus();
+          elementToFocus.focus();
         }
       }
       preventDefaultBehavior(event);
