@@ -19,6 +19,7 @@ const ListboxContainer = ({
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
+  const [inSelection, setInSelection] = useState(false);
 
   const {
     embed,
@@ -26,7 +27,11 @@ const ListboxContainer = ({
     constraints,
     options,
     renderTracker,
+    sense,
+    stardustTheme,
   } = stores.store.getState();
+
+  const showBorder = !sense || inSelection || stardustTheme?.getStyle('', '', '_cards');
 
   const [key] = useState(uid());
 
@@ -66,10 +71,14 @@ const ListboxContainer = ({
     if (!listboxInstance) {
       return undefined;
     }
-    const handleActivate = () => handleActive?.(layout.qInfo.qId, true);
+    const handleActivate = () => {
+      handleActive?.(layout.qInfo.qId, true);
+      setInSelection(true);
+    }
     const handleDeactivate = () => {
       handleActive?.(layout.qInfo.qId, false);
       closePopover?.();
+      setInSelection(false);
     };
     listboxInstance.on?.('selectionActivated', handleActivate);
     listboxInstance.on?.('selectionDeactivated', handleDeactivate);
@@ -84,8 +93,8 @@ const ListboxContainer = ({
     <>
       <Box
         height='100%'
-        border='1px solid #d9d9d9'
-        borderBottom={borderBottom ? '1px solid #d9d9d9' : 0}
+        border={showBorder ? '1px solid #d9d9d9' : '1px solid transparent'}
+        borderBottom={(showBorder && borderBottom) ? '1px solid #d9d9d9' : 0}
         borderRadius='4px'
         overflow='hidden'
         ref={elRef}
