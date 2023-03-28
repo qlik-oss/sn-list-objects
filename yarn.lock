@@ -1012,10 +1012,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@nebula.js/cli-build@^4.0.0-alpha.5":
-  version "4.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.5.tgz#2f863853b44df3e0d27efe79845ba877cd26c5f1"
-  integrity sha512-qM7o53w0gm8pA+8b9wRVZHYqFViJ7zGCtDhNxRsQaLpGu4eneRQ+7CI64Mrbcx2yxnaIhjapvsR1kmKxKzD2hw==
+"@nebula.js/cli-build@^4.0.0-alpha.6":
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.6.tgz#d4e5554717544fa5de9ffdec3db90b696feca1b6"
+  integrity sha512-b70Y/wTvWFqKnOw/ns62CRf82VuCvTmOoQhdCO6vgwePN+VJbz6Rghf/vk9Xy+I/u+nlUrHs24tVPWfzLgAYrg==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
@@ -1035,12 +1035,12 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-serve@4.0.0-alpha.5":
-  version "4.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.5.tgz#d789ca824b605a38641b9d90b5ef9809ac5f48a9"
-  integrity sha512-1h9Ti1Nd9Lkim/92V7T+Cejjz3tQcUtjaooyTnKldQU4I9pNSjvPkj/Hmnh+zRJ3eCXrsYjO2JtlnwcguggqYQ==
+"@nebula.js/cli-serve@4.0.0-alpha.6":
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.6.tgz#923d1df382a01ac3fcf982f696d14eea9dd0ff1c"
+  integrity sha512-6sKnxt6EmWw3SqcBOM818YAorkMPfkdP8Xh/gKYpKCfBaqyohKTJKv7pFnp81pf9RMtv+L6LgpN7Mla7ph083A==
   dependencies:
-    "@nebula.js/cli-build" "^4.0.0-alpha.5"
+    "@nebula.js/cli-build" "^4.0.0-alpha.6"
     "@qlik/sdk" "^0.19.1"
     body-parser "1.20.2"
     chalk "4.1.2"
