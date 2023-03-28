@@ -1,5 +1,18 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.7.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.6.1...v0.7.0) (2023-03-28)
+
+
+### Features
+
+* add sorting in simple edit mode ([#211](https://github.com/qlik-oss/sn-list-objects/issues/211)) ([ca26b65](https://github.com/qlik-oss/sn-list-objects/commit/ca26b65d672ec8e49e9e8b11dc253e6c397ecd50))
+
+
+### Bug Fixes
+
+* check theme if object should have borders ([#228](https://github.com/qlik-oss/sn-list-objects/issues/228)) ([96910c8](https://github.com/qlik-oss/sn-list-objects/commit/96910c8864434b0e25155b8fd869d69e0a3c92f7))
+* ignore keydown in search input ([#210](https://github.com/qlik-oss/sn-list-objects/issues/210)) ([272fbcc](https://github.com/qlik-oss/sn-list-objects/commit/272fbcc180139e7abba6f1fb9119529c291d24dc))
+
 ### [0.6.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.6.0...v0.6.1) (2023-03-23)
 
 ## [0.6.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.5.3...v0.6.0) (2023-03-23)
