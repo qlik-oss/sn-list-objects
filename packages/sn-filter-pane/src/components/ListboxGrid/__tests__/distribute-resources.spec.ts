@@ -24,7 +24,6 @@ const isSmallDevice = false;
 const expandProps: ExpandProps = {
   hasHeader: true,
   isSingleGridLayout: false,
-  hasHorizontalScroll: false,
 };
 
 describe('Listbox grid layout', () => {
@@ -210,7 +209,6 @@ describe('Listbox grid layout', () => {
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,
         isSingleGridLayout: true,
-        hasHorizontalScroll: false,
       };
       const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
       expect(balancedColumns).toEqual(generateColumns({ expanded: [1] }));
@@ -222,7 +220,6 @@ describe('Listbox grid layout', () => {
       const expandPropsGrid: ExpandProps = {
         hasHeader: false,
         isSingleGridLayout: true,
-        hasHorizontalScroll: false,
       };
       const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
       expect(balancedColumns).toEqual(generateColumns({ expanded: [1] }));
@@ -234,7 +231,6 @@ describe('Listbox grid layout', () => {
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,
         isSingleGridLayout: false,
-        hasHorizontalScroll: false,
       };
       const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [1] }));

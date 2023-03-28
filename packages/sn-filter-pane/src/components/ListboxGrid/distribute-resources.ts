@@ -9,13 +9,12 @@ const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 48;
 const SINGLE_GRID_ROW_HEIGHT = 32;
-const SCROLL_BAR_HEIGHT = 10;
 
 const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 29);
 const getExpandedHeightLimit = (expandProps: ExpandProps) => {
-  const headerHeight = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
-  const scrollBarHeight = expandProps.hasHorizontalScroll ? SCROLL_BAR_HEIGHT : 0;
-  return expandProps.isSingleGridLayout ? SINGLE_GRID_ROW_HEIGHT + scrollBarHeight + headerHeight : 90;
+  // If single grid and no header, don't collapse.
+  const singleGridLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + SINGLE_GRID_ROW_HEIGHT : 0;
+  return expandProps.isSingleGridLayout ? singleGridLimit : 90;
 };
 
 /* eslint-disable no-param-reassign */

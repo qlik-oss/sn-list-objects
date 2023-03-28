@@ -25,7 +25,6 @@ import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
 import KEYS from './keys';
 import { RenderTrackerService } from '../../services/render-tracker';
-import hasHorizontalScroll from './has-horizontal-scroll';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -51,18 +50,15 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
   const isInSense = typeof (sense?.isSmallDevice) === 'function';
   const { options } = stores.store.getState();
-  const [singleGridScroll, setSingleGridScroll] = useState<boolean>(false);
 
   const handleResize = useCallback(() => {
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     const isSmallDevice = sense?.isSmallDevice?.() ?? false;
     const isSingleItem = resources.length === 1;
-    const isSingleGridLayout = isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid';
     const expandProps: ExpandProps = {
-      isSingleGridLayout,
+      isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
       hasHeader: resources[0].layout?.title !== '' && resources[0].layout?.showTitle !== false,
-      hasHorizontalScroll: isSingleGridLayout && hasHorizontalScroll(gridRef, singleGridScroll, setSingleGridScroll),
     };
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
