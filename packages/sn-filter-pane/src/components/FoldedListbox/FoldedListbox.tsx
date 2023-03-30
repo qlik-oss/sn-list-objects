@@ -61,10 +61,9 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
 
   const changeFocus = (event: React.KeyboardEvent) => {
-    // @ts-ignore
-    event.target?.setAttribute('tabIndex', '-1');
-    // @ts-ignore
-    event.target?.blur();
+    const target = event.target as HTMLElement | undefined;
+    target?.setAttribute('tabIndex', '-1');
+    target?.blur();
     // Then it propagates to the top-level (i.e. to filter pane)
   };
 
