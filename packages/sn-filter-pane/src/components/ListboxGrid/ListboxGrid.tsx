@@ -129,7 +129,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   }, [resources]);
 
   useEffect(() => {
-    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container, .folded-listbox-container') as HTMLDivElement;
+    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container,.folded-listbox-container') as HTMLDivElement;
     if (keyboard?.active) {
       firstChild?.setAttribute('tabIndex', '0');
       firstChild?.focus();

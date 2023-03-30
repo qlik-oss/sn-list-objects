@@ -83,7 +83,7 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
         break;
       case KEYS.LEFT:
       case KEYS.RIGHT:
-        return; // let it propagate to top-level      default:
+        return; // let it propagate to top-level
       default:
         return;
     }
