@@ -23,8 +23,9 @@ import ConditionalWrapper from './ConditionalWrapper';
 import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
-import KEYS from './keys';
+import KEYS from '../keys';
 import { RenderTrackerService } from '../../services/render-tracker';
+import useFocusListener from '../../hooks/use-focus-listener';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -89,7 +90,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     }
     if (event.key === KEYS.ESC && keyboard?.enabled) {
       // @ts-ignore
-      if (target.classList.contains('listbox-container')) {
+      if (target.classList.contains('listbox-container') || target.classList.contains('folded-listbox-container')) {
         // Focus currently on a listbox
         preventDefaultBehavior(event);
         // @ts-ignore
@@ -97,7 +98,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       }
     } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
       let elementToFocus;
-      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container');
+      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.folded-listbox-container');
       if (listboxList?.length) {
         const activeIndex = findIndex(event.target, listboxList);
         if (activeIndex < 0) {
@@ -107,12 +108,17 @@ function ListboxGrid({ stores }: { stores: IStores }) {
           elementToFocus = listboxList.item(nextIndex);
         }
         if (elementToFocus) {
+          (event.target as HTMLElement)?.setAttribute('tabIndex', '-1');
+          (event.target as HTMLElement)?.blur();
+          elementToFocus.setAttribute('tabIndex', '0');
           elementToFocus.focus();
         }
       }
       preventDefaultBehavior(event);
     }
   };
+
+  useFocusListener(gridRef, keyboard);
 
   const isRtl = options.direction === 'rtl';
 
@@ -123,7 +129,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   }, [resources]);
 
   useEffect(() => {
-    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container') as HTMLDivElement;
+    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container, .folded-listbox-container') as HTMLDivElement;
     if (keyboard?.active) {
       firstChild?.setAttribute('tabIndex', '0');
       firstChild?.focus();
