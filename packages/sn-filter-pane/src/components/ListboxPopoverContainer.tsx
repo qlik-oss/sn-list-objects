@@ -105,11 +105,11 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
   };
 
   const changeFocus = () => {
-    const activeListboxPopover = document.activeElement as HTMLElement;
-    const listbox = activeListboxPopover?.querySelector('.listbox-container,.folded-listbox-dropdown');
+    const currentActive = document.activeElement as HTMLElement;
+    const listbox = currentActive?.querySelector('.listbox-container,.folded-listbox-dropdown');
     if (listbox) {
-      activeListboxPopover.setAttribute('tabIndex', '-1');
-      activeListboxPopover.blur();
+      currentActive.setAttribute('tabIndex', '-1');
+      currentActive.blur();
       listbox?.setAttribute('tabIndex', '0');
       (listbox as HTMLElement)?.focus();
     }
@@ -141,8 +141,12 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     event.preventDefault();
   };
 
-  const changeFocusToFirstFoldedListboxItem = (event: React.KeyboardEvent) => {
+  const onFoldedListboxDropdownEnter = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
+    if (target.classList.contains('folded-listbox')) {
+      setTimeout(changeFocus, 500);
+      return;
+    }
     const firstFoldedListbox: HTMLElement = target.querySelector('.folded-listbox') as HTMLElement;
     target.setAttribute('tabIndex', '-1');
     target.blur();
@@ -197,7 +201,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         handleClose();
         break;
       case KEYS.ENTER:
-        changeFocusToFirstFoldedListboxItem(event);
+        onFoldedListboxDropdownEnter(event);
         break;
       case KEYS.UP:
       case KEYS.DOWN:
