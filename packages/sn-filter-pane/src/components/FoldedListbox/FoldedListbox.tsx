@@ -60,29 +60,16 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
 
-  const changeFocus = (event: React.KeyboardEvent) => {
-    const target = event.target as HTMLElement | undefined;
-    target?.setAttribute('tabIndex', '-1');
-    target?.blur();
-    // Then it propagates to the top-level (i.e. to filter pane)
-  };
-
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
     if (target.tagName === 'INPUT') {
       return;
     }
     switch (event.key) {
-      case KEYS.ESC:
-        changeFocus(event);
-        break;
       case KEYS.ENTER:
       // @ts-ignore
         onClick({ event, resource });
         break;
-      case KEYS.LEFT:
-      case KEYS.RIGHT:
-        return; // let it propagate to top-level
       default:
         return;
     }
@@ -98,7 +85,7 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
         constraints={constraints}
         stardustTheme={stardustTheme}
         containerRef={containerRef}
-        className="folded-listbox-container"
+        className="folded-listbox"
         container
         onKeyDown={handleKeyDown}
         direction='column'
