@@ -224,7 +224,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         marginThreshold= {isSmallDevice ? 0 : 16}
       >
         {(selectedResource || isSingle)
-          ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={ closePopover } />
+          ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={closePopover} isPopover={true} />
           : <Grid container direction='column' spacing={1} padding='8px' className='folded-listbox-dropdown' onKeyDown={onFoldedListboxDropdownKeyDown}>
             {!!resources?.length && resources?.map((resource) => (
               <Grid item key={resource.id}>
