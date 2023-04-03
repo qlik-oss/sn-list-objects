@@ -1,5 +1,17 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.8.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.7.0...v0.8.0) (2023-03-30)
+
+
+### Features
+
+* dont collapse single field grid layout ([#220](https://github.com/qlik-oss/sn-list-objects/issues/220)) ([db01000](https://github.com/qlik-oss/sn-list-objects/commit/db0100039c91a71783d0cc6764e03eca7e687dd2))
+
+
+### Bug Fixes
+
+* support keyboard navigation for collapsed mode ([#236](https://github.com/qlik-oss/sn-list-objects/issues/236)) ([fdcf3e1](https://github.com/qlik-oss/sn-list-objects/commit/fdcf3e14caefc79cf222393a29d0949d00261725))
+
 ## [0.7.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.6.1...v0.7.0) (2023-03-28)
 
 

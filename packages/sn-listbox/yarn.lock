@@ -1444,10 +1444,10 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@nebula.js/cli-build@4.0.0-alpha.6", "@nebula.js/cli-build@^4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.6.tgz#d4e5554717544fa5de9ffdec3db90b696feca1b6"
-  integrity sha512-b70Y/wTvWFqKnOw/ns62CRf82VuCvTmOoQhdCO6vgwePN+VJbz6Rghf/vk9Xy+I/u+nlUrHs24tVPWfzLgAYrg==
+"@nebula.js/cli-build@4.0.0-alpha.7", "@nebula.js/cli-build@^4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.7.tgz#4a854e501ceef00f42398d06e6cf689b52aa81fc"
+  integrity sha512-ilpSlnai/MvhMKtfKjXpHY4sYa5zmbwIhBeMSG5drMAdZDaGpiMUDE3T6kMbqRBHiCopjPbqjlXq3JTu2TID3w==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
@@ -1467,25 +1467,25 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-create@^4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.0.0-alpha.6.tgz#889c84062b77aea76d64ad05a51335759d43df42"
-  integrity sha512-NZ4bVOCfWiEYU0uqR8781HTNGSPATYk3bWa5lD26VUja0szkht+WtqSiXiZ6bd7Amq49IXdqCHHQ9qFLu+PoGA==
+"@nebula.js/cli-create@^4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.0.0-alpha.7.tgz#315360288866a734135337c13c8f814985b928ec"
+  integrity sha512-Kgx5iUsU4rURgZhUqacJg1PBjg4t8OaG8M5+gwYxLv5kw6NCTTy2rjuC/7/ZqQhuUdbJSkPZxSQ2nMwOU4zCxg==
   dependencies:
     chalk "4.1.2"
     ejs "3.1.8"
     fs-extra "11.1.0"
     inquirer "8.2.5"
 
-"@nebula.js/cli-sense@4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.0.0-alpha.6.tgz#4a8abfedf5bbdaa005f7c60e4c213f5fc4753055"
-  integrity sha512-n5BszlujZSK7APQfvqqHSf/lACvykdady560bSEnADouVArwdpIRrB9wqzRfBHW9Hno93OeRKFkQUEe5KMEmuQ==
+"@nebula.js/cli-sense@4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.0.0-alpha.7.tgz#dab97dbda443b30e34ce6f1ad732c45c26108be8"
+  integrity sha512-jE0cm1y3dpEbHZKKsoc9lv2WIxwVVqjU51R+vPmubYAHZP/LIPw7shlaccTao/kp7fW454aq8jyBbX0clQcZaQ==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.0"
     "@babel/preset-env" "7.20.2"
-    "@nebula.js/stardust" "^4.0.0-alpha.6"
+    "@nebula.js/stardust" "^4.0.0-alpha.7"
     "@rollup/plugin-babel" "6.0.3"
     "@rollup/plugin-commonjs" "24.0.1"
     "@rollup/plugin-node-resolve" "15.0.1"
@@ -1497,12 +1497,12 @@
     rollup "3.17.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-serve@4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.6.tgz#923d1df382a01ac3fcf982f696d14eea9dd0ff1c"
-  integrity sha512-6sKnxt6EmWw3SqcBOM818YAorkMPfkdP8Xh/gKYpKCfBaqyohKTJKv7pFnp81pf9RMtv+L6LgpN7Mla7ph083A==
+"@nebula.js/cli-serve@4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.7.tgz#f4034bd0c79c4d59e944b9ec0ae6c25c1cc1897e"
+  integrity sha512-Dch6DqAtsNKdmWkL8d8A9hCQMvtYQFSa/8q/a0+km1a6MZ+vqgmx7BOL6wA7DA9tFv+yTzP94+fuyMWC7vHMIg==
   dependencies:
-    "@nebula.js/cli-build" "^4.0.0-alpha.6"
+    "@nebula.js/cli-build" "^4.0.0-alpha.7"
     "@qlik/sdk" "^0.19.1"
     body-parser "1.20.2"
     chalk "4.1.2"
@@ -1521,19 +1521,19 @@
     ws "8.12.1"
     yargs "17.7.1"
 
-"@nebula.js/cli@4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.0.0-alpha.6.tgz#742bcfa7dee6e862fa1e30edb499d4f970c330e6"
-  integrity sha512-FiM2IxNL0qljyuOz8FFujbh+7V1VozJ+JIOiPhBt4S6bpZWOUm3spPyYAI5QRn+rVMN0YMC8IZqg0wnZWWlk4Q==
+"@nebula.js/cli@4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.0.0-alpha.7.tgz#b84f770c5250394ee3717e78da6fef8d0f4c9561"
+  integrity sha512-QrJ1JyVDchTndyOpO4x7zTblcVZTyJ8Eh5NaVzsUlnjgAzfQBvF0+sBjN0LI308mxU/y2Fdcpw+PWiGqUF/TaQ==
   dependencies:
-    "@nebula.js/cli-create" "^4.0.0-alpha.6"
+    "@nebula.js/cli-create" "^4.0.0-alpha.7"
     import-cwd "3.0.0"
     yargs "17.7.1"
 
-"@nebula.js/stardust@^4.0.0-alpha.6":
-  version "4.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.0.0-alpha.6.tgz#1a242749cf60a2840b7ceffc007d667e8f025713"
-  integrity sha512-KHl3DDpTatLhQlrrLTdTxm2aOwtD31kpQxu89XlnhPHZtK8IgRLetlNrMtoGSMduIWe3B9wSZv5so6vwpEIu3Q==
+"@nebula.js/stardust@^4.0.0-alpha.7":
+  version "4.0.0-alpha.7"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.0.0-alpha.7.tgz#38119476c3b70d69679f475beee4c69f782b51db"
+  integrity sha512-Vh3LL5byN3Cx4peitc4xol1NFXh14QRV9coXD4sJb3zwhXCzl6Ur2eeE1f/EN/1de3UAUzBl2iouupxkxWfdrw==
   dependencies:
     "@types/qlik-engineapi" "12.67.12"
 

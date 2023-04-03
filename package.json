@@ -1,6 +1,6 @@
 {
   "name": "@qlik-oss/sn-list-objects",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Workspace for sn-listbox and sn-filter-pane",
   "scripts": {
     "release": "release-it",
@@ -22,6 +22,6 @@
     "@release-it/conventional-changelog": "5.1.1",
     "release-it": "15.5.0",
     "@playwright/test": "1.30.0",
-    "@nebula.js/cli-serve": "4.0.0-alpha.6"
+    "@nebula.js/cli-serve": "4.0.0-alpha.7"
   }
 }
