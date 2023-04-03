@@ -12,11 +12,11 @@ interface ListboxContainerProps {
   handleActive?: (id: string, active: boolean) => void;
   stores: IStores;
   closePopover?: () => void;
-  isCollapsed?: boolean;
+  isPopover?: boolean;
 }
 
 const ListboxContainer = ({
-  layout, borderBottom, disableSearch = false, handleActive, stores, closePopover, isCollapsed,
+  layout, borderBottom, disableSearch = false, handleActive, stores, closePopover, isPopover,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -57,7 +57,7 @@ const ListboxContainer = ({
       },
       direction: options?.direction,
       search: disableSearch ? false : ('toggle' as stardust.SearchMode),
-      isCollapsed,
+      isPopover,
     };
 
     // @ts-ignore
