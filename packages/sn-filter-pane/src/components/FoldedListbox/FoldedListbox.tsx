@@ -26,10 +26,13 @@ interface StyledGridProps {
   constraints?: stardust.Constraints;
   stardustTheme?: stardust.Theme;
   containerRef: React.RefObject<HTMLDivElement>;
+  isInPopover: boolean;
 }
 interface StyledDivProps {
   isInPopover?: boolean;
 }
+
+const POPOVER_PADDING = 2;
 
 const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].includes(p as string) })<StyledDivProps>(
   ({ isInPopover }) => ({
@@ -39,32 +42,41 @@ const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].inc
     '&:focus-visible': {
       outline: 'none',
     },
-    padding: isInPopover ? '2px' : undefined,
+    padding: isInPopover ? `${POPOVER_PADDING}px` : undefined,
   }),
 );
 
-const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'containerRef'].includes(p as string) })<StyledGridProps>(
-  ({ constraints, stardustTheme, containerRef }) => ({
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    border: '1px solid #d9d9d9',
-    borderRadius: '3px',
-    height: COLLAPSED_HEIGHT,
-    overflow: 'hidden',
-    cursor: constraints?.active ? 'default' : 'pointer',
-    ':hover': !constraints?.active && {
-      border: '1px solid #595959',
-    },
-    backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
-    color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
-    width: containerRef?.current?.clientWidth,
-    '&:focus:not(:hover)': {
-      boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
-    },
-    '&:focus-visible': {
-      outline: 'none',
-    },
-  }),
+const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'containerRef', 'isInPopover'].includes(p as string) })<StyledGridProps>(
+  ({
+    constraints,
+    stardustTheme,
+    containerRef,
+    isInPopover,
+  }) => {
+    const containerWidth = containerRef?.current?.clientWidth ?? 0;
+    const popoverPadding = isInPopover ? POPOVER_PADDING * 2 : 0;
+    return {
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      border: '1px solid #d9d9d9',
+      borderRadius: '3px',
+      height: COLLAPSED_HEIGHT,
+      overflow: 'hidden',
+      cursor: constraints?.active ? 'default' : 'pointer',
+      ':hover': !constraints?.active && {
+        border: '1px solid #595959',
+      },
+      backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
+      color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
+      width: containerWidth - popoverPadding,
+      '&:focus:not(:hover)': {
+        boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+      },
+      '&:focus-visible': {
+        outline: 'none',
+      },
+    };
+  },
 );
 
 export const FoldedListbox = ({
@@ -106,6 +118,7 @@ export const FoldedListbox = ({
         container
         direction='column'
         data-testid={`collapsed-title-${fieldName}`}
+        isInPopover={!!isInPopover}
         onClick={(event) => onClick({ event, resource })}>
         <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
           {isDrillDown
