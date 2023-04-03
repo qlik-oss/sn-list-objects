@@ -1,7 +1,7 @@
 import { stardust } from '@nebula.js/stardust';
 import { useEffect } from 'react';
 
-const isFocusInsideFilterpane = (evt: FocusEvent) => (evt.currentTarget as HTMLElement)?.querySelector('.listbox-container,.folded-listbox-container');
+const isFocusInsideFilterpane = (evt: FocusEvent) => (evt.currentTarget as HTMLElement)?.querySelector('.listbox-container,.listbox-popover-container');
 
 const handleFocusoutEvent = (
   evt: FocusEvent,

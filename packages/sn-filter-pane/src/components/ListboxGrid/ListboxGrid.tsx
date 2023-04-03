@@ -90,7 +90,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     }
     if (event.key === KEYS.ESC && keyboard?.enabled) {
       // @ts-ignore
-      if (target.classList.contains('listbox-container') || target.classList.contains('folded-listbox-container')) {
+      if (target.classList.contains('listbox-container') || target.classList.contains('listbox-popover-container')) {
         // Focus currently on a listbox
         preventDefaultBehavior(event);
         // @ts-ignore
@@ -98,7 +98,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       }
     } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
       let elementToFocus;
-      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.folded-listbox-container');
+      const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.listbox-popover-container');
       if (listboxList?.length) {
         const activeIndex = findIndex(event.target, listboxList);
         if (activeIndex < 0) {
@@ -129,7 +129,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   }, [resources]);
 
   useEffect(() => {
-    const firstChild = gridRef?.current?.querySelector && gridRef?.current?.querySelector('.listbox-container,.folded-listbox-container') as HTMLDivElement;
+    const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLDivElement;
     if (keyboard?.active) {
       firstChild?.setAttribute('tabIndex', '0');
       firstChild?.focus();
