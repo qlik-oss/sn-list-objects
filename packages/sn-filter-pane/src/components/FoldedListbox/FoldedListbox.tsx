@@ -83,7 +83,6 @@ export const FoldedListbox = ({
     if (target.tagName === 'INPUT') {
       return;
     }
-
     switch (event.key) {
       case KEYS.ENTER:
       // @ts-ignore
@@ -93,9 +92,9 @@ export const FoldedListbox = ({
         return;
     }
 
-    event.preventDefault();
     // Note: We should not stop propagation here since this folded listbox maybe deystroyed
     // and we need to set focus to the listbox container after this.
+    event.preventDefault();
   };
 
   return (
