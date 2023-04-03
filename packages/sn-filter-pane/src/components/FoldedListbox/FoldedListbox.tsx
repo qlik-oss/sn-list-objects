@@ -20,12 +20,28 @@ export interface FoldedListboxProps {
   onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
   stores: IStores;
   tabIndex?: number;
+  isInPopover?: boolean;
 }
 interface StyledGridProps {
   constraints?: stardust.Constraints;
   stardustTheme?: stardust.Theme;
   containerRef: React.RefObject<HTMLDivElement>;
 }
+interface StyledDivProps {
+  isInPopover?: boolean;
+}
+
+const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].includes(p as string) })<StyledDivProps>(
+  ({ isInPopover }) => ({
+    '&:focus': {
+      boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+    },
+    '&:focus-visible': {
+      outline: 'none',
+    },
+    padding: isInPopover ? '2px' : undefined,
+  }),
+);
 
 const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'containerRef'].includes(p as string) })<StyledGridProps>(
   ({ constraints, stardustTheme, containerRef }) => ({
@@ -51,7 +67,9 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
   }),
 );
 
-export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
+export const FoldedListbox = ({
+  resource, onClick, stores, isInPopover,
+}: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef<HTMLDivElement>(null);
   const {
@@ -81,14 +99,12 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
   };
 
   return (
-    <div ref={containerRef}>
+    <StyledDiv ref={containerRef} className="folded-listbox" onKeyDown={handleKeyDown} isInPopover={isInPopover}>
       <StyledGrid
         constraints={constraints}
         stardustTheme={stardustTheme}
         containerRef={containerRef}
-        className="folded-listbox"
         container
-        onKeyDown={handleKeyDown}
         direction='column'
         data-testid={`collapsed-title-${fieldName}`}
         onClick={(event) => onClick({ event, resource })}>
@@ -112,6 +128,6 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
           ></SelectionSegmentsIndicator>
         </Grid>
       </StyledGrid>
-    </div>
+    </StyledDiv>
   );
 };

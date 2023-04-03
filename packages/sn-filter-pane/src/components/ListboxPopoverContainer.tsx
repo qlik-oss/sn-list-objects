@@ -45,16 +45,6 @@ const StyledDiv = styled('div')(() => ({
   padding: '2px',
 }));
 
-const StyledGrid = styled(Grid)(() => ({
-  '&:focus:not(:hover)': {
-    boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
-  },
-  '&:focus-visible': {
-    outline: 'none',
-  },
-  padding: '8px',
-}));
-
 /**
  * If a single resource is passed to this component a FoldedListbox is rendered.
  * When the FoldedListbox is clicked, a Listbox is rendered in a Popover.
@@ -106,7 +96,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
 
   const changeFocus = () => {
     const currentActive = document.activeElement as HTMLElement;
-    const listbox = currentActive?.querySelector('.listbox-container,.folded-listbox-dropdown');
+    const listbox = currentActive?.querySelector('.listbox-container,.folded-listbox');
     if (listbox) {
       currentActive.setAttribute('tabIndex', '-1');
       currentActive.blur();
@@ -235,13 +225,13 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
       >
         {(selectedResource || isSingle)
           ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={ closePopover } />
-          : <StyledGrid container direction='column' spacing={1} className='folded-listbox-dropdown' onKeyDown={onFoldedListboxDropdownKeyDown}>
+          : <Grid container direction='column' spacing={1} padding='8px' className='folded-listbox-dropdown' onKeyDown={onFoldedListboxDropdownKeyDown}>
             {!!resources?.length && resources?.map((resource) => (
-              <Grid item key={resource.id} className='folded-listbox-container'>
-                <FoldedListbox onClick={selectResource} resource={resource} stores={stores}/>
+              <Grid item key={resource.id}>
+                <FoldedListbox onClick={selectResource} resource={resource} stores={stores} isInPopover />
               </Grid>
             ))}
-          </StyledGrid>
+          </Grid>
         }
       </Popover>
     </StyledDiv>
