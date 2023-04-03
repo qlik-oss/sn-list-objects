@@ -1,5 +1,14 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.8.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.0...v0.8.1) (2023-04-03)
+
+
+### Bug Fixes
+
+* fix keyboard navigation for folded listbox and folded listbox dropdown ([#246](https://github.com/qlik-oss/sn-list-objects/issues/246)) ([e06cdf6](https://github.com/qlik-oss/sn-list-objects/commit/e06cdf619b67087a0ba31e63a484552e1e92a30d))
+* remove padding from witdth to prevent grow when resize ([#248](https://github.com/qlik-oss/sn-list-objects/issues/248)) ([e91b44e](https://github.com/qlik-oss/sn-list-objects/commit/e91b44e4882ccc74f18db653c79aa836060235c8))
+* show selection toolbar when listbox opens in popover ([#237](https://github.com/qlik-oss/sn-list-objects/issues/237)) ([299d4b1](https://github.com/qlik-oss/sn-list-objects/commit/299d4b100a4d713f5d66755154cd151bba04f769))
+
 ## [0.8.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.7.0...v0.8.0) (2023-03-30)
 
 
