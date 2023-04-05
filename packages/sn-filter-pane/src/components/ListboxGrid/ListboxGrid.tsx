@@ -95,6 +95,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         preventDefaultBehavior(event);
         // @ts-ignore
         keyboard.blur?.(true);
+      } else {
+        preventDefaultBehavior(event);
       }
     } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
       let elementToFocus;
@@ -109,8 +111,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         }
         if (elementToFocus) {
           (event.target as HTMLElement)?.setAttribute('tabIndex', '-1');
-          (event.target as HTMLElement)?.blur();
-          elementToFocus.setAttribute('tabIndex', '0');
+          elementToFocus.setAttribute('tabIndex', '-1');
           elementToFocus.focus();
         }
       }
@@ -131,11 +132,10 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   useEffect(() => {
     const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLDivElement;
     if (keyboard?.active) {
-      firstChild?.setAttribute('tabIndex', '0');
+      firstChild?.setAttribute('tabIndex', '-1');
       firstChild?.focus();
     } else {
       firstChild?.setAttribute('tabIndex', '-1');
-      firstChild?.blur();
     }
   }, [keyboard]);
 
@@ -150,7 +150,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       >
         <>
           <ElementResizeListener onResize={dHandleResize} />
-          <Grid container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
+          <Grid className="filter-pane-container" container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
 
             {!!columns?.length && columns?.map((column: IColumn, i: number) => (
                 <ColumnGrid key={i} widthPercent={100 / columns.length}>
