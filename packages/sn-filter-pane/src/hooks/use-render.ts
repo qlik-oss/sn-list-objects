@@ -5,22 +5,16 @@ import { IContainerElement, ListboxResourcesArr } from './types';
 import { render, teardown } from '../components/root';
 
 export default function useRender(stores: IStores) {
-  const { store, useResourceStore } = stores;
+  const { store, resourceStore } = stores;
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
 
-  const {
-    app, fpLayout, constraints,
-  } = store.getState();
-
-  // Create a string representation of the dim identities so that only a
-  // change to these identities will trigger a re-render (fixes issue #7).
-  const listboxIdsString = fpLayout?.qChildList?.qItems.map((qItem) => qItem?.qInfo?.qId).join(',');
-
+  const { app, fpLayout } = store.getState();
   const containerElement = <IContainerElement>useElement();
 
   if (app && fpLayout) {
     getListBoxResources(app, fpLayout).then((resArr: ListboxResourcesArr) => {
-      useResourceStore.setState({ resources: resArr });
+      // setState will trigger a re-render of ListboxGrid, needed if a Listbox changes size (eg. dense mode)
+      resourceStore.setState({ resources: resArr });
       setResourcesReady(true);
     });
   }
@@ -33,5 +27,5 @@ export default function useRender(stores: IStores) {
     return (() => {
       teardown(root);
     });
-  }, [constraints, listboxIdsString, resourcesReady]);
+  }, [resourcesReady]);
 }
