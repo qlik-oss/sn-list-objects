@@ -90,7 +90,6 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
   const onEscape = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement | undefined;
     target?.setAttribute('tabIndex', '-1');
-    target?.blur();
     // Then it propagates to the top-level (i.e. to filter pane)
   };
 
@@ -99,8 +98,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     const listbox = currentActive?.querySelector('.listbox-container,.folded-listbox');
     if (listbox) {
       currentActive.setAttribute('tabIndex', '-1');
-      currentActive.blur();
-      listbox?.setAttribute('tabIndex', '0');
+      listbox?.setAttribute('tabIndex', '-1');
       (listbox as HTMLElement)?.focus();
     }
   };
@@ -139,8 +137,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     }
     const firstFoldedListbox: HTMLElement = target.querySelector('.folded-listbox') as HTMLElement;
     target.setAttribute('tabIndex', '-1');
-    target.blur();
-    firstFoldedListbox?.setAttribute('tabIndex', '0');
+    firstFoldedListbox?.setAttribute('tabIndex', '-1');
     firstFoldedListbox?.focus();
   };
 
@@ -167,16 +164,14 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
       const elementToFocus = foldedListboxList.item(nextIndex);
       if (elementToFocus) {
         target?.setAttribute('tabIndex', '-1');
-        target?.blur();
-        elementToFocus.setAttribute('tabIndex', '0');
+        elementToFocus.setAttribute('tabIndex', '-1');
         (elementToFocus as HTMLElement).focus();
       }
     }
 
     const firstFoldedListbox: HTMLElement = target.querySelector('.folded-listbox') as HTMLElement;
     target.setAttribute('tabIndex', '-1');
-    target.blur();
-    firstFoldedListbox?.setAttribute('tabIndex', '0');
+    firstFoldedListbox?.setAttribute('tabIndex', '-1');
     firstFoldedListbox?.focus();
   };
 
@@ -221,7 +216,8 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         PaperProps={popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme)}
         anchorReference= {isSmallDevice ? 'anchorPosition' : 'anchorEl'}
         anchorPosition= {{ left: 0, top: 0 }}
-        marginThreshold= {isSmallDevice ? 0 : 16}
+        marginThreshold={isSmallDevice ? 0 : 16}
+        className='listbox-popover'
       >
         {(selectedResource || isSingle)
           ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={closePopover} isPopover={true} />
