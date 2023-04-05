@@ -45,7 +45,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     sense, selections, keyboard, renderTracker,
   } = store.getState();
 
-  // With this we subscribe to the resourceStore outside of react and re-render on store change.
+  // Subscribe to the resourceStore outside of react and re-render on store change.
   const { resources } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);
 
   const gridRef = useRef<HTMLDivElement>();
