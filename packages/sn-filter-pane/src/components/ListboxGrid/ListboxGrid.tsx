@@ -101,9 +101,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.listbox-popover-container');
       if (listboxList?.length) {
         const activeIndex: number = findIndex(event.target, listboxList);
-        const nextIndex = findNextIndex({
-          activeIndex, key: event.key, columns, numItems: listboxList.length,
-        }) as number;
+        const nextIndex = findNextIndex({ activeIndex, key: event.key, columns }) as number;
         if (nextIndex > -1) {
           elementToFocus = listboxList.item(nextIndex);
         }

@@ -24,9 +24,7 @@ const buildMapping = (columns) => {
   return { index1DToIndex2D, index2DToIndex1D };
 };
 
-const findNextIndex = ({
-  activeIndex, key, columns,
-}) => {
+const findNextIndex = ({ activeIndex, key, columns }) => {
   if (activeIndex < 0) return -1;
   if (columns.length < 1) return -1;
   if (columns.length === 1 && columns[0]?.items?.length === 0) return -1; // There is probably only "more items" dropdown
