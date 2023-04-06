@@ -26,6 +26,7 @@ import useHandleActive, { ActiveOnly } from './use-handle-active';
 import KEYS from '../keys';
 import { RenderTrackerService } from '../../services/render-tracker';
 import useFocusListener from '../../hooks/use-focus-listener';
+import findNextIndex from './find-next-index';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -76,7 +77,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     event.preventDefault();
   };
 
-  const findIndex = (element: EventTarget, nodeList: NodeList) => {
+  const findIndex = (element: EventTarget, nodeList: NodeList): number => {
     for (let i = 0; i < nodeList.length; i++) {
       if (element === nodeList.item(i)) return i;
     }
@@ -92,21 +93,16 @@ function ListboxGrid({ stores }: { stores: IStores }) {
       // @ts-ignore
       if (target.classList.contains('listbox-container') || target.classList.contains('listbox-popover-container')) {
         // Focus currently on a listbox
-        preventDefaultBehavior(event);
         // @ts-ignore
         keyboard.blur?.(true);
-      } else {
-        preventDefaultBehavior(event);
       }
-    } else if (event.key === KEYS.LEFT || event.key === KEYS.RIGHT) {
+    } else if ([KEYS.LEFT, KEYS.RIGHT, KEYS.UP, KEYS.DOWN].includes(event.key)) {
       let elementToFocus;
       const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.listbox-popover-container');
       if (listboxList?.length) {
-        const activeIndex = findIndex(event.target, listboxList);
-        if (activeIndex < 0) {
-          elementToFocus = listboxList.item(0);
-        } else if (!(listboxList.length === 1 || (activeIndex === 0 && event.key === KEYS.LEFT) || (activeIndex === listboxList.length - 1 && event.key === KEYS.RIGHT))) {
-          const nextIndex = event.key === KEYS.LEFT ? activeIndex - 1 : activeIndex + 1;
+        const activeIndex: number = findIndex(event.target, listboxList);
+        const nextIndex = findNextIndex({ activeIndex, key: event.key, columns }) as number;
+        if (nextIndex > -1) {
           elementToFocus = listboxList.item(nextIndex);
         }
         if (elementToFocus) {
@@ -115,8 +111,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
           elementToFocus.focus();
         }
       }
-      preventDefaultBehavior(event);
     }
+    preventDefaultBehavior(event);
   };
 
   useFocusListener(gridRef, keyboard);
