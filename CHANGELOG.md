@@ -1,5 +1,14 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.8.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.1...v0.8.2) (2023-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update minor and patch ([#260](https://github.com/qlik-oss/sn-list-objects/issues/260)) ([6b9dc6a](https://github.com/qlik-oss/sn-list-objects/commit/6b9dc6ab809113227ece19ba9c7401144c407306))
+* fix Enter get stuck ([#256](https://github.com/qlik-oss/sn-list-objects/issues/256)) ([e5babae](https://github.com/qlik-oss/sn-list-objects/commit/e5babaece519cd9544040809678933adb07ed585))
+* support navigation with up/down arrow key ([#259](https://github.com/qlik-oss/sn-list-objects/issues/259)) ([5af110b](https://github.com/qlik-oss/sn-list-objects/commit/5af110bff0819d16548c39ee22a746e44dd72c58))
+
 ### [0.8.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.0...v0.8.1) (2023-04-03)
 
 
