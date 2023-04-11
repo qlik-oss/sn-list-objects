@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useEffect, useRef, useState, useSyncExternalStore,
 } from 'react';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -33,19 +33,21 @@ const Resizable = styled(ResizableBox)(() => ({
   position: 'absolute',
 }));
 
-const prepareRenderTracker = (listboxCount: number, renderTracker: RenderTrackerService) => {
-  renderTracker.setNumberOfListboxes(listboxCount);
+const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
+  renderTracker?.setNumberOfListboxes(listboxCount);
   if (listboxCount === 0) {
-    renderTracker.renderedCallback();
+    renderTracker?.renderedCallback();
   }
 };
 
 function ListboxGrid({ stores }: { stores: IStores }) {
-  const { store, useResourceStore } = stores;
+  const { store, resourceStore } = stores;
   const {
     sense, selections, keyboard, renderTracker,
   } = store.getState();
-  const resources = useResourceStore((state) => state.resources);
+
+  // Subscribe to the resourceStore outside of react and re-render on store change.
+  const { resources } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);

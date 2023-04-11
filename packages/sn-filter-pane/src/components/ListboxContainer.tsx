@@ -62,7 +62,7 @@ const ListboxContainer = ({
 
     // @ts-ignore
     listboxInstance.mount(elRef.current, listboxOptions).then(() => {
-      renderTracker.renderedCallback(key);
+      renderTracker?.renderedCallback(key);
     });
     return () => {
       listboxInstance.unmount();
