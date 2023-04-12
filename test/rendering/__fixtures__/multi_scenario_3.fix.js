@@ -202,7 +202,7 @@ export default () => ({
             qOtherTotalSpec: {},
           },
           showTitles: true,
-          title: 'Region Name',
+          title: '',
           subtitle: '',
           footnote: '',
           disableNavMenu: false,
@@ -218,7 +218,7 @@ export default () => ({
             qMatrix: [
               [
                 {
-                  qText: 'Central',
+                  qText: 'Central (no title on list)',
                   qNum: 'NaN',
                   qElemNumber: 3,
                   qState: 'O',
@@ -2928,6 +2928,9 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          layoutOptions: {
+            dense: true,
+          },
         };
       },
       // listbox data
