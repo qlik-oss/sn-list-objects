@@ -51,7 +51,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       const page = await context.newPage();
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
       await (
-        await page.waitForSelector('[data-testid="collapsed-title-City"]')
+        await page.waitForSelector('[data-testid="collapsed-title-City drilldown"]')
       ).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
