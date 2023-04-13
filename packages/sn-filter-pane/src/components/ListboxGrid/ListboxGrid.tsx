@@ -13,7 +13,7 @@ import ListboxContainer from '../ListboxContainer';
 import 'react-resizable/css/styles.css';
 import ElementResizeListener from '../ElementResizeListener';
 import {
-  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources,
+  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources, hasHeader,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { ColumnGrid } from './grid-components/ColumnGrid';
@@ -62,7 +62,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     const isSingleItem = resources.length === 1;
     const expandProps: ExpandProps = {
       isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
-      hasHeader: resources[0].layout?.title !== '' && resources[0].layout?.showTitle !== false,
+      hasHeader: hasHeader(resources[0]),
     };
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);

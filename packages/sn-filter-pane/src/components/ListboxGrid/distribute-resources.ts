@@ -233,11 +233,13 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
   return { columns, expandedItemsCount: allExpandedItems.length };
 };
 
+export const hasHeader = (resource: IListboxResource) => (resource.layout?.title !== '' && resource.layout?.showTitle !== false);
+
 export const setDefaultValues = (resources: IListboxResource[]) => resources.map((resource: IListboxResource) => {
   resource.expand = false;
   resource.height = 'calc(100% - 2px)';
   resource.fullyExpanded = false;
   resource.dense = resource.layout.layoutOptions?.dense ?? false;
-  resource.hiddenHeader = resource.layout.showTitle !== undefined ? !resource.layout.showTitle : false;
+  resource.hiddenHeader = !hasHeader(resource);
   return resource;
 });
