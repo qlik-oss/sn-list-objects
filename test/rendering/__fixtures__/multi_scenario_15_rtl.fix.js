@@ -1,4 +1,9 @@
 export default () => ({
+  snConfig: {
+    options: {
+      direction: 'rtl',
+    }
+  },
   instanceConfig: {
     context: {
       theme: 'senseish',
@@ -202,7 +207,7 @@ export default () => ({
             qOtherTotalSpec: {},
           },
           showTitles: true,
-          title: 'Region Name',
+          title: '',
           subtitle: '',
           footnote: '',
           disableNavMenu: false,
@@ -218,7 +223,7 @@ export default () => ({
             qMatrix: [
               [
                 {
-                  qText: 'Central',
+                  qText: 'Central (no title on list)',
                   qNum: 'NaN',
                   qElemNumber: 3,
                   qState: 'O',
@@ -1164,11 +1169,11 @@ export default () => ({
               qcy: 271,
             },
             qDimensionInfo: {
-              qFallbackTitle: 'City drilldown',
+              qFallbackTitle: 'City',
               qApprMaxGlyphCount: 17,
               qCardinal: 271,
               qSortIndicator: 'A',
-              qGroupFallbackTitles: ['City drilldown'],
+              qGroupFallbackTitles: ['City'],
               qGroupPos: 0,
               qStateCounts: {
                 qLocked: 0,
@@ -1182,14 +1187,14 @@ export default () => ({
               },
               qTags: ['$ascii', '$text'],
               qDimensionType: 'D',
-              qGrouping: 'H',
+              qGrouping: 'N',
               qNumFormat: {
                 qType: 'U',
                 qnDec: 0,
                 qUseThou: 0,
               },
               qIsAutoFormat: true,
-              qGroupFieldDefs: ['City drilldown'],
+              qGroupFieldDefs: ['City'],
               qMin: 0,
               qMax: 0,
               qAttrExprInfo: [],
@@ -1200,7 +1205,7 @@ export default () => ({
                 qAllValuesCardinal: -1,
               },
               qLibraryId: '5b7dbcd0-1948-42db-b5d5-3d4e6fb36bbf',
-              title: 'City drilldown',
+              title: 'City',
               autoSort: true,
               cId: 'PhbyjR',
             },
@@ -1216,7 +1221,7 @@ export default () => ({
             qOtherTotalSpec: {},
           },
           showTitles: true,
-          title: 'City drilldown',
+          title: 'City',
           subtitle: '',
           footnote: '',
           disableNavMenu: false,
@@ -2928,6 +2933,9 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          layoutOptions: {
+            dense: true,
+          },
         };
       },
       // listbox data
@@ -3168,11 +3176,11 @@ export default () => ({
               qcy: 2,
             },
             qDimensionInfo: {
-              qFallbackTitle: 'Basket Product Line Desc truncated title',
+              qFallbackTitle: 'Basket Product Line Desc',
               qApprMaxGlyphCount: 5,
               qCardinal: 2,
               qSortIndicator: 'A',
-              qGroupFallbackTitles: ['Basket Product Line Desc truncated title'],
+              qGroupFallbackTitles: ['Basket Product Line Desc'],
               qGroupPos: 0,
               qStateCounts: {
                 qLocked: 0,
@@ -3193,7 +3201,7 @@ export default () => ({
                 qUseThou: 0,
               },
               qIsAutoFormat: true,
-              qGroupFieldDefs: ['Basket Product Line Desc truncated title'],
+              qGroupFieldDefs: ['Basket Product Line Desc'],
               qMin: 0,
               qMax: 0,
               qAttrExprInfo: [],
@@ -3204,7 +3212,7 @@ export default () => ({
                 qAllValuesCardinal: -1,
               },
               qLibraryId: '20c2b97b-1309-4210-b13c-af30b4bee211',
-              title: 'Basket Product Line Desc truncated title',
+              title: 'Basket Product Line Desc',
               autoSort: true,
               cId: 'ERCzup',
             },
@@ -3220,7 +3228,7 @@ export default () => ({
             qOtherTotalSpec: {},
           },
           showTitles: true,
-          title: 'Basket Product Line Desc truncated title',
+          title: 'Basket Product Line Desc',
           subtitle: '',
           footnote: '',
           disableNavMenu: false,
@@ -3366,6 +3374,10 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          checkboxes: true,
+          layoutOptions: {
+            dense: true,
+          },
         };
       },
       // listbox data
@@ -3745,6 +3757,8 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          checkboxes: true,
+          histogram: true,
         };
       },
       // listbox data
@@ -6083,6 +6097,8 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          histogram: true,
+          frequencyMax: 21,
         };
       },
       // listbox data
@@ -6096,6 +6112,7 @@ export default () => ({
                   qNum: 1005,
                   qElemNumber: 4,
                   qState: 'O',
+                  qFrequency: '3',
                 },
               ],
               [
@@ -6104,6 +6121,7 @@ export default () => ({
                   qNum: 1010,
                   qElemNumber: 3,
                   qState: 'O',
+                  qFrequency: '4',
                 },
               ],
               [
@@ -6112,6 +6130,7 @@ export default () => ({
                   qNum: 1015,
                   qElemNumber: 1,
                   qState: 'O',
+                  qFrequency: '5',
                 },
               ],
               [
@@ -6120,6 +6139,7 @@ export default () => ({
                   qNum: 1020,
                   qElemNumber: 13,
                   qState: 'O',
+                  qFrequency: '6',
                 },
               ],
               [
@@ -6128,6 +6148,7 @@ export default () => ({
                   qNum: 1025,
                   qElemNumber: 7,
                   qState: 'O',
+                  qFrequency: '7',
                 },
               ],
               [
@@ -6136,6 +6157,7 @@ export default () => ({
                   qNum: 1030,
                   qElemNumber: 0,
                   qState: 'O',
+                  qFrequency: '8',
                 },
               ],
               [
@@ -6144,6 +6166,7 @@ export default () => ({
                   qNum: 1035,
                   qElemNumber: 2,
                   qState: 'O',
+                  qFrequency: '9',
                 },
               ],
               [
@@ -6152,6 +6175,7 @@ export default () => ({
                   qNum: 1040,
                   qElemNumber: 10,
                   qState: 'O',
+                  qFrequency: '10',
                 },
               ],
               [
@@ -6160,6 +6184,7 @@ export default () => ({
                   qNum: 1045,
                   qElemNumber: 9,
                   qState: 'O',
+                  qFrequency: '11',
                 },
               ],
               [
@@ -6168,6 +6193,7 @@ export default () => ({
                   qNum: 1050,
                   qElemNumber: 6,
                   qState: 'O',
+                  qFrequency: '12',
                 },
               ],
               [
@@ -6176,6 +6202,7 @@ export default () => ({
                   qNum: 1055,
                   qElemNumber: 12,
                   qState: 'O',
+                  qFrequency: '13',
                 },
               ],
               [
@@ -6184,6 +6211,7 @@ export default () => ({
                   qNum: 1060,
                   qElemNumber: 15,
                   qState: 'O',
+                  qFrequency: '14',
                 },
               ],
               [
@@ -6192,6 +6220,7 @@ export default () => ({
                   qNum: 1065,
                   qElemNumber: 16,
                   qState: 'O',
+                  qFrequency: '15',
                 },
               ],
               [
@@ -6200,6 +6229,7 @@ export default () => ({
                   qNum: 1075,
                   qElemNumber: 18,
                   qState: 'O',
+                  qFrequency: '16',
                 },
               ],
               [
@@ -6208,6 +6238,7 @@ export default () => ({
                   qNum: 1080,
                   qElemNumber: 8,
                   qState: 'O',
+                  qFrequency: '17',
                 },
               ],
               [
@@ -6216,6 +6247,7 @@ export default () => ({
                   qNum: 1085,
                   qElemNumber: 17,
                   qState: 'O',
+                  qFrequency: '18',
                 },
               ],
               [
@@ -6224,6 +6256,7 @@ export default () => ({
                   qNum: 1090,
                   qElemNumber: 11,
                   qState: 'O',
+                  qFrequency: '19',
                 },
               ],
               [
@@ -6232,6 +6265,7 @@ export default () => ({
                   qNum: 1095,
                   qElemNumber: 14,
                   qState: 'O',
+                  qFrequency: '20',
                 },
               ],
               [
@@ -6240,6 +6274,7 @@ export default () => ({
                   qNum: 5020,
                   qElemNumber: 5,
                   qState: 'O',
+                  qFrequency: '21',
                 },
               ],
             ],
@@ -6483,6 +6518,7 @@ export default () => ({
             showDetails: true,
             showDetailsExpression: false,
             qOtherTotalSpec: {},
+            frequencyEnabled: true,
           },
           showTitles: true,
           title: 'Item Branch G/L Category',
@@ -6492,6 +6528,10 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'listbox',
+          histogram: true,
+          checkboxes: true,
+          frequencyMax: 202,
+          // frequencyCount: 'true',
         };
       },
       // listbox data
@@ -6505,6 +6545,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 2,
                   qState: 'O',
+                  qFrequency: '22',
                 },
               ],
               [
@@ -6513,6 +6554,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 6,
                   qState: 'O',
+                  qFrequency: '32',
                 },
               ],
               [
@@ -6521,6 +6563,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 10,
                   qState: 'O',
+                  qFrequency: '42',
                 },
               ],
               [
@@ -6529,6 +6572,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 3,
                   qState: 'O',
+                  qFrequency: '52',
                 },
               ],
               [
@@ -6537,6 +6581,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 14,
                   qState: 'O',
+                  qFrequency: '62',
                 },
               ],
               [
@@ -6545,6 +6590,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 17,
                   qState: 'O',
+                  qFrequency: '72',
                 },
               ],
               [
@@ -6553,6 +6599,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 11,
                   qState: 'O',
+                  qFrequency: '82',
                 },
               ],
               [
@@ -6561,6 +6608,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 16,
                   qState: 'O',
+                  qFrequency: '92',
                 },
               ],
               [
@@ -6569,6 +6617,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 5,
                   qState: 'O',
+                  qFrequency: '102',
                 },
               ],
               [
@@ -6577,6 +6626,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 8,
                   qState: 'O',
+                  qFrequency: '112',
                 },
               ],
               [
@@ -6585,6 +6635,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 12,
                   qState: 'O',
+                  qFrequency: '122',
                 },
               ],
               [
@@ -6593,6 +6644,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 9,
                   qState: 'O',
+                  qFrequency: '132',
                 },
               ],
               [
@@ -6601,6 +6653,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 1,
                   qState: 'O',
+                  qFrequency: '142',
                 },
               ],
               [
@@ -6609,6 +6662,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 18,
                   qState: 'O',
+                  qFrequency: '152',
                 },
               ],
               [
@@ -6617,6 +6671,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 7,
                   qState: 'O',
+                  qFrequency: '162',
                 },
               ],
               [
@@ -6625,6 +6680,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 4,
                   qState: 'O',
+                  qFrequency: '172',
                 },
               ],
               [
@@ -6633,6 +6689,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 15,
                   qState: 'O',
+                  qFrequency: '182',
                 },
               ],
               [
@@ -6641,6 +6698,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 0,
                   qState: 'O',
+                  qFrequency: '192',
                 },
               ],
               [
@@ -6649,6 +6707,7 @@ export default () => ({
                   qNum: 'NaN',
                   qElemNumber: 13,
                   qState: 'O',
+                  qFrequency: '202',
                 },
               ],
             ],
