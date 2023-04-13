@@ -51,7 +51,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       const page = await context.newPage();
       await page.goto(renderUrl, { waitUntil: 'networkidle' });
       await (
-        await page.waitForSelector('[data-testid="collapsed-title-City"]')
+        await page.waitForSelector('[data-testid="collapsed-title-City drilldown"]')
       ).click();
       await page.waitForTimeout(500);
       await checkScreenshot(
@@ -108,7 +108,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       );
     });
 
-    test('Open listbox in multiple collapsed filterpane', async () => {
+    test('Open listbox in multiple collapsed filterpane, scroll and select', async () => {
       const renderUrl = await route.renderFixture('multi_scenario_3.fix.js');
       const browser = await chromium.launch();
       const context = await browser.newContext();
@@ -123,11 +123,33 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
           '[data-testid="collapsed-title-Family Class Desc"]'
         )
       ).click();
+      await page.waitForTimeout(100);
+      await page.mouse.move(100, 200);
+      await page.mouse.wheel(0, 100);
+      await page.mouse.down();
       await page.waitForTimeout(500);
       await checkScreenshot(
         '.njs-viz[data-render-count="1"]',
         page,
         'open_listbox_in_multiple_collapsed_filterpane.png'
+      );
+    });
+
+    test('Do not collapse listbox, select, show toolbar detached', async () => {
+      const renderUrl = await route.renderFixture('multi_scenario_2.fix.js');
+      const browser = await chromium.launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.setViewportSize({ width: 800, height: 138 });
+      await page.goto(renderUrl, { waitUntil: 'networkidle' });
+      await (
+        await page.waitForSelector('[data-testid="listbox.item"]')
+      ).click();
+      await page.waitForTimeout(500);
+      await checkScreenshot(
+        'body',
+        page,
+        'do_not_collapse.png'
       );
     });
   });
