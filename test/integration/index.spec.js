@@ -145,6 +145,7 @@ test.describe('sn-filter-pane: ui integration tests to test visual bugs', () => 
       await (
         await page.waitForSelector('[data-testid="listbox.item"]')
       ).click();
+      await page.waitForTimeout(500);
       await checkScreenshot(
         'body',
         page,
