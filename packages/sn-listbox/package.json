@@ -40,10 +40,10 @@
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@mui/material": "5.11.16",
-    "@nebula.js/cli": "4.0.0-alpha.8",
-    "@nebula.js/cli-build": "4.0.0-alpha.8",
-    "@nebula.js/cli-sense": "4.0.0-alpha.8",
-    "@nebula.js/cli-serve": "4.0.0-alpha.8",
+    "@nebula.js/cli": "4.0.0-alpha.9",
+    "@nebula.js/cli-build": "4.0.0-alpha.9",
+    "@nebula.js/cli-sense": "4.0.0-alpha.9",
+    "@nebula.js/cli-serve": "4.0.0-alpha.9",
     "@rollup/plugin-typescript": "^8.4.0",
     "@types/enigma.js": "^2.2.2",
     "@types/qlik-engineapi": "^12.67.12",
@@ -67,6 +67,6 @@
     "typescript": "4.9.5"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": "4.0.0-alpha.8"
+    "@nebula.js/stardust": "4.0.0-alpha.9"
   }
 }

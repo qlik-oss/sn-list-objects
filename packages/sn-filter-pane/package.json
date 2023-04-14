@@ -47,10 +47,10 @@
     "@babel/preset-typescript": "^7.18.6",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
-    "@nebula.js/cli": "4.0.0-alpha.8",
-    "@nebula.js/cli-build": "4.0.0-alpha.8",
-    "@nebula.js/cli-sense": "4.0.0-alpha.8",
-    "@nebula.js/cli-serve": "4.0.0-alpha.8",
+    "@nebula.js/cli": "4.0.0-alpha.9",
+    "@nebula.js/cli-build": "4.0.0-alpha.9",
+    "@nebula.js/cli-sense": "4.0.0-alpha.9",
+    "@nebula.js/cli-serve": "4.0.0-alpha.9",
     "@rollup/plugin-typescript": "9.0.2",
     "@testing-library/react": "13.4.0",
     "@types/enigma.js": "^2.2.2",
@@ -81,7 +81,7 @@
     "typescript": "4.9.5"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": "4.0.0-alpha.8"
+    "@nebula.js/stardust": "4.0.0-alpha.9"
   },
   "dependencies": {
     "@mui/icons-material": "5.11.16",
