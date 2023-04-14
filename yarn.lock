@@ -1012,10 +1012,10 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@nebula.js/cli-build@^4.0.0-alpha.8":
-  version "4.0.0-alpha.8"
-  resolved "https://registry.npmjs.org/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.8.tgz"
-  integrity sha512-2m6JXUW9tfozqyPwr/1xGXTz9HSIPEMwCdfFbGuY8EgdcIbuGpjRbzM+aeNsY1uyKRTf++VysRDzEghrlIfSHA==
+"@nebula.js/cli-build@^4.0.0-alpha.9":
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.0.0-alpha.9.tgz#93cd4b8e54f03c46f36de5c4a65ca80ee0295b88"
+  integrity sha512-nFnTMpe1Dv2PCU+KyyJddtOpsMFdCpwufHgTmz6Rjgffq5/1nMf2dWqa2/yyEFF/bcjf50XfeVib+nzHSvfzxg==
   dependencies:
     "@babel/cli" "7.21.0"
     "@babel/core" "7.21.4"
@@ -1035,12 +1035,12 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.1"
 
-"@nebula.js/cli-serve@4.0.0-alpha.8":
-  version "4.0.0-alpha.8"
-  resolved "https://registry.npmjs.org/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.8.tgz"
-  integrity sha512-qm3y+wpakutJ4glFV6MJvMqPt8jYBwH+ociWRCfQCIhbI4yS6EarUdWsx3S3haXJS2Z15YhwHc9u8aX6o76/dw==
+"@nebula.js/cli-serve@4.0.0-alpha.9":
+  version "4.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.0.0-alpha.9.tgz#a77a2b9a410b87905d5a37a7d6d7dc01b13171d5"
+  integrity sha512-3PI8/ur7X0Lz5uxDZ2545cmuTROvy4OqWPhxsC+9jBkmcLDQqrzOB3OUxImbkD+9AmNgyGQP8h3/bawmZ05teA==
   dependencies:
-    "@nebula.js/cli-build" "^4.0.0-alpha.8"
+    "@nebula.js/cli-build" "^4.0.0-alpha.9"
     "@qlik/sdk" "^0.20.1"
     body-parser "1.20.2"
     chalk "4.1.2"
