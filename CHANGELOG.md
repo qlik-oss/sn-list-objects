@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.8.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.2...v0.8.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* don't calculate for header when title is "" ([#264](https://github.com/qlik-oss/sn-list-objects/issues/264)) ([ef9021e](https://github.com/qlik-oss/sn-list-objects/commit/ef9021ec26e96fd751e403b48ded16602883bb7b))
+
 ### [0.8.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.1...v0.8.2) (2023-04-11)
 
 
