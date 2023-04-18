@@ -1,0 +1,11 @@
+{
+  "scriptappy": "1.1.0",
+  "info": {
+    "name": "@nebula.js/sn-filter-pane",
+    "description": "Filter pane supernova",
+    "version": "0.8.3",
+    "license": "MIT"
+  },
+  "entries": {},
+  "definitions": {}
+}

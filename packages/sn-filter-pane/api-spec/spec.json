@@ -1,0 +1,109 @@
+{
+  "scriptappy": "1.1.0",
+  "info": {
+    "name": "@nebula.js/sn-filter-pane:properties",
+    "description": "Filter pane generic object definition",
+    "version": "0.8.3",
+    "license": "MIT",
+    "stability": "experimental",
+    "x-qlik-visibility": "public"
+  },
+  "entries": {
+    "properties": {
+      "kind": "namespace",
+      "entries": {
+        "footnote": {
+          "description": "Visualization footnote.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "qChildListDef": {
+          "description": "Child object definition",
+          "defaultValue": "{qDef:{qListObjectDef:{}}}",
+          "type": "#/definitions/ChildListDef"
+        },
+        "showDetails": {
+          "description": "Show visualization details toggle",
+          "optional": true,
+          "defaultValue": true,
+          "type": "boolean"
+        },
+        "showTitles": {
+          "description": "Show title for the visualization.",
+          "optional": true,
+          "defaultValue": false,
+          "type": "boolean"
+        },
+        "subtitle": {
+          "description": "Visualization subtitle.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "title": {
+          "description": "Visualization title.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "version": {
+          "description": "Current version of this generic object definition",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ChildListDef": {
+      "kind": "object",
+      "entries": {
+        "qDef": {
+          "type": "#/definitions/IGenericListProperties"
+        }
+      }
+    },
+    "IGenericListProperties": {
+      "description": "Extends `IGenericListProperties`, see Engine API: `IGenericListProperties`.",
+      "extends": [
+        {
+          "type": "EngineAPI.IGenericListProperties"
+        }
+      ],
+      "kind": "object",
+      "entries": {
+        "qListObjectDef": {
+          "type": "#/definitions/IListObjectDef"
+        }
+      }
+    },
+    "IListObjectDef": {
+      "description": "See {@link https://qlik.dev/apis/json-rpc/qix/schemas#%23%2Fdefinitions%2Fschemas%2Fentries%2FListObjectDef}",
+      "type": "object"
+    }
+  }
+}
