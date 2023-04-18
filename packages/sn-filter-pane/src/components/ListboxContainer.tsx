@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import extend from 'extend';
 import { Box } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import { IListLayout } from '../hooks/types';
 import type { IStores } from '../store';
 import uid from '../utils/uid';
+import { IEnv } from '../types/types';
+import useDirectQuery from '../hooks/direct-query/use-direct-query';
 
 interface ListboxContainerProps {
   layout: IListLayout;
@@ -28,9 +31,16 @@ const ListboxContainer = ({
     constraints,
     options,
     renderTracker,
-    sense,
+    env,
     stardustTheme,
+    directQueryEnabled,
   } = stores.store.getState();
+
+  const { sense } = env as IEnv;
+
+  const dqOptionsOverrides = useDirectQuery({
+    directQueryEnabled, layout, sessionModel: model, constraints,
+  });
 
   const showBorder = !sense || inSelection || stardustTheme?.getStyle('', '', '_cards');
 
@@ -51,14 +61,14 @@ const ListboxContainer = ({
     }
 
     const allowSelect = !constraints?.select && !constraints?.active;
-    const listboxOptions = {
+    const listboxOptions = extend(true, {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
       },
       direction: options?.direction,
       search: disableSearch ? false : ('toggle' as stardust.SearchMode),
       isPopover,
-    };
+    }, dqOptionsOverrides || {});
 
     // @ts-ignore
     listboxInstance.mount(elRef.current, listboxOptions).then(() => {
@@ -92,16 +102,14 @@ const ListboxContainer = ({
   }, [listboxInstance]);
 
   return (
-    <>
-      <Box
-        height='100%'
-        border={showBorder ? '1px solid #d9d9d9' : '1px solid transparent'}
-        borderBottom={(showBorder && borderBottom) ? '1px solid #d9d9d9' : 0}
-        borderRadius='4px'
-        overflow='hidden'
-        ref={elRef}
-      />
-    </>
+    <Box
+      height='100%'
+      border={showBorder ? '1px solid #d9d9d9' : '1px solid transparent'}
+      borderBottom={(showBorder && borderBottom) ? '1px solid #d9d9d9' : 0}
+      borderRadius='4px'
+      overflow='hidden'
+      ref={elRef}
+    />
   );
 };
 

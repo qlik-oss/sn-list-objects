@@ -27,6 +27,7 @@ import KEYS from '../keys';
 import { RenderTrackerService } from '../../services/render-tracker';
 import useFocusListener from '../../hooks/use-focus-listener';
 import findNextIndex from './find-next-index';
+import { IEnv } from '../../types/types';
 
 // TODO: Remove
 const Resizable = styled(ResizableBox)(() => ({
@@ -43,8 +44,10 @@ const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTracke
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, resourceStore } = stores;
   const {
-    sense, selections, keyboard, renderTracker,
+    env = {}, selections, keyboard, renderTracker,
   } = store.getState();
+
+  const { sense } = env as IEnv;
 
   // Subscribe to the resourceStore outside of react and re-render on store change.
   const { resources } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);

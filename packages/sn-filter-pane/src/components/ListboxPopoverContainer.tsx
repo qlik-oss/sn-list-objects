@@ -11,6 +11,7 @@ import { FoldedListbox } from './FoldedListbox';
 import { FoldedListboxClickEvent } from './FoldedListbox/FoldedListbox';
 import ListboxContainer from './ListboxContainer';
 import KEYS from './keys';
+import { IEnv } from '../types/types';
 
 export interface FoldedPopoverProps {
   resources: IListboxResource[];
@@ -53,7 +54,8 @@ const StyledDiv = styled('div')(() => ({
  * FoldedLisbox:es are rendered which in themselves are clickable.
  */
 export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProps) => {
-  const { constraints, stardustTheme, sense } = stores.store.getState();
+  const { constraints, stardustTheme, env = {} } = stores.store.getState();
+  const { sense } = env as IEnv;
   const [popoverOpen, setPopoverOpen] = useState(false);
   const containerRef = useRef(null);
   const [selectedResource, setSelectedResource] = useState<IListboxResource | undefined>();
