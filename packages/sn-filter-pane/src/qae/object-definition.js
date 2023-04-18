@@ -14,6 +14,13 @@ const objectDefinition = () => {
      */
     version: process.env.PACKAGE_VERSION,
     /**
+     * Show visualization details toggle
+     * @type {boolean=}
+     * @default
+     * @private
+     */
+    showDetails: true,
+    /**
      * Show title for the visualization.
      * @type {boolean=}
      * @default
@@ -40,7 +47,7 @@ const objectDefinition = () => {
     /**
      * Child object definition
      * @type {ChildListDef}
-     * @default {qDef:{qListObjectDef:{}}}
+     * @default {}
      */
     qChildListDef: {
       qDef: {

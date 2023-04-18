@@ -28,7 +28,7 @@
         },
         "qChildListDef": {
           "description": "Child object definition",
-          "defaultValue": "{qDef:{qListObjectDef:{}}}",
+          "defaultValue": "{}",
           "type": "#/definitions/ChildListDef"
         },
         "showTitles": {
