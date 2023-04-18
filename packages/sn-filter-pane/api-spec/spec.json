@@ -31,12 +31,6 @@
           "defaultValue": "{qDef:{qListObjectDef:{}}}",
           "type": "#/definitions/ChildListDef"
         },
-        "showDetails": {
-          "description": "Show visualization details toggle",
-          "optional": true,
-          "defaultValue": true,
-          "type": "boolean"
-        },
         "showTitles": {
           "description": "Show title for the visualization.",
           "optional": true,

@@ -14,12 +14,6 @@ const objectDefinition = () => {
      */
     version: process.env.PACKAGE_VERSION,
     /**
-     * Show visualization details toggle
-     * @type {boolean=}
-     * @default
-     */
-    showDetails: true,
-    /**
      * Show title for the visualization.
      * @type {boolean=}
      * @default
