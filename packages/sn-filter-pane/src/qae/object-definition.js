@@ -60,20 +60,4 @@ export default objectDefinition;
 /**
  * @name ChildListDef
  * @type object
- * @property {IGenericListProperties} qDef
- */
-
-/**
- * Extends `IGenericListProperties`, see Engine API: `IGenericListProperties`.
- * @name IGenericListProperties
- * @extends EngineAPI.IGenericListProperties
- * @type object
- * @property {IListObjectDef} qListObjectDef
- */
-
-/**
- * Extends `IListObjectDef`, see Engine API: `IListObjectDef`.
- * @name IListObjectDef
- * @type object
- * @description See {@link https://qlik.dev/apis/json-rpc/qix/schemas#%23%2Fdefinitions%2Fschemas%2Fentries%2FListObjectDef}
  */
