@@ -5,11 +5,11 @@ import { create } from '../store';
 import { IEnv } from '../types/types';
 import { IFilterPaneLayout, IListBoxOptions, INxAppLayout } from './types';
 import useRenderTrackerService from '../services/render-tracker';
+import isDirectQueryEnabled from './direct-query/is-direct-query-enabled';
 
 export default function useSetup(env: IEnv) {
   const [stores] = useState(() => create());
 
-  const { flags } = env;
   const { store } = stores;
   const options = useOptions() as IListBoxOptions;
   const fpLayout = useLayout() as IFilterPaneLayout;
@@ -24,8 +24,7 @@ export default function useSetup(env: IEnv) {
   const keyboard = useKeyboard();
   const renderTracker = useRenderTrackerService();
 
-  const { isEnabled = () => false } = flags || {};
-  const directQueryEnabled = !!(appLayout?.qIsDirectQueryMode && (isEnabled('CLIENT_DIRECT_QUERY_EAP') || isEnabled('CLIENT_DIRECT_QUERY_GA')));
+  const directQueryEnabled: boolean = isDirectQueryEnabled({ env, appLayout });
 
   store.setState({
     app,

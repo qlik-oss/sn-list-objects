@@ -166,6 +166,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
                       {item.expand
                         ? <ListboxContainer
                               layout={item.layout}
+                              model={item.model}
                           borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
                               disableSearch={item.cardinal <= 3}
                               handleActive={handleActive}

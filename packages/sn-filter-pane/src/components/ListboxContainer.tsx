@@ -10,6 +10,7 @@ import useDirectQuery from '../hooks/direct-query/use-direct-query';
 
 interface ListboxContainerProps {
   layout: IListLayout;
+  model: EngineAPI.IGenericObject;
   borderBottom?: boolean;
   disableSearch?: boolean;
   handleActive?: (id: string, active: boolean) => void;
@@ -19,7 +20,7 @@ interface ListboxContainerProps {
 }
 
 const ListboxContainer = ({
-  layout, borderBottom, disableSearch = false, handleActive, stores, closePopover, isPopover,
+  layout, model, borderBottom, disableSearch = false, handleActive, stores, closePopover, isPopover,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -27,7 +28,6 @@ const ListboxContainer = ({
 
   const {
     embed,
-    model,
     constraints,
     options,
     renderTracker,
@@ -39,7 +39,7 @@ const ListboxContainer = ({
   const { sense } = env as IEnv;
 
   const dqOptionsOverrides = useDirectQuery({
-    directQueryEnabled, layout, sessionModel: model, constraints,
+    directQueryEnabled, layout, listBoxModel: model, constraints,
   });
 
   const showBorder = !sense || inSelection || stardustTheme?.getStyle('', '', '_cards');
