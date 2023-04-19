@@ -11,11 +11,10 @@ const DEFAULT_LAYOUT_ORDER = 'column';
 
 const change = updateForFrequencyMax;
 
-const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
-
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
   const { isEnabled } = env?.flags || {};
+  const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
   return {
     type: 'items',
     translation: 'properties.presentation',

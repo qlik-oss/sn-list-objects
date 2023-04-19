@@ -16,7 +16,7 @@ export interface IStore {
   constraints?: stardust.Constraints;
   translator?: stardust.Translator;
   env?: IEnv;
-  directQueryEnabled: boolean;
+  directQueryEnabled?: boolean;
   embed?: stardust.Embed;
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
