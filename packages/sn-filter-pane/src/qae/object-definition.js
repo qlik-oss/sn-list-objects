@@ -49,11 +49,7 @@ const objectDefinition = () => {
      * @type {ChildListDef}
      * @default {}
      */
-    qChildListDef: {
-      qDef: {
-        qListObjectDef: {},
-      },
-    },
+    qChildListDef: {},
   };
 
   return definition;

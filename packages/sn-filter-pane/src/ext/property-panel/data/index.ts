@@ -18,6 +18,7 @@ export default function getData(env: IEnv) {
     allowMove: true,
     showInSidePanel: true,
     grouped: false,
+    schemaIgnore: true,
     ref: 'qChildListDef.qDef.qListObjectDef',
     items: getDataPanelItems(env),
   };
