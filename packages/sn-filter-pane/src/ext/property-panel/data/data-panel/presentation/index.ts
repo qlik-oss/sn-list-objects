@@ -11,7 +11,7 @@ const DEFAULT_LAYOUT_ORDER = 'column';
 
 const change = updateForFrequencyMax;
 
-const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout }), ;
+const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
 
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
