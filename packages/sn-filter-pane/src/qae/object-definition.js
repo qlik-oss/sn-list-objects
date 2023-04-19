@@ -14,7 +14,7 @@ const objectDefinition = () => {
      */
     version: process.env.PACKAGE_VERSION,
     /**
-     * Show visualization details toggle
+     * Show visualization details toggle. (Only for sense-client)
      * @type {boolean=}
      * @default
      * @private
