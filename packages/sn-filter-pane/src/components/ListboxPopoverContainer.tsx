@@ -37,12 +37,16 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
 
 const StyledDiv = styled('div')(() => ({
   '&:focus:not(:hover)': {
-    boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+    outline: '2px solid #3F8AB3',
+    outlineOffset: '-2px',
+    borderRadius: '4px',
+
   },
   '&:focus-visible': {
     outline: 'none',
   },
   padding: '2px',
+  paddingBottom: '0px',
 }));
 
 /**
