@@ -1,5 +1,17 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.9.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.3...v0.9.0) (2023-04-21)
+
+
+### Features
+
+* **sn-filter-pane:** Support Direct Query ([#279](https://github.com/qlik-oss/sn-list-objects/issues/279)) ([512e181](https://github.com/qlik-oss/sn-list-objects/commit/512e181a7e779faa8e7f144e68f81f0a05da4e52))
+
+
+### Bug Fixes
+
+* no scrolling on keynav in extension ([#281](https://github.com/qlik-oss/sn-list-objects/issues/281)) ([3c20dab](https://github.com/qlik-oss/sn-list-objects/commit/3c20dab6fdaac21ead27fca5cd57161ac11aceae))
+
 ### [0.8.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.2...v0.8.3) (2023-04-14)
 
 
