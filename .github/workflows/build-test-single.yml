@@ -37,4 +37,10 @@ jobs:
 
     - name: test
       working-directory: packages/${{ inputs.package }}
-      run: yarn run test
+      run: |
+        yarn run test --maxWorkers=2 --coverage
+        ../../test/bin/cc-test-reporter format-coverage -t lcov -o ../../coverage/codeclimate.${{ inputs.package }}.json ../packages/${{ inputs.package }}/coverage/lcov.info
+
+    - uses: actions/upload-artifact@v3
+      with:
+        path: coverage/codeclimate.${{ inputs.package }}.json

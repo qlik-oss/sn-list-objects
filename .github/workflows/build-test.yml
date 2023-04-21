@@ -12,6 +12,20 @@ jobs:
     strategy:
       matrix:
         package: [sn-filter-pane, sn-listbox]
-    uses: qlik-oss/sn-list-objects/.github/workflows/build-test-single.yml@main
+    uses: ./.github/workflows/build-test-single.yml
     with:
       package: ${{ matrix.package }}
+  coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          path: coverage
+      - name: Combine test reports and publish to Code Climate
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          ./test/bin/cc-test-reporter sum-coverage ./coverage/artifact/codeclimate.*.json -p 2 -o coverage/codeclimate.summed.json
+          ./test/bin/cc-test-reporter upload-coverage -i ./coverage/codeclimate.summed.json
