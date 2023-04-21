@@ -4,6 +4,8 @@ import textAlignItems from '../../text-align-items';
 import { IEnv } from '../../../../../types/types';
 import frequencies from '../../../constants';
 import updateForFrequencyMax from '../update-frequency-max';
+import { INxAppLayout } from '../../../../../hooks/types/index.d';
+import isDirectQueryEnabled from '../../../../../hooks/direct-query/is-direct-query-enabled';
 
 const DEFAULT_LAYOUT_ORDER = 'column';
 
@@ -12,6 +14,7 @@ const change = updateForFrequencyMax;
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
   const { isEnabled } = env?.flags || {};
+  const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
   return {
     type: 'items',
     translation: 'properties.presentation',
@@ -28,6 +31,7 @@ export default function getPresentation(env: IEnv) {
         translation: 'properties.filterpane.showCheckboxes',
         component: 'checkbox',
         defaultValue: false,
+        readOnly,
       },
       histogram: {
         ref: 'histogram',
@@ -36,6 +40,7 @@ export default function getPresentation(env: IEnv) {
         translation: 'properties.filterpane.showHistogram',
         defaultValue: false,
         change,
+        readOnly,
       },
       frequencyCountModeGroup: {
         translation: 'properties.frequencyCountMode',
@@ -47,8 +52,9 @@ export default function getPresentation(env: IEnv) {
             type: 'string',
             component: 'dropdown',
             defaultValue: frequencies.FREQUENCY_NONE,
-            show() {
-              return isEnabled('LIST_BOX_FREQUENCY_COUNT');
+            show(_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) {
+              const isDQ = isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
+              return !isDQ && isEnabled('LIST_BOX_FREQUENCY_COUNT');
             },
             translation: 'properties.frequencyCountMode',
             options: [

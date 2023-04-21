@@ -4,7 +4,7 @@ import {
   IListBoxOptions,
   IListboxResource,
 } from '../hooks/types';
-import { ISense } from '../types/types';
+import { IEnv } from '../types/types';
 import { RenderTrackerService } from '../services/render-tracker';
 import createStore from './state-store';
 
@@ -15,7 +15,8 @@ export interface IStore {
   options: IListBoxOptions;
   constraints?: stardust.Constraints;
   translator?: stardust.Translator;
-  sense?: ISense;
+  env?: IEnv;
+  directQueryEnabled?: boolean;
   embed?: stardust.Embed;
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
