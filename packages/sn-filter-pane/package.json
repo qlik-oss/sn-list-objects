@@ -49,7 +49,7 @@
     "@nebula.js/cli-sense": "4.0.0-alpha.9",
     "@nebula.js/cli-serve": "4.0.0-alpha.9",
     "@rollup/plugin-typescript": "11.1.0",
-    "@testing-library/react": "13.4.0",
+    "@testing-library/react": "14.0.0",
     "@types/enigma.js": "^2.2.2",
     "@types/extend": "3.0.1",
     "@types/jest": "^29.2.1",
