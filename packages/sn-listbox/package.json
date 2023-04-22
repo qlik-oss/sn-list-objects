@@ -45,7 +45,7 @@
     "@nebula.js/cli-build": "4.0.0-alpha.9",
     "@nebula.js/cli-sense": "4.0.0-alpha.9",
     "@nebula.js/cli-serve": "4.0.0-alpha.9",
-    "@rollup/plugin-typescript": "^8.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@types/enigma.js": "^2.2.2",
     "@types/jest": "^29.2.1",
     "@types/qlik-engineapi": "^12.67.12",
