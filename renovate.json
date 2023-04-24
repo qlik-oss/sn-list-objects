@@ -3,13 +3,5 @@
   "extends": [
     "local>qlik-oss/renovate-config"
   ],
-  "dependencyDashboard": true,
-  "packageRules": [
-    {
-      "description": "Automatically merge major, minor and patch-level updates for dev dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "automerge": true
-    }
-  ]
+  "dependencyDashboard": true
 }
