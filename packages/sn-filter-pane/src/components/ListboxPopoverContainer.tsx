@@ -37,14 +37,10 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
 };
 
 const StyledDiv = styled('div')(() => ({
-  '&:focus:not(:hover)': {
+  '&:focus-visible': {
     outline: '2px solid #3F8AB3',
     outlineOffset: '-2px',
     borderRadius: '4px',
-
-  },
-  '&:focus-visible': {
-    outline: 'none',
   },
   padding: '2px',
   paddingBottom: '0px',
@@ -214,7 +210,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         open={popoverOpen}
         onClose={handleClose}
         anchorEl={containerRef.current}
-        transitionDuration={transitionDuration}
+        transitionDuration={{ enter: transitionDuration, exit: 0 }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',

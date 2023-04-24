@@ -63,18 +63,14 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       height: COLLAPSED_HEIGHT,
       overflow: 'hidden',
       cursor: constraints?.active ? 'default' : 'pointer',
+      transition: 'border .2s ease-out',
       ':hover': !constraints?.active && {
         border: '1px solid #595959',
+        transition: 'border 0s',
       },
       backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
       color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
       width: containerWidth - popoverPadding,
-      '&:focus:not(:hover)': {
-        boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
-      },
-      '&:focus-visible': {
-        outline: 'none',
-      },
     };
   },
 );
