@@ -34,6 +34,8 @@ interface StyledDivProps {
 
 const POPOVER_PADDING = 2;
 
+const getListboxStyle = (path: string, prop: string, t?: stardust.Theme) => t?.getStyle('object.listBox', path, prop);
+
 const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].includes(p as string) })<StyledDivProps>(
   ({ isInPopover }) => ({
     '&:focus': {
@@ -66,8 +68,8 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       ':hover': !constraints?.active && {
         border: '1px solid #595959',
       },
-      backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
-      color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
+      backgroundColor: getListboxStyle('', 'backgroundColor', stardustTheme) ?? '#FFFFFF',
+      color: getListboxStyle('title.main', 'color', stardustTheme) ?? '#404040',
       width: containerWidth - popoverPadding,
       '&:focus:not(:hover)': {
         boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
@@ -77,6 +79,14 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       },
     };
   },
+);
+
+const Title = styled(Typography, { shouldForwardProp: (p) => !['stardustTheme'].includes(p as string) })<{ stardustTheme?: stardust.Theme }>(
+  ({ stardustTheme }) => ({
+    fontSize: '13px',
+    fontFamily: getListboxStyle('title.main', 'fontFamily', stardustTheme) ?? '"Source Sans Pro", sans-serif',
+    fontWeight: getListboxStyle('title.main', 'fontWeight', stardustTheme) ?? '700',
+  }),
 );
 
 export const FoldedListbox = ({
@@ -129,9 +139,9 @@ export const FoldedListbox = ({
             </Tooltip>
           }
           <Tooltip title={fieldName} enterDelay={2000}>
-            <Typography variant="subtitle2" fontSize='13px' noWrap>
+            <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap>
               {fieldName}
-            </Typography>
+            </Title>
           </Tooltip>
         </Grid>
         <Grid item width='100%'>
