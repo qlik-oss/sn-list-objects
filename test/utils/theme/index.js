@@ -17,6 +17,7 @@ export default [
               color: 'lightGreen',
               fontFamily: '"Source Sans Pro"',
               fontWeight: 100,
+              fontSize: '20px',
             }
           }
         },

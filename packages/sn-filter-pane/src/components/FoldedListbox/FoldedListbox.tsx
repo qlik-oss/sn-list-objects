@@ -83,7 +83,7 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
 
 const Title = styled(Typography, { shouldForwardProp: (p) => !['stardustTheme'].includes(p as string) })<{ stardustTheme?: stardust.Theme }>(
   ({ stardustTheme }) => ({
-    fontSize: getListboxStyle('title.main', 'fontSize', stardustTheme) ?? '13px',
+    fontSize: '13px',
     fontFamily: getListboxStyle('title.main', 'fontFamily', stardustTheme) ?? '"Source Sans Pro", sans-serif',
     fontWeight: getListboxStyle('title.main', 'fontWeight', stardustTheme) ?? '700',
   }),
