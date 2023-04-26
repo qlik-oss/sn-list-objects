@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.9.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.0...v0.9.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* use fonts from listbox ([#291](https://github.com/qlik-oss/sn-list-objects/issues/291)) ([34a60e7](https://github.com/qlik-oss/sn-list-objects/commit/34a60e70dc0a7e96dae0e1bf9fc4c480dd030b57))
+
 ## [0.9.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.3...v0.9.0) (2023-04-21)
 
 
