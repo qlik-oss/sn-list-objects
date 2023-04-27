@@ -38,7 +38,7 @@ const useDelayedHover = ({ containerRef }: UseDelayedHoverProps) => {
   };
 
   const onMouseLeave = () => {
-    // Wrap in setTimeout to prevent React from missing the event
+    // Wrap in setTimeout to prevent React from missing the event on fast mouse movements
     setTimeout(() => setIsHovering(false));
   };
 
