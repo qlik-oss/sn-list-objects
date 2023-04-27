@@ -6,6 +6,7 @@ import properties from './object-properties';
 import data from './data';
 import pp from './ext/property-panel';
 import { IListLayout } from '../../../types/global';
+import { IEnv } from './types/types';
 
 const hasDimension = (layout: IListLayout) => !!layout?.qListObject.qDimensionInfo.qGroupFieldDefs.length;
 
@@ -15,7 +16,7 @@ const listboxOptions = {
   direction: 'ltr' as stardust.Direction,
 };
 
-export default function supernova() {
+export default function supernova(env: IEnv) {
   return {
     qae: {
       properties,
@@ -33,6 +34,8 @@ export default function supernova() {
       const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance | undefined>(undefined);
       const options = useOptions();
       const embed = useEmbed();
+
+      const { flags } = env || {};
 
       usePromise(async () => {
         if (!hasDimension(layout) || !app || !model) {
@@ -56,6 +59,7 @@ export default function supernova() {
           // @ts-ignore
           __DO_NOT_USE__: {
             selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+            flags,
           },
         });
         // TODO: signal when rendering is done?

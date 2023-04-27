@@ -36,7 +36,7 @@ const ListboxContainer = ({
     directQueryEnabled,
   } = stores.store.getState();
 
-  const { sense } = env as IEnv;
+  const { sense, flags } = env as IEnv;
 
   const dqOptionsOverrides = useDirectQuery({
     directQueryEnabled, layout, listBoxModel: model, constraints,
@@ -64,6 +64,7 @@ const ListboxContainer = ({
     const listboxOptions = extend(true, {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+        flags,
       },
       direction: options?.direction,
       search: disableSearch ? false : ('toggle' as stardust.SearchMode),
