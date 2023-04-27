@@ -20,7 +20,7 @@ const useDelayedHover = ({ containerRef }: UseDelayedHoverProps) => {
 
     document.addEventListener('mousemove', onMouseMove);
     return (() => document.removeEventListener('mousemove', onMouseMove));
-  }, [containerRef.current]);
+  }, []);
 
   useEffect(() => {
     if (isStillHovering) {
