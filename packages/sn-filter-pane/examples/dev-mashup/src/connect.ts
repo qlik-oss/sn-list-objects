@@ -1,9 +1,7 @@
 import enigma from 'enigma.js';
-import { ConnectParams, GetEnigmaApp, GetQCSHeadersParams } from './interfaces';
-
-interface QixApi extends enigmaJS.IGeneratedAPI {
-  openDoc?: (appId: string) => void,
-}
+import {
+  ConnectParams, GetEnigmaApp, GetQCSHeadersParams, QixApi,
+} from './interfaces';
 
 async function getQCSHeaders({ webIntegrationId, url }: GetQCSHeadersParams) {
   const response = await fetch(`${url}/api/v1/csrf-token`, {

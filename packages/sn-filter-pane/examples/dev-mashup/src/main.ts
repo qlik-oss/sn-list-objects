@@ -3,9 +3,9 @@ import connect from './connect';
 
 async function run() {
   const app = await connect({
-    url: 'http://localhost:9076', // 'xxxx.us.qlik.com' or 'http://localhost:9076'
+    url: '<Host>', // 'xxxx.us.qlik.com' or 'http://localhost:9076'
     webIntegrationId: '<Qlik web integration id>', // 'xxx-xxxxxxx-xxxxxxxx',
-    appId: 'apps/filter-pane2.qvf', // 'xxxx-xxx-xxx-xxx-xxxxxxx' or 'apps/Ctrl-00.qvf',
+    appId: '<AppId>', // 'xxxx-xxx-xxx-xxx-xxxxxxx' or 'apps/Ctrl-00.qvf',
   });
 
   const toolbarElement = document.querySelector('.toolbar') as HTMLElement;

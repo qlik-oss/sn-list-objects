@@ -17,3 +17,7 @@ export interface GetEnigmaApp {
   headers?: Headers,
   isLocalhost: boolean,
 }
+
+export interface QixApi extends enigmaJS.IGeneratedAPI {
+  openDoc?: (appId: string) => void,
+}
