@@ -28,7 +28,8 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
     style: {
       height: selectedResource ? calcHeight : undefined,
       width: isSmallDevice ? '100%' : '234px',
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: selectedResource ? 'hidden' : 'auto',
       backgroundColor,
       maxWidth: isSmallDevice ? '100%' : 'calc(100% - 32px)',
       maxHeight: isSmallDevice ? '100%' : 'calc(100% - 32px)',
