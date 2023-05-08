@@ -1,5 +1,13 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.9.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.1...v0.9.2) (2023-05-08)
+
+
+### Bug Fixes
+
+* collapsed listbox size after full screen zoom ([#301](https://github.com/qlik-oss/sn-list-objects/issues/301)) ([bd13e1e](https://github.com/qlik-oss/sn-list-objects/commit/bd13e1e40bc85e9cc5661f9c8591d893895e50fd))
+* scroll when needed in more fields popover ([#300](https://github.com/qlik-oss/sn-list-objects/issues/300)) ([00a55cc](https://github.com/qlik-oss/sn-list-objects/commit/00a55cc83eea56654cd7be648150d36860dda3ee))
+
 ### [0.9.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.0...v0.9.1) (2023-04-26)
 
 
