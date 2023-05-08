@@ -10,6 +10,7 @@ import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import DrillDown from './drillDown';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 import KEYS from '../keys';
+import useDelayedHover from './use-delayed-hover';
 
 export interface FoldedListboxClickEvent {
   event: React.MouseEvent<HTMLDivElement>;
@@ -27,6 +28,7 @@ interface StyledGridProps {
   stardustTheme?: stardust.Theme;
   containerRef: React.RefObject<HTMLDivElement>;
   isInPopover: boolean;
+  delayedIsHovering: boolean;
 }
 interface StyledDivProps {
   isInPopover?: boolean;
@@ -48,25 +50,27 @@ const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].inc
   }),
 );
 
-const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'containerRef', 'isInPopover'].includes(p as string) })<StyledGridProps>(
+const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'containerRef', 'isInPopover', 'delayedIsHovering'].includes(p as string) })<StyledGridProps>(
   ({
     constraints,
     stardustTheme,
     containerRef,
     isInPopover,
+    delayedIsHovering,
   }) => {
     const containerWidth = containerRef?.current?.clientWidth ?? 0;
     const popoverPadding = isInPopover ? POPOVER_PADDING * 2 : 0;
+    const hoverBorder = '1px solid #595959';
     return {
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      border: '1px solid #d9d9d9',
+      border: delayedIsHovering && !constraints?.active ? hoverBorder : '1px solid #d9d9d9',
       borderRadius: '3px',
       height: COLLAPSED_HEIGHT,
       overflow: 'hidden',
       cursor: constraints?.active ? 'default' : 'pointer',
       ':hover': !constraints?.active && {
-        border: '1px solid #595959',
+        border: hoverBorder,
       },
       backgroundColor: getListboxStyle('', 'backgroundColor', stardustTheme) ?? '#FFFFFF',
       color: getListboxStyle('title.main', 'color', stardustTheme) ?? '#404040',
@@ -99,6 +103,7 @@ export const FoldedListbox = ({
   } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
+  const { delayedIsHovering, onMouseEnter, onMouseLeave } = useDelayedHover({ containerRef });
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
@@ -129,7 +134,11 @@ export const FoldedListbox = ({
         direction='column'
         data-testid={`collapsed-title-${fieldName}`}
         isInPopover={!!isInPopover}
-        onClick={(event) => onClick({ event, resource })}>
+        onClick={(event) => onClick({ event, resource })}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        delayedIsHovering={delayedIsHovering}
+      >
         <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
           {isDrillDown
             && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
