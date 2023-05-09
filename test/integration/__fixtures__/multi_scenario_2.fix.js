@@ -351,6 +351,7 @@ export default () => ({
           },
         ];
       },
+      clearSelections() {}
     },
   ],
 });
