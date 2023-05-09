@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.10.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.2...v0.10.0) (2023-05-09)
+
+
+### Features
+
+* start popover listbox with focused search ([#302](https://github.com/qlik-oss/sn-list-objects/issues/302)) ([7d8f07a](https://github.com/qlik-oss/sn-list-objects/commit/7d8f07a57ff565bbd879185098da160e231b6327))
+
 ### [0.9.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.1...v0.9.2) (2023-05-08)
 
 
