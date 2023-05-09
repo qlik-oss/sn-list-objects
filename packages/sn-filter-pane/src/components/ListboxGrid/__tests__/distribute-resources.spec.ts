@@ -1,6 +1,6 @@
 import { IListboxResource } from '../../../hooks/types';
 import {
-  mergeColumnsAndResources, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues,
+  mergeColumnsAndResources, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues, hasHeader,
 } from '../distribute-resources';
 import { ExpandProps, IColumn, ISize } from '../interfaces';
 
@@ -26,7 +26,7 @@ const expandProps: ExpandProps = {
   isSingleGridLayout: false,
 };
 
-describe('Listbox grid layout', () => {
+describe('distribute resources', () => {
   describe('balance columns', () => {
     it('should balance collpased columns 3-3-3-1 as 3-3-2-2 when last column cant expand one', () => {
       const size: ISize = { height: 50, width: 1000, dimensionCount: 10 };
@@ -234,6 +234,40 @@ describe('Listbox grid layout', () => {
       };
       const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
       expect(balancedColumns).toEqual(generateColumns({ collapsed: [1] }));
+    });
+  });
+
+  describe('hasHeader', () => {
+    it('should not throw if resource is undefined', () => {
+      expect(() => hasHeader(undefined)).not.toThrow();
+    });
+
+    it('should return true if there is a title and showTitle is turned on', () => {
+      const val = hasHeader({
+        layout: {
+          title: 'hey hey', showTitle: true,
+        },
+      } as unknown as IListboxResource);
+      expect(val).toBeTruthy();
+    });
+
+    it('should return false if there is no or empty title', () => {
+      const val = hasHeader({
+        layout: {
+          title: '', showTitle: true,
+        },
+      } as unknown as IListboxResource);
+      expect(val).toBeFalsy();
+    });
+
+    it('should return false if there is a title but showTitle is not true', () => {
+      const val = hasHeader({
+        layout: {
+          title: 'asd',
+          showTitle: false,
+        },
+      } as unknown as IListboxResource);
+      expect(val).toBeFalsy();
     });
   });
 });
