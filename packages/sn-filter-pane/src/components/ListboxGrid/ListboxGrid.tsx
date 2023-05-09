@@ -50,7 +50,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const { sense } = env as IEnv;
 
   // Subscribe to the resourceStore outside of react and re-render on store change.
-  const { resources } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);
+  const { resources = [] } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);
 
   const gridRef = useRef<HTMLDivElement>();
   const [columns, setColumns] = useState<IColumn[]>([]);
@@ -59,6 +59,9 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   const { options } = stores.store.getState();
 
   const handleResize = useCallback(() => {
+    if (!resources?.length) {
+      return;
+    }
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     const isSmallDevice = sense?.isSmallDevice?.() ?? false;
