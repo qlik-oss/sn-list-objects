@@ -28,7 +28,7 @@ const getResource = (id: string) => ({
 });
 const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResource(String(i)) as IListboxResource }));
 
-describe.only('ListboxPopoverContainer render', () => {
+describe('ListboxPopoverContainer render', () => {
   it('should render FoldedListbox with fieldname when one resource is provided', () => {
     const { queryByText } = render(
       <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} stores={create()} />,

@@ -34,6 +34,10 @@ export interface IListBoxOptions {
   update?: () => void;
   __DO_NOT_USE__?: {
     selectDisabled?: () => boolean;
+    showGray?: boolean;
+    focusSearch?: boolean;
+    postProcessPages?: (pages: IPage[]) => IPage[];
+    calculatePagesHeight?: boolean;
   };
 }
 

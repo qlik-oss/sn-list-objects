@@ -110,6 +110,7 @@ const ListboxContainer = ({
       borderRadius='4px'
       overflow='hidden'
       ref={elRef}
+      data-testid="filterpane-listbox-container"
     />
   );
 };
