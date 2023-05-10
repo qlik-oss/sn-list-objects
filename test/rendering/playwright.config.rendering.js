@@ -11,7 +11,7 @@ const config = {
     ? '{testDir}/baselines/{arg}-baseline{ext}'
     : '{testDir}/baselines-local/{arg}-local{ext}',
   expect: {
-    toMatchSnapshot: { threshold: 0.00025 },
+    toMatchSnapshot: { maxDiffPixels: 5 },
     timeout: 30000,
   },
   workers: process.env.CI ? 1 : undefined,

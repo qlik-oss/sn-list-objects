@@ -7,6 +7,24 @@ export default [
     theme: { fontFamily: 'Arial' },
   },
   {
+    id: 'terribleTheme',
+    theme: {
+      object: {
+        listBox: {
+          backgroundColor: 'gray',
+          title: {
+            main: {
+              color: 'lightGreen',
+              fontFamily: '"Source Sans Pro"',
+              fontWeight: 100,
+              fontSize: '20px',
+            }
+          }
+        },
+      },
+    },
+  },
+  {
     id: 'theme-global',
     theme: themeGlobal,
   },
