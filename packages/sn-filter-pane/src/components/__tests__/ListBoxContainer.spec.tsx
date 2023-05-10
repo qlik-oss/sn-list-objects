@@ -17,7 +17,7 @@ let renderFunc;
 let renderResponse;
 let listboxInstance;
 
-describe.only('ListboxContainer', () => {
+describe('ListboxContainer', () => {
   beforeAll(() => {
     listboxInstance = {
       mount: jest.fn().mockResolvedValue({}),
