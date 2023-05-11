@@ -31,6 +31,7 @@ export const ExpandButton = ({
     height: BUTTON_HEIGHT,
     border: '1px solid #B3B3B3',
     borderRadius: '3px',
+    justifyContent: 'end',
   }));
 
   return (
