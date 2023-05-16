@@ -64,9 +64,10 @@ const ListboxContainer = ({
     const listboxOptions = extend(true, {
       __DO_NOT_USE__: {
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
+        focusSearch: isPopover,
       },
       direction: options?.direction,
-      search: disableSearch ? false : ('toggle' as stardust.SearchMode),
+      search: disableSearch ? false : (isPopover ? true : 'toggle' as stardust.SearchMode),
       isPopover,
     }, dqOptionsOverrides || {});
 
@@ -109,6 +110,7 @@ const ListboxContainer = ({
       borderRadius='4px'
       overflow='hidden'
       ref={elRef}
+      data-testid="filterpane-listbox-container"
     />
   );
 };

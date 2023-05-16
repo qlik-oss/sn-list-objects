@@ -28,7 +28,8 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
     style: {
       height: selectedResource ? calcHeight : undefined,
       width: isSmallDevice ? '100%' : '234px',
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: selectedResource ? 'hidden' : 'auto',
       backgroundColor,
       maxWidth: isSmallDevice ? '100%' : 'calc(100% - 32px)',
       maxHeight: isSmallDevice ? '100%' : 'calc(100% - 32px)',
@@ -209,7 +210,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     <StyledDiv ref={containerRef} className='listbox-popover-container' onKeyDown={onListboxPopoverContainerKeyDown}>
       {isSingle
         ? <FoldedListbox onClick={handleOpen} resource={resources[0]} stores={stores} />
-        : <ExpandButton onClick={handleOpen} avatar={resources.length} opened={popoverOpen} stores={stores} />}
+        : <ExpandButton onClick={handleOpen} opened={popoverOpen} stores={stores} />}
       <Popover
         open={popoverOpen}
         onClose={handleClose}
