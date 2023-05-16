@@ -1,5 +1,14 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.11.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.10.1...v0.11.0) (2023-05-16)
+
+
+### Features
+
+* add example dev mashup ([#297](https://github.com/qlik-oss/sn-list-objects/issues/297)) ([92b8876](https://github.com/qlik-oss/sn-list-objects/commit/92b887628e1e5c737711d29836c95ef2a5138ca1))
+* remove badge from expand button ([#306](https://github.com/qlik-oss/sn-list-objects/issues/306)) ([46bc140](https://github.com/qlik-oss/sn-list-objects/commit/46bc140fc55e3ca83ee67a2e49e7031cbd031df1))
+* remove development mode resize element ([#298](https://github.com/qlik-oss/sn-list-objects/issues/298)) ([25afcdc](https://github.com/qlik-oss/sn-list-objects/commit/25afcdce80fe47cb73213218c6d0d9a9968f9da7))
+
 ### [0.10.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.10.0...v0.10.1) (2023-05-10)
 
 ## [0.10.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.2...v0.10.0) (2023-05-09)
