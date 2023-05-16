@@ -1,4 +1,4 @@
-import { Avatar, Button, styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { BUTTON_HEIGHT } from './ListboxGrid/distribute-resources';
@@ -7,7 +7,6 @@ import type { IStores } from '../store';
 export interface FoldedListboxProps {
   onClick?: (event: { event: React.MouseEvent<HTMLButtonElement> }) => void;
   opened?: boolean;
-  avatar: number;
   stores: IStores;
 }
 
@@ -16,7 +15,7 @@ export interface IconProps {
 }
 
 export const ExpandButton = ({
-  onClick, opened, avatar, stores,
+  onClick, opened, stores,
 }: FoldedListboxProps) => {
   const { constraints, stardustTheme } = stores.store.getState();
 
@@ -32,14 +31,7 @@ export const ExpandButton = ({
     height: BUTTON_HEIGHT,
     border: '1px solid #B3B3B3',
     borderRadius: '3px',
-    justifyContent: 'space-between',
-  }));
-
-  const StyledAvatar = styled(Avatar)(() => ({
-    width: 16,
-    height: 16,
-    backgroundColor: '#00873D',
-    fontSize: '12px',
+    justifyContent: 'end',
   }));
 
   return (
@@ -48,8 +40,8 @@ export const ExpandButton = ({
         onClick={(event) => onClick?.({ event })}
         disableRipple
         disabled={constraints?.active}
+        data-testid="filterpane-expand-button"
       >
-        <StyledAvatar>{avatar}</StyledAvatar>
         <ExpandIcon open={opened}></ExpandIcon>
       </StyledButton>
     </>

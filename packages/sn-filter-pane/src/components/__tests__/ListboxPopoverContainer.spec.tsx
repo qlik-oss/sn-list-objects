@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, getByTestId, queryByAttribute, render } from '@testing-library/react';
 import { IListboxResource } from '../../hooks/types';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import { create } from '../../store';
@@ -36,18 +36,12 @@ describe('ListboxPopoverContainer render', () => {
     expect(queryByText('Foo')).toBeTruthy();
   });
 
-  it('should render ExpandButton with number of hidden Listboxes when multiple resources are provided', () => {
-    const { queryByText } = render(
-      <ListboxPopoverContainer resources={resources as IListboxResource[]} stores={create()} />,
-    );
-    expect(queryByText('4')).toBeTruthy();
-  });
-
   it('should render 4 "Foo" items when clicked', () => {
-    const { queryByText, getAllByText } = render(
+    const { getAllByText, container } = render(
       <ListboxPopoverContainer resources={resources as IListboxResource[]} stores={create()} />,
     );
-    fireEvent.click(queryByText('4') as Element);
+    const button = queryByAttribute('data-testid', container, 'filterpane-expand-button');
+    fireEvent.click(button as Element);
     const items = getAllByText('Foo');
     expect(items.length).toBe(4);
   });
