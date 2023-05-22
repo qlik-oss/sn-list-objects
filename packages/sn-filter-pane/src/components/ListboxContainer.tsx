@@ -12,7 +12,6 @@ interface ListboxContainerProps {
   layout: IListLayout;
   model: EngineAPI.IGenericObject;
   borderBottom?: boolean;
-  disableSearch?: boolean;
   handleActive?: (id: string, active: boolean) => void;
   stores: IStores;
   closePopover?: () => void;
@@ -20,7 +19,7 @@ interface ListboxContainerProps {
 }
 
 const ListboxContainer = ({
-  layout, model, borderBottom, disableSearch = false, handleActive, stores, closePopover, isPopover,
+  layout, model, borderBottom, handleActive, stores, closePopover, isPopover,
 }: ListboxContainerProps) => {
   const [listboxInstance, setListboxInstance] = useState<stardust.FieldInstance>();
   const elRef = useRef<HTMLElement>();
@@ -67,7 +66,7 @@ const ListboxContainer = ({
         focusSearch: isPopover,
       },
       direction: options?.direction,
-      search: disableSearch ? false : (isPopover ? true : 'toggle' as stardust.SearchMode),
+      search: isPopover ? true : 'toggle' as stardust.SearchMode,
       isPopover,
     }, dqOptionsOverrides || {});
 
