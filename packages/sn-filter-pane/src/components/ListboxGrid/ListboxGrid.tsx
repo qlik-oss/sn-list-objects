@@ -141,7 +141,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   return (
     <>
       <ElementResizeListener onResize={dHandleResize.current} />
-      <Grid className="filter-pane-container" container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%'>
+      <Grid className="filter-pane-container" container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%' overflow="hidden">
 
         {!!columns?.length && columns?.map((column: IColumn, i: number) => (
           <ColumnGrid key={i} widthPercent={100 / columns.length}>
