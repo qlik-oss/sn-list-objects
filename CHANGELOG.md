@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.12.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.0...v0.12.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* hide overflow ([#313](https://github.com/qlik-oss/sn-list-objects/issues/313)) ([c0ee40f](https://github.com/qlik-oss/sn-list-objects/commit/c0ee40f16da14bd861fcdbc3fd22bf40671d9094))
+
 ## [0.12.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.11.0...v0.12.0) (2023-05-22)
 
 
