@@ -1,3 +1,4 @@
+import { stardust } from '@nebula.js/stardust';
 import {
   Grid, styled, Tooltip, Typography,
 } from '@mui/material';
@@ -8,6 +9,7 @@ import type { IStores } from '../../store';
 import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import DrillDown from './drillDown';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
+import KEYS from '../keys';
 
 export interface FoldedListboxClickEvent {
   event: React.MouseEvent<HTMLDivElement>;
@@ -17,9 +19,76 @@ export interface FoldedListboxProps {
   resource: IListboxResource;
   onClick: ({ event, resource }: FoldedListboxClickEvent) => void;
   stores: IStores;
+  tabIndex?: number;
+  isInPopover?: boolean;
+}
+interface StyledGridProps {
+  constraints?: stardust.Constraints;
+  stardustTheme?: stardust.Theme;
+  isInPopover: boolean;
+}
+interface StyledDivProps {
+  isInPopover?: boolean;
 }
 
-export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps) => {
+const POPOVER_PADDING = 2;
+
+const getListboxStyle = (path: string, prop: string, t?: stardust.Theme) => t?.getStyle('object.listBox', path, prop);
+
+const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].includes(p as string) })<StyledDivProps>(
+  ({ isInPopover }) => ({
+    '&:focus': {
+      boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+    },
+    '&:focus-visible': {
+      outline: 'none',
+    },
+    padding: isInPopover ? `${POPOVER_PADDING}px` : undefined,
+  }),
+);
+
+const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'isInPopover'].includes(p as string) })<StyledGridProps>(
+  ({
+    constraints,
+    stardustTheme,
+    isInPopover,
+  }) => {
+    const popoverPadding = isInPopover ? POPOVER_PADDING * 2 : 0;
+    return {
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      border: '1px solid #d9d9d9',
+      borderRadius: '3px',
+      height: COLLAPSED_HEIGHT,
+      overflow: 'hidden',
+      cursor: constraints?.active ? 'default' : 'pointer',
+      ':hover': !constraints?.active && {
+        border: '1px solid #595959',
+      },
+      backgroundColor: getListboxStyle('', 'backgroundColor', stardustTheme) ?? '#FFFFFF',
+      color: getListboxStyle('title.main', 'color', stardustTheme) ?? '#404040',
+      width: isInPopover ? `calc(100% - ${2 * popoverPadding}px` : '100%',
+      '&:focus:not(:hover)': {
+        boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+      },
+      '&:focus-visible': {
+        outline: 'none',
+      },
+    };
+  },
+);
+
+const Title = styled(Typography, { shouldForwardProp: (p) => !['stardustTheme'].includes(p as string) })<{ stardustTheme?: stardust.Theme }>(
+  ({ stardustTheme }) => ({
+    fontSize: '13px',
+    fontFamily: getListboxStyle('title.main', 'fontFamily', stardustTheme) ?? '"Source Sans Pro", sans-serif',
+    fontWeight: getListboxStyle('title.main', 'fontWeight', stardustTheme) ?? '700',
+  }),
+);
+
+export const FoldedListbox = ({
+  resource, onClick, stores, isInPopover,
+}: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const containerRef = useRef<HTMLDivElement>(null);
   const {
@@ -28,25 +97,35 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
 
-  const StyledGrid = styled(Grid)(() => ({
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    border: '1px solid #d9d9d9',
-    borderRadius: '3px',
-    height: COLLAPSED_HEIGHT,
-    overflow: 'hidden',
-    cursor: constraints?.active ? 'default' : 'pointer',
-    ':hover': !constraints?.active && {
-      border: '1px solid #595959',
-    },
-    backgroundColor: stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
-    color: stardustTheme?.getStyle('object', '', 'listBox.title.main.color') ?? '#404040',
-    width: containerRef?.current?.clientWidth,
-  }));
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'INPUT') {
+      return;
+    }
+    switch (event.key) {
+      case KEYS.ENTER:
+      // @ts-ignore
+        onClick({ event, resource });
+        break;
+      default:
+        return;
+    }
+
+    // Note: We should not stop propagation here since this folded listbox maybe deystroyed
+    // and we need to set focus to the listbox container after this.
+    event.preventDefault();
+  };
 
   return (
-    <div ref={containerRef}>
-      <StyledGrid container direction='column' onClick={(event) => onClick({ event, resource })}>
+    <StyledDiv className="folded-listbox" onKeyDown={handleKeyDown} isInPopover={isInPopover}>
+      <StyledGrid
+        constraints={constraints}
+        stardustTheme={stardustTheme}
+        container
+        direction='column'
+        data-testid={`collapsed-title-${fieldName}`}
+        isInPopover={!!isInPopover}
+        onClick={(event) => onClick({ event, resource })}>
         <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
           {isDrillDown
             && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
@@ -56,9 +135,9 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
             </Tooltip>
           }
           <Tooltip title={fieldName} enterDelay={2000}>
-            <Typography variant="subtitle2" fontSize='13px' noWrap>
+            <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap>
               {fieldName}
-            </Typography>
+            </Title>
           </Tooltip>
         </Grid>
         <Grid item width='100%'>
@@ -67,6 +146,6 @@ export const FoldedListbox = ({ resource, onClick, stores }: FoldedListboxProps)
           ></SelectionSegmentsIndicator>
         </Grid>
       </StyledGrid>
-    </div>
+    </StyledDiv>
   );
 };

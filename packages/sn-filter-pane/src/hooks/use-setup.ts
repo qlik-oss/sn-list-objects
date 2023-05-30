@@ -1,15 +1,19 @@
 import {
-  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections, useKeyboard,
+  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections, useKeyboard, useAppLayout,
 } from '@nebula.js/stardust';
 import { create } from '../store';
 import { IEnv } from '../types/types';
-import { IFilterPaneLayout, IListBoxOptions } from './types';
+import { IFilterPaneLayout, IListBoxOptions, INxAppLayout } from './types';
+import useRenderTrackerService from '../services/render-tracker';
+import isDirectQueryEnabled from './direct-query/is-direct-query-enabled';
 
-export default function useSetup({ sense }: IEnv) {
+export default function useSetup(env: IEnv) {
   const [stores] = useState(() => create());
+
   const { store } = stores;
   const options = useOptions() as IListBoxOptions;
   const fpLayout = useLayout() as IFilterPaneLayout;
+  const appLayout = useAppLayout() as INxAppLayout;
   const constraints = useConstraints();
   const translator = useTranslator();
   const app = useApp() as EngineAPI.IApp;
@@ -18,12 +22,16 @@ export default function useSetup({ sense }: IEnv) {
   const stardustTheme = useTheme();
   const selections = useSelections();
   const keyboard = useKeyboard();
+  const renderTracker = useRenderTrackerService();
+
+  const directQueryEnabled: boolean = isDirectQueryEnabled({ env, appLayout });
 
   store.setState({
     app,
     model,
     fpLayout,
-    sense,
+    env,
+    directQueryEnabled,
     options,
     constraints,
     translator,
@@ -31,6 +39,7 @@ export default function useSetup({ sense }: IEnv) {
     stardustTheme,
     selections,
     keyboard,
+    renderTracker,
   });
 
   return stores;

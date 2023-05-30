@@ -8,13 +8,13 @@ export const ITEM_SPACING = 8;
 const COLUMN_MIN_WIDTH = 160;
 const COLUMN_SPACING = 16;
 const EXPANDED_HEADER_HEIGHT = 48;
-const SINGLE_GRID_ROW_HEIGHT = 28;
-const SCROLL_BAR_HEIGHT = 10;
+const SINGLE_GRID_ROW_HEIGHT = 32;
 
 const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 29);
 const getExpandedHeightLimit = (expandProps: ExpandProps) => {
-  const headerHeight = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
-  return expandProps.isSingleGridLayout ? SINGLE_GRID_ROW_HEIGHT + SCROLL_BAR_HEIGHT + headerHeight : 90;
+  // If single grid and no header, don't collapse.
+  const singleGridLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + SINGLE_GRID_ROW_HEIGHT : 0;
+  return expandProps.isSingleGridLayout ? singleGridLimit : 90;
 };
 
 /* eslint-disable no-param-reassign */
@@ -170,6 +170,7 @@ const expandOne = (sortedItems: IListboxResource[] | undefined, leftOverHeight: 
 };
 
 export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandProps: ExpandProps) => {
+  let allExpandedItems = <IListboxResource[]>[];
   columns.forEach((column: IColumn) => {
     if (column.expand) {
       let expandedCount = 0;
@@ -219,6 +220,8 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
         setFullyExpanded(item);
       }
     }
+    const expandedInColumn = column?.items?.filter((item) => item.expand) ?? [];
+    allExpandedItems = [...allExpandedItems, ...expandedInColumn];
 
     // Set the render mode for collapsed LBs
     if (column?.items?.length === 1 && size.height < COLLAPSED_HEIGHT - 4) {
@@ -227,14 +230,16 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
       column.items[0].height = `${size.height}px`;
     }
   });
-  return columns;
+  return { columns, expandedItemsCount: allExpandedItems.length };
 };
+
+export const hasHeader = (resource?: IListboxResource) => (!!resource?.layout && resource.layout.title !== '' && resource.layout.showTitle !== false);
 
 export const setDefaultValues = (resources: IListboxResource[]) => resources.map((resource: IListboxResource) => {
   resource.expand = false;
   resource.height = 'calc(100% - 2px)';
   resource.fullyExpanded = false;
   resource.dense = resource.layout.layoutOptions?.dense ?? false;
-  resource.hiddenHeader = resource.layout.toolbar !== undefined ? !resource.layout.toolbar : false;
+  resource.hiddenHeader = !hasHeader(resource);
   return resource;
 });

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nebula mashup</title>
+
+    <style>
+      body {
+        background: #eee;
+      }
+
+      .content {
+        margin: 0 auto;
+        width: 80%;
+        max-width: 1500px;
+      }
+
+      .fpOptions {
+        height: 200px;
+        width: 1000px;
+      }
+
+      .fpResize {
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(rgb(230,100,101, 0.2), rgb(145,152,229, 0.2));
+        border-radius: 4px;
+      }
+
+      .resize {
+        overflow: auto;
+        position: relative;
+        height: 600px;
+        width: 1000px;
+        resize: both;
+      }
+
+      .toolbar {
+        margin: 12px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="toolbar"></div>
+      <div class="fpOptions"></div>
+      <div class="resize">
+        <div class="fpResize"></div>
+      </div>
+    </div>
+
+    <script src="./src/main.ts" type="module"></script>
+  </body>
+</html>

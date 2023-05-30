@@ -1,9 +1,12 @@
 import { stardust } from '@nebula.js/stardust';
-import createVanilla from 'zustand/vanilla';
-import createHook from 'zustand';
-import { IFilterPaneLayout, IListBoxOptions, IListboxResource } from '../hooks/types';
-import { ISense } from '../types/types';
-import useRenderTrackerService, { RenderTrackerService } from '../services/render-tracker';
+import {
+  IFilterPaneLayout,
+  IListBoxOptions,
+  IListboxResource,
+} from '../hooks/types';
+import { IEnv } from '../types/types';
+import { RenderTrackerService } from '../services/render-tracker';
+import createStore from './state-store';
 
 export interface IStore {
   app?: EngineAPI.IApp;
@@ -12,38 +15,30 @@ export interface IStore {
   options: IListBoxOptions;
   constraints?: stardust.Constraints;
   translator?: stardust.Translator;
-  sense?: ISense;
+  env?: IEnv;
+  directQueryEnabled?: boolean;
   embed?: stardust.Embed;
   stardustTheme?: stardust.Theme;
   selections?: stardust.ObjectSelections;
   keyboard?: stardust.Keyboard;
+  renderTracker?: RenderTrackerService;
 }
 
 interface ResourceState {
   resources: IListboxResource[];
 }
 
-interface Services {
-  renderTracker: RenderTrackerService,
-}
+const initStoreState: IStore = {
+  options: {},
+};
+
+const initResourcesState: ResourceState = {
+  resources: [],
+};
 
 export const create = () => ({
-  store: createVanilla<IStore>(() => ({
-    app: undefined,
-    model: undefined,
-    fpLayout: undefined,
-    options: {},
-    constraints: undefined,
-    translator: undefined,
-    sense: undefined,
-    embed: undefined,
-  })),
-  useResourceStore: createHook<ResourceState>(() => ({
-    resources: [],
-  })),
-  useServices: createHook<Services>(() => ({
-    renderTracker: useRenderTrackerService(),
-  })),
+  store: createStore(() => initStoreState),
+  resourceStore: createStore(() => initResourcesState),
 });
 
 export type IStores = ReturnType<typeof create>;

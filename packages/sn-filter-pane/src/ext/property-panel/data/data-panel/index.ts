@@ -51,6 +51,13 @@ export default function getDataPanelItems(env: IEnv) {
       expression: 'optional',
       translation: 'Common.Title',
     },
+    showTitle: {
+      ref: 'showTitle',
+      component: 'checkbox',
+      type: 'boolean',
+      translation: 'properties.filterpane.showTitle',
+      defaultValue: true,
+    },
     dimGroup: {
       type: 'items',
       grouped: true,

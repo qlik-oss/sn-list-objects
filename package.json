@@ -1,10 +1,11 @@
 {
   "name": "@qlik-oss/sn-list-objects",
-  "version": "0.5.1",
+  "version": "0.12.1",
   "description": "Workspace for sn-listbox and sn-filter-pane",
   "scripts": {
     "release": "release-it",
-    "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js"
+    "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js",
+    "test:integration": "playwright test --config=./test/integration/playwright.config.integration.js"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,8 @@
   "devDependencies": {
     "@release-it-plugins/workspaces": "3.2.0",
     "@release-it/conventional-changelog": "5.1.1",
-    "release-it": "15.5.0",
-    "@playwright/test": "1.30.0",
-    "@nebula.js/cli-serve": "4.0.0-alpha.3"
+    "release-it": "15.10.3",
+    "@playwright/test": "1.34.3",
+    "@nebula.js/cli-serve": "4.1.0"
   }
 }

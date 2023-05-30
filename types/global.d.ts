@@ -8,7 +8,12 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
     dense: boolean,
     dataLayout?: 'grid' | 'singleColumn',
   },
-  toolbar?: boolean,
+  showTitle?: boolean,
+  qHasSoftPatches?: boolean;
+  qExtendsId?: string;
+  qMeta?: {
+    privileges?: string[];
+  }
 }
 
 // Missing properties in EngineAPI.IGenericListProperties are added in this interface until
@@ -35,4 +40,8 @@ export interface IGenericListPropertiesMissing {
       }
     }
   }
+}
+
+export interface INxAppLayoutGlobal extends EngineAPI.INxAppLayout {
+  qIsDirectQueryMode: boolean;
 }
