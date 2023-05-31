@@ -17,7 +17,6 @@
     "url": "https://github.com/qlik-oss/sn-list-objects.git"
   },
   "files": [
-    "assets",
     "core",
     "dist",
     "sn-filter-pane-ext"
