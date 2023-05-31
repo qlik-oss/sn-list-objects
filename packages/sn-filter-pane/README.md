@@ -12,7 +12,7 @@ different values, the associations. The green, white, and gray colors reflect th
 the ones that do not exist. By analyzing these associations, you can make new discoveries, for example, that a sales
 representative has too many customers, or that a region lacks a sales representative.
 
-![filter pane example - multiple dimensions collapsed](./assets/sn-filter-pane-dims-collapsed.png)
+![filter pane example - multiple dimensions collapsed](https://github.com/qlik-oss/sn-list-objects/assets/13997395/8c97a5ba-1303-4818-b4d8-b75937558c7a)
 
 ```js
 // Configure nucleus
@@ -57,7 +57,7 @@ When a dimension is added, it is placed to the right of the previous dimensions,
 space. As long as there is enough space, the dimensions are displayed as expanded lists. If there is not enough space,
 the dimensions that were added first are turned into filter panes. In a filter pane, you can use up to 1000 dimensions.
 
-![filter pane example - fully expanded dimensions](./assets/sn-filter-pane-dims-expanded.png)
+![filter pane example - fully expanded dimensions](https://github.com/qlik-oss/sn-list-objects/assets/13997395/64d2142a-0935-468a-bdd8-17931894aea3)
 
 ```js
 nuked.render({
@@ -69,7 +69,7 @@ nuked.render({
 
 In the example below, the filter pane is shown with collapsed listboxes for some fields as there is not enough space.
 
-![filter pane example - expanded dimensions](./assets/sn-filter-pane-dims-folded.png)
+![filter pane example - expanded dimensions](https://github.com/qlik-oss/sn-list-objects/assets/13997395/0f313a79-2240-46a9-b581-0900e9dc2ecd)
 
 ### Selections in filter pane
 
@@ -81,7 +81,7 @@ Locked values are indicated by a lock icon. The details of the selections are di
 top of the sheet. You can click an item to see the details and change your selection. Fields are filtered out from each
 dimension to be shown in the visualizations on the sheet.
 
-![filter pane example - selections](./assets/sn-filter-pane-selections-folded.png)
+![filter pane example - selections](https://github.com/qlik-oss/sn-list-objects/assets/13997395/5750b896-06d1-4e01-b17b-a1909ccef6d4)
 
 ### Selections using checkboxes
 
@@ -90,7 +90,7 @@ for each dimension. The selections tool offers an option to get an overview of t
 the selections tool, you can make selections in all the fields and dimensions in the app, regardless of whether they are
 used in the app or not.
 
-![filter pane example - checkboxes](./assets/sn-filter-pane-checkboxes.png)
+![filter pane example - checkboxes](https://github.com/qlik-oss/sn-list-objects/assets/13997395/bf1eb7d3-6a6b-4367-b869-3caf69e60d61)
 
 ```js
 nuked.render({
@@ -116,7 +116,7 @@ You can show the frequency next to each value, either as an absolute number or a
 Show frequency under each dimension. In some cases, the frequency cannot be calculated and is displayed as -. One
 example of this is for key fields.
 
-![filter pane example - frequency mode](./assets/sn-filter-pane-frequecy-mode.png)
+![filter pane example - frequency mode](https://github.com/qlik-oss/sn-list-objects/assets/13997395/6556f2f9-1c2a-4b60-b8fc-878525040f17)
 
 ```js
 nuked.render({
@@ -146,7 +146,7 @@ nuked.render({
 Each filter pane dimension can be shown as a single column or a grid. You can choose this with Show data in under
 each dimension. In Grid mode, you can choose to order by row or column.
 
-![filter pane example - grid mode](./assets/sn-filter-pane-grid-mode.png)
+![filter pane example - grid mode](https://github.com/qlik-oss/sn-list-objects/assets/13997395/f858534e-b25f-464f-b437-064155a93de4)
 
 ```js
 nuked.render({
@@ -181,7 +181,7 @@ In the Listbox properties, you can choose whether or not users can search for in
 within the filter pane. You can also switch the default Search mode from Normal to Wildcard. Wildcard adds default
 wildcard symbols (*) to the search field.
 
-![filter pane example - search mode](./assets/sn-filter-pane-search-mode.png)
+![filter pane example - search mode](https://github.com/qlik-oss/sn-list-objects/assets/13997395/e500a22c-bf57-4dde-a2f0-c79bc63e058c)
 
 
 ## Development
