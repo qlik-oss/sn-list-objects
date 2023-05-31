@@ -40,12 +40,14 @@ jobs:
       run: |
         yarn install --immutable --immutable-cache --check-cache
         yarn build
+        yarn sense
 
     - name: build sn-filter-pane
       working-directory: packages/sn-filter-pane
       run: |
         yarn install --immutable --immutable-cache --check-cache
         yarn build
+        yarn sense
 
     - name: Add npm publish token to .npmrc
       run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
