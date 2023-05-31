@@ -10,11 +10,13 @@
     "stardust"
   ],
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qlik-oss/sn-list-objects.git"
   },
   "files": [
-    "assets",
     "core",
     "dist",
     "sn-filter-pane-ext"
