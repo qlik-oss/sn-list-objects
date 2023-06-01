@@ -1,5 +1,7 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.12.5](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.5-No.0...v0.12.5) (2023-06-01)
+
 ### [0.12.4](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.4-No.0...v0.12.4) (2023-06-01)
 
 ### [0.12.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.2...v0.12.3) (2023-05-31)
