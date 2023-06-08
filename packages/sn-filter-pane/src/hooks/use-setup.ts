@@ -27,6 +27,7 @@ export default function useSetup(env: IEnv) {
   const directQueryEnabled: boolean = isDirectQueryEnabled({ env, appLayout });
 
   store.setState({
+    ...store.getState(),
     app,
     model,
     fpLayout,

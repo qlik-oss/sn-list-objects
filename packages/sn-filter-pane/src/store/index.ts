@@ -7,6 +7,7 @@ import {
 import { IEnv } from '../types/types';
 import { RenderTrackerService } from '../services/render-tracker';
 import createStore from './state-store';
+import { ISize } from '../components/ListboxGrid/interfaces';
 
 export interface IStore {
   app?: EngineAPI.IApp;
@@ -22,6 +23,7 @@ export interface IStore {
   selections?: stardust.ObjectSelections;
   keyboard?: stardust.Keyboard;
   renderTracker?: RenderTrackerService;
+  containerSize?: ISize;
 }
 
 interface ResourceState {

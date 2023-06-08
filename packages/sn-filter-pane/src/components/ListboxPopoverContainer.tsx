@@ -18,6 +18,8 @@ export interface FoldedPopoverProps {
   stores: IStores;
 }
 
+export const POPOVER_CONTAINER_PADDING = 2;
+
 const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, stardustTheme?: stardust.Theme, muiTheme?: Theme): PaperProps => {
   let backgroundColor = stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor');
   const calcHeight = isSmallDevice ? '100%' : '330px';
@@ -47,7 +49,7 @@ const StyledDiv = styled('div')(() => ({
   '&:focus-visible': {
     outline: 'none',
   },
-  padding: '2px',
+  padding: `${POPOVER_CONTAINER_PADDING}px`,
   paddingBottom: '0px',
 }));
 
