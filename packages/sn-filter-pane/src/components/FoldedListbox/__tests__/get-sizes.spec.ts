@@ -1,5 +1,5 @@
 import { ISize } from '../../ListboxGrid/interfaces';
-import { POPOVER_CONTAINER_PADDING } from '../../ListboxPopoverContainer';
+import POPOVER_CONTAINER_PADDING from '../../FoldedListbox/constants';
 import getSizes from '../get-sizes';
 
 describe('getSizes', () => {
