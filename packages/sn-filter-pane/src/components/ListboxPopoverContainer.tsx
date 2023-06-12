@@ -12,13 +12,12 @@ import { FoldedListboxClickEvent } from './FoldedListbox/FoldedListbox';
 import ListboxContainer from './ListboxContainer';
 import KEYS from './keys';
 import { IEnv } from '../types/types';
+import POPOVER_CONTAINER_PADDING from './FoldedListbox/constants';
 
 export interface FoldedPopoverProps {
   resources: IListboxResource[];
   stores: IStores;
 }
-
-export const POPOVER_CONTAINER_PADDING = 2;
 
 const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, stardustTheme?: stardust.Theme, muiTheme?: Theme): PaperProps => {
   let backgroundColor = stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor');

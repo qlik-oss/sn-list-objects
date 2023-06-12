@@ -99,7 +99,7 @@ export const FoldedListbox = ({
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
   const {
     gridHeight, narrowSmall, narrowLarge,
-  } = getSizes(containerSize);
+  } = getSizes(containerSize, isInPopover);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
