@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.13.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.6...v0.13.0) (2023-06-12)
+
+
+### Features
+
+* responsive collapsed listboxes ([#319](https://github.com/qlik-oss/sn-list-objects/issues/319)) ([7a39b59](https://github.com/qlik-oss/sn-list-objects/commit/7a39b59e29374b7be6dcf2a8d7ccc527b3bd0dbd))
+
 ### [0.12.6](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.5...v0.12.6) (2023-06-02)
 
 ### [0.12.5](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.5-No.0...v0.12.5) (2023-06-01)
