@@ -47,5 +47,7 @@ describe('getSizes', () => {
     const sizes = getSizes(containerSize as ISize, true);
 
     expect(sizes.gridHeight).toBe(COLLAPSED_HEIGHT);
+    expect(sizes.narrowSmall).toBe(false);
+    expect(sizes.narrowLarge).toBe(false);
   });
 });

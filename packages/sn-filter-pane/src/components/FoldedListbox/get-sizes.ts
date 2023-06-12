@@ -3,8 +3,10 @@ import { ISize } from '../ListboxGrid/interfaces';
 import POPOVER_CONTAINER_PADDING from '../FoldedListbox/constants';
 
 const getSizes = (containerSize?: ISize, isInPopover?: boolean) => {
-  const isNarrow = containerSize?.height !== undefined && containerSize?.height < COLLAPSED_HEIGHT + POPOVER_CONTAINER_PADDING;
-  const gridHeight = isNarrow && !isInPopover
+  const isNarrow = containerSize?.height !== undefined
+  && !isInPopover
+  && containerSize?.height < COLLAPSED_HEIGHT + POPOVER_CONTAINER_PADDING;
+  const gridHeight = isNarrow
     ? containerSize.height - POPOVER_CONTAINER_PADDING - 1
     : COLLAPSED_HEIGHT;
 
