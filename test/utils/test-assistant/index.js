@@ -24,11 +24,14 @@ export default async ({ logLevel } = {}) => {
       logger.removeListeners(page);
     },
     page,
-    goto: async (url, { waitSelector = '.njs-viz[data-render-count="1"]', waitOptions } = {}) => {
+    goto: async (url, { waitSelector = '.njs-viz[data-render-count="1"]', waitOptions } = {}, customViewportSize) => {
       await page.goto(url, { waitUntil: 'networkidle' });
+      if (customViewportSize) {
+        page.setViewportSize(customViewportSize)
+      }
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
-    
+
     screenshot: async (element) => page.screenshot({ clip: await element.boundingBox() }),
   };
 };
