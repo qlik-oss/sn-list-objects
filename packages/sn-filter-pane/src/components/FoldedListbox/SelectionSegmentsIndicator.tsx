@@ -4,14 +4,15 @@ import getSegmentsSizes from './get-segment-sizes';
 
 interface SelectionSegmentsIndicatorProps {
   qDimensionInfo: EngineAPI.INxDimensionInfo,
+  fullHeight: boolean,
 }
 
-const SelectionSegmentsIndicator = ({ qDimensionInfo }: SelectionSegmentsIndicatorProps) => {
+const SelectionSegmentsIndicator = ({ qDimensionInfo, fullHeight }: SelectionSegmentsIndicatorProps) => {
   if (!qDimensionInfo) {
     return null;
   }
   const ratios = getSegmentsSizes(qDimensionInfo);
-  const segmentHeight = '4px';
+  const segmentHeight = fullHeight ? '100%' : '4px';
   const segments = [
     {
       key: 'green',
@@ -40,7 +41,7 @@ const SelectionSegmentsIndicator = ({ qDimensionInfo }: SelectionSegmentsIndicat
   ];
 
   return (
-    <Grid container bgcolor='#a9a9a9' borderTop='1px solid #cccccc'>
+    <Grid container bgcolor='#a9a9a9' borderTop='1px solid #cccccc' height={fullHeight ? '100%' : undefined}>
       {segments.map((s) => (
         <Grid item key={s.key} style={s.style} />
       ))}

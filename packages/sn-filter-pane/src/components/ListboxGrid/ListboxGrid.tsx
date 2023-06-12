@@ -55,6 +55,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     }
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
+    store.setState({ ...store.getState(), containerSize: size });
     const isSmallDevice = sense?.isSmallDevice?.() ?? false;
     const isSingleItem = resources.length === 1;
     const expandProps: ExpandProps = {
@@ -141,7 +142,17 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   return (
     <>
       <ElementResizeListener onResize={dHandleResize.current} />
-      <Grid className="filter-pane-container" container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%' overflow="hidden">
+      <Grid
+        className="filter-pane-container"
+        container
+        onKeyDown={handleKeyDown}
+        sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}
+        columns={columns?.length}
+        ref={gridRef as unknown as () => HTMLDivElement}
+        spacing={0}
+        height='100%'
+        overflow="hidden"
+      >
 
         {!!columns?.length && columns?.map((column: IColumn, i: number) => (
           <ColumnGrid key={i} widthPercent={100 / columns.length}>

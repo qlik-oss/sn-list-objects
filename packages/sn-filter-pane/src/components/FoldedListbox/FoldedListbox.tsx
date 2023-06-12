@@ -2,14 +2,14 @@ import { stardust } from '@nebula.js/stardust';
 import {
   Grid, styled, Tooltip, Typography,
 } from '@mui/material';
-import React, { useRef } from 'react';
+import React from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
 import type { IStores } from '../../store';
-import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import DrillDown from './drillDown';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 import KEYS from '../keys';
+import getSizes from './get-sizes';
 
 export interface FoldedListboxClickEvent {
   event: React.MouseEvent<HTMLDivElement>;
@@ -26,6 +26,7 @@ interface StyledGridProps {
   constraints?: stardust.Constraints;
   stardustTheme?: stardust.Theme;
   isInPopover: boolean;
+  height: number;
 }
 interface StyledDivProps {
   isInPopover?: boolean;
@@ -47,11 +48,12 @@ const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].inc
   }),
 );
 
-const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'isInPopover'].includes(p as string) })<StyledGridProps>(
+const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'isInPopover', 'height'].includes(p as string) })<StyledGridProps>(
   ({
     constraints,
     stardustTheme,
     isInPopover,
+    height,
   }) => {
     const popoverPadding = isInPopover ? POPOVER_PADDING * 2 : 0;
     return {
@@ -59,7 +61,7 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       alignItems: 'flex-start',
       border: '1px solid #d9d9d9',
       borderRadius: '3px',
-      height: COLLAPSED_HEIGHT,
+      height,
       overflow: 'hidden',
       cursor: constraints?.active ? 'default' : 'pointer',
       ':hover': !constraints?.active && {
@@ -90,12 +92,14 @@ export const FoldedListbox = ({
   resource, onClick, stores, isInPopover,
 }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
-  const containerRef = useRef<HTMLDivElement>(null);
   const {
-    constraints, stardustTheme, options, translator,
+    constraints, stardustTheme, options, translator, containerSize,
   } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
+  const {
+    gridHeight, narrowSmall, narrowLarge,
+  } = getSizes(containerSize);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
@@ -125,26 +129,32 @@ export const FoldedListbox = ({
         direction='column'
         data-testid={`collapsed-title-${fieldName}`}
         isInPopover={!!isInPopover}
-        onClick={(event) => onClick({ event, resource })}>
-        <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
-          {isDrillDown
-            && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
-              <div>
-                < DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
-              </div>
+        onClick={(event) => onClick({ event, resource })}
+        height={gridHeight}
+      >
+        {!narrowSmall
+          && <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
+            {isDrillDown
+              && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
+                <div>
+                  < DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
+                </div>
+              </Tooltip>
+            }
+            <Tooltip title={fieldName} enterDelay={2000}>
+              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight='normal'>
+                {fieldName}
+              </Title>
             </Tooltip>
-          }
-          <Tooltip title={fieldName} enterDelay={2000}>
-            <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap>
-              {fieldName}
-            </Title>
-          </Tooltip>
-        </Grid>
-        <Grid item width='100%'>
-          <SelectionSegmentsIndicator
-            qDimensionInfo={resource.layout.qListObject.qDimensionInfo}
-          ></SelectionSegmentsIndicator>
-        </Grid>
+          </Grid>
+        }
+        {!narrowLarge
+          && <Grid item width='100%' height={narrowSmall ? '100%' : undefined}>
+            <SelectionSegmentsIndicator
+              qDimensionInfo={resource.layout.qListObject.qDimensionInfo} fullHeight={narrowSmall}
+            ></SelectionSegmentsIndicator>
+          </Grid>
+        }
       </StyledGrid>
     </StyledDiv>
   );
