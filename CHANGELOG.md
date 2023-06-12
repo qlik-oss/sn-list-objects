@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.13.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.0...v0.13.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* adapt expand button to narrow container ([#320](https://github.com/qlik-oss/sn-list-objects/issues/320)) ([bc9a1a4](https://github.com/qlik-oss/sn-list-objects/commit/bc9a1a4e880382d2f0e236fe09c5cdbea4061f0e))
+
 ## [0.13.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.6...v0.13.0) (2023-06-12)
 
 
