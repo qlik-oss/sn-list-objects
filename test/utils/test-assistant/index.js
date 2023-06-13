@@ -28,6 +28,8 @@ export default async ({ logLevel } = {}) => {
       await page.goto(url, { waitUntil: 'networkidle' });
       if (customViewportSize) {
         page.setViewportSize(customViewportSize)
+      } else {
+        page.setViewportSize()
       }
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
