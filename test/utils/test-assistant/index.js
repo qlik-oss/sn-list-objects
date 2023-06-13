@@ -27,9 +27,10 @@ export default async ({ logLevel } = {}) => {
     goto: async (url, { waitSelector = '.njs-viz[data-render-count="1"]', waitOptions } = {}, customViewportSize) => {
       await page.goto(url, { waitUntil: 'networkidle' });
       if (customViewportSize) {
-        page.setViewportSize(customViewportSize)
+        await page.setViewportSize(customViewportSize);
       } else {
-        page.setViewportSize()
+        const originalViewportSize = require('../../rendering/playwright.config.rendering').use.viewport;
+        await page.setViewportSize(originalViewportSize);
       }
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
