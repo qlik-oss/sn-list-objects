@@ -27,7 +27,7 @@
           ]
         },
         "qChildListDef": {
-          "description": "See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}",
+          "description": "A list definition for listing child objects.\nThe child object should contain listbox properties. See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}",
           "defaultValue": "{}",
           "type": "#/definitions/ChildListDef"
         },
