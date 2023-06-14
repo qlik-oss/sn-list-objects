@@ -24,11 +24,19 @@ export default async ({ logLevel } = {}) => {
       logger.removeListeners(page);
     },
     page,
-    goto: async (url, { waitSelector = '.njs-viz[data-render-count="1"]', waitOptions } = {}) => {
+    goto: async (url, { waitOptions } = {}, customViewportSize = null) => {
       await page.goto(url, { waitUntil: 'networkidle' });
+      if (customViewportSize) {
+        await page.setViewportSize(customViewportSize);
+      } else {
+        const originalViewportSize = require('../../rendering/playwright.config.rendering').use.viewport;
+        await page.setViewportSize(originalViewportSize);
+      }
+      // When using customViewportSize, viewport is resized thus triggering a second render
+      const waitSelector = `.njs-viz[data-render-count="${customViewportSize ? 2 : 1}"]`;
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
-    
+
     screenshot: async (element) => page.screenshot({ clip: await element.boundingBox() }),
   };
 };

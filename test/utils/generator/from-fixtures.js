@@ -51,6 +51,8 @@ export default ({ suiteName, serveConfig, fixturePath, styles = [], debug = unde
     });
 
     fs.readdirSync(fixturePath).forEach((file) => {
+      const fixture = require(`${fixturePath}/${file}`);
+      const customViewportSize = fixture.default()?.customViewportSize;
       const name = file.replace('.fix.js', '');
 
       if (DEBUG_MODE && debug !== name) {
@@ -65,7 +67,7 @@ export default ({ suiteName, serveConfig, fixturePath, styles = [], debug = unde
           console.log('\nTest running at:', `\x1b[34m${url}\x1b[0m\n`);
         }
 
-        const element = await testAssistant.goto(url);
+        const element = await testAssistant.goto(url, {}, customViewportSize);
 
         const img = await testAssistant.screenshot(element);
 

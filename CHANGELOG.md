@@ -1,5 +1,88 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.13.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.0...v0.13.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* adapt expand button to narrow container ([#320](https://github.com/qlik-oss/sn-list-objects/issues/320)) ([bc9a1a4](https://github.com/qlik-oss/sn-list-objects/commit/bc9a1a4e880382d2f0e236fe09c5cdbea4061f0e))
+
+## [0.13.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.6...v0.13.0) (2023-06-12)
+
+
+### Features
+
+* responsive collapsed listboxes ([#319](https://github.com/qlik-oss/sn-list-objects/issues/319)) ([7a39b59](https://github.com/qlik-oss/sn-list-objects/commit/7a39b59e29374b7be6dcf2a8d7ccc527b3bd0dbd))
+
+### [0.12.6](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.5...v0.12.6) (2023-06-02)
+
+### [0.12.5](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.5-No.0...v0.12.5) (2023-06-01)
+
+### [0.12.4](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.4-No.0...v0.12.4) (2023-06-01)
+
+### [0.12.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.2...v0.12.3) (2023-05-31)
+
+### [0.12.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.1...v0.12.2) (2023-05-31)
+
+### [0.12.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.12.0...v0.12.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* hide overflow ([#313](https://github.com/qlik-oss/sn-list-objects/issues/313)) ([c0ee40f](https://github.com/qlik-oss/sn-list-objects/commit/c0ee40f16da14bd861fcdbc3fd22bf40671d9094))
+
+## [0.12.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.11.0...v0.12.0) (2023-05-22)
+
+
+### Features
+
+* don't disable search ([#311](https://github.com/qlik-oss/sn-list-objects/issues/311)) ([e2f1810](https://github.com/qlik-oss/sn-list-objects/commit/e2f1810e82bd0ee2ab58c5d36f5f46ca8f6610c7))
+
+## [0.11.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.10.1...v0.11.0) (2023-05-16)
+
+
+### Features
+
+* add example dev mashup ([#297](https://github.com/qlik-oss/sn-list-objects/issues/297)) ([92b8876](https://github.com/qlik-oss/sn-list-objects/commit/92b887628e1e5c737711d29836c95ef2a5138ca1))
+* remove badge from expand button ([#306](https://github.com/qlik-oss/sn-list-objects/issues/306)) ([46bc140](https://github.com/qlik-oss/sn-list-objects/commit/46bc140fc55e3ca83ee67a2e49e7031cbd031df1))
+* remove development mode resize element ([#298](https://github.com/qlik-oss/sn-list-objects/issues/298)) ([25afcdc](https://github.com/qlik-oss/sn-list-objects/commit/25afcdce80fe47cb73213218c6d0d9a9968f9da7))
+
+### [0.10.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.10.0...v0.10.1) (2023-05-10)
+
+## [0.10.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.2...v0.10.0) (2023-05-09)
+
+
+### Features
+
+* start popover listbox with focused search ([#302](https://github.com/qlik-oss/sn-list-objects/issues/302)) ([7d8f07a](https://github.com/qlik-oss/sn-list-objects/commit/7d8f07a57ff565bbd879185098da160e231b6327))
+
+### [0.9.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.1...v0.9.2) (2023-05-08)
+
+
+### Bug Fixes
+
+* collapsed listbox size after full screen zoom ([#301](https://github.com/qlik-oss/sn-list-objects/issues/301)) ([bd13e1e](https://github.com/qlik-oss/sn-list-objects/commit/bd13e1e40bc85e9cc5661f9c8591d893895e50fd))
+* scroll when needed in more fields popover ([#300](https://github.com/qlik-oss/sn-list-objects/issues/300)) ([00a55cc](https://github.com/qlik-oss/sn-list-objects/commit/00a55cc83eea56654cd7be648150d36860dda3ee))
+
+### [0.9.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.9.0...v0.9.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* use fonts from listbox ([#291](https://github.com/qlik-oss/sn-list-objects/issues/291)) ([34a60e7](https://github.com/qlik-oss/sn-list-objects/commit/34a60e70dc0a7e96dae0e1bf9fc4c480dd030b57))
+
+## [0.9.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.3...v0.9.0) (2023-04-21)
+
+
+### Features
+
+* **sn-filter-pane:** Support Direct Query ([#279](https://github.com/qlik-oss/sn-list-objects/issues/279)) ([512e181](https://github.com/qlik-oss/sn-list-objects/commit/512e181a7e779faa8e7f144e68f81f0a05da4e52))
+
+
+### Bug Fixes
+
+* no scrolling on keynav in extension ([#281](https://github.com/qlik-oss/sn-list-objects/issues/281)) ([3c20dab](https://github.com/qlik-oss/sn-list-objects/commit/3c20dab6fdaac21ead27fca5cd57161ac11aceae))
+
 ### [0.8.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.8.2...v0.8.3) (2023-04-14)
 
 

@@ -11,6 +11,8 @@ import { FoldedListbox } from './FoldedListbox';
 import { FoldedListboxClickEvent } from './FoldedListbox/FoldedListbox';
 import ListboxContainer from './ListboxContainer';
 import KEYS from './keys';
+import { IEnv } from '../types/types';
+import POPOVER_CONTAINER_PADDING from './FoldedListbox/constants';
 
 export interface FoldedPopoverProps {
   resources: IListboxResource[];
@@ -27,7 +29,8 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
     style: {
       height: selectedResource ? calcHeight : undefined,
       width: isSmallDevice ? '100%' : '234px',
-      overflow: 'hidden',
+      overflowX: 'hidden',
+      overflowY: selectedResource ? 'hidden' : 'auto',
       backgroundColor,
       maxWidth: isSmallDevice ? '100%' : 'calc(100% - 32px)',
       maxHeight: isSmallDevice ? '100%' : 'calc(100% - 32px)',
@@ -37,12 +40,16 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
 
 const StyledDiv = styled('div')(() => ({
   '&:focus:not(:hover)': {
-    boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
+    outline: '2px solid #3F8AB3',
+    outlineOffset: '-2px',
+    borderRadius: '4px',
+
   },
   '&:focus-visible': {
     outline: 'none',
   },
-  padding: '2px',
+  padding: `${POPOVER_CONTAINER_PADDING}px`,
+  paddingBottom: '0px',
 }));
 
 /**
@@ -53,7 +60,8 @@ const StyledDiv = styled('div')(() => ({
  * FoldedLisbox:es are rendered which in themselves are clickable.
  */
 export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProps) => {
-  const { constraints, stardustTheme, sense } = stores.store.getState();
+  const { constraints, stardustTheme, env = {} } = stores.store.getState();
+  const { sense } = env as IEnv;
   const [popoverOpen, setPopoverOpen] = useState(false);
   const containerRef = useRef(null);
   const [selectedResource, setSelectedResource] = useState<IListboxResource | undefined>();
@@ -203,7 +211,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
     <StyledDiv ref={containerRef} className='listbox-popover-container' onKeyDown={onListboxPopoverContainerKeyDown}>
       {isSingle
         ? <FoldedListbox onClick={handleOpen} resource={resources[0]} stores={stores} />
-        : <ExpandButton onClick={handleOpen} avatar={resources.length} opened={popoverOpen} stores={stores} />}
+        : <ExpandButton onClick={handleOpen} opened={popoverOpen} stores={stores} />}
       <Popover
         open={popoverOpen}
         onClose={handleClose}
@@ -220,7 +228,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         className='listbox-popover'
       >
         {(selectedResource || isSingle)
-          ? <ListboxContainer layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={closePopover} isPopover={true} />
+          ? <ListboxContainer model={selectedResource?.model} layout={selectedResource?.layout ?? resources[0].layout} stores={stores} closePopover={closePopover} isPopover={true} />
           : <Grid container direction='column' spacing={1} padding='8px' className='folded-listbox-dropdown' onKeyDown={onFoldedListboxDropdownKeyDown}>
             {!!resources?.length && resources?.map((resource) => (
               <Grid item key={resource.id}>

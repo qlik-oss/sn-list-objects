@@ -1,7 +1,13 @@
-import { IListLayout as GlobalIListLayout, IGenericListPropertiesMissing as IGenericListPropertiesMissingGlobal } from '../../../../../types/global';
+import { IListLayout as GlobalIListLayout, IGenericListPropertiesMissing as IGenericListPropertiesMissingGlobal, INxAppLayoutGlobal } from '../../../../../types/global';
 
 export type IListLayout = GlobalIListLayout;
 export type IGenericListPropertiesMissing = IGenericListPropertiesMissingGlobal;
+export type INxAppLayout = INxAppLayoutGlobal;
+
+export type IPage = {
+  qArea: object;
+  qMatrix: object[];
+};
 
 export interface IContainerElement extends HTMLDivElement {
   current: HTMLElement
@@ -28,6 +34,10 @@ export interface IListBoxOptions {
   update?: () => void;
   __DO_NOT_USE__?: {
     selectDisabled?: () => boolean;
+    showGray?: boolean;
+    focusSearch?: boolean;
+    postProcessPages?: (pages: IPage[]) => IPage[];
+    calculatePagesHeight?: boolean;
   };
 }
 

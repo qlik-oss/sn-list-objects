@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "module": "ESNext",
     "noImplicitReturns": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

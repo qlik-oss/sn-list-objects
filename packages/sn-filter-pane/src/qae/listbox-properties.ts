@@ -45,7 +45,7 @@ const defaultListboxProps = {
   showTitles: false,
   subtitle: '',
   footnote: '',
-  disableNavMenu: false,
+  disableNavMenu: true,
   showDetails: false,
   showDetailsExpression: false,
   qStateName: '',

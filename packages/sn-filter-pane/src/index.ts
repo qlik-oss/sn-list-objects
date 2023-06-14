@@ -16,7 +16,7 @@ export default function supernova(env: IEnv) {
       data: getData(env),
     },
     component() {
-      const stores = useSetup({ ...env });
+      const stores = useSetup(env);
       useContextMenu();
       useRender(stores);
     },
