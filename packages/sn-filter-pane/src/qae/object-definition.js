@@ -48,6 +48,7 @@ const objectDefinition = () => {
      * Child object definition
      * @type {ChildListDef}
      * @default {}
+     * @description See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}
      */
     qChildListDef: {},
   };

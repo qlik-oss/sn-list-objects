@@ -3,7 +3,7 @@
   "info": {
     "name": "@nebula.js/sn-filter-pane:properties",
     "description": "Filter pane generic object definition",
-    "version": "0.8.3",
+    "version": "0.13.1",
     "license": "MIT",
     "stability": "experimental",
     "x-qlik-visibility": "public"
@@ -27,7 +27,7 @@
           ]
         },
         "qChildListDef": {
-          "description": "Child object definition",
+          "description": "See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}",
           "defaultValue": "{}",
           "type": "#/definitions/ChildListDef"
         },
@@ -74,29 +74,6 @@
   },
   "definitions": {
     "ChildListDef": {
-      "kind": "object",
-      "entries": {
-        "qDef": {
-          "type": "#/definitions/IGenericListProperties"
-        }
-      }
-    },
-    "IGenericListProperties": {
-      "description": "Extends `IGenericListProperties`, see Engine API: `IGenericListProperties`.",
-      "extends": [
-        {
-          "type": "EngineAPI.IGenericListProperties"
-        }
-      ],
-      "kind": "object",
-      "entries": {
-        "qListObjectDef": {
-          "type": "#/definitions/IListObjectDef"
-        }
-      }
-    },
-    "IListObjectDef": {
-      "description": "See {@link https://qlik.dev/apis/json-rpc/qix/schemas#%23%2Fdefinitions%2Fschemas%2Fentries%2FListObjectDef}",
       "type": "object"
     }
   }
