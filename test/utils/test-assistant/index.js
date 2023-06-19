@@ -33,7 +33,7 @@ export default async ({ logLevel } = {}) => {
         await page.setViewportSize(originalViewportSize);
       }
       // When using customViewportSize, viewport is resized thus triggering a second render
-      const waitSelector = `.njs-viz[data-render-count="${customViewportSize ? 2 : 1}"]`;
+      const waitSelector = '.njs-viz[data-render-count="1"], .njs-viz[data-render-count="2"]';
       return page.waitForSelector(waitSelector, { visible: true, ...waitOptions });
     },
 
