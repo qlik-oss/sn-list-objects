@@ -8,6 +8,7 @@ function render(nuked: stardust.Embed, filterPaneOptionsElement: HTMLElement, fi
     type: 'filterpane',
     fields: [
       {
+        // See https://qlik.dev/apis/javascript/nebula-listbox-properties for all properties
         // @ts-ignore
         qListObjectDef: {
           qDef: { qFieldDefs: ['Dim1'] },

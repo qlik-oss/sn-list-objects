@@ -1,0 +1,80 @@
+{
+  "scriptappy": "1.1.0",
+  "info": {
+    "name": "@nebula.js/sn-filter-pane:properties",
+    "description": "Filter pane generic object definition",
+    "version": "0.13.1",
+    "license": "MIT",
+    "stability": "experimental",
+    "x-qlik-visibility": "public"
+  },
+  "entries": {
+    "properties": {
+      "kind": "namespace",
+      "entries": {
+        "footnote": {
+          "description": "Visualization footnote.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "qChildListDef": {
+          "description": "A list definition for listing child objects.\nThe child object should contain listbox properties. See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}",
+          "defaultValue": "{}",
+          "type": "#/definitions/ChildListDef"
+        },
+        "showTitles": {
+          "description": "Show title for the visualization.",
+          "optional": true,
+          "defaultValue": false,
+          "type": "boolean"
+        },
+        "subtitle": {
+          "description": "Visualization subtitle.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "title": {
+          "description": "Visualization title.",
+          "optional": true,
+          "defaultValue": "",
+          "kind": "union",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "StringExpression"
+            }
+          ]
+        },
+        "version": {
+          "description": "Current version of this generic object definition",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ChildListDef": {
+      "type": "object"
+    }
+  }
+}

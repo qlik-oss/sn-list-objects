@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import properties from './qae/filter-pane-properties';
+import objectDefinition from './qae/object-definition';
 import getData from './qae/data';
 
 import useSetup from './hooks/use-setup';
@@ -12,7 +12,7 @@ export default function supernova(env: IEnv) {
   return {
     ext: ext(env),
     qae: {
-      properties,
+      properties: objectDefinition(),
       data: getData(env),
     },
     component() {
