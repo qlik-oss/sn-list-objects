@@ -4,6 +4,9 @@ name: FP API Governance Check [Experimental]
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      info:
+        description: To update the baseline select a release tag
 
 jobs:
   verify:
