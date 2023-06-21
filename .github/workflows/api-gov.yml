@@ -32,7 +32,7 @@ jobs:
           VER=${{ env.VER }}
 
           docker run --volumes-from specs \
-            -e SPEC_PATHS="6ef0f3ff-3862-442b-8f18-789b5818bdd5@/specs/spec.json" \
+            -e SPEC_PATHS="8d2adf3e-f90e-4699-ac0f-d6f734ae5318@/specs/spec.json" \
             -e COMMIT_SHA="$GITHUB_SHA" \
             -e RELEASE_TAG="$VER" \
             -e PRE_RELEASE="true" \
