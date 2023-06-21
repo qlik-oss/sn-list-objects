@@ -23,3 +23,8 @@ $ git rev-parse --git-dir
 ```
 
 You need to be a collaborator to run this workflow.
+
+## Api governance check
+
+For sn-filter-pane run the [API-Governance](https://github.com/qlik-oss/sn-list-objects/actions/workflows/api-gov.yml) workflow.
+To update the baseline select a release tag from the dropdown menu.
