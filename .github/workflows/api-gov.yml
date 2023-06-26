@@ -4,6 +4,9 @@ name: FP API Governance Check [Experimental]
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # Runs when a relase has been published
+  release:
+    types: [published]
 
 jobs:
   verify:
