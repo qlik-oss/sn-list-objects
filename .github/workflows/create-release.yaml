@@ -53,6 +53,6 @@ jobs:
 
   api-gov:
     name: Run API Compliance to Update Baseline
-    uses: qlik-oss/sn-list-objects/.github/workflows/api-gov.yml@main
+    uses: ./.github/workflows/api-gov.yml
     with:
       update_baseline: true

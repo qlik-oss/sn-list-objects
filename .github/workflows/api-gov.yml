@@ -44,7 +44,6 @@ jobs:
           yarn --cwd ./packages/sn-filter-pane install --immutable --immutable-cache --check-cache
           yarn --cwd ./packages/sn-filter-pane version --new-version ${VER} --no-git-tag-version
           yarn --cwd ./packages/sn-filter-pane spec
-          git add ./packages/sn-filter-pane/api-spec/spec.json
 
       - name: Prepare API Compliance
         run: |
