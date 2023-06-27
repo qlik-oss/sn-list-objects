@@ -35,20 +35,6 @@ jobs:
       with:
         node-version: 18.x
 
-    - name: build sn-listbox
-      working-directory: packages/sn-listbox
-      run: |
-        yarn install --immutable --immutable-cache --check-cache
-        yarn build
-        yarn sense
-
-    - name: build sn-filter-pane
-      working-directory: packages/sn-filter-pane
-      run: |
-        yarn install --immutable --immutable-cache --check-cache
-        yarn build
-        yarn sense
-
     - name: Add npm publish token to .npmrc
       run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
     - name: yarn release
@@ -64,3 +50,10 @@ jobs:
 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  api-gov:
+    name: Run API Compliance to Update Baseline
+    uses: ./.github/workflows/api-gov.yml
+    secrets: inherit
+    with:
+      update_baseline: true

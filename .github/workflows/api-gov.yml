@@ -4,6 +4,19 @@ name: FP API Governance Check [Experimental]
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      update_baseline:
+        type: boolean
+        required: true
+  # Run from another workflow
+  workflow_call:
+    inputs:
+      update_baseline:
+        type: boolean
+        required: true
+
+env:
+  VER: 0
 
 jobs:
   verify:
@@ -13,10 +26,24 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set version
+
+      - name: Set version to write baseline
+        if: "${{ inputs.update_baseline }}"
         run: |
           VER=$(cat ./packages/sn-filter-pane/package.json | jq '.version' | tr -d '"')
           echo "VER=${VER}" >> $GITHUB_ENV
+
+      - name: Set version to verify
+        if: "${{ !inputs.update_baseline }}"
+        run: |
+          yarn install --immutable --immutable-cache --check-cache
+          VER=`node ./scripts/get-pre-next-version.js`
+          echo "VER=${VER}" >> $GITHUB_ENV
+
+          # update spec and spec version
+          yarn --cwd ./packages/sn-filter-pane install --immutable --immutable-cache --check-cache
+          yarn --cwd ./packages/sn-filter-pane version --new-version ${VER} --no-git-tag-version
+          yarn --cwd ./packages/sn-filter-pane spec
 
       - name: Prepare API Compliance
         run: |
@@ -33,6 +60,7 @@ jobs:
             -e SPEC_PATHS="8d2adf3e-f90e-4699-ac0f-d6f734ae5318@/specs/spec.json" \
             -e COMMIT_SHA="$GITHUB_SHA" \
             -e RELEASE_TAG="$VER" \
+            -e PRE_RELEASE="${{ !inputs.update_baseline }}" \
             -e CREDENTIALS_S3_SECRETKEY="${{ secrets.APICULTURIST_S3 }}" \
             -e CREDENTIALS_GITHUB="${{ secrets.GITHUB_TOKEN }}" \
             -e CREDENTIALS_COLONY="${{ secrets.APICULTURIST_TOKEN }}" \
