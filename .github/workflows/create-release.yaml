@@ -53,6 +53,7 @@ jobs:
 
   api-gov:
     name: Run API Compliance to Update Baseline
+    needs: build-release
     uses: ./.github/workflows/api-gov.yml
     secrets: inherit
     with:

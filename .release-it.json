@@ -11,10 +11,10 @@
   },
   "hooks": {
     "after:bump": [
-      "yarn --cwd ./packages/sn-filter-pane spec",
       "yarn --cwd ./packages/sn-filter-pane install --immutable --immutable-cache --check-cache",
       "yarn --cwd ./packages/sn-filter-pane build",
       "yarn --cwd ./packages/sn-filter-pane sense",
+      "yarn --cwd ./packages/sn-filter-pane spec",
       "yarn --cwd ./packages/sn-listbox install --immutable --immutable-cache --check-cache",
       "yarn --cwd ./packages/sn-listbox build",
       "yarn --cwd ./packages/sn-listbox sense"
