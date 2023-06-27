@@ -33,5 +33,6 @@ jobs:
   api-gov:
     name: Run API Compliance
     uses: ./.github/workflows/api-gov.yml
+    secrets: inherit
     with:
       update_baseline: false

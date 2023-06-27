@@ -54,5 +54,6 @@ jobs:
   api-gov:
     name: Run API Compliance to Update Baseline
     uses: ./.github/workflows/api-gov.yml
+    secrets: inherit
     with:
       update_baseline: true
