@@ -50,3 +50,9 @@ jobs:
 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  api-gov:
+    name: Run API Compliance to Update Baseline
+    uses: qlik-oss/sn-list-objects/.github/workflows/api-gov.yml@main
+    with:
+      update_baseline: true

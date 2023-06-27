@@ -29,3 +29,9 @@ jobs:
         run: |
           ./test/bin/cc-test-reporter sum-coverage ./coverage/artifact/codeclimate.*.json -p 2 -o coverage/codeclimate.summed.json
           ./test/bin/cc-test-reporter upload-coverage -i ./coverage/codeclimate.summed.json
+
+  api-gov:
+    name: Run API Compliance
+    uses: qlik-oss/sn-list-objects/.github/workflows/api-gov.yml@main
+    with:
+      update_baseline: false
