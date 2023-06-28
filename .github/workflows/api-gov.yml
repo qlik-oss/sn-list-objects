@@ -58,10 +58,11 @@ jobs:
       - name: Run API Compliance
         run: |
           VER=${{ env.VER }}
+          SHA=`git rev-parse HEAD`
 
           docker run --volumes-from specs \
             -e SPEC_PATHS="8d2adf3e-f90e-4699-ac0f-d6f734ae5318@/specs/spec.json" \
-            -e COMMIT_SHA="$GITHUB_SHA" \
+            -e COMMIT_SHA="$SHA" \
             -e RELEASE_TAG="$VER" \
             -e PRE_RELEASE="${{ !inputs.update_baseline }}" \
             -e CREDENTIALS_S3_SECRETKEY="${{ secrets.APICULTURIST_S3 }}" \
