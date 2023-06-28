@@ -19,6 +19,8 @@ on:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ steps.release-tag.outputs.tag }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -47,9 +49,15 @@ jobs:
         [[ "${{ inputs.release-type }}" == "No pre release" ]] && \
         yarn release $DRY || \
         yarn release --preRelease=${{ inputs.release-type }} $DRY
+        tag=`git tag --points-at HEAD`
+        echo "tag=${tag}" >> $GITHUB_ENV
 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set release tag on job output
+      id: release-tag
+      run: echo "tag=${tag}" >> "$GITHUB_OUTPUT"
 
   api-gov:
     name: Run API Compliance to Update Baseline
@@ -58,3 +66,4 @@ jobs:
     secrets: inherit
     with:
       update_baseline: true
+      tag: ${{ needs.build-release.outputs.release-tag }}
