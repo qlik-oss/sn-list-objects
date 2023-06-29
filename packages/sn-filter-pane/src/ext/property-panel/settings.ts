@@ -1,3 +1,5 @@
+import stylingPanelDef from "./data/data-panel/presentation/styling-definitions/styling-panel-def";
+
 const settings = {
   uses: 'settings',
   items: {
@@ -7,6 +9,12 @@ const settings = {
           defaultValue: false,
         },
       },
+    },
+    presentation: {
+      grouped: true,
+      type: 'items',
+      translation: 'properties.presentation',
+      items: [stylingPanelDef]
     },
     simpleLabels: null,
   },
