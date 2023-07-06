@@ -6,7 +6,6 @@ import frequencies from '../../../constants';
 import updateForFrequencyMax from '../update-frequency-max';
 import { INxAppLayout } from '../../../../../hooks/types/index.d';
 import isDirectQueryEnabled from '../../../../../hooks/direct-query/is-direct-query-enabled';
-// import advancedStylingDef from './styling-definitions/advanced-styling-def';
 
 const DEFAULT_LAYOUT_ORDER = 'column';
 
@@ -15,13 +14,11 @@ const change = updateForFrequencyMax;
 export default function getPresentation(env: IEnv) {
   const { translator } = env;
   const { isEnabled } = env?.flags || {};
-  // const stylingPanelEnabled = isEnabled('IM_4073_FILTERPANE_STYLING');
   const readOnly = (_properties: unknown, _handler: unknown, args: { app: { layout: INxAppLayout } }) => isDirectQueryEnabled({ env, appLayout: args?.app?.layout });
   return {
     type: 'items',
     translation: 'properties.presentation',
     items: {
-      // styleEditor: stylingPanelEnabled && advancedStylingDef(stylingPanelEnabled),
       ...textAlignItems,
       denseMode: {
         ref: 'layoutOptions.dense',
