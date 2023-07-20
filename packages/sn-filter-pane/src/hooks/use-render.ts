@@ -27,5 +27,5 @@ export default function useRender(stores: IStores) {
     return (() => {
       teardown(root);
     });
-  }, [resourcesReady]);
+  }, [resourcesReady, fpLayout]);
 }

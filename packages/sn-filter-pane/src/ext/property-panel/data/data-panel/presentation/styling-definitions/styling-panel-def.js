@@ -11,15 +11,15 @@ const stylingPanelDef = {
             component: 'panel-section',
             translation: 'properties.Header',
             items: {
-                headerFontItem: {
+                headerItems: {
                     component: 'items',
                     ref: 'components',
                     key: 'listBox',
                     items: {
-                        headerFontItem: {
+                        fontWrapperItem: {
                             component: 'inline-wrapper',
                             items: {
-                                headerFontSize: {
+                                fontSizeItem: {
                                     component: 'integer',
                                     ref: 'header.fontSize',
                                     translation: 'properties.fontSize',
@@ -39,10 +39,9 @@ const stylingPanelDef = {
                                             : Math.max(5, Math.min(300, Math.floor(data.header.fontSize)));
                                         },
                                 },
-                                headerFontColor: {
+                                fontColorItem: {
                                     show: true,
                                     ref: 'header.fontColor',
-                                    type: 'object',
                                     component: 'color-picker',
                                     defaultValue(item, data, args) {
                                         const currentTheme = args.theme.current();
@@ -59,39 +58,46 @@ const stylingPanelDef = {
             component: 'panel-section',
             translation: 'properties.Content',
             items: {
-                contentFontItem: {
-                    component: 'inline-wrapper',
+                contentItems: {
+                    component: 'items',
+                    ref: 'components',
+                    key: 'listBox',
                     items: {
-                        contentFontSize: {
-                            component: 'integer',
-                            ref: 'content.fontSize',
-                            translation: 'properties.fontSize',
-                            width: 9,
-                            min: 5,
-                            max: 300,
-                            defaultValue(item, data, args) {
-                                const currentTheme = args.theme.current();
-                                return parseInt(
-                                    currentTheme.object?.listBox?.content?.fontSize ?? currentTheme.fontSize,
-                                    10
-                                );
-                            },
-                            change(data) {
-                                data.content.fontSize = !data.content.fontSize
-                                    ? data.content.fontSize
-                                    : Math.max(5, Math.min(300, Math.floor(data.content.fontSize)));
+                        contentFontWrapper: {
+                            component: 'inline-wrapper',
+                            items: {
+                            contentFontSize: {
+                                component: 'integer',
+                                ref: 'content.fontSize',
+                                translation: 'properties.fontSize',
+                                width: 9,
+                                min: 5,
+                                max: 300,
+                                defaultValue(item, data, args) {
+                                    const currentTheme = args.theme.current();
+                                    return parseInt(
+                                        currentTheme.object?.listBox?.content?.fontSize ?? currentTheme.fontSize,
+                                        10
+                                    );
                                 },
-                        },
-                        contentFontColor: {
-                            show: true,
-                            ref: 'content.fontColor',
-                            type: 'object',
-                            component: 'color-picker',
-                            defaultValue(item, data, args) {
-                                const currentTheme = args.theme.current();
-                                return { color: currentTheme.object?.listBox?.content?.color ?? currentTheme.color };
+                                change(data) {
+                                    data.content.fontSize = !data.content.fontSize
+                                        ? data.content.fontSize
+                                        : Math.max(5, Math.min(300, Math.floor(data.content.fontSize)));
+                                    },
                             },
-                        },
+                            contentFontColor: {
+                                show: true,
+                                ref: 'content.fontColor',
+                                type: 'object',
+                                component: 'color-picker',
+                                defaultValue(item, data, args) {
+                                    const currentTheme = args.theme.current();
+                                    return { color: currentTheme.object?.listBox?.content?.color ?? currentTheme.color };
+                                },
+                            },
+                        }
+                    },
                     },
                 }
             }
