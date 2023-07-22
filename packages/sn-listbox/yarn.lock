@@ -1195,7 +1195,7 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@babel/runtime@^7.8.4":
+"@babel/runtime@^7.22.6", "@babel/runtime@^7.8.4":
   version "7.22.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.6.tgz#57d64b9ae3cff1d67eb067ae117dac087f5bd438"
   integrity sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==
@@ -1705,36 +1705,36 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@mui/base@5.0.0-beta.7":
-  version "5.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@mui/base/-/base-5.0.0-beta.7.tgz#01cb99ac098af0ba989c7abc1474e3291c29414f"
-  integrity sha512-Pjbwm6gjiS96kOMF7E5fjEJsenc0tZBesrLQ4rrdi3eT/c/yhSWnPbCUkHSz8bnS0l3/VQ8bA+oERSGSV2PK6A==
+"@mui/base@5.0.0-beta.8":
+  version "5.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@mui/base/-/base-5.0.0-beta.8.tgz#a0a9531ae9147be92d17e4f0e3b9accc57916841"
+  integrity sha512-b4vVjMZx5KzzEMf4arXKoeV5ZegAMOoPwoy1vfUBwhvXc2QtaaAyBp50U7OA2L06Leubc1A+lEp3eqwZoFn87g==
   dependencies:
-    "@babel/runtime" "^7.22.5"
+    "@babel/runtime" "^7.22.6"
     "@emotion/is-prop-valid" "^1.2.1"
     "@mui/types" "^7.2.4"
-    "@mui/utils" "^5.13.7"
+    "@mui/utils" "^5.14.1"
     "@popperjs/core" "^2.11.8"
     clsx "^1.2.1"
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/core-downloads-tracker@^5.14.0":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.0.tgz#ca394a1c53c215f4c6bf7f7460d8211298d7bbf6"
-  integrity sha512-SYBOVCatVDUf/lbrLGah09bHhX5WfUXg7kSskfLILr6SvKRni0NLp0aonxQ0SMALVVK3Qwa6cW4CdWuwS0gC1w==
+"@mui/core-downloads-tracker@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.1.tgz#af156cb3e15b202f5c09f66e7d8b71ca86aef525"
+  integrity sha512-mIa1WmDmNr1LoupV1Rbxt9bTFKMbIn10RHG1bnZ/FJCkAYpuU/D4n+R+ttiycgcZNngU++zyh/OQeJblzbQPzg==
 
-"@mui/material@5.14.0":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.0.tgz#3d2afb4a3643774370cb5add873abcbbe8e7af27"
-  integrity sha512-HP7CP71NhMkui2HUIEKl2/JfuHMuoarSUWAKlNw6s17bl/Num9rN61EM6uUzc2A2zHjj/00A66GnvDnmixEJEw==
+"@mui/material@5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.1.tgz#2711e4ca5c9bdc67b916d01faee650a7a5260bb8"
+  integrity sha512-WtsgYuageTunLfxH3Ri+o1RuQTFImtRHxMcVNyD0Hhd2/znjW6KODNz0XfjvLRnNCAynBxZNiflcoIBW40h9PQ==
   dependencies:
-    "@babel/runtime" "^7.22.5"
-    "@mui/base" "5.0.0-beta.7"
-    "@mui/core-downloads-tracker" "^5.14.0"
-    "@mui/system" "^5.14.0"
+    "@babel/runtime" "^7.22.6"
+    "@mui/base" "5.0.0-beta.8"
+    "@mui/core-downloads-tracker" "^5.14.1"
+    "@mui/system" "^5.14.1"
     "@mui/types" "^7.2.4"
-    "@mui/utils" "^5.13.7"
+    "@mui/utils" "^5.14.1"
     "@types/react-transition-group" "^4.4.6"
     clsx "^1.2.1"
     csstype "^3.1.2"
@@ -1761,16 +1761,16 @@
     csstype "^3.1.2"
     prop-types "^15.8.1"
 
-"@mui/system@^5.14.0":
-  version "5.14.0"
-  resolved "https://registry.yarnpkg.com/@mui/system/-/system-5.14.0.tgz#b7eeb799ae67d27b887fec4917ebd5e2be5a2faa"
-  integrity sha512-0HZGkX8miJbiNw+rjlZ9l0Cfkz1bSqfSHQH0EH9J+nx0aAm5cBleg9piOlLdCNIWGgecCqsw4x62erGrGjjcJg==
+"@mui/system@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@mui/system/-/system-5.14.1.tgz#ec8ae69f63963b5916dad4bca2f8a86a001a2392"
+  integrity sha512-u+xlsU34Jdkgx1CxmBnIC4Y08uPdVX5iEd3S/1dggDFtOGp+Lj8xmKRJAQ8PJOOJLOh8pDwaZx4AwXikL4l1QA==
   dependencies:
-    "@babel/runtime" "^7.22.5"
+    "@babel/runtime" "^7.22.6"
     "@mui/private-theming" "^5.13.7"
     "@mui/styled-engine" "^5.13.2"
     "@mui/types" "^7.2.4"
-    "@mui/utils" "^5.13.7"
+    "@mui/utils" "^5.14.1"
     clsx "^1.2.1"
     csstype "^3.1.2"
     prop-types "^15.8.1"
@@ -1791,10 +1791,21 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@nebula.js/cli-build@4.2.3", "@nebula.js/cli-build@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.2.3.tgz#679959cb314e5ea4687e01ea69cd3281d9a704fd"
-  integrity sha512-EeqctlT2s21n26YP5MX185+PW053EfdpnC57yX4+PoDKv6iSmpTt4Wsk6L+ZC8fXymJ0Fvd89+AgC0OinhJjdg==
+"@mui/utils@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.14.1.tgz#29696371016552a6eb3af975bc7af429ec88b29a"
+  integrity sha512-39KHKK2JeqRmuUcLDLwM+c2XfVC136C5/yUyQXmO2PVbOb2Bol4KxtkssEqCbTwg87PSCG3f1Tb0keRsK7cVGw==
+  dependencies:
+    "@babel/runtime" "^7.22.6"
+    "@types/prop-types" "^15.7.5"
+    "@types/react-is" "^18.2.1"
+    prop-types "^15.8.1"
+    react-is "^18.2.0"
+
+"@nebula.js/cli-build@4.2.4", "@nebula.js/cli-build@^4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.2.4.tgz#07dc3dda10dc40cdd176b081dd540f80e95e0179"
+  integrity sha512-t/4PLCnjfkzuj76Nr4kLOTsBYn2ESkB4bl2bNOj9Jc92wqdcRYstiRTmBaB7UO6/Y3YqKIMI0MWKZmmhuCAVjw==
   dependencies:
     "@babel/cli" "7.22.5"
     "@babel/core" "7.22.5"
@@ -1814,25 +1825,25 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.2"
 
-"@nebula.js/cli-create@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.2.3.tgz#604b45cc2d491ed799aa40bf9aa17535a8da5290"
-  integrity sha512-rn6c5imKazVIfTjdkY8h2c0PA+lRS9KMA2tyCQudAtfG5mnofiRJRdPF9okNDsvbfMYheoHTrRZxDVhUmVRpmw==
+"@nebula.js/cli-create@^4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.2.4.tgz#5339d50779d992e63664e8ee7ba39ca36564a033"
+  integrity sha512-AdWKOBv4jcDjGO/10SBDNHYBiNPCwz22l0lcXaIMWGcl75AO+8kPjp57iXAHbWjYNvH8QPQlnmDo08GlrgdU+g==
   dependencies:
     chalk "4.1.2"
     ejs "3.1.9"
     fs-extra "11.1.1"
     inquirer "8.2.5"
 
-"@nebula.js/cli-sense@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.2.3.tgz#beacb536167d362c06b75978a6ed1da2d9f434f3"
-  integrity sha512-ApBNwGSAWTeHaZl7PADm0qN44oH1dC2cFljD6PJsQMF/r038zouoL9XrovMn3UKT4LUN3nqxCAy7kzkXk56EpA==
+"@nebula.js/cli-sense@4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-sense/-/cli-sense-4.2.4.tgz#c057b772bc6589d91eb98692015e150877749f43"
+  integrity sha512-wMPjhfJOzA0TYOKh0pFgpg4WVY0L3ckeQIJ9E/q5OSkI6z5o1eBE0XYVp6hATwt0rucXFhGv/r0zeRnpVzajPg==
   dependencies:
     "@babel/cli" "7.22.5"
     "@babel/core" "7.22.5"
     "@babel/preset-env" "7.22.5"
-    "@nebula.js/stardust" "^4.2.3"
+    "@nebula.js/stardust" "^4.2.4"
     "@rollup/plugin-babel" "6.0.3"
     "@rollup/plugin-commonjs" "25.0.2"
     "@rollup/plugin-node-resolve" "15.1.0"
@@ -1844,12 +1855,12 @@
     rollup "3.25.1"
     yargs "17.7.2"
 
-"@nebula.js/cli-serve@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.2.3.tgz#5934ba8cdb53acba3713b79462c28e052f7f79c3"
-  integrity sha512-toOEJm7HV+jGLhSQSNaggI1zYKG2qTB6/m5dEOVh5tBMySXZBp/5sUmipcbD4PxUHNCgiQD9N1GYC+6kymMzWg==
+"@nebula.js/cli-serve@4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-4.2.4.tgz#04ffcf92bb774165e7844f6d8cf0f5fd1c47552c"
+  integrity sha512-zYm+mJqkipqc4oaUEw9uKTy+DB0pBv7amZRg6UdOuAz64bXZHDJemV1aZoqzCVj6/AWudnJOIwV0QV0BDR/m0A==
   dependencies:
-    "@nebula.js/cli-build" "^4.2.3"
+    "@nebula.js/cli-build" "^4.2.4"
     "@qlik/sdk" "^0.22.0"
     body-parser "1.20.2"
     chalk "4.1.2"
@@ -1868,19 +1879,19 @@
     ws "8.13.0"
     yargs "17.7.2"
 
-"@nebula.js/cli@4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.2.3.tgz#acbad95fb69c3df219f0ef634072923ba6681da9"
-  integrity sha512-N79F0Ty2nGRkOWSowjQ+y27V6KmDE0iGalemFdMRqvxzUOeSa8/9IjVyWfVMEX3w21pspxWWvcylgLP48hVAeg==
+"@nebula.js/cli@4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.2.4.tgz#91b82ce9d93b360fa0c9cff4134f8663e570a9c1"
+  integrity sha512-z+a26fDC0IIQhlWkt08A9wozLTqDjuCVNly8CdQad/UxW/oS2igqAcfeD1TpONhMaZBDAec4hhuag77AKfWDNA==
   dependencies:
-    "@nebula.js/cli-create" "^4.2.3"
+    "@nebula.js/cli-create" "^4.2.4"
     import-cwd "3.0.0"
     yargs "17.7.2"
 
-"@nebula.js/stardust@^4.2.3":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.2.3.tgz#925c040e777110f03787106ae7f299082058d131"
-  integrity sha512-zm4zUk0Rmsm/4JH9PxjZTTxJUWqxdP69acp0XIsAuFUtHjsRBxLnpTFNyCxo0Z1BfVZ5KBZhfCtqzMb741V1Qg==
+"@nebula.js/stardust@^4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.2.4.tgz#a730e06ea8fa33e5d060e068dbfa222792f0ebc0"
+  integrity sha512-2fegujOD6A6bCGThFI/Qgx+pwprb0dmcPXSZJi8d1SQiHwEjpxfLHBMdUXE0J+QrvdsZyhT4gtvkjTcp2q6BHA==
   dependencies:
     "@types/qlik-engineapi" "12.67.13"
 
@@ -4146,10 +4157,10 @@ eslint-plugin-react-hooks@4.6.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.6.0.tgz#4c3e697ad95b77e93f8646aaa1630c1ba607edd3"
   integrity sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==
 
-eslint-plugin-react@7.32.2:
-  version "7.32.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.32.2.tgz#e71f21c7c265ebce01bcbc9d0955170c55571f10"
-  integrity sha512-t2fBMa+XzonrrNkyVirzKlvn5RXzzPwRHtMvLAtVZrt8oxgnTQaYbU6SXTOO1mwQgp1y5+toMSKInnzGr0Knqg==
+eslint-plugin-react@7.33.0:
+  version "7.33.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.33.0.tgz#6c356fb0862fec2cd1b04426c669ea746e9b6eb3"
+  integrity sha512-qewL/8P34WkY8jAqdQxsiL82pDUeT7nhs8IsuXgfgnsEloKCT4miAV9N9kGtx7/KM9NH/NCGUE7Edt9iGxLXFw==
   dependencies:
     array-includes "^3.1.6"
     array.prototype.flatmap "^1.3.1"
@@ -4164,7 +4175,7 @@ eslint-plugin-react@7.32.2:
     object.values "^1.1.6"
     prop-types "^15.8.1"
     resolve "^2.0.0-next.4"
-    semver "^6.3.0"
+    semver "^6.3.1"
     string.prototype.matchall "^4.0.8"
 
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
@@ -5063,9 +5074,9 @@ ignore@^5.2.0:
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
 
 immutable@^4.0.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.0.tgz#eb1738f14ffb39fd068b1dbe1296117484dd34be"
-  integrity sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.1.tgz#17988b356097ab0719e2f741d56f3ec6c317f9dc"
+  integrity sha512-lj9cnmB/kVS0QHsJnYKD1uo3o39nrbKxszjnqS9Fr6NB7bZzW45U6WSGBPKXDL/CvDKqDNPA4r3DoDQ8GTxo2A==
 
 import-cwd@3.0.0, import-cwd@^3.0.0:
   version "3.0.0"
@@ -7469,9 +7480,9 @@ safe-regex-test@^1.0.0:
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
 sass@^1.62.0:
-  version "1.63.6"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.63.6.tgz#481610e612902e0c31c46b46cf2dad66943283ea"
-  integrity sha512-MJuxGMHzaOW7ipp+1KdELtqKbfAWbH7OLIdoSMnVe3EXPMTmxTmlaZDCTsgIpPCs3w99lLo9/zDKkOrJuT5byw==
+  version "1.64.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.64.1.tgz#6a46f6d68e0fa5ad90aa59ce025673ddaa8441cf"
+  integrity sha512-16rRACSOFEE8VN7SCgBu1MpYCyN7urj9At898tyzdXFhC+a+yOX5dXwAR7L8/IdPJ1NB8OYoXmD55DM30B2kEQ==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
