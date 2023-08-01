@@ -133,7 +133,7 @@ export const FoldedListbox = ({
         height={gridHeight}
       >
         {!narrowSmall
-          && <Grid container flexGrow={1} alignItems="center" sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px' height={narrowLarge ? '100%' : 'normal'}>
+          && <Grid container flexGrow={1} alignItems="center" sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px' height="normal">
             {isDrillDown
               && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
                 <div>
