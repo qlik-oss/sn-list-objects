@@ -137,12 +137,12 @@ export const FoldedListbox = ({
             {isDrillDown
               && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
                 <div>
-                  < DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
+                  <DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
                 </div>
               </Tooltip>
             }
             <Tooltip title={fieldName} enterDelay={2000}>
-              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight='normal'>
+              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight='100%'>
                 {fieldName}
               </Title>
             </Tooltip>

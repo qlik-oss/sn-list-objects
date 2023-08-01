@@ -14,7 +14,7 @@ const getSizes = (containerSize?: ISize, isInPopover?: boolean) => {
   let narrowSmall = false;
   if (isNarrow) {
     const narrowLargeLimit = 24;
-    const narrowSmallLimit = 20;
+    const narrowSmallLimit = 16;
     const { height } = containerSize;
     narrowLarge = height <= narrowLargeLimit && height > narrowSmallLimit;
     narrowSmall = height <= narrowSmallLimit;
