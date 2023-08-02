@@ -133,16 +133,16 @@ export const FoldedListbox = ({
         height={gridHeight}
       >
         {!narrowSmall
-          && <Grid container flexGrow={1} alignItems={'center'} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px'>
+          && <Grid container flexGrow={1} alignItems="center" sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px' height={narrowLarge ? '100%' : undefined}>
             {isDrillDown
               && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
                 <div>
-                  < DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
+                  <DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
                 </div>
               </Tooltip>
             }
             <Tooltip title={fieldName} enterDelay={2000}>
-              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight='normal'>
+              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight={narrowLarge ? '100%' : 'normal'}>
                 {fieldName}
               </Title>
             </Tooltip>

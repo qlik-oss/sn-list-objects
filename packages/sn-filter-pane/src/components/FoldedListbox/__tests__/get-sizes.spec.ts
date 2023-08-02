@@ -6,7 +6,7 @@ import { COLLAPSED_HEIGHT } from '../../ListboxGrid/distribute-resources';
 describe('getSizes', () => {
   it.only('should return correct sizes for narrow-small container', () => {
     const containerSize = {
-      height: 20,
+      height: 16,
     };
 
     const sizes = getSizes(containerSize as ISize, false);
