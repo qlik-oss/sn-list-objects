@@ -19,6 +19,8 @@ on:
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    outputs:
+      release-tag: ${{ steps.release-tag.outputs.tag }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -35,20 +37,6 @@ jobs:
       with:
         node-version: 18.x
 
-    - name: build sn-listbox
-      working-directory: packages/sn-listbox
-      run: |
-        yarn install --immutable --immutable-cache --check-cache
-        yarn build
-        yarn sense
-
-    - name: build sn-filter-pane
-      working-directory: packages/sn-filter-pane
-      run: |
-        yarn install --immutable --immutable-cache --check-cache
-        yarn build
-        yarn sense
-
     - name: Add npm publish token to .npmrc
       run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
     - name: yarn release
@@ -61,6 +49,21 @@ jobs:
         [[ "${{ inputs.release-type }}" == "No pre release" ]] && \
         yarn release $DRY || \
         yarn release --preRelease=${{ inputs.release-type }} $DRY
+        tag=`git tag --points-at HEAD`
+        echo "tag=${tag}" >> $GITHUB_ENV
 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set release tag on job output
+      id: release-tag
+      run: echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+  api-gov:
+    name: Run API Compliance to Update Baseline
+    needs: build-release
+    uses: ./.github/workflows/api-gov.yml
+    secrets: inherit
+    with:
+      update_baseline: true
+      tag: ${{ needs.build-release.outputs.release-tag }}
