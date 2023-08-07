@@ -1,11 +1,10 @@
-import { IEnv } from "../../types/types";
-import stylingPanelDef from "./data/data-panel/presentation/styling-definitions/styling-panel-def";
+import { IEnv } from '../../types/types';
+import stylingPanelDef from './data/data-panel/presentation/styling-definitions/styling-panel-def';
 
 function getSettings(env: IEnv) {
   const { flags } = env || {};
-  const stylingPanelEnabled = flags.isEnabled('IM_4073_FILTERPANE_STYLING')
-  const stylingPanel = stylingPanelEnabled && stylingPanelDef;
-  return {
+
+  const settings = {
     uses: 'settings',
     items: {
       general: {
@@ -15,15 +14,21 @@ function getSettings(env: IEnv) {
           },
         },
       },
+      simpleLabels: null,
+    },
+  };
+  if (flags.isEnabled('IM_4073_FILTERPANE_STYLING')) {
+    Object.assign(settings.items, {
       presentation: {
         grouped: true,
         type: 'items',
         translation: 'properties.presentation',
-        items: [stylingPanel]
+        items: [stylingPanelDef],
       },
-      simpleLabels: null,
-    },
+    });
   }
-};
+
+  return settings;
+}
 
 export default getSettings;
