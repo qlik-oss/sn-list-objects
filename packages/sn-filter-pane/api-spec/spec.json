@@ -3,7 +3,7 @@
   "info": {
     "name": "@nebula.js/sn-filter-pane:properties",
     "description": "Filter pane generic object definition",
-    "version": "0.13.5",
+    "version": "0.13.6",
     "license": "MIT",
     "stability": "stable",
     "x-qlik-visibility": "public"
@@ -27,7 +27,7 @@
           ]
         },
         "qChildListDef": {
-          "description": "A list definition for listing child objects.\nThe child object should contain listbox properties. See {@link https://qlik.dev/apis/javascript/nebula-listbox-properties | Listbox properties}",
+          "description": "A list definition for listing child objects.\nThe child object should contain listbox properties. See https://qlik.dev/apis/javascript/nebula-listbox-properties",
           "defaultValue": "{}",
           "type": "#/definitions/ChildListDef"
         },
