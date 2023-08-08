@@ -13,6 +13,7 @@ const stylingPanelDef = {
       items: {
         headerItems: {
           component: 'items',
+          ref: 'components',
           key: 'listBox',
           items: {
             fontWrapperItem: {
@@ -59,6 +60,7 @@ const stylingPanelDef = {
       items: {
         contentItems: {
           component: 'items',
+          ref: 'components',
           key: 'listBox',
           items: {
             contentFontWrapper: {

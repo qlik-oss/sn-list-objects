@@ -19,6 +19,10 @@ export default function useRender(stores: IStores) {
     });
   }
 
+  // Trigger a re-render only when components have changed in the filterpane layout.
+  // (Note that useEffect equality check is shallow and therefore requires a hash.)
+  const componentsHash = (fpLayout?.components || []).map((c: object) => JSON.stringify(c)).join(',');
+
   useEffect(() => {
     if (!fpLayout || !app || !resourcesReady) {
       return undefined;
@@ -27,5 +31,5 @@ export default function useRender(stores: IStores) {
     return (() => {
       teardown(root);
     });
-  }, [resourcesReady, fpLayout]);
+  }, [resourcesReady, componentsHash]);
 }

@@ -48,6 +48,7 @@ export interface IFilterPaneLayout {
   layoutOptions?: {
     compactData?: boolean,
   }
+  components?: object[],
 }
 
 export interface IListboxResource {
