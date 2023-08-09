@@ -8,7 +8,7 @@ export default function useRender(stores: IStores) {
   const { store, resourceStore } = stores;
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
 
-  const { app, fpLayout } = store.getState();
+  const { app, fpLayout, env } = store.getState();
   const containerElement = <IContainerElement>useElement();
 
   if (app && fpLayout) {
@@ -21,7 +21,7 @@ export default function useRender(stores: IStores) {
 
   // Trigger a re-render only when components have changed in the filterpane layout.
   // (Note that useEffect equality check is shallow and therefore requires a hash.)
-  const componentsHash = (fpLayout?.components || []).map((c: object) => JSON.stringify(c)).join(',');
+  const componentsHash = env?.flags?.isEnabled('IM_4073_FILTERPANE_STYLING') ? (fpLayout?.components || []).map((c: object) => JSON.stringify(c)).join(',') : undefined;
 
   useEffect(() => {
     if (!fpLayout || !app || !resourcesReady) {
