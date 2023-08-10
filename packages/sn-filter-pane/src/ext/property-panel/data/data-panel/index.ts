@@ -113,6 +113,16 @@ export default function getDataPanelItems(env: IEnv) {
             return data.searchEnabled !== false;
           },
         },
+        autoConfirm: {
+          ref: 'autoConfirm',
+          grouped: true,
+          component: 'checkbox',
+          translation: 'properties.filterpane.autoConfirm',
+          defaultValue: false,
+          show() {
+            return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
+          },
+        },
       },
     },
     otherSettings: {
