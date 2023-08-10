@@ -75,7 +75,7 @@ export default function getDataPanelItems(env: IEnv) {
     searchGroup: {
       type: 'items',
       translation: 'properties.filterpane.searchMode',
-      grouped: false,
+      grouped: true,
       items: {
         showSearch: {
           ref: 'searchEnabled',
@@ -113,16 +113,15 @@ export default function getDataPanelItems(env: IEnv) {
             return data.searchEnabled !== false;
           },
         },
-        autoConfirm: {
-          ref: 'autoConfirm',
-          grouped: true,
-          component: 'checkbox',
-          translation: 'properties.filterpane.autoConfirm',
-          defaultValue: false,
-          show() {
-            return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
-          },
-        },
+      },
+    },
+    autoConfirm: {
+      ref: 'autoConfirm',
+      component: 'checkbox',
+      translation: 'properties.filterpane.autoConfirm',
+      defaultValue: false,
+      show() {
+        return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
       },
     },
     otherSettings: {
