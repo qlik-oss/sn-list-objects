@@ -72,28 +72,27 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    searchGroup: {
+    showSearch: {
+      ref: 'searchEnabled',
+      type: 'boolean',
+      component: 'switch',
+      translation: 'properties.filterpane.searchField',
+      options: [
+        {
+          value: true,
+          translation: 'properties.show',
+        },
+        {
+          value: false,
+          translation: 'properties.hide',
+        },
+      ],
+      defaultValue: true,
+    },
+    wildCardSearchGroup: {
       type: 'items',
-      translation: 'properties.filterpane.searchMode',
       grouped: true,
       items: {
-        showSearch: {
-          ref: 'searchEnabled',
-          type: 'boolean',
-          component: 'switch',
-          translation: 'properties.filterpane.searchField',
-          options: [
-            {
-              value: true,
-              translation: 'properties.show',
-            },
-            {
-              value: false,
-              translation: 'properties.hide',
-            },
-          ],
-          defaultValue: true,
-        },
         wildCardSearch: {
           translation: 'properties.filterpane.searchMode',
           ref: 'wildCardSearch',
