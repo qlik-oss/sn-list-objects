@@ -91,7 +91,7 @@ export default function getDataPanelItems(env: IEnv) {
     },
     wildCardSearchGroup: {
       type: 'items',
-      grouped: true,
+      grouped: env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS'), // show a bottom border only if the below option (autoConfirm) is visible
       items: {
         wildCardSearch: {
           translation: 'properties.filterpane.searchMode',
