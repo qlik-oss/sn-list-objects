@@ -72,28 +72,27 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    searchGroup: {
-      type: 'items',
-      translation: 'properties.filterpane.searchMode',
-      grouped: false,
-      items: {
-        showSearch: {
-          ref: 'searchEnabled',
-          type: 'boolean',
-          component: 'switch',
-          translation: 'properties.filterpane.searchField',
-          options: [
-            {
-              value: true,
-              translation: 'properties.show',
-            },
-            {
-              value: false,
-              translation: 'properties.hide',
-            },
-          ],
-          defaultValue: true,
+    showSearch: {
+      ref: 'searchEnabled',
+      type: 'boolean',
+      component: 'switch',
+      translation: 'properties.filterpane.searchField',
+      options: [
+        {
+          value: true,
+          translation: 'properties.show',
         },
+        {
+          value: false,
+          translation: 'properties.hide',
+        },
+      ],
+      defaultValue: true,
+    },
+    wildCardSearchGroup: {
+      type: 'items',
+      grouped: env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS'), // show a bottom border only if the below option (autoConfirm) is visible
+      items: {
         wildCardSearch: {
           translation: 'properties.filterpane.searchMode',
           ref: 'wildCardSearch',
@@ -113,6 +112,15 @@ export default function getDataPanelItems(env: IEnv) {
             return data.searchEnabled !== false;
           },
         },
+      },
+    },
+    autoConfirm: {
+      ref: 'autoConfirm',
+      component: 'checkbox',
+      translation: 'properties.filterpane.autoConfirm',
+      defaultValue: false,
+      show() {
+        return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
       },
     },
     otherSettings: {

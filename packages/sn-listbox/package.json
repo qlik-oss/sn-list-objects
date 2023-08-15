@@ -71,6 +71,6 @@
     "typescript": "5.1.6"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": ">=4.1.0"
+    "@nebula.js/stardust": ">=4.4.0"
   }
 }
