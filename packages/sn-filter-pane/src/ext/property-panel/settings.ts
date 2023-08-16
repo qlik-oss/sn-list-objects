@@ -17,7 +17,7 @@ function getSettings(env: IEnv) {
       simpleLabels: null,
     },
   };
-  if (flags.isEnabled('IM_4073_FILTERPANE_STYLING')) {
+  if (flags?.isEnabled('IM_4073_FILTERPANE_STYLING')) {
     Object.assign(settings.items, {
       presentation: {
         grouped: true,
