@@ -26,7 +26,7 @@ const handleFocusoutEvent = (
 };
 
 const useFocusListener = (
-  filterpaneWrapperRef: React.MutableRefObject<HTMLDivElement | undefined>,
+  filterpaneWrapperRef: React.MutableRefObject<HTMLObjectElement | undefined>,
   keyboard: stardust.Keyboard | undefined,
 ) => {
   useEffect(() => {

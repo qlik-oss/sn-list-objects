@@ -1,6 +1,7 @@
+import { Listener } from '.';
+
 const createStore = <T>(createState: () => T) => {
   let state = createState();
-  type Listener = () => void;
   let listeners: Listener[] = [];
 
   const emitChange = () => {

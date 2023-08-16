@@ -9,7 +9,7 @@ export type IPage = {
   qMatrix: object[];
 };
 
-export interface IContainerElement extends HTMLDivElement {
+export interface IContainerElement extends HTMLObjectElement {
   current: HTMLElement
 }
 
