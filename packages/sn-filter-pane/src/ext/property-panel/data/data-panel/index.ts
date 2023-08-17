@@ -114,14 +114,19 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    autoConfirm: {
-      ref: 'autoConfirm',
-      component: 'checkbox',
-      translation: 'properties.filterpane.autoConfirm',
+    autoConfirmGroup: {
+      type: 'items',
       grouped: true,
-      defaultValue: false,
       show() {
         return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
+      },
+      items: {
+        autoConfirm: {
+          ref: 'autoConfirm',
+          component: 'checkbox',
+          translation: 'properties.filterpane.autoConfirm',
+          defaultValue: false,
+        },
       },
     },
     collapseMode: {
