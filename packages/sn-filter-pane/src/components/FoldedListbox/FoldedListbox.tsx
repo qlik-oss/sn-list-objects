@@ -12,7 +12,7 @@ import KEYS from '../keys';
 import getSizes from './get-sizes';
 
 export interface FoldedListboxClickEvent {
-  event: React.MouseEvent<HTMLDivElement>;
+  event: React.MouseEvent<HTMLObjectElement | HTMLDivElement>;
   resource: IListboxResource;
 }
 export interface FoldedListboxProps {
