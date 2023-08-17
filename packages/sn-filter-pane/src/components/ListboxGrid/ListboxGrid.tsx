@@ -1,41 +1,31 @@
 import React, {
-  useCallback, useEffect, useRef, useState, useSyncExternalStore,
+  useEffect, useRef, useSyncExternalStore,
 } from 'react';
 import { Grid } from '@mui/material';
 import debounce from 'lodash/debounce';
 import { stardust } from '@nebula.js/stardust';
-import getWidthHeight from './get-size';
 import { IListboxResource } from '../../hooks/types';
 import ListboxContainer from '../ListboxContainer';
 import 'react-resizable/css/styles.css';
 import ElementResizeListener from '../ElementResizeListener';
-import {
-  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources, hasHeader,
-} from './distribute-resources';
-import { ExpandProps, IColumn, ISize } from './interfaces';
+
+import { IColumn } from './interfaces';
 import { ColumnGrid } from './grid-components/ColumnGrid';
 import { Column } from './grid-components/Column';
 import { ColumnItem } from './grid-components/ColumnItem';
 import type { IStores } from '../../store';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import useHandleActive, { ActiveOnly } from './use-handle-active';
+import useHandleResize from './use-handle-resize';
 import KEYS from '../keys';
-import { RenderTrackerService } from '../../services/render-tracker';
 import useFocusListener from '../../hooks/use-focus-listener';
 import findNextIndex from './find-next-index';
 import { IEnv } from '../../types/types';
 
-const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
-  renderTracker?.setNumberOfListboxes(listboxCount);
-  if (listboxCount === 0) {
-    renderTracker?.renderedCallback();
-  }
-};
-
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, resourceStore } = stores;
   const {
-    env = {}, selections, keyboard, renderTracker,
+    env = {}, selections, keyboard, renderTracker, options,
   } = store.getState();
 
   const { sense } = env as IEnv;
@@ -43,35 +33,17 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   // Subscribe to the resourceStore outside of react and re-render on store change.
   const { resources = [] } = useSyncExternalStore(resourceStore.subscribe, resourceStore.getState);
 
-  const gridRef = useRef<HTMLDivElement>();
-  const [columns, setColumns] = useState<IColumn[]>([]);
-  const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
+  const gridRef = useRef<HTMLObjectElement>();
+
   const isInSense = typeof (sense?.isSmallDevice) === 'function';
-  const { options } = stores.store.getState();
 
-  const handleResize = useCallback(() => {
-    if (!resources?.length) {
-      return;
-    }
-    const { width, height } = getWidthHeight(gridRef);
-    const size: ISize = { width, height, dimensionCount: resources.length };
-    store.setState({ ...store.getState(), containerSize: size });
-    const isSmallDevice = sense?.isSmallDevice?.() ?? false;
-    const isSingleItem = resources.length === 1;
-    const expandProps: ExpandProps = {
-      isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
-      hasHeader: hasHeader(resources[0]),
-    };
-    const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
-    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
-    const resourcesWithDefaultValues = setDefaultValues(resources);
-    const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
-    setOverflowingResources(overflowing);
-    const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
-    setColumns(expandedAndCollapsedColumns);
-    prepareRenderTracker(expandedItemsCount, renderTracker);
-  }, [resources]);
-
+  const { handleResize, overflowingResources, columns } = useHandleResize({
+    resources,
+    gridRef,
+    store,
+    env,
+    renderTracker,
+  });
   const dHandleResize = useRef(debounce(handleResize, isInSense ? 0 : 10));
 
   const preventDefaultBehavior = (event: React.KeyboardEvent | MouseEvent | React.MouseEvent<HTMLLIElement>) => {
@@ -128,7 +100,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   }, [resources]);
 
   useEffect(() => {
-    const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLDivElement;
+    const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLObjectElement;
     if (keyboard?.active) {
       firstChild?.setAttribute('tabIndex', '-1');
       firstChild?.focus();
@@ -148,7 +120,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         onKeyDown={handleKeyDown}
         sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}
         columns={columns?.length}
-        ref={gridRef as unknown as () => HTMLDivElement}
+        ref={gridRef as unknown as () => HTMLObjectElement}
         spacing={0}
         height='100%'
         overflow="hidden"

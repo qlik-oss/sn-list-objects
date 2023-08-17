@@ -9,7 +9,7 @@ import { RenderTrackerService } from '../services/render-tracker';
 import createStore from './state-store';
 import { ISize } from '../components/ListboxGrid/interfaces';
 
-export interface IStore {
+export interface IStoreState {
   app?: EngineAPI.IApp;
   model?: EngineAPI.IGenericObject;
   fpLayout?: IFilterPaneLayout;
@@ -26,11 +26,19 @@ export interface IStore {
   containerSize?: ISize;
 }
 
+export type Listener = () => void;
+
+export interface IStore {
+  getState: () => IStoreState;
+  setState: (obj: IStoreState) => void;
+  subscribe: (listener: Listener) => void;
+}
+
 interface ResourceState {
   resources: IListboxResource[];
 }
 
-const initStoreState: IStore = {
+const initStoreState: IStoreState = {
   options: {},
 };
 

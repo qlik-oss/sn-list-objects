@@ -3,7 +3,7 @@ interface ISense {
 }
 
 export interface IEnv {
-  flags: {
+  flags?: {
     isEnabled: (flag?: string) => boolean;
   },
   sense?: ISense,

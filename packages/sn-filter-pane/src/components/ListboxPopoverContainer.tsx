@@ -221,7 +221,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        PaperProps={popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme)}
+        slotProps={{ paper: popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme) }}
         anchorReference= {isSmallDevice ? 'anchorPosition' : 'anchorEl'}
         anchorPosition= {{ left: 0, top: 0 }}
         marginThreshold={isSmallDevice ? 0 : 16}
