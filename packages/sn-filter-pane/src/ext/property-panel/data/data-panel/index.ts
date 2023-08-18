@@ -114,41 +114,11 @@ export default function getDataPanelItems(env: IEnv) {
         },
       },
     },
-    autoConfirmGroup: {
-      type: 'items',
-      grouped: true,
-      show() {
-        return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
-      },
-      items: {
-        autoConfirm: {
-          ref: 'autoConfirm',
-          component: 'checkbox',
-          translation: 'properties.filterpane.autoConfirm',
-          defaultValue: false,
-        },
-      },
-    },
-    collapseMode: {
-      ref: 'collapseMode',
-      type: 'string',
-      component: 'buttongroup', // dropdown
-      translation: 'properties.filterpane.collapseMode',
-      defaultValue: 'auto',
-      options: [
-        {
-          value: 'auto',
-          translation: 'Common.Auto',
-        },
-        {
-          value: 'always',
-          translation: 'Common.Always',
-        },
-        {
-          value: 'never',
-          translation: 'Common.Never',
-        },
-      ],
+    autoConfirm: {
+      ref: 'autoConfirm',
+      component: 'checkbox',
+      translation: 'properties.filterpane.autoConfirm',
+      defaultValue: false,
       show() {
         return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
       },
