@@ -7,8 +7,8 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   layoutOptions?: {
     dense: boolean,
     dataLayout?: 'grid' | 'singleColumn',
+    collapseMode?: 'auto' | 'always' | 'never',
   },
-  collapseMode?: 'auto' | 'always' | 'never';
   showTitle?: boolean,
   qHasSoftPatches?: boolean;
   qExtendsId?: string;
