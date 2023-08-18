@@ -114,7 +114,7 @@ export default function getPresentation(env: IEnv) {
         },
         items: {
           collapseMode: {
-            ref: 'collapseMode',
+            ref: 'layoutOptions.collapseMode',
             type: 'string',
             component: 'dropdown',
             translation: 'properties.filterpane.collapseMode',
