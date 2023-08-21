@@ -1,5 +1,19 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.14.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.6...v0.14.0) (2023-08-21)
+
+
+### Features
+
+* add property for auto confirm selections ([#339](https://github.com/qlik-oss/sn-list-objects/issues/339)) ([3621785](https://github.com/qlik-oss/sn-list-objects/commit/36217858e9c1f4023f5fa5b1f1035ac81c7560ec))
+* **sn-filter-pane:** Add collapse mode setting ([#341](https://github.com/qlik-oss/sn-list-objects/issues/341)) ([bd1defa](https://github.com/qlik-oss/sn-list-objects/commit/bd1defaf9a0bae47c0fb3dce285b42157d996dcd))
+* **sn-filter-pane:** Styling panel for Filter pane ([#338](https://github.com/qlik-oss/sn-list-objects/issues/338)) ([63bfcc5](https://github.com/qlik-oss/sn-list-objects/commit/63bfcc5ade82f0036e503698b26d508327313d21))
+
+
+### Bug Fixes
+
+* **deps:** update minor and patch ([#337](https://github.com/qlik-oss/sn-list-objects/issues/337)) ([e34a16a](https://github.com/qlik-oss/sn-list-objects/commit/e34a16a397b5a3245945e10d7fdc244a209d22a6))
+
 ### [0.13.6](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.5...v0.13.6) (2023-08-02)
 
 
