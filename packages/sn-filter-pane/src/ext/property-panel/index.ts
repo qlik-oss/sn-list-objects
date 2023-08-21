@@ -1,4 +1,3 @@
-import settings from './settings';
 import { IEnv } from '../../types/types';
 import getData from './data';
 import simpleSorting from './simple-sorting';

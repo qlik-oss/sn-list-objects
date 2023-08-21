@@ -106,6 +106,36 @@ export default function getPresentation(env: IEnv) {
           },
         },
       },
+      collapseModeGroup: {
+        type: 'items',
+        grouped: true,
+        show() {
+          return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
+        },
+        items: {
+          collapseMode: {
+            ref: 'layoutOptions.collapseMode',
+            type: 'string',
+            component: 'dropdown',
+            translation: 'properties.filterpane.collapseMode',
+            defaultValue: 'auto',
+            options: [
+              {
+                value: 'auto',
+                translation: 'Common.Auto',
+              },
+              {
+                value: 'always',
+                translation: 'Common.Always',
+              },
+              {
+                value: 'never',
+                translation: 'Common.Never',
+              },
+            ],
+          },
+        },
+      },
       gridModeGroup: {
         grouped: true,
         type: 'items',
