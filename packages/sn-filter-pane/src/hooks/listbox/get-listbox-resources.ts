@@ -4,8 +4,11 @@ async function getListboxResourcesFromIds(app: EngineAPI.IApp, ids: string[], la
   const models = await Promise.all(ids.map((id) => app.getObject(id)));
   const layouts = await Promise.all(models.map((model) => model.getLayout() as unknown as EngineAPI.IGenericListLayout));
   // add components object for styling
+  console.log('layouts', layouts)
   if(layouts && layouts.length > 0) {
-    layouts[0].components = layout['components']
+    layouts.forEach(layoutElem => {
+      layoutElem.components = layout['components'];
+    })
   };
 
   return ids.map((id: string, index: number) => ({
