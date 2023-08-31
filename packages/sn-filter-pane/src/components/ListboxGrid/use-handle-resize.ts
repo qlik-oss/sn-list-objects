@@ -1,10 +1,11 @@
+/* eslint-disable no-param-reassign */
 import {
   MutableRefObject, useCallback, useState,
 } from 'react';
 import { RenderTrackerService } from '../../services/render-tracker';
 import getWidthHeight from './get-size';
 import {
-  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, mergeColumnsAndResources, hasHeader,
+  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns, hasHeader,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { IEnv } from '../../types/types';
@@ -42,6 +43,13 @@ export default function useHandleResize({
     if (!resources?.length) {
       return;
     }
+    resources.forEach((r: IListboxResource) => {
+      // eslint-disable-next-line no-param-reassign
+      const layoutOptions = r.layout.layoutOptions || {};
+      // eslint-disable-next-line no-param-reassign
+      layoutOptions.collapseMode = 'never';
+      r.layout.layoutOptions = layoutOptions;
+    });
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     store.setState({ ...store.getState(), containerSize: size });
@@ -50,13 +58,16 @@ export default function useHandleResize({
     const expandProps: ExpandProps = {
       isSingleGridLayout: isSingleItem && resources[0].layout?.layoutOptions?.dataLayout === 'grid',
       hasHeader: hasHeader(resources[0]),
+      alwaysExpanded: resources[0].layout?.layoutOptions?.collapseMode === 'never',
     };
-    const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
+    const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
+    console.log('calculatedColumns', calculatedColumns);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
+    console.log('balancedColumns', balancedColumns);
     const resourcesWithDefaultValues = setDefaultValues(resources);
-    const { columns: mergedColumnsAndResources, overflowing } = mergeColumnsAndResources(balancedColumns, resourcesWithDefaultValues);
+    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resourcesWithDefaultValues);
     setOverflowingResources(overflowing);
-    const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps);
+    const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps, isSmallDevice);
     setColumns(expandedAndCollapsedColumns);
     prepareRenderTracker(expandedItemsCount, renderTracker);
   };

@@ -62,6 +62,9 @@ export interface IListboxResource {
   fullyExpanded: boolean;
   dense: boolean;
   hiddenHeader: boolean;
+  neverExpanded: boolean;
+  alwaysExpanded: boolean;
+  fits: boolean;
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];

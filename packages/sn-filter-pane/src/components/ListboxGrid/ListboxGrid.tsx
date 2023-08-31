@@ -111,6 +111,15 @@ function ListboxGrid({ stores }: { stores: IStores }) {
 
   const handleActive = useHandleActive(isInSense, selections as stardust.ObjectSelections & ActiveOnly);
 
+  // columns.forEach((column) => {
+  //   column.items = column.items?.map((item) => ({
+  //     ...item,
+  //     expand: true,
+  //   }));
+  // });
+
+  console.log(columns[0]);
+
   return (
     <>
       <ElementResizeListener onResize={dHandleResize.current} />
@@ -129,7 +138,6 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         {!!columns?.length && columns?.map((column: IColumn, i: number) => (
           <ColumnGrid key={i} widthPercent={100 / columns.length}>
             <Column lastColumn={!isRtl ? columns.length === i + 1 : i === 0}>
-
               {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
                 <ColumnItem
                   key={item.id}
