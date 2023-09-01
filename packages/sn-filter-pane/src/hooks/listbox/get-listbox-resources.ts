@@ -1,13 +1,12 @@
 import { IFilterPaneLayout, ListboxResourcesArr } from '../types';
 
-async function getListboxResourcesFromIds(app: EngineAPI.IApp, ids: string[], layout: IFilterPaneLayout): Promise<ListboxResourcesArr> {
+async function getListboxResourcesFromIds(app: EngineAPI.IApp, ids: string[], fpLayout: IFilterPaneLayout): Promise<ListboxResourcesArr> {
   const models = await Promise.all(ids.map((id) => app.getObject(id)));
   const layouts = await Promise.all(models.map((model) => model.getLayout() as unknown as EngineAPI.IGenericListLayout));
-  // add components object for styling
-  console.log('layouts', layouts)
+  // add components array for styling
   if(layouts && layouts.length > 0) {
     layouts.forEach(layoutElem => {
-      layoutElem.components = layout['components'];
+      layoutElem.components = [...fpLayout['components']];
     })
   };
 
@@ -18,7 +17,7 @@ async function getListboxResourcesFromIds(app: EngineAPI.IApp, ids: string[], la
   }));
 }
 
-export default async function getListBoxResources(app: EngineAPI.IApp, layout: IFilterPaneLayout): Promise<ListboxResourcesArr> {
-  const childIds = layout?.qChildList?.qItems.map((item) => item.qInfo.qId) || [];
-  return getListboxResourcesFromIds(app, childIds, layout);
+export default async function getListBoxResources(app: EngineAPI.IApp, fpLayout: IFilterPaneLayout): Promise<ListboxResourcesArr> {
+  const childIds = fpLayout?.qChildList?.qItems.map((item) => item.qInfo.qId) || [];
+  return getListboxResourcesFromIds(app, childIds, fpLayout);
 }
