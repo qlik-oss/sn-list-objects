@@ -24,7 +24,8 @@ const getExpandedHeightLimit = (expandProps: ExpandProps) => {
 
   let heightLimit = 90;
   if (expandProps.alwaysExpanded) {
-    heightLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + getExpandedRowHeight(false) : 0;
+    heightLimit = 0; // expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
+    // heightLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + getExpandedRowHeight(false) : getExpandedRowHeight(false);
   } else if (expandProps.isSingleGridLayout) {
     const singleGridLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + SINGLE_GRID_ROW_HEIGHT : 0;
     heightLimit = expandProps.isSingleGridLayout ? singleGridLimit : 90;
@@ -55,7 +56,7 @@ const getListBoxMinHeight = (resource: IListboxResource) => {
 const getMaxColumns = (size: ISize, isSmallDevice: boolean) => (isSmallDevice ? 1 : Math.floor((size.width + COLUMN_SPACING) / (COLUMN_MIN_WIDTH + COLUMN_SPACING)) || 1);
 
 const howManyListBoxesFit = (columnSize: ISize, resourcesSlice: ListboxResourcesArr) => {
-  const columnOuterHeight = columnSize.height; // + ITEM_SPACING;
+  const columnOuterHeight = columnSize.height + ITEM_SPACING;
   let count = 0;
   let accHeight = 0;
   let resource;
@@ -134,7 +135,6 @@ function estimateColumnHeight(column: IColumn) {
     }
     totHeight += ITEM_SPACING;
   });
-
   return totHeight;
 }
 
@@ -148,8 +148,8 @@ const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolea
   if (isSmallDevice) {
     return false;
   }
-  const spacing = (column.itemCount ?? 0) > 1 ? ITEM_SPACING : 0;
-  return size.height > estimateColumnHeight(column) + spacing; // getExpandedHeightLimit(expandProps)
+  // const spacing = (column.itemCount ?? 0) > 1 ? ITEM_SPACING : 0;
+  return size.height > estimateColumnHeight(column); // getExpandedHeightLimit(expandProps)
 };
 
 export const calculateColumns = (size: ISize, columns: IColumn[], isSmallDevice: boolean, expandProps: ExpandProps, resources: ListboxResourcesArr) => {
@@ -275,7 +275,7 @@ const setFullyExpanded = (item: IListboxResource) => {
   }
 };
 
-const expandUntilFull = (sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number) => {
+const expandUntilFull = (sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, lastItemIndex: number, isSingleGridLayout = false) => {
   if (!sortedItems) return { height: undefined, item: undefined };
   let i;
   let item;
@@ -291,18 +291,24 @@ const expandUntilFull = (sortedItems: IListboxResource[] | undefined, initialLef
       leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: [...sortedItems.slice(0, i), ...sortedItems.slice(i + 1)] });
       expandedHeight = getListBoxMaxHeight(item);
       itemFits = leftOverHeight - expandedHeight >= 0;
+      const isLastItem = i === lastItemIndex;
       item.fits = itemFits;
       if (itemFits && !item.neverExpanded) {
         item.expand = true;
-        item.height = `${expandedHeight}px`;
+
+        item.height = isLastItem ? DEFAULT_CSS_HEIGHT : `${expandedHeight}px`;
         setFullyExpanded(item);
       } else if (item.neverExpanded) {
         item.expand = false;
-      } else if (item.alwaysExpanded) {
+      } else { // if (item.alwaysExpanded) {
         // See if listbox fits as collapsed.
         const collapsedHeight = getListBoxMinHeight(item);
-        const fitsAsCollapsed = leftOverHeight - collapsedHeight >= 0;
-        item.expand = fitsAsCollapsed;
+        const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: hasHeader(item), isSingleGridLayout });
+        const fitsAsCollapsed = leftOverHeight - collapsedHeight >= expandedHeightLimit;
+        if (fitsAsCollapsed) {
+          item.expand = true;
+          item.height = isLastItem ? DEFAULT_CSS_HEIGHT : `${leftOverHeight}px`;
+        }
       }
     }
   }
@@ -316,11 +322,15 @@ function setDefaultItemSettings({
   if (item.neverExpanded) {
     item.expand = false;
   } else {
-    // const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: hasHeader(item), isSingleGridLayout: isSingleColumn });
-    const canFitSingle = isSingleColumn && innerHeight - getListBoxMinHeight(item) >= 0;
-    const expand = item.alwaysExpanded && canFitSingle && !isSmallDevice;
+    const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: hasHeader(item), isSingleGridLayout: isSingleColumn });
+    const canFitSingle = isSingleColumn && innerHeight - getListBoxMinHeight(item) >= expandedHeightLimit;
+    const expand = canFitSingle && !isSmallDevice;
     item.expand = expand;
-    item.height = column.expand && canFitSingle ? DEFAULT_CSS_HEIGHT : `${getListBoxMinHeight(item)}px`;
+    if (item.alwaysExpanded) {
+      item.height = column.expand && canFitSingle ? DEFAULT_CSS_HEIGHT : `${getListBoxMinHeight(item)}px`;
+    } else {
+      item.expand = expand;
+    }
   }
 }
 
@@ -333,9 +343,10 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
   columns.forEach((column: IColumn) => {
     // 1. Make sure we have the cardinal so that they can be expanded in order, starting with the lowest cardinal.
     // 2. Reset expand mode to the default value
+    const columnItems = column.items || [];
     const isSingleColumn = column.itemCount === 1 && !column.hiddenItems;
 
-    column?.items?.forEach((item) => {
+    columnItems.forEach((item) => {
       item.cardinal = getDimensionCardinal(item);
 
       setDefaultItemSettings({
@@ -348,22 +359,29 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
     //   item.height = column.expand ? DEFAULT_CSS_HEIGHT : `${getListBoxMinHeight(item)}px`;
     // }
 
-    // Expand the listbox with the highest cardinality, measure height, then expand again until the space is filled.
-    const sortedItems = (column?.items || []).concat().sort((a, b) => a.cardinal - b.cardinal);
+    // Try to expand listboxes in this order, based on the following criteria and order:
+    //  1. alwaysExpanded listboxes
+    //  2. listboxes with lowest cardinality
+    const sortedItems = columnItems.concat().sort((a, b) => {
+      if (a.alwaysExpanded) {
+        return -1;
+      }
+      return a.cardinal - b.cardinal > 0 ? 1 : -1;
+    });
 
     if (column.expand) {
       const totalExpandedHeight = 0;
 
       if ((sortedItems.length ?? 0) > 1) {
         // First, expand all force expands (if any) to their smallest possible size (i.e. 1 row + header, if any).
-        sortedItems.filter((item) => !!item.alwaysExpanded).forEach((item) => {
-          // const expH = getListBoxMaxHeight(item);
-          const expH = getExpandedRowHeight(!!item.layout.layoutOptions?.dense) + (hasHeader(item) ? EXPANDED_HEADER_HEIGHT : 0);
-          item.height = `${expH}px`;
-          // item.height = isSingleColumn ? DEFAULT_CSS_HEIGHT : `${expH}px`;
-        });
-
-        expandUntilFull(sortedItems, innerHeight);
+        // sortedItems.filter((item) => !!item.alwaysExpanded).forEach((item) => {
+        //   // const expH = getListBoxMaxHeight(item);
+        //   const expH = getExpandedRowHeight(!!item.layout.layoutOptions?.dense) + (hasHeader(item) ? EXPANDED_HEADER_HEIGHT : 0);
+        //   item.height = `${expH}px`;
+        //   // item.height = isSingleColumn ? DEFAULT_CSS_HEIGHT : `${expH}px`;
+        // });
+        const lastItemIndex = sortedItems.indexOf(columnItems[columnItems.length - 1]);
+        expandUntilFull(sortedItems, innerHeight, lastItemIndex);
       }
       leftOverHeight = estimateColumnHeight(column);
 
@@ -383,16 +401,15 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
         setFullyExpanded(item);
       }
     }
-    const expandedInColumn = column?.items?.filter((item) => item.expand) ?? [];
+    const expandedInColumn = columnItems?.filter((item) => item.expand) ?? [];
     allExpandedItems = [...allExpandedItems, ...expandedInColumn];
 
     // Set the render mode for collapsed LBs
-    if (column?.items?.length === 1 && size.height < COLLAPSED_HEIGHT - 4) {
+    if (columnItems.length === 1 && size.height < COLLAPSED_HEIGHT - 4) {
       // TODO: This hides the title in the old collapsed listbox, when does this occur?
-      column.items[0].responsiveMode = size.height < COLLAPSED_HEIGHT * 0.5 ? 'spark' : 'small';
-      column.items[0].height = `${size.height}px`;
+      columnItems[0].responsiveMode = size.height < COLLAPSED_HEIGHT * 0.5 ? 'spark' : 'small';
+      columnItems[0].height = `${size.height}px`;
     }
-    // expandUntilFull(sortedItems, innerHeight);
   });
   return { columns, expandedItemsCount: allExpandedItems.length };
 };
