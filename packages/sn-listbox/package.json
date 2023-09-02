@@ -41,7 +41,7 @@
     "@babel/preset-typescript": "^7.18.6",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
-    "@mui/material": "5.14.6",
+    "@mui/material": "5.14.7",
     "@nebula.js/cli": "4.4.0",
     "@nebula.js/cli-build": "4.4.0",
     "@nebula.js/cli-sense": "4.4.0",
