@@ -363,10 +363,13 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
     //  1. alwaysExpanded listboxes
     //  2. listboxes with lowest cardinality
     const sortedItems = columnItems.concat().sort((a, b) => {
-      if (a.alwaysExpanded) {
-        return -1;
+      if (a.alwaysExpanded && !b.alwaysExpanded) {
+        return -1; // a goes before b
       }
-      return a.cardinal - b.cardinal > 0 ? 1 : -1;
+      if (b.alwaysExpanded && !a.alwaysExpanded) {
+        return 1; // b goes before a
+      }
+      return a.cardinal > b.cardinal ? 1 : -1; // lower cardinality goes before higher
     });
 
     if (column.expand) {
