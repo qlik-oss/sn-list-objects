@@ -254,7 +254,7 @@ describe('distribute resources', () => {
 
   describe('expand with one grid item', () => {
     it('should expand when title is present at height 87px', () => {
-      const size: ISize = { height: 87, width: 1000, dimensionCount: 10 };
+      const size: ISize = { height: 77, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [1] });
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,
@@ -266,7 +266,7 @@ describe('distribute resources', () => {
     });
 
     it('should expand when title is hidden at height 39px', () => {
-      const size: ISize = { height: 39, width: 1000, dimensionCount: 10 };
+      const size: ISize = { height: 49, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [1] });
       const expandPropsGrid: ExpandProps = {
         hasHeader: false,

@@ -139,7 +139,7 @@ function estimateColumnHeight(column: IColumn) {
     totHeight += ITEM_SPACING;
   });
   // Subtract one ITEM_SPACING since the first item wont have a margin-top of ITEM_SPACING
-  totHeight -= ITEM_SPACING;
+  // totHeight -= ITEM_SPACING;
   return totHeight;
 }
 
