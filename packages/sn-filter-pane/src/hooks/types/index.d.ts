@@ -61,10 +61,10 @@ export interface IListboxResource {
   responsiveMode: string;
   fullyExpanded: boolean;
   dense: boolean;
-  hiddenHeader: boolean;
   neverExpanded: boolean;
   alwaysExpanded: boolean;
   fits: boolean;
+  hasHeader: boolean;
 }
 
 export type ListboxResourcesArr = array & IListboxResource[];

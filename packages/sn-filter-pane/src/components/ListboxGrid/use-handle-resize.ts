@@ -5,7 +5,8 @@ import {
 import { RenderTrackerService } from '../../services/render-tracker';
 import getWidthHeight from './get-size';
 import {
-  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns, hasHeader,
+  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns,
+  hasHeader,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { IEnv } from '../../types/types';
@@ -43,15 +44,7 @@ export default function useHandleResize({
     if (!resources?.length) {
       return;
     }
-    // resources.forEach((r: IListboxResource, i) => {
-    //   // eslint-disable-next-line no-param-reassign
-    //   const layoutOptions = r.layout.layoutOptions || {};
-    //   // eslint-disable-next-line no-param-reassign
-    //   if (i === i) {
-    //     layoutOptions.collapseMode = 'always';
-    //     r.layout.layoutOptions = layoutOptions;
-    //   }
-    // });
+    resources = setDefaultValues(resources);
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     store.setState({ ...store.getState(), containerSize: size });
@@ -63,10 +56,8 @@ export default function useHandleResize({
       alwaysExpanded: resources[0].layout?.layoutOptions?.collapseMode === 'never',
     };
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
-    console.log('calculatedColumns', calculatedColumns);
-    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
-    const resourcesWithDefaultValues = setDefaultValues(resources);
-    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resourcesWithDefaultValues, isSmallDevice);
+    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice);
+    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resources, isSmallDevice);
     setOverflowingResources(overflowing);
     const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps, isSmallDevice);
     setColumns(expandedAndCollapsedColumns);

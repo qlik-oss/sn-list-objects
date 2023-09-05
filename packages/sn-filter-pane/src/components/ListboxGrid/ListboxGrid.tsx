@@ -111,15 +111,6 @@ function ListboxGrid({ stores }: { stores: IStores }) {
 
   const handleActive = useHandleActive(isInSense, selections as stardust.ObjectSelections & ActiveOnly);
 
-  // columns.forEach((column) => {
-  //   column.items = column.items?.map((item) => ({
-  //     ...item,
-  //     expand: true,
-  //   }));
-  // });
-
-  console.log(columns[0]);
-
   return (
     <>
       <ElementResizeListener onResize={dHandleResize.current} />
