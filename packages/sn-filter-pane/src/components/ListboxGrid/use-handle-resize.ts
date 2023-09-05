@@ -43,13 +43,15 @@ export default function useHandleResize({
     if (!resources?.length) {
       return;
     }
-    resources.forEach((r: IListboxResource) => {
-      // eslint-disable-next-line no-param-reassign
-      const layoutOptions = r.layout.layoutOptions || {};
-      // eslint-disable-next-line no-param-reassign
-      layoutOptions.collapseMode = 'never';
-      r.layout.layoutOptions = layoutOptions;
-    });
+    // resources.forEach((r: IListboxResource, i) => {
+    //   // eslint-disable-next-line no-param-reassign
+    //   const layoutOptions = r.layout.layoutOptions || {};
+    //   // eslint-disable-next-line no-param-reassign
+    //   if (i === i) {
+    //     layoutOptions.collapseMode = 'always';
+    //     r.layout.layoutOptions = layoutOptions;
+    //   }
+    // });
     const { width, height } = getWidthHeight(gridRef);
     const size: ISize = { width, height, dimensionCount: resources.length };
     store.setState({ ...store.getState(), containerSize: size });
@@ -63,9 +65,8 @@ export default function useHandleResize({
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
     console.log('calculatedColumns', calculatedColumns);
     const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
-    console.log('balancedColumns', balancedColumns);
     const resourcesWithDefaultValues = setDefaultValues(resources);
-    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resourcesWithDefaultValues);
+    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resourcesWithDefaultValues, isSmallDevice);
     setOverflowingResources(overflowing);
     const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps, isSmallDevice);
     setColumns(expandedAndCollapsedColumns);
