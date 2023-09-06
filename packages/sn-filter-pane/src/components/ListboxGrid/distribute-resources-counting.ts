@@ -127,10 +127,20 @@ export function estimateColumnHeight(column: IColumn) {
   return totHeight;
 }
 
-export const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolean) => {
+export const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolean, expandProps: ExpandProps) => {
   if (isSmallDevice) {
     return false;
   }
-  const canExpandOne = size.height >= estimateColumnHeight(column);
-  return canExpandOne;
+  let hasRoom;
+  const expandLimit = getExpandedHeightLimit(expandProps);
+  if (expandProps.isSingleGridLayout && column.items?.[0]) {
+    // Since we only have one item and we want to know if it can be expanded, ensure it's set to expand: true.
+    hasRoom = size.height > expandLimit;
+    // eslint-disable-next-line no-param-reassign
+    column.items[0].expand = column.items[0].expand ?? hasRoom;
+  } else {
+    const spaceLeft = size.height - estimateColumnHeight(column);
+    hasRoom = spaceLeft >= expandLimit;
+  }
+  return hasRoom;
 };

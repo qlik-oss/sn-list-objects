@@ -108,7 +108,6 @@ describe('distribute resources', () => {
         expand: false,
       }));
 
-      // const columns = [{ itemCount: dimensionCount, items: Array(dimensionCount).fill(createItem({ expand: false })) }];
       const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
       expect(result).toEqual([
         {
@@ -254,7 +253,7 @@ describe('distribute resources', () => {
 
   describe('expand with one grid item', () => {
     it('should expand when title is present at height 87px', () => {
-      const size: ISize = { height: 77, width: 1000, dimensionCount: 10 };
+      const size: ISize = { height: 87, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [1] });
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,

@@ -209,7 +209,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
 
   return (
     <StyledDiv ref={containerRef} className='listbox-popover-container' onKeyDown={onListboxPopoverContainerKeyDown}>
-      {isSingle && resources[0].layout.layoutOptions?.collapseMode !== 'never'
+      {isSingle && !resources[0].alwaysExpanded
         ? <FoldedListbox onClick={handleOpen} resource={resources[0]} stores={stores} />
         : <ExpandButton onClick={handleOpen} opened={popoverOpen} stores={stores} />}
       <Popover

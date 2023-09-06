@@ -80,13 +80,13 @@ export function calculateColumns(size: ISize, columns: IColumn[], isSmallDevice:
   return columns;
 }
 
-export function balanceColumns(size: ISize, columns: IColumn[], isSmallDevice: boolean) {
+export function balanceColumns(size: ISize, columns: IColumn[], isSmallDevice: boolean, expandProps: ExpandProps) {
   let collapsedItems = 0;
   const expanded = columns.filter((column) => column.expand);
   const collapsed = columns.filter((column) => column.expand === false);
 
   const canColumnExpand = collapsed.length > 0 && !collapsed[collapsed.length - 1].hiddenItems
-    && haveRoomToExpandOne(size, collapsed[collapsed.length - 1], isSmallDevice);
+    && haveRoomToExpandOne(size, collapsed[collapsed.length - 1], isSmallDevice, expandProps);
   if (canColumnExpand) {
     collapsed[collapsed.length - 1].expand = true;
   } else {
@@ -223,6 +223,12 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
       if ((sortedItems.length ?? 0) > 1) {
         const lastItemIndex = sortedItems.indexOf(columnItems[columnItems.length - 1]);
         expandUntilFull(sortedItems, innerHeight, lastItemIndex);
+      } else if (expandProps.isSingleGridLayout) {
+        // Ensure we set expand to true in this corner case (product designer request).
+        const hasRoom = haveRoomToExpandOne(size, sortedItems[0], isSmallDevice, expandProps);
+        if (hasRoom && column.items?.[0]) {
+          column.items[0].expand = true;
+        }
       }
       leftOverHeight = estimateColumnHeight(column);
 
