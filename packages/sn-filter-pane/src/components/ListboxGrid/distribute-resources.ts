@@ -191,7 +191,7 @@ function sortColumnItems(columnItems: IListboxResource[]) {
     if (b.alwaysExpanded && !a.alwaysExpanded) {
       return 1; // b goes before a
     }
-    return a.cardinal > b.cardinal ? 1 : -1; // lower cardinality goes before higher
+    return a.cardinal >= b.cardinal ? 1 : -1; // lower cardinality goes before higher
   });
 
   return sortedItems;
