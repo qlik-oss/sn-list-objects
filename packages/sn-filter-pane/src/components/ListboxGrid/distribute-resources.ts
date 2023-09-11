@@ -154,7 +154,7 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
         const fitsAsCollapsed = leftOverHeight - collapsedHeight >= expandedHeightLimit;
         if (fitsAsCollapsed) {
           item.expand = true;
-          item.height = item.alwaysExpanded && isLastItem ? DEFAULT_CSS_HEIGHT : `${leftOverHeight}px`;
+          item.height = `${leftOverHeight}px`;
         }
       }
     }
