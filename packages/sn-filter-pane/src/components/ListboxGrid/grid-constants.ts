@@ -6,3 +6,5 @@ export const COLUMN_SPACING = 16;
 export const EXPANDED_HEADER_HEIGHT = 48;
 export const SINGLE_GRID_ROW_HEIGHT = 32;
 export const DEFAULT_CSS_HEIGHT = 'calc(100% - 2px)';
+export const LIST_ROW_HEIGHT = 29;
+export const LIST_DENSE_ROW_HEIGHT = 20;

@@ -1,10 +1,10 @@
 import { IListboxResource } from '../../hooks/types';
 import {
-  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, SINGLE_GRID_ROW_HEIGHT,
+  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, LIST_ROW_HEIGHT, LIST_DENSE_ROW_HEIGHT, SINGLE_GRID_ROW_HEIGHT,
 } from './grid-constants';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 
-const getExpandedRowHeight = (dense: boolean) => (dense ? 20 : 29);
+const getExpandedRowHeight = (dense: boolean) => (dense ? LIST_DENSE_ROW_HEIGHT : LIST_ROW_HEIGHT);
 
 export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false) {
   const { dense = false, collapseMode } = resource.layout.layoutOptions || {};
@@ -81,7 +81,7 @@ export function getExpandedHeightLimit(expandProps: ExpandProps) {
   return heightLimit;
 }
 
-const getListBoxMaxHeight = (item: IListboxResource) => {
+export const getListBoxMaxHeight = (item: IListboxResource) => {
   const {
     cardinal, dense, hasHeader, neverExpanded,
   } = item || {};
@@ -94,8 +94,6 @@ const getListBoxMaxHeight = (item: IListboxResource) => {
   }
   return maxHeight;
 };
-
-export const getExpandedHeight = (item: IListboxResource) => getListBoxMaxHeight(item);
 
 /**
  * Iterate through all items in the column and summarise the height of all
@@ -112,7 +110,7 @@ export function estimateColumnHeight(column: IColumn) {
       totHeight += getListBoxMinHeight(item);
     } else if (expand || item.alwaysExpanded) {
       if (fullyExpanded) {
-        totHeight += getExpandedHeight(item);
+        totHeight += getListBoxMaxHeight(item);
       } else if (height) {
         const h = Number.parseFloat(height);
         totHeight += (h || getListBoxMinHeight(item));

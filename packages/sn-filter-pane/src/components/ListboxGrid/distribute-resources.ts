@@ -4,8 +4,8 @@ import {
   doAllFit,
   estimateColumnHeight,
   getDimensionCardinal,
-  getExpandedHeight,
   getExpandedHeightLimit,
+  getListBoxMaxHeight,
   getListBoxMinHeight,
   getMaxColumns,
   haveRoomToExpandOne,
@@ -121,7 +121,7 @@ export function assignListboxesToColumns(columns: IColumn[], resources: IListbox
 
 const setFullyExpanded = (item: IListboxResource) => {
   item.fullyExpanded = true;
-  item.height = `${getExpandedHeight(item)}px`;
+  item.height = `${getListBoxMaxHeight(item)}px`;
 };
 
 function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, lastItemIndex: number, isSingleGridLayout = false) {
@@ -138,7 +138,7 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
       // 1. Calculate column height without the target item, then
       // 2. Subtract the target's expanded height to see if it fits.
       leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: [...sortedItems.slice(0, i), ...sortedItems.slice(i + 1)] });
-      expandedHeight = getExpandedHeight(item) + ITEM_SPACING;
+      expandedHeight = getListBoxMaxHeight(item) + ITEM_SPACING;
       itemFits = leftOverHeight >= expandedHeight;
       const isLastItem = i === lastItemIndex;
       item.fits = itemFits;
