@@ -80,7 +80,7 @@ export function calculateColumns(size: ISize, columns: IColumn[], isSmallDevice:
   return columns;
 }
 
-export function balanceColumns(size: ISize, columns: IColumn[], isSmallDevice: boolean, expandProps: ExpandProps) {
+export function balanceColumns(size: ISize, columns: IColumn[], resources: IListboxResource[], isSmallDevice: boolean, expandProps: ExpandProps) {
   let collapsedItems = 0;
   const expanded = columns.filter((column) => column.expand);
   const collapsed = columns.filter((column) => column.expand === false);
@@ -97,7 +97,19 @@ export function balanceColumns(size: ISize, columns: IColumn[], isSmallDevice: b
       const extraItems = index < collapsedItems % collapsed.length ? 1 : 0;
       const itemCount = Math.floor(collapsedItems / collapsed.length) + extraItems;
 
-      column.itemCount = itemCount;
+      const lastColumn = columns[columns.length - 1];
+
+      const isLastColumn = column === lastColumn;
+
+      // However, we should only push items to first column if it can fit more listboxes…
+      if (!(isLastColumn && column.hiddenItems) && size.height >= estimateColumnHeight({ ...column, itemCount, items: resources.slice(index, index + itemCount) })) {
+        column.itemCount = itemCount;
+      } else {
+        // …and if it does not fit, we can move it to the last column and make items hidden.
+        lastColumn.itemCount = lastColumn.itemCount ?? 0;
+        lastColumn.itemCount = 0;
+        lastColumn.hiddenItems = true;
+      }
     });
   }
 
@@ -124,7 +136,7 @@ const setFullyExpanded = (item: IListboxResource) => {
   item.height = `${getListBoxMaxHeight(item)}px`;
 };
 
-function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, lastItemIndex: number, isSingleGridLayout = false) {
+function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, isSingleGridLayout = false) {
   if (!sortedItems) return;
   let i;
   let item;
@@ -140,7 +152,6 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
       leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: [...sortedItems.slice(0, i), ...sortedItems.slice(i + 1)] });
       expandedHeight = getListBoxMaxHeight(item) + ITEM_SPACING;
       itemFits = leftOverHeight >= expandedHeight;
-      const isLastItem = i === lastItemIndex;
       item.fits = itemFits;
       if (itemFits && !item.neverExpanded) {
         item.expand = true;
@@ -154,7 +165,7 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
         const fitsAsCollapsed = leftOverHeight - collapsedHeight >= expandedHeightLimit;
         if (fitsAsCollapsed) {
           item.expand = true;
-          item.height = `${leftOverHeight}px`;
+          item.height = item.alwaysExpanded && isSingleGridLayout ? DEFAULT_CSS_HEIGHT : `${leftOverHeight}px`;
         }
       }
     }
@@ -162,20 +173,17 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
 }
 
 function setDefaultItemSettings({
-  item, column, isSingleColumn, innerHeight, isSmallDevice,
-}: { item: IListboxResource, column: IColumn, isSingleColumn: boolean, innerHeight: number, isSmallDevice: boolean }) {
+  item, isSingleColumn, isSingleGridLayout, innerHeight, isSmallDevice,
+}: { item: IListboxResource, isSingleColumn: boolean, isSingleGridLayout: boolean, innerHeight: number, isSmallDevice: boolean }) {
   // Set default value for expand mode, based on circumstances.
   if (item.neverExpanded) {
     item.expand = false;
   } else {
-    const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: item.hasHeader, isSingleGridLayout: isSingleColumn });
-    const canFitSingle = isSingleColumn && innerHeight - getListBoxMinHeight(item) >= expandedHeightLimit;
-    const expand = canFitSingle && !isSmallDevice;
-    item.expand = expand;
+    const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: item.hasHeader, isSingleGridLayout });
+    const canFitSingleExpanded = !isSmallDevice && isSingleColumn && innerHeight - getListBoxMinHeight(item) >= expandedHeightLimit;
+    item.expand = canFitSingleExpanded;
     if (item.alwaysExpanded) {
-      item.height = column.expand && canFitSingle ? DEFAULT_CSS_HEIGHT : `${getListBoxMinHeight(item)}px`;
-    } else {
-      item.expand = expand;
+      item.height = canFitSingleExpanded ? DEFAULT_CSS_HEIGHT : `${getListBoxMinHeight(item)}px`;
     }
   }
 }
@@ -213,7 +221,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
       item.cardinal = getDimensionCardinal(item);
 
       setDefaultItemSettings({
-        item, column, isSingleColumn, innerHeight, isSmallDevice,
+        item, isSingleColumn, isSingleGridLayout: expandProps.isSingleGridLayout, innerHeight, isSmallDevice,
       });
     });
 
@@ -221,8 +229,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
 
     if (column.expand) {
       if ((sortedItems.length ?? 0) > 1) {
-        const lastItemIndex = sortedItems.indexOf(columnItems[columnItems.length - 1]);
-        expandUntilFull(sortedItems, innerHeight, lastItemIndex);
+        expandUntilFull(sortedItems, innerHeight);
       } else if (expandProps.isSingleGridLayout) {
         // Ensure we set expand to true in this corner case (product designer request).
         const hasRoom = haveRoomToExpandOne(size, sortedItems[0], isSmallDevice, expandProps);
@@ -255,7 +262,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
     if (columnItems.length === 1 && size.height < COLLAPSED_HEIGHT - 4) {
       // TODO: This hides the title in the old collapsed listbox, when does this occur?
       columnItems[0].responsiveMode = size.height < COLLAPSED_HEIGHT * 0.5 ? 'spark' : 'small';
-      columnItems[0].height = `${size.height}px`;
+      columnItems[0].height = DEFAULT_CSS_HEIGHT; // `${size.height}px`;
     }
   });
   return { columns, expandedItemsCount: allExpandedItems.length };

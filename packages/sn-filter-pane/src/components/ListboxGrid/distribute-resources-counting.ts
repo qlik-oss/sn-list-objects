@@ -11,10 +11,11 @@ export function getListBoxMinHeight(resource: IListboxResource, outerWidth = fal
 
   let h = 0;
   if (collapseMode === 'never') {
-    // If listbox is not allowed to collapse, then the height will be different.
+    // Calculate min expanded height.
     h += getExpandedRowHeight(dense);
     h += resource.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
   } else {
+    // Calculate collapsed height.
     h += COLLAPSED_HEIGHT;
   }
   if (outerWidth) {

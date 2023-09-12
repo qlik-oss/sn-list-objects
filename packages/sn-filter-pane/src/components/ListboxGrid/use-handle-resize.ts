@@ -56,7 +56,7 @@ export default function useHandleResize({
       alwaysExpanded: resources[0].layout?.layoutOptions?.collapseMode === 'never',
     };
     const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
-    const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
+    const balancedColumns = balanceColumns(size, calculatedColumns, resources, isSmallDevice, expandProps);
     const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resources, isSmallDevice);
     setOverflowingResources(overflowing);
     const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps, isSmallDevice);
