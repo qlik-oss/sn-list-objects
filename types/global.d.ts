@@ -6,8 +6,15 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   },
   layoutOptions?: {
     dense: boolean,
-    dataLayout?: 'grid' | 'singleColumn',
-    collapseMode?: 'auto' | 'always' | 'never',
+    dataLayout?: 'grid' | 'singleColumn';
+    collapseMode?: 'auto' | 'always' | 'never';
+    maxVisibleColumns?: {
+      maxColumns?: number;
+    };
+    maxVisibleRows?: {
+      maxRows?: number;
+    };
+    layoutOrder?: 'row' | 'grid';
   },
   showTitle?: boolean,
   qHasSoftPatches?: boolean;

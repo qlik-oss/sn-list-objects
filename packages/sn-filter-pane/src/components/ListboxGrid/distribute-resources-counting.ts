@@ -1,18 +1,21 @@
-import { IListboxResource } from '../../hooks/types';
+import { IListLayout, IListboxResource } from '../../hooks/types';
 import {
-  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, LIST_ROW_HEIGHT, LIST_DENSE_ROW_HEIGHT, SINGLE_GRID_ROW_HEIGHT,
+  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, LIST_ROW_HEIGHT, DENSE_ROW_HEIGHT, GRID_ROW_HEIGHT,
 } from './grid-constants';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 
-const getExpandedRowHeight = (dense: boolean) => (dense ? LIST_DENSE_ROW_HEIGHT : LIST_ROW_HEIGHT);
+const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
+  const rowHeight = isGridMode ? GRID_ROW_HEIGHT : LIST_ROW_HEIGHT;
+  return dense ? DENSE_ROW_HEIGHT : rowHeight;
+};
 
 export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false) {
-  const { dense = false, collapseMode } = resource.layout.layoutOptions || {};
+  const { dense = false, collapseMode, dataLayout } = resource.layout.layoutOptions || {};
 
   let h = 0;
   if (collapseMode === 'never') {
     // Calculate min expanded height.
-    h += getExpandedRowHeight(dense);
+    h += getExpandedRowHeight(dense, dataLayout === 'grid');
     h += resource.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
   } else {
     // Calculate collapsed height.
@@ -23,6 +26,21 @@ export function getListBoxMinHeight(resource: IListboxResource, outerWidth = fal
   }
 
   return h;
+}
+
+export function getGridModeRowCount({ layout, cardinal }: { layout: IListLayout, cardinal: number }) {
+  let rowCount;
+  const {
+    maxVisibleRows, layoutOrder, maxVisibleColumns,
+  } = layout?.layoutOptions || {};
+
+  if (layoutOrder === 'row') {
+    rowCount = maxVisibleRows?.maxRows || 3;
+  } else {
+    const columnCount = maxVisibleColumns?.maxColumns || 3;
+    rowCount = Math.ceil(cardinal / columnCount);
+  }
+  return rowCount;
 }
 
 export const getMaxColumns = (size: ISize, isSmallDevice: boolean) => (isSmallDevice ? 1 : Math.floor((size.width + COLUMN_SPACING) / (COLUMN_MIN_WIDTH + COLUMN_SPACING)) || 1);
@@ -76,7 +94,7 @@ export function getExpandedHeightLimit(expandProps: ExpandProps) {
     heightLimit = 0;
   } else if (expandProps.isSingleGridLayout) {
     // If single grid and no header, don't collapse, by setting the limit to 0.
-    const singleGridLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + SINGLE_GRID_ROW_HEIGHT : 0;
+    const singleGridLimit = expandProps.hasHeader ? EXPANDED_HEADER_HEIGHT + GRID_ROW_HEIGHT : 0;
     heightLimit = singleGridLimit;
   }
   return heightLimit;
@@ -84,14 +102,18 @@ export function getExpandedHeightLimit(expandProps: ExpandProps) {
 
 export const getListBoxMaxHeight = (item: IListboxResource) => {
   const {
-    cardinal, dense, hasHeader, neverExpanded,
+    cardinal, dense, hasHeader, neverExpanded, layout,
   } = item || {};
+
+  const { dataLayout } = layout?.layoutOptions || {};
 
   let maxHeight = 0;
   if (neverExpanded) {
     maxHeight = getListBoxMinHeight(item);
   } else {
-    maxHeight = cardinal * getExpandedRowHeight(dense) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0);
+    const isGridMode = dataLayout === 'grid';
+    const rowCount = isGridMode ? getGridModeRowCount({ cardinal, layout: item.layout }) : cardinal;
+    maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0);
   }
   return maxHeight;
 };

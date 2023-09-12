@@ -2,7 +2,7 @@ import { IListboxResource } from '../../../hooks/types';
 import {
   countListBoxes, doAllFit, estimateColumnHeight, getExpandedHeightLimit, getListBoxMaxHeight, getListBoxMinHeight, getMaxColumns, howManyListBoxesFit,
 } from '../distribute-resources-counting';
-import { LIST_DENSE_ROW_HEIGHT, LIST_ROW_HEIGHT } from '../grid-constants';
+import { DENSE_ROW_HEIGHT, LIST_ROW_HEIGHT } from '../grid-constants';
 import { ExpandProps, ISize } from '../interfaces';
 
 const getResource = (collapseMode = 'auto') => ({
@@ -30,7 +30,7 @@ describe('distribute resources countng functions', () => {
     });
     it('hasHeader: false, collapse: never, dense: true', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(LIST_DENSE_ROW_HEIGHT);
+      expect(getListBoxMinHeight(resource)).toEqual(DENSE_ROW_HEIGHT);
     });
 
     it('hasHeader: false, collapse: auto, dense: false', () => {
