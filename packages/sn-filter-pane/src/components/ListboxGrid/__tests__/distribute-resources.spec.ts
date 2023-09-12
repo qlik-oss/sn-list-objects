@@ -49,28 +49,32 @@ describe('distribute resources', () => {
     it('should balance collpased columns 3-3-3-1 as 3-3-2-2 when last column cant expand one, which should only happen when the item is smaller than the available height.', () => {
       const size: ISize = { height: 30, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [3, 3, 3, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [3, 3, 2, 2] })));
     });
 
     it('should balance collapsed columns 4-4-1 as 3-3-3 when last column cant expand one', () => {
       const size: ISize = { height: 30, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [3, 3, 3] })));
     });
 
     it('should expand last collapsed column when possible and all columns are collapsed', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [4, 4], expanded: [1] })));
     });
 
     it('should expand last collapsed column when possible and mix of collapsed and expanded columns', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1], expanded: [1, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [4, 4], expanded: [1, 1, 1] })));
     });
   });
@@ -238,7 +242,7 @@ describe('distribute resources', () => {
       };
 
       const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
-      const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
+      const balancedColumns = balanceColumns(size, calculatedColumns, resources, isSmallDevice, expandProps);
       const defaultValuesResources = setDefaultValues(resources);
       const { columns: mergedColumns } = assignListboxesToColumns(balancedColumns, defaultValuesResources, isSmallDevice);
       const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps, isSmallDevice);
@@ -260,7 +264,8 @@ describe('distribute resources', () => {
         isSingleGridLayout: true,
         alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ expanded: [1] })));
     });
 
@@ -272,7 +277,8 @@ describe('distribute resources', () => {
         isSingleGridLayout: true,
         alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ expanded: [1] })));
     });
 
@@ -286,7 +292,8 @@ describe('distribute resources', () => {
         isSingleGridLayout: false,
         alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
       expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [1] })));
     });
   });
