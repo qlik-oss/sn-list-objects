@@ -102,7 +102,7 @@ export function balanceColumns(size: ISize, columns: IColumn[], resources: IList
       const isLastColumn = column === lastColumn;
 
       // However, we should only push items to first column if it can fit more listboxes…
-      if (!(isLastColumn && column.hiddenItems) && size.height >= estimateColumnHeight({ ...column, itemCount, items: resources.slice(index, index + itemCount) })) {
+      if (!(isLastColumn && column.hiddenItems && columns.length > 1) && size.height >= estimateColumnHeight({ ...column, itemCount, items: resources.slice(index, index + itemCount) })) {
         column.itemCount = itemCount;
       } else {
         // …and if it does not fit, we can move it to the last column and make items hidden.
