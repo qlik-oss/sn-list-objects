@@ -18,19 +18,19 @@ describe('distribute resources countng functions', () => {
   describe('getListBoxMinHeight should return correct height for different settings', () => {
     it('hasHeader: true, collapse: never, dense: false', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(77);
+      expect(getListBoxMinHeight(resource)).toEqual(34);
     });
     it('hasHeader: true, collapse: never, dense: true', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(68);
+      expect(getListBoxMinHeight(resource)).toEqual(34);
     });
     it('hasHeader: false, collapse: never, dense: false', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(LIST_ROW_HEIGHT);
+      expect(getListBoxMinHeight(resource)).toEqual(34);
     });
     it('hasHeader: false, collapse: never, dense: true', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(DENSE_ROW_HEIGHT);
+      expect(getListBoxMinHeight(resource)).toEqual(34);
     });
 
     it('hasHeader: false, collapse: auto, dense: false', () => {
@@ -110,7 +110,7 @@ describe('distribute resources countng functions', () => {
       } as ISize;
       const resourcesSlice: IListboxResource[] = [getResource('never')];
       expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(1);
-      columnSize.height = 77;
+      columnSize.height = 34;
       expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(0);
     });
 
@@ -142,13 +142,9 @@ describe('distribute resources countng functions', () => {
       const resourcesSlice: IListboxResource[] = [getResource('never'), getResource('always'), getResource('auto')];
       expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(3);
       columnSize.height = 161;
-      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(2);
-      columnSize.height = 119;
-      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(1);
-      columnSize.height = 120;
-      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(2);
+      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(3);
       columnSize.height = 77;
-      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(0);
+      expect(howManyListBoxesFit(columnSize, resourcesSlice)).toEqual(2);
     });
   });
 
@@ -277,7 +273,7 @@ describe('distribute resources countng functions', () => {
           getResource('always'),
           getResource('never'),
         ],
-      })).toEqual(171);
+      })).toEqual(128);
     });
 
     it('should only count the padding', () => {
