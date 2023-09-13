@@ -2,7 +2,6 @@ import { IListboxResource } from '../../../hooks/types';
 import {
   countListBoxes, doAllFit, estimateColumnHeight, getExpandedHeightLimit, getListBoxMaxHeight, getListBoxMinHeight, getMaxColumns, howManyListBoxesFit,
 } from '../distribute-resources-counting';
-import { DENSE_ROW_HEIGHT, LIST_ROW_HEIGHT } from '../grid-constants';
 import { ExpandProps, ISize } from '../interfaces';
 
 const getResource = (collapseMode = 'auto') => ({
@@ -18,19 +17,30 @@ describe('distribute resources countng functions', () => {
   describe('getListBoxMinHeight should return correct height for different settings', () => {
     it('hasHeader: true, collapse: never, dense: false', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(34);
+      expect(getListBoxMinHeight(resource)).toEqual(77);
     });
     it('hasHeader: true, collapse: never, dense: true', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(34);
+      expect(getListBoxMinHeight(resource)).toEqual(68);
     });
     it('hasHeader: false, collapse: never, dense: false', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(34);
+      expect(getListBoxMinHeight(resource)).toEqual(29);
     });
     it('hasHeader: false, collapse: never, dense: true', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(34);
+      expect(getListBoxMinHeight(resource)).toEqual(20);
+    });
+
+    describe('asCollapsed == true should always return collapsed height', () => {
+      it('hasHeader: true, collapse: never, dense: false', () => {
+        const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
+        expect(getListBoxMinHeight(resource, false, true)).toEqual(34);
+      });
+      it('hasHeader: true, collapse: never, dense: true', () => {
+        const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
+        expect(getListBoxMinHeight(resource, false, true)).toEqual(34);
+      });
     });
 
     it('hasHeader: false, collapse: auto, dense: false', () => {
@@ -273,7 +283,7 @@ describe('distribute resources countng functions', () => {
           getResource('always'),
           getResource('never'),
         ],
-      })).toEqual(128);
+      })).toEqual(171);
     });
 
     it('should only count the padding', () => {

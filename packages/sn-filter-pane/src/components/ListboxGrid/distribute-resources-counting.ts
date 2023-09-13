@@ -9,8 +9,22 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
   return dense ? DENSE_ROW_HEIGHT : rowHeight;
 };
 
-export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false) {
-  const h = COLLAPSED_HEIGHT + (outerWidth ? ITEM_SPACING : 0);
+export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false, asCollapsed = false) {
+  const { dense = false, collapseMode, dataLayout } = resource.layout.layoutOptions || {};
+
+  let h = 0;
+  if (collapseMode === 'never' && !asCollapsed) {
+    // Calculate min expanded height.
+    h += getExpandedRowHeight(dense, dataLayout === 'grid');
+    h += resource.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
+  } else {
+    // Calculate collapsed height.
+    h += COLLAPSED_HEIGHT;
+  }
+  if (outerWidth) {
+    h += ITEM_SPACING;
+  }
+
   return h;
 }
 
@@ -39,7 +53,7 @@ export function howManyListBoxesFit(columnSize: ISize, resourcesSlice: IListboxR
 
   for (let i = 0, len = resourcesSlice.length; i < len; i++) {
     resource = resourcesSlice[i];
-    accHeight += getListBoxMinHeight(resource, true);
+    accHeight += getListBoxMinHeight(resource, true, true);
     if (accHeight >= columnOuterHeight) {
       break; // we cannot fit any more listboxes inside this column
     }

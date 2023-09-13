@@ -158,13 +158,17 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
       } else if (item.neverExpanded) {
         item.expand = false;
       } else {
-        // See if listbox fits as collapsed.
-        const collapsedHeight = getListBoxMinHeight(item);
+        // See if listbox fits as expanded and if not – as collapsed.
+        const expandedMinHeight = getListBoxMinHeight(item, false, false);
+        const collapsedMinHeight = getListBoxMinHeight(item, false, true);
         const expandedHeightLimit = getExpandedHeightLimit({ alwaysExpanded: item.alwaysExpanded, hasHeader: item.hasHeader, isSingleGridLayout });
-        const fitsAsCollapsed = leftOverHeight - collapsedHeight >= expandedHeightLimit;
-        if (fitsAsCollapsed) {
+        const fitsAsExpanded = leftOverHeight - expandedMinHeight >= expandedHeightLimit;
+        const fitsAsCollapsed = leftOverHeight >= collapsedMinHeight;
+        if (fitsAsExpanded) {
           item.expand = true;
           item.height = item.alwaysExpanded && isSingleGridLayout ? DEFAULT_CSS_HEIGHT : `${leftOverHeight}px`;
+        } else if (fitsAsCollapsed) {
+          item.expand = false;
         }
       }
     }
