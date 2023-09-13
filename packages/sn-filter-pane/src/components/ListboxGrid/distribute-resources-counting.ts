@@ -10,21 +10,7 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
 };
 
 export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false) {
-  const { dense = false, collapseMode, dataLayout } = resource.layout.layoutOptions || {};
-
-  let h = 0;
-  if (collapseMode === 'never') {
-    // Calculate min expanded height.
-    h += getExpandedRowHeight(dense, dataLayout === 'grid');
-    h += resource.hasHeader ? EXPANDED_HEADER_HEIGHT : 0;
-  } else {
-    // Calculate collapsed height.
-    h += COLLAPSED_HEIGHT;
-  }
-  if (outerWidth) {
-    h += ITEM_SPACING;
-  }
-
+  const h = COLLAPSED_HEIGHT + (outerWidth ? ITEM_SPACING : 0);
   return h;
 }
 

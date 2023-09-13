@@ -106,7 +106,6 @@ export function balanceColumns(size: ISize, columns: IColumn[], resources: IList
         column.itemCount = itemCount;
       } else {
         // …and if it does not fit, we can move it to the last column and make items hidden.
-        lastColumn.itemCount = lastColumn.itemCount ?? 0;
         lastColumn.itemCount = 0;
         lastColumn.hiddenItems = true;
       }
