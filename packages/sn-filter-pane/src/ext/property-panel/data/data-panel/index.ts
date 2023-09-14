@@ -117,7 +117,7 @@ export default function getDataPanelItems(env: IEnv) {
     autoConfirm: {
       ref: 'autoConfirm',
       component: 'checkbox',
-      translation: 'properties.filterpane.confirmSelections',
+      translation: 'properties.filterpane.showSelectionsPopup',
       defaultValue: false,
       inverted: true,
       show: env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS'),
