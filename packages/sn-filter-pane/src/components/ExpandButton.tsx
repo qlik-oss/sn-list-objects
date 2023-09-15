@@ -1,4 +1,4 @@
-import { Button, Grid, styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import type { IStores } from '../store';
