@@ -10,7 +10,7 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
 };
 
 export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false, asCollapsed = false) {
-  const { dense = false, collapseMode, dataLayout } = resource.layout.layoutOptions || {};
+  const { dense = false, collapseMode, dataLayout } = resource?.layout?.layoutOptions || {};
 
   let h = 0;
   if (collapseMode === 'never' && !asCollapsed) {
@@ -122,15 +122,15 @@ export const getListBoxMaxHeight = (item: IListboxResource) => {
  * Iterate through all items in the column and summarise the height of all
  * individual listboxes.
  */
-export function estimateColumnHeight(column: IColumn) {
+export function estimateColumnHeight(column: IColumn, atMinSize = false) {
   let totHeight = 2;
   column.items?.forEach((item) => {
     const {
       expand = false, fullyExpanded = false, height,
     } = item;
 
-    if (item.neverExpanded) {
-      totHeight += getListBoxMinHeight(item);
+    if (item.neverExpanded || atMinSize) {
+      totHeight += getListBoxMinHeight(item, false, atMinSize);
     } else if (expand || item.alwaysExpanded) {
       if (fullyExpanded) {
         totHeight += getListBoxMaxHeight(item);
@@ -145,6 +145,10 @@ export function estimateColumnHeight(column: IColumn) {
     }
     totHeight += ITEM_SPACING;
   });
+  if (column.hiddenItems) {
+    const AS_COLLAPSED = true;
+    totHeight += getListBoxMinHeight({} as IListboxResource, true, AS_COLLAPSED);
+  }
   return totHeight;
 }
 

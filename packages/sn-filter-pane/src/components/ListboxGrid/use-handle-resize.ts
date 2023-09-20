@@ -7,6 +7,7 @@ import getWidthHeight from './get-size';
 import {
   setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns,
   hasHeader,
+  moveAlwaysExpandedToOverflow,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { IEnv } from '../../types/types';
@@ -55,12 +56,35 @@ export default function useHandleResize({
       hasHeader: hasHeader(resources[0]),
       alwaysExpanded: resources[0].layout?.layoutOptions?.collapseMode === 'never',
     };
-    const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
-    const balancedColumns = balanceColumns(size, calculatedColumns, resources, isSmallDevice, expandProps);
-    const { columns: mergedColumnsAndResources, overflowing } = assignListboxesToColumns(balancedColumns, resources, isSmallDevice);
+
+    let columnsTemp;
+    let overflowing;
+    let expandedItemsCount = 0;
+
+    columnsTemp = calculateColumns(size, [], isSmallDevice, expandProps, resources);
+    columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
+    ({ columns: columnsTemp, overflowing } = assignListboxesToColumns(columnsTemp, resources, isSmallDevice));
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+
+    // Move listboxes which should always be expanded, but do not have room to expand; into the overflow dropdown.
+    // This is done iteratively by:
+    //  1. Moving one listbox to overflow
+    //  2. Re-evaluating the expand capabilities of remaining listboxes and expand if possible
+    //  3. If nothing can be moved, break the loop (all always expanded listboxes have either moved or expanded).
+    let wasMoved;
+    for (let i = 0, len = resources.length; i < len; i++) {
+      ({ columns: columnsTemp, overflowing, wasMoved } = moveAlwaysExpandedToOverflow(columnsTemp, overflowing));
+      columnsTemp = columnsTemp.filter((column) => !(column.itemCount === 0 && !column.hiddenItems)); // remove empty columns resulting from moving listboxes
+      ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+      if (!wasMoved) {
+        break;
+      }
+    }
+    columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+
     setOverflowingResources(overflowing);
-    const { columns: expandedAndCollapsedColumns, expandedItemsCount } = calculateExpandPriority(mergedColumnsAndResources, size, expandProps, isSmallDevice);
-    setColumns(expandedAndCollapsedColumns);
+    setColumns(columnsTemp);
     prepareRenderTracker(expandedItemsCount, renderTracker);
   };
 
