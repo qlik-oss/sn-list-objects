@@ -73,7 +73,7 @@ export default function useHandleResize({
     //  3. If nothing can be moved, break the loop (all always expanded listboxes have either moved or expanded).
     let wasMoved;
     for (let i = 0, len = resources.length; i < len; i++) {
-      ({ columns: columnsTemp, overflowing, wasMoved } = moveAlwaysExpandedToOverflow(columnsTemp, overflowing));
+      ({ columns: columnsTemp, overflowing, wasMoved } = moveAlwaysExpandedToOverflow(columnsTemp, overflowing, size));
       columnsTemp = columnsTemp.filter((column) => !(column.itemCount === 0 && !column.hiddenItems)); // remove empty columns resulting from moving listboxes
       ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
       if (!wasMoved) {

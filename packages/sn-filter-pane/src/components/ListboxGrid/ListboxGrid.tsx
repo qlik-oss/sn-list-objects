@@ -101,11 +101,9 @@ function ListboxGrid({ stores }: { stores: IStores }) {
 
   useEffect(() => {
     const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLObjectElement;
+    firstChild?.setAttribute('tabIndex', '-1');
     if (keyboard?.active) {
-      firstChild?.setAttribute('tabIndex', '-1');
       firstChild?.focus();
-    } else {
-      firstChild?.setAttribute('tabIndex', '-1');
     }
   }, [keyboard]);
 

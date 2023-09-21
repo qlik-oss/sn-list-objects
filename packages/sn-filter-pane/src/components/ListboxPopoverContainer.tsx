@@ -48,8 +48,6 @@ const StyledDiv = styled('div')(() => ({
   '&:focus-visible': {
     outline: 'none',
   },
-  padding: `${POPOVER_CONTAINER_PADDING}px`,
-  paddingBottom: '0px',
 }));
 
 /**

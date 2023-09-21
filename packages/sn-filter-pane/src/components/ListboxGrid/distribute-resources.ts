@@ -276,15 +276,12 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
   return { columns, expandedItemsCount: allExpandedItems.length };
 };
 
-export function moveAlwaysExpandedToOverflow(columns: IColumn[], overflowing: IListboxResource[]) {
+export function moveAlwaysExpandedToOverflow(columns: IColumn[], overflowing: IListboxResource[], size: ISize) {
   const newColumns = [...columns];
   const newOverflowing = [...overflowing];
-
-  const isSingleColumn = columns.length === 1;
   const overflowColumn = newColumns[newColumns.length - 1];
-  const nonOverflowColumns = isSingleColumn ? [overflowColumn] : newColumns.slice(0, newColumns.length - 1);
 
-  const sadBecameHappy = nonOverflowColumns.some((column) => {
+  const sadBecameHappy = newColumns.some((column) => {
     const sadItem = getSadItem(column);
     if (sadItem) {
       let changedItems = moveSadItemToOverflow(sadItem, column, newOverflowing);
@@ -303,6 +300,18 @@ export function moveAlwaysExpandedToOverflow(columns: IColumn[], overflowing: IL
   if (newOverflowing.length > overflowing.length) {
     if (!overflowColumn.hiddenItems) {
       overflowColumn.hiddenItems = true;
+
+      // Is there enough room for the newly added overflow dropdown?
+      // If not, move one item in the overflow column into the dropdown.
+      const tooBig = size.height < estimateColumnHeight(overflowColumn) && overflowColumn.items?.length;
+      const itemToMove = overflowColumn.items?.[overflowColumn.items.length - 1];
+      if (tooBig && itemToMove) {
+        const movedItems = moveSadItemToOverflow(itemToMove, overflowColumn, newOverflowing);
+        newOverflowing.length = 0;
+        newOverflowing.push(...movedItems.overflowing);
+        overflowColumn.items = movedItems.columnItems;
+        overflowColumn.itemCount = overflowColumn.items?.length ?? 0;
+      }
     }
   }
 
