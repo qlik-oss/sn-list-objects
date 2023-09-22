@@ -130,7 +130,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
               {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
                 <ColumnItem
                   key={item.id}
-                  lastItem={column.items?.length === j + 1}
+                  lastItem={column.items?.length === j + 1 && !column.hiddenItems}
                   listItem={item}
                 >
                   {item.expand

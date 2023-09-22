@@ -18,7 +18,7 @@ export const ColumnItem = ({
   ...rest
 }: ColumnItemProps) => {
   const getPaddingBottom = () => {
-    if ((listItem?.expand || listItem?.alwaysExpanded) && !lastItem) {
+    if (listItem?.expand && !lastItem) {
       return '8px';
     }
     return '0px';
