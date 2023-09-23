@@ -2322,14 +2322,14 @@
     "@types/node" "*"
 
 "@types/enigma.js@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@types/enigma.js/-/enigma.js-2.2.2.tgz#b3f45ebaf1eef93970e62e85c4a20ee9d9e951fb"
-  integrity sha512-0ZFsSXo9jsvTkfLedVp8cFncHtcIhEV57/fFm00yEdMgZVhUor7gmp2xchOgPJEbswrCv1BkI/SQAnOLdTiZ3w==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@types/enigma.js/-/enigma.js-2.2.3.tgz#f23f002e658fff1c7ec476059e3bd921f9969ed6"
+  integrity sha512-7MSyjMqzUD8yao1JmY28ZwiNOyx21fEnW5J8F8Y4s9dz0v1UjWRdJtV9yfDRgb6422XlSyKuSXROOHUD0PXFkA==
 
 "@types/eslint-scope@^3.7.3":
-  version "3.7.4"
-  resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.4.tgz#37fc1223f0786c39627068a12e94d6e6fc61de16"
-  integrity sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.5.tgz#e28b09dbb1d9d35fdfa8a884225f00440dfc5a3e"
+  integrity sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==
   dependencies:
     "@types/eslint" "*"
     "@types/estree" "*"
