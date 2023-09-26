@@ -63,7 +63,7 @@ export interface IListboxResource {
   dense: boolean;
   neverExpanded: boolean;
   alwaysExpanded: boolean;
-  fits: boolean;
+  fitsExpanded: boolean;
   hasHeader: boolean;
 }
 

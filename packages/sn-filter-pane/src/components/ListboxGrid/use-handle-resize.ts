@@ -8,11 +8,14 @@ import {
   setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns,
   hasHeader,
   moveAlwaysExpandedToOverflow,
+  adjustOverflowColumn,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { IEnv } from '../../types/types';
 import { IListboxResource } from '../../hooks/types';
 import { IStore } from '../../store';
+import { getSadItems, moveItemToOverflow } from './distribute-always-expanded';
+import { estimateColumnHeight } from './distribute-resources-counting';
 
 const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
   renderTracker?.setNumberOfListboxes(listboxCount);
@@ -57,13 +60,54 @@ export default function useHandleResize({
       alwaysExpanded: resources[0].layout?.layoutOptions?.collapseMode === 'never',
     };
 
-    let columnsTemp;
-    let overflowing;
+    let columnsTemp: IColumn[];
+    let overflowing: IListboxResource[];
     let expandedItemsCount = 0;
 
     columnsTemp = calculateColumns(size, [], isSmallDevice, expandProps, resources);
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
+
     ({ columns: columnsTemp, overflowing } = assignListboxesToColumns(columnsTemp, resources, isSmallDevice));
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+
+    // If there is one or more always expanded listboxes which cannot expand (i.e. a "sad" item), move the last
+    // collapsable listbox to the overflow menu until either a) all sad items are happy, or b) all collapsable
+    // items have been moved. Only after that, we will start moving always expanded listboxes to overflow.
+    const overflowColumn = columnsTemp[columnsTemp.length - 1];
+    const isSingleColumn = columnsTemp.length === 1;
+    if (isSingleColumn) {
+      columnsTemp[0].expand = true;
+    }
+
+    [...columnsTemp].reverse().slice(0).forEach((column: IColumn) => {
+      const { items = [] } = column;
+      [...items].some(() => {
+        const sadItems = getSadItems(column.items || []);
+        const columnHasSadItems = sadItems.length > 0;
+        const lastCollapsable = [...items].reverse().find((itm: IListboxResource) => !itm.alwaysExpanded && !overflowing.includes(itm));
+        if (!columnHasSadItems || !lastCollapsable) {
+          return true; // nothing more we can do, break loop
+        }
+        const movedItemsObj = moveItemToOverflow(lastCollapsable, column, overflowing);
+        overflowing = [...movedItemsObj.overflowing];
+        const columnIndex = columnsTemp.indexOf(column);
+        columnsTemp[columnIndex].items = movedItemsObj.columnItems;
+        columnsTemp[columnIndex].itemCount = movedItemsObj.columnItems.length;
+        overflowColumn.hiddenItems = true;
+
+        sadItems[0].expand = true;
+        const tooBig = estimateColumnHeight(column) > size.height;
+        if (tooBig) {
+          sadItems[0].expand = false;
+        }
+
+        columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
+        ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+        return false;
+      });
+    });
+
+    columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
     ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
 
     // Move listboxes which should always be expanded, but do not have room to expand; into the overflow dropdown.
@@ -80,6 +124,12 @@ export default function useHandleResize({
         break;
       }
     }
+
+    if (!isSingleColumn) {
+      // Ensure the overflow column adjusts for the overflow dropdown button, if any.
+      adjustOverflowColumn(columnsTemp[columnsTemp.length - 1], size, overflowing);
+    }
+
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
     ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
 

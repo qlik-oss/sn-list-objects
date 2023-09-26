@@ -1,5 +1,5 @@
 import { IListboxResource, ListboxResourcesArr } from '../../hooks/types';
-import { getSadItem, moveOverflowItemToColumn, moveSadItemToOverflow } from './distribute-always-expanded';
+import { getSadItem, moveOverflowItemToColumn, moveItemToOverflow } from './distribute-always-expanded';
 import {
   countListBoxes,
   doAllFit,
@@ -18,6 +18,17 @@ import {
 import { ExpandProps, IColumn, ISize } from './interfaces';
 
 /* eslint-disable no-param-reassign */
+
+export function sortColumnItemsByFieldOrder(columns: IColumn[], resources: IListboxResource[]) {
+  const dataOrder = resources.map((item) => item?.id);
+  columns.forEach((column) => {
+    column.items?.sort((a, b) => {
+      const aIx = dataOrder.indexOf(a.id);
+      const bIx = dataOrder.indexOf(b.id);
+      return aIx - bIx;
+    });
+  });
+}
 
 export const hasHeader = (resource?: IListboxResource) => (!!resource?.layout && resource.layout.title !== '' && resource.layout.showTitle !== false);
 
@@ -120,6 +131,8 @@ export function assignListboxesToColumns(columns: IColumn[], resources: IListbox
     column.items = resourcesTail.slice(0, column.itemCount);
     resourcesTail = resourcesTail.slice(column.itemCount);
   });
+
+  sortColumnItemsByFieldOrder(columns, resources);
   return { columns, overflowing: resourcesTail };
 }
 
@@ -135,9 +148,16 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
   if (!sortedItems) return;
   let i;
   let item;
-  let itemFits;
+  let fitsExpanded;
   let expandedHeight;
   let leftOverHeight = initialLeftOverHeight;
+
+  // sortedItems.forEach((itm) => {
+  //   if (!itm.alwaysExpanded) {
+  //     itm.expand = false;
+  //     itm.height = DEFAULT_CSS_HEIGHT;
+  //   }
+  // });
 
   for (i = 0; i < sortedItems.length; i++) {
     item = sortedItems[i];
@@ -147,9 +167,9 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
       const itemsSliced = [...sortedItems.slice(0, i), ...sortedItems.slice(i + 1)];
       leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: itemsSliced, hiddenItems });
       expandedHeight = getListBoxMaxHeight(item) + ITEM_SPACING;
-      itemFits = leftOverHeight >= expandedHeight;
-      item.fits = itemFits; // fits fully expanded
-      if (itemFits && !item.neverExpanded) {
+      fitsExpanded = leftOverHeight >= expandedHeight;
+      item.fitsExpanded = fitsExpanded; // fits fully expanded (or collapsed, if neverExpanded is true)
+      if (fitsExpanded && !item.neverExpanded) {
         item.expand = true;
         setFullyExpanded(item);
       } else if (item.neverExpanded) {
@@ -259,7 +279,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
             item.height = `${size.height - estimateColumnHeight({ items: collapsedItems }) - spacing}px`;
           }
         }
-        item.expand = item.expand || !!(item.alwaysExpanded && item.fits);
+        item.expand = item.expand || !!(item.alwaysExpanded && item.fitsExpanded);
         setFullyExpanded(item);
       }
     }
@@ -276,6 +296,21 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
   return { columns, expandedItemsCount: allExpandedItems.length };
 };
 
+export function adjustOverflowColumn(overflowColumn: IColumn, size: ISize, overflowing: IListboxResource[] = []) {
+  // Is there enough room for the newly added overflow dropdown?
+  // If not, move one item in the overflow column into the dropdown.
+  // const newOverflowing = [...overflowing];
+  const tooBig = (size.height < estimateColumnHeight(overflowColumn)) && overflowColumn.items?.length;
+  const itemToMove = overflowColumn.items?.[overflowColumn.items.length - 1];
+  if (tooBig && itemToMove) {
+    const movedItemsObj = moveItemToOverflow(itemToMove, overflowColumn, overflowing);
+    overflowing.length = 0;
+    overflowing.push(...movedItemsObj.overflowing);
+    overflowColumn.items = movedItemsObj.columnItems;
+    overflowColumn.itemCount = overflowColumn.items?.length ?? 0;
+  }
+}
+
 export function moveAlwaysExpandedToOverflow(columns: IColumn[], overflowing: IListboxResource[], size: ISize) {
   const newColumns = [...columns];
   const newOverflowing = [...overflowing];
@@ -284,35 +319,23 @@ export function moveAlwaysExpandedToOverflow(columns: IColumn[], overflowing: IL
   const sadBecameHappy = newColumns.some((column) => {
     const sadItem = getSadItem(column);
     if (sadItem) {
-      let changedItems = moveSadItemToOverflow(sadItem, column, newOverflowing);
+      let changedItemsObj = moveItemToOverflow(sadItem, column, newOverflowing);
       // Move one overflow item which is not alwaysExpanded (if any) to the
       // column where we previously found the sad item.
-      changedItems = moveOverflowItemToColumn(changedItems.columnItems || [], changedItems.overflowing);
-      column.items = changedItems.columnItems;
+      changedItemsObj = moveOverflowItemToColumn(changedItemsObj.columnItems || [], changedItemsObj.overflowing);
+      column.items = changedItemsObj.columnItems;
       newOverflowing.length = 0;
-      newOverflowing.push(...changedItems.overflowing);
+      newOverflowing.push(...changedItemsObj.overflowing);
       column.itemCount = column.items?.length ?? 0;
       return true; // this breaks the loop
     }
     return false;
   });
 
-  if (newOverflowing.length > overflowing.length) {
-    if (!overflowColumn.hiddenItems) {
-      overflowColumn.hiddenItems = true;
-
-      // Is there enough room for the newly added overflow dropdown?
-      // If not, move one item in the overflow column into the dropdown.
-      const tooBig = size.height < estimateColumnHeight(overflowColumn) && overflowColumn.items?.length;
-      const itemToMove = overflowColumn.items?.[overflowColumn.items.length - 1];
-      if (tooBig && itemToMove) {
-        const movedItems = moveSadItemToOverflow(itemToMove, overflowColumn, newOverflowing);
-        newOverflowing.length = 0;
-        newOverflowing.push(...movedItems.overflowing);
-        overflowColumn.items = movedItems.columnItems;
-        overflowColumn.itemCount = overflowColumn.items?.length ?? 0;
-      }
-    }
+  if (sadBecameHappy) {
+    // if (!overflowColumn.hiddenItems) {
+    overflowColumn.hiddenItems = true;
+    adjustOverflowColumn(overflowColumn, size, newOverflowing);
   }
 
   return {
