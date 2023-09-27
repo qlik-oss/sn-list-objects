@@ -9,6 +9,7 @@ import {
   hasHeader,
   moveAlwaysExpandedToOverflow,
   adjustOverflowColumn,
+  sortColumnItemsByFieldOrder,
 } from './distribute-resources';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 import { IEnv } from '../../types/types';
@@ -132,6 +133,8 @@ export default function useHandleResize({
 
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
     ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+
+    sortColumnItemsByFieldOrder(columnsTemp, resources);
 
     setOverflowingResources(overflowing);
     setColumns(columnsTemp);
