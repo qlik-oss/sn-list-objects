@@ -13,6 +13,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
     };
     maxVisibleRows?: {
       maxRows?: number;
+      auto?: boolean;
     };
     layoutOrder?: 'row' | 'grid';
   },

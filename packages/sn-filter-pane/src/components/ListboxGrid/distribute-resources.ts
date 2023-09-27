@@ -258,7 +258,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
     if (column.expand) {
       if ((sortedItems.length ?? 0) > 1) {
         expandUntilFull(sortedItems, innerHeight, column.hiddenItems);
-      } else if (expandProps.isSingleGridLayout) {
+      } else if (expandProps.isSingleGridLayout && !sortedItems[0]?.neverExpanded) {
         // Ensure we set expand to true in this corner case (product designer request).
         const hasRoom = haveRoomToExpandOne(size, sortedItems[0], isSmallDevice, expandProps);
         if (hasRoom && column.items?.[0]) {

@@ -31,14 +31,18 @@ export function getListBoxMinHeight(resource: IListboxResource, outerWidth = fal
 export function getGridModeRowCount({ layout, cardinal }: { layout: IListLayout, cardinal: number }) {
   let rowCount;
   const {
-    maxVisibleRows, layoutOrder, maxVisibleColumns,
+    maxVisibleRows = {}, layoutOrder, maxVisibleColumns,
   } = layout?.layoutOptions || {};
 
   if (layoutOrder === 'row') {
     rowCount = maxVisibleRows?.maxRows || 3;
   } else {
     const columnCount = maxVisibleColumns?.maxColumns || 3;
-    rowCount = Math.ceil(cardinal / columnCount);
+    if (maxVisibleRows.auto || !maxVisibleRows.maxRows) {
+      rowCount = Math.ceil(cardinal / columnCount);
+    } else {
+      rowCount = maxVisibleRows.maxRows;
+    }
   }
   return rowCount;
 }
@@ -113,7 +117,7 @@ export const getListBoxMaxHeight = (item: IListboxResource) => {
   } else {
     const isGridMode = dataLayout === 'grid';
     const rowCount = isGridMode ? getGridModeRowCount({ cardinal, layout: item.layout }) : cardinal;
-    maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0);
+    maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0) + ITEM_SPACING;
   }
   return maxHeight;
 };

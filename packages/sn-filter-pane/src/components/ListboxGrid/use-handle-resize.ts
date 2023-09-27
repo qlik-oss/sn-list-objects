@@ -33,6 +33,8 @@ interface IUseHandleResize {
   renderTracker?: RenderTrackerService;
 }
 
+let timeoutId: number | undefined;
+
 export default function useHandleResize({
   resources,
   gridRef,
@@ -139,12 +141,18 @@ export default function useHandleResize({
     setOverflowingResources(overflowing);
     setColumns(columnsTemp);
     prepareRenderTracker(expandedItemsCount, renderTracker);
+    timeoutId = undefined;
   };
+
+  const resourceIds = resources.map((item) => item?.id).join(',');
 
   const handleResizeMemo = useCallback(() => {
     // Use timeout to resolve race condition and smoother rendering during resize.
-    setTimeout(() => handleResize(), 0);
-  }, [resources]);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = window.setTimeout(() => handleResize(), 50);
+  }, [resourceIds]);
 
   return {
     handleResize: handleResizeMemo,
