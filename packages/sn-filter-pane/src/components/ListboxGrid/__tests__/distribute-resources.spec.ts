@@ -8,7 +8,7 @@ const createItem = (overrides = {}) => ({
   expand: false,
   fullyExpanded: false,
   alwaysExpanded: false,
-  fits: false,
+  fitsExpanded: false,
   dense: false,
   layout: {
     layoutOptions: {},
@@ -133,7 +133,7 @@ describe('distribute resources', () => {
         dense: false,
         alwaysExpanded: false,
         expand: false,
-        fits: false,
+        fitsExpanded: false,
         fullyExpanded: false,
       }));
       const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
@@ -162,7 +162,7 @@ describe('distribute resources', () => {
         dense: false,
         alwaysExpanded: false,
         expand: false,
-        fits: false,
+        fitsExpanded: false,
         fullyExpanded: false,
       }));
       const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
@@ -218,7 +218,7 @@ describe('distribute resources', () => {
       const resource = {
         id: '123',
         expand: false,
-        fits: false,
+        fitsExpanded: false,
         fullyExpanded: false,
         cardinal: 26,
         layout: {
