@@ -141,7 +141,10 @@ export default function useHandleResize({
     prepareRenderTracker(expandedItemsCount, renderTracker);
   };
 
-  const handleResizeMemo = useCallback(() => handleResize(), [resources]);
+  const handleResizeMemo = useCallback(() => {
+    // Use timeout to resolve race condition and smoother rendering during resize.
+    setTimeout(() => handleResize(), 0);
+  }, [resources]);
 
   return {
     handleResize: handleResizeMemo,
