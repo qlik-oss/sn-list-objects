@@ -117,7 +117,7 @@ export const getListBoxMaxHeight = (item: IListboxResource) => {
   } else {
     const isGridMode = dataLayout === 'grid';
     const rowCount = isGridMode ? getGridModeRowCount({ cardinal, layout: item.layout }) : cardinal;
-    maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0) + ITEM_SPACING;
+    maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0);
   }
   return maxHeight;
 };
