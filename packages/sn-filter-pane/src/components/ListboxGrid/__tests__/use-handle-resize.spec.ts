@@ -50,7 +50,7 @@ describe('use-handle-resize', () => {
 
     const { handleResize } = result.current;
 
-    expect(result.current.columns).toEqual([]);
+    expect(result.current.columns).toHaveLength(3);
     expect(result.current.overflowingResources).toEqual([]);
 
     await act(() => {

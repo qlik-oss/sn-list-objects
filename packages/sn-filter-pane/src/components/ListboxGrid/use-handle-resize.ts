@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {
-  MutableRefObject, useCallback, useState,
+  MutableRefObject, useCallback, useEffect, useState,
 } from 'react';
 import { RenderTrackerService } from '../../services/render-tracker';
 import getWidthHeight from './get-size';
@@ -46,6 +46,8 @@ export default function useHandleResize({
 
   const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
   const [columns, setColumns] = useState<IColumn[]>([]);
+
+  const { width: containerWidth, height: containerHeight } = getWidthHeight(gridRef);
 
   const handleResize = () => {
     if (!resources?.length) {
@@ -147,12 +149,14 @@ export default function useHandleResize({
   const resourceIds = resources.map((item) => item?.id).join(',');
 
   const handleResizeMemo = useCallback(() => {
-    // Use timeout to resolve race condition and smoother rendering during resize.
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-    timeoutId = window.setTimeout(() => handleResize(), 50);
-  }, [resourceIds]);
+    handleResize();
+  }, [resourceIds, containerWidth, containerHeight]);
+
+  // This extra resize listener is needed for fixing fullscreen in Win Chrome, where
+  // resize is not triggered when scrollbar goes away (possibly for other edge cases too).
+  useEffect(() => {
+    handleResizeMemo();
+  }, [containerWidth, containerHeight]);
 
   return {
     handleResize: handleResizeMemo,
