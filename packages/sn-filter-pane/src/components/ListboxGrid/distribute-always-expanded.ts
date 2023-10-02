@@ -1,5 +1,3 @@
-// const flatten = (arr = []) => arr.reduce((prev, cur) => prev.concat(cur));
-
 import { IListboxResource } from '../../hooks/types';
 import { IColumn } from './interfaces';
 
