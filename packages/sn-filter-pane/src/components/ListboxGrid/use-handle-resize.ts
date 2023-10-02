@@ -33,8 +33,6 @@ interface IUseHandleResize {
   renderTracker?: RenderTrackerService;
 }
 
-let timeoutId: number | undefined;
-
 export default function useHandleResize({
   resources,
   gridRef,
@@ -143,7 +141,6 @@ export default function useHandleResize({
     setOverflowingResources(overflowing);
     setColumns(columnsTemp);
     prepareRenderTracker(expandedItemsCount, renderTracker);
-    timeoutId = undefined;
   };
 
   const resourceIds = resources.map((item) => item?.id).join(',');
