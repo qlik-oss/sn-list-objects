@@ -117,11 +117,10 @@ export default function getDataPanelItems(env: IEnv) {
     autoConfirm: {
       ref: 'autoConfirm',
       component: 'checkbox',
-      translation: 'properties.filterpane.autoConfirm',
+      translation: 'properties.filterpane.showSelectionsToolbar',
       defaultValue: false,
-      show() {
-        return env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS');
-      },
+      inverted: true,
+      show: env?.flags?.isEnabled('IM_4072_FILTERPANE_SETTINGS'),
     },
     otherSettings: {
       translation: 'Accordion',

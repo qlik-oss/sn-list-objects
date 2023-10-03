@@ -5,6 +5,7 @@ import { IStore } from '../../../store';
 import { IListboxResource } from '../../../hooks/types';
 import { RenderTrackerService } from '../../../services/render-tracker';
 import * as distResourcesMod from '../distribute-resources';
+import { COLLAPSED_HEIGHT, ITEM_SPACING } from '../grid-constants';
 
 describe('use-handle-resize', () => {
   beforeAll(() => {
@@ -12,12 +13,15 @@ describe('use-handle-resize', () => {
   });
 
   it('should return a resize handler which, upon call, returns columns and overflowingResources, calculated by other funcs', async () => {
-    const resources = [{
-      layout: {},
-    }] as unknown as IListboxResource[];
+    const resources = [{ layout: {} }, { layout: {} }, { layout: {} }] as unknown as IListboxResource[];
+
+    const MIN_HEIGHT_TO_FIT_3_LISTBOXES = 3 * COLLAPSED_HEIGHT + 2 * ITEM_SPACING + 2;
 
     const gridRef = {
-      current: {},
+      current: {
+        offsetWidth: 0,
+        offsetHeight: MIN_HEIGHT_TO_FIT_3_LISTBOXES,
+      },
     } as unknown as MutableRefObject<HTMLObjectElement>;
 
     const store = {
@@ -46,7 +50,7 @@ describe('use-handle-resize', () => {
 
     const { handleResize } = result.current;
 
-    expect(result.current.columns).toEqual([]);
+    expect(result.current.columns).toHaveLength(3);
     expect(result.current.overflowingResources).toEqual([]);
 
     await act(() => {

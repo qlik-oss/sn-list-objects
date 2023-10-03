@@ -1,59 +1,81 @@
 import { IListboxResource } from '../../../hooks/types';
 import {
-  mergeColumnsAndResources, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues, hasHeader,
+  assignListboxesToColumns, balanceColumns, calculateColumns, calculateExpandPriority, setDefaultValues, hasHeader,
 } from '../distribute-resources';
 import { ExpandProps, IColumn, ISize } from '../interfaces';
 
+const createItem = (overrides = {}) => ({
+  expand: false,
+  fullyExpanded: false,
+  alwaysExpanded: false,
+  fitsExpanded: false,
+  dense: false,
+  layout: {
+    layoutOptions: {},
+    qListObject: { qDimensionInfo: { qCardinal: 5 } },
+  },
+  ...overrides,
+});
+
 const generateColumns = ({ collapsed, expanded }: { collapsed?: number[], expanded?: number[] }) => {
   const c: IColumn[] = [];
+  const e: IColumn[] = [];
   if (collapsed) {
     collapsed.forEach((itemCount: number) => {
-      c.push({ itemCount, expand: false });
+      c.push({ itemCount, expand: false, items: Array(itemCount).fill(createItem({ expand: false })) });
     });
   }
   if (expanded) {
-    const e: IColumn[] = [];
     expanded.forEach((itemCount: number) => {
-      e.push({ itemCount, expand: true });
+      e.push({ itemCount, expand: true, items: Array(itemCount).fill(createItem({ expand: true })) });
     });
-    return [...c, ...e];
   }
-  return c;
+  return [...c, ...e];
 };
 const isSmallDevice = false;
 const expandProps: ExpandProps = {
   hasHeader: true,
   isSingleGridLayout: false,
+  alwaysExpanded: false,
 };
+
+const getColumns = (cols: IColumn[]) => cols.map((col) => {
+  const { expand, itemCount } = col;
+  return { expand, itemCount };
+});
 
 describe('distribute resources', () => {
   describe('balance columns', () => {
-    it('should balance collpased columns 3-3-3-1 as 3-3-2-2 when last column cant expand one', () => {
-      const size: ISize = { height: 50, width: 1000, dimensionCount: 10 };
+    it('should balance collpased columns 3-3-3-1 as 3-3-2-2 when last column cant expand one, which should only happen when the item is smaller than the available height.', () => {
+      const size: ISize = { height: 30, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [3, 3, 3, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
-      expect(balancedColumns).toEqual(generateColumns({ collapsed: [3, 3, 2, 2] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [3, 3, 2, 2] })));
     });
 
     it('should balance collapsed columns 4-4-1 as 3-3-3 when last column cant expand one', () => {
-      const size: ISize = { height: 50, width: 1000, dimensionCount: 9 };
+      const size: ISize = { height: 30, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
-      expect(balancedColumns).toEqual(generateColumns({ collapsed: [3, 3, 3] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [3, 3, 3] })));
     });
 
     it('should expand last collapsed column when possible and all columns are collapsed', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
-      expect(balancedColumns).toEqual(generateColumns({ collapsed: [4, 4], expanded: [1] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [4, 4], expanded: [1] })));
     });
 
     it('should expand last collapsed column when possible and mix of collapsed and expanded columns', () => {
       const size: ISize = { height: 400, width: 1000, dimensionCount: 9 };
       const columns = generateColumns({ collapsed: [4, 4, 1], expanded: [1, 1] });
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandProps);
-      expect(balancedColumns).toEqual(generateColumns({ collapsed: [4, 4], expanded: [1, 1, 1] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandProps);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [4, 4], expanded: [1, 1, 1] })));
     });
   });
 
@@ -62,7 +84,7 @@ describe('distribute resources', () => {
       const columns: IColumn[] = new Array(4).fill({ itemCount: 2 });
       const resources: IListboxResource[] = new Array(8).fill({ id: '123' });
       expect(columns[0].items).toBeNull;
-      const { columns: resultColumns } = mergeColumnsAndResources(columns, resources);
+      const { columns: resultColumns } = assignListboxesToColumns(columns, resources, isSmallDevice);
       expect(resultColumns[0].items?.length).toBe(2);
       expect(resultColumns[0].items?.[0].id).toBe('123');
     });
@@ -70,7 +92,7 @@ describe('distribute resources', () => {
     it('should drop dimensions from the end when all wont fit', () => {
       const columns = generateColumns({ collapsed: [2, 3] });
       const resources: IListboxResource[] = new Array(6).fill({ id: '123' });
-      const { columns: resultColumns } = mergeColumnsAndResources(columns, resources);
+      const { columns: resultColumns } = assignListboxesToColumns(columns, resources, isSmallDevice);
       expect(resultColumns[0].items?.length).toEqual(2);
       expect(resultColumns[1].items?.length).toEqual(3);
     });
@@ -78,12 +100,19 @@ describe('distribute resources', () => {
 
   describe('calculate columns', () => {
     it('should handle the case when not all items can be rendered with max one column', () => {
+      const dimensionCount = 10;
+
       const size: ISize = {
         height: 400,
-        dimensionCount: 10,
+        dimensionCount,
         width: 5,
       };
-      const result = calculateColumns(size, [], isSmallDevice, expandProps);
+      const resources = Array(dimensionCount).fill(createItem({
+        itemCount: dimensionCount,
+        expand: false,
+      }));
+
+      const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
       expect(result).toEqual([
         {
           expand: false,
@@ -94,12 +123,20 @@ describe('distribute resources', () => {
     });
 
     it('should handle the case when not all items can be rendered with max two columns', () => {
+      const dimensionCount = 20;
       const size: ISize = {
         height: 220,
-        dimensionCount: 20,
+        dimensionCount,
         width: 500,
       };
-      const result = calculateColumns(size, [], isSmallDevice, expandProps);
+      const resources = Array(dimensionCount).fill(createItem({
+        dense: false,
+        alwaysExpanded: false,
+        expand: false,
+        fitsExpanded: false,
+        fullyExpanded: false,
+      }));
+      const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
       expect(result).toEqual([
         {
           expand: false,
@@ -114,12 +151,21 @@ describe('distribute resources', () => {
     });
 
     it('should handle the case when all items will fit and the second column can be expanded', () => {
+      const dimensionCount = 10;
       const size: ISize = {
         height: 400,
-        dimensionCount: 10,
+        dimensionCount,
         width: 500,
       };
-      const result = calculateColumns(size, [], isSmallDevice, expandProps);
+
+      const resources = Array(dimensionCount).fill(createItem({
+        dense: false,
+        alwaysExpanded: false,
+        expand: false,
+        fitsExpanded: false,
+        fullyExpanded: false,
+      }));
+      const result = calculateColumns(size, [], isSmallDevice, expandProps, resources);
       expect(result).toEqual([
         {
           expand: true,
@@ -138,7 +184,7 @@ describe('distribute resources', () => {
         dimensionCount: 2,
         width: 500,
       };
-      const result = calculateColumns(size, [], isSmallDevice, expandProps);
+      const result = calculateColumns(size, [], isSmallDevice, expandProps, []);
       expect(result).toEqual([
         {
           expand: true,
@@ -154,14 +200,15 @@ describe('distribute resources', () => {
 
   describe('expand priority', () => {
     it('should set the expand', () => {
+      const dimensionCount = 4;
       const columns = generateColumns({ collapsed: [2], expanded: [1, 1] });
       const size: ISize = {
         height: 400,
         width: 500,
-        dimensionCount: 4,
+        dimensionCount,
       };
 
-      const { columns: result } = calculateExpandPriority(columns, size, expandProps);
+      const { columns: result } = calculateExpandPriority(columns, size, expandProps, isSmallDevice);
       expect(result[0].expand).toBe(false);
       expect(result[1].expand).toBe(true);
       expect(result[2].expand).toBe(true);
@@ -171,6 +218,8 @@ describe('distribute resources', () => {
       const resource = {
         id: '123',
         expand: false,
+        fitsExpanded: false,
+        fullyExpanded: false,
         cardinal: 26,
         layout: {
           qListObject: {
@@ -180,7 +229,11 @@ describe('distribute resources', () => {
           },
         },
       };
-      const resources: IListboxResource[] = [...Array(2)].map(() => ({ ...resource as IListboxResource }));
+      const resources: IListboxResource[] = [{
+        ...resource,
+      } as IListboxResource, {
+        ...resource,
+      } as IListboxResource];
 
       const size: ISize = {
         height: 1277,
@@ -188,17 +241,17 @@ describe('distribute resources', () => {
         dimensionCount: resources.length,
       };
 
-      const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps);
-      const balancedColumns = balanceColumns(size, calculatedColumns, isSmallDevice, expandProps);
+      const calculatedColumns = calculateColumns(size, [], isSmallDevice, expandProps, resources);
+      const balancedColumns = balanceColumns(size, calculatedColumns, resources, isSmallDevice, expandProps);
       const defaultValuesResources = setDefaultValues(resources);
-      const { columns: mergedColumns } = mergeColumnsAndResources(balancedColumns, defaultValuesResources);
-      const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps);
-      expect(result[0].items?.[0].fullyExpanded).toBe(true);
-      expect(result[0].items?.[0].expand).toBe(true);
-      expect(result[0].items?.[0].height).toBe('802px');
+      const { columns: mergedColumns } = assignListboxesToColumns(balancedColumns, defaultValuesResources, isSmallDevice);
+      const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps, isSmallDevice);
       expect(result[0].items?.[1].fullyExpanded).toBe(false);
-      expect(result[0].items?.[1].expand).toBe(true);
+      expect(result[0].items?.[0].expand).toBe(true);
       expect(result[0].items?.[1].height).toBe('465px');
+      expect(result[0].items?.[0].fullyExpanded).toBe(true);
+      expect(result[0].items?.[1].expand).toBe(true);
+      expect(result[0].items?.[0].height).toBe('802px');
     });
   });
 
@@ -209,31 +262,39 @@ describe('distribute resources', () => {
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,
         isSingleGridLayout: true,
+        alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
-      expect(balancedColumns).toEqual(generateColumns({ expanded: [1] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ expanded: [1] })));
     });
 
     it('should expand when title is hidden at height 39px', () => {
-      const size: ISize = { height: 39, width: 1000, dimensionCount: 10 };
+      const size: ISize = { height: 49, width: 1000, dimensionCount: 10 };
       const columns = generateColumns({ collapsed: [1] });
       const expandPropsGrid: ExpandProps = {
         hasHeader: false,
         isSingleGridLayout: true,
+        alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
-      expect(balancedColumns).toEqual(generateColumns({ expanded: [1] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ expanded: [1] })));
     });
 
     it('should not expand when not single item in grid', () => {
-      const size: ISize = { height: 87, width: 1000, dimensionCount: 10 };
+      const dimensionCount = 10;
+      const size: ISize = { height: 87, width: 1000, dimensionCount };
       const columns = generateColumns({ collapsed: [1] });
+      columns[0].items = Array(dimensionCount).fill(createItem());
       const expandPropsGrid: ExpandProps = {
         hasHeader: true,
         isSingleGridLayout: false,
+        alwaysExpanded: false,
       };
-      const balancedColumns = balanceColumns(size, columns, isSmallDevice, expandPropsGrid);
-      expect(balancedColumns).toEqual(generateColumns({ collapsed: [1] }));
+      const resources = [] as IListboxResource[];
+      const balancedColumns = balanceColumns(size, columns, resources, isSmallDevice, expandPropsGrid);
+      expect(getColumns(balancedColumns)).toEqual(getColumns(generateColumns({ collapsed: [1] })));
     });
   });
 

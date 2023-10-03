@@ -1,5 +1,7 @@
 import React from 'react';
-import { fireEvent, getByTestId, queryByAttribute, render } from '@testing-library/react';
+import {
+  fireEvent, queryByAttribute, render,
+} from '@testing-library/react';
 import { IListboxResource } from '../../hooks/types';
 import { ListboxPopoverContainer } from '../ListboxPopoverContainer';
 import { create } from '../../store';

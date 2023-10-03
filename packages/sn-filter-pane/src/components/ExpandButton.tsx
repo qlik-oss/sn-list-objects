@@ -1,9 +1,9 @@
-import { Button, Grid, styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import React from 'react';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { BUTTON_HEIGHT } from './ListboxGrid/distribute-resources';
 import type { IStores } from '../store';
 import POPOVER_CONTAINER_PADDING from './FoldedListbox/constants';
+import { BUTTON_HEIGHT } from './ListboxGrid/grid-constants';
 
 export interface FoldedListboxProps {
   onClick?: (event: { event: React.MouseEvent<HTMLButtonElement> }) => void;

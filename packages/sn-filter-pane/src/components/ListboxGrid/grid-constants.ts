@@ -1,0 +1,11 @@
+export const COLLAPSED_HEIGHT = 34;
+export const BUTTON_HEIGHT = 34;
+export const ITEM_SPACING = 8;
+export const COLUMN_MIN_WIDTH = 160;
+export const COLUMN_SPACING = 16;
+export const EXPANDED_HEADER_HEIGHT = 48;
+export const DEFAULT_CSS_HEIGHT = 'calc(100% - 2px)';
+export const GRID_ROW_HEIGHT = 32;
+export const LIST_ROW_HEIGHT = 29;
+export const DENSE_ROW_HEIGHT = 20; // same for both list and grid in dense mode
+export const SCROLL_BAR_WIDTH = 10;

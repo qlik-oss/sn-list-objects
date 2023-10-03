@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { IListboxResource } from '../../../hooks/types';
-import { COLLAPSED_HEIGHT, ITEM_SPACING } from '../distribute-resources';
+import { COLLAPSED_HEIGHT, ITEM_SPACING } from '../grid-constants';
 
 export type ColumnItemProps = {
   height?: string | number,

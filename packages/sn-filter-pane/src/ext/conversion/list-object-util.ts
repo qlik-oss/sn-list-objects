@@ -12,7 +12,6 @@ export default {
     const listboxDef = extend(true, {}, dimensionDef);
     let i;
     listboxDef.qShowAlternatives = true;
-    // listboxDef.qDirectQuerySimplifiedView = directQueryAdaptService.adaptationsEnabled();
     for (i = 0; i < listboxDef.qDef.qSortCriterias!.length; ++i) {
       listboxDef.qDef.qSortCriterias![i].qSortByState = 1;
     }

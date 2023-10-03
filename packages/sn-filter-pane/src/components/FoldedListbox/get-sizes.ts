@@ -1,6 +1,6 @@
-import { COLLAPSED_HEIGHT } from '../ListboxGrid/distribute-resources';
 import { ISize } from '../ListboxGrid/interfaces';
 import POPOVER_CONTAINER_PADDING from '../FoldedListbox/constants';
+import { COLLAPSED_HEIGHT } from '../ListboxGrid/grid-constants';
 
 const getSizes = (containerSize?: ISize, isInPopover?: boolean) => {
   const isNarrow = containerSize?.height !== undefined

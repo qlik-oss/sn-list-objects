@@ -12,7 +12,6 @@ import { FoldedListboxClickEvent } from './FoldedListbox/FoldedListbox';
 import ListboxContainer from './ListboxContainer';
 import KEYS from './keys';
 import { IEnv } from '../types/types';
-import POPOVER_CONTAINER_PADDING from './FoldedListbox/constants';
 
 export interface FoldedPopoverProps {
   resources: IListboxResource[];
@@ -48,8 +47,6 @@ const StyledDiv = styled('div')(() => ({
   '&:focus-visible': {
     outline: 'none',
   },
-  padding: `${POPOVER_CONTAINER_PADDING}px`,
-  paddingBottom: '0px',
 }));
 
 /**
@@ -209,7 +206,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
 
   return (
     <StyledDiv ref={containerRef} className='listbox-popover-container' onKeyDown={onListboxPopoverContainerKeyDown}>
-      {isSingle
+      {isSingle && !resources[0].alwaysExpanded
         ? <FoldedListbox onClick={handleOpen} resource={resources[0]} stores={stores} />
         : <ExpandButton onClick={handleOpen} opened={popoverOpen} stores={stores} />}
       <Popover

@@ -101,11 +101,9 @@ function ListboxGrid({ stores }: { stores: IStores }) {
 
   useEffect(() => {
     const firstChild = gridRef?.current?.querySelector?.('.listbox-container,.listbox-popover-container') as HTMLObjectElement;
+    firstChild?.setAttribute('tabIndex', '-1');
     if (keyboard?.active) {
-      firstChild?.setAttribute('tabIndex', '-1');
       firstChild?.focus();
-    } else {
-      firstChild?.setAttribute('tabIndex', '-1');
     }
   }, [keyboard]);
 
@@ -129,11 +127,10 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         {!!columns?.length && columns?.map((column: IColumn, i: number) => (
           <ColumnGrid key={i} widthPercent={100 / columns.length}>
             <Column lastColumn={!isRtl ? columns.length === i + 1 : i === 0}>
-
               {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
                 <ColumnItem
                   key={item.id}
-                  lastItem={column.items?.length === j + 1}
+                  lastItem={column.items?.length === j + 1 && !column.hiddenItems}
                   listItem={item}
                 >
                   {item.expand

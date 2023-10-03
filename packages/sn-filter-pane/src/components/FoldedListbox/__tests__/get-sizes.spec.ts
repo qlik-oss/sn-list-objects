@@ -1,7 +1,7 @@
 import { ISize } from '../../ListboxGrid/interfaces';
 import POPOVER_CONTAINER_PADDING from '../../FoldedListbox/constants';
 import getSizes from '../get-sizes';
-import { COLLAPSED_HEIGHT } from '../../ListboxGrid/distribute-resources';
+import { COLLAPSED_HEIGHT } from '../../ListboxGrid/grid-constants';
 
 describe('getSizes', () => {
   it.only('should return correct sizes for narrow-small container', () => {
