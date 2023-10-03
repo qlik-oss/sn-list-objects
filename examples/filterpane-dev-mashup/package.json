@@ -9,7 +9,7 @@
   "dependencies": {
     "@nebula.js/sn-filter-pane": "0.9.1",
     "@nebula.js/sn-table": "2.2.3",
-    "@nebula.js/stardust": "4.4.0",
+    "@nebula.js/stardust": "4.5.0",
     "enigma.js": "2.9.0"
   },
   "devDependencies": {
