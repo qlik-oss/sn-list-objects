@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.15.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.14.0...v0.15.0) (2023-10-04)
+
+
+### Features
+
+* **sn-filter-pane:** apply collapseMode setting ([#348](https://github.com/qlik-oss/sn-list-objects/issues/348)) ([c85cbaf](https://github.com/qlik-oss/sn-list-objects/commit/c85cbaf49cb4cf04309a3b5cdfceee1f9882516e))
+
 ## [0.14.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.6...v0.14.0) (2023-08-21)
 
 
