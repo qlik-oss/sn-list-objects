@@ -128,7 +128,7 @@ export default function useHandleResize({
       }
     }
 
-    if (!isSingleColumn) {
+    if (!isSingleColumn && overflowing.length > 0) {
       // Ensure the overflow column adjusts for the overflow dropdown button, if any.
       adjustOverflowColumn(columnsTemp[columnsTemp.length - 1], size, overflowing);
     }
