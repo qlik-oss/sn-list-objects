@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.15.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.15.0...v0.15.1) (2023-10-05)
+
+
+### Bug Fixes
+
+* prevent hidden item ([#362](https://github.com/qlik-oss/sn-list-objects/issues/362)) ([0df1aed](https://github.com/qlik-oss/sn-list-objects/commit/0df1aed0d56366c9564b263f823977378bef360a))
+
 ## [0.15.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.14.0...v0.15.0) (2023-10-04)
 
 
