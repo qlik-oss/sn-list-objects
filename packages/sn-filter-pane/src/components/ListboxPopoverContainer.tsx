@@ -27,13 +27,21 @@ const popoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, sta
   }
   return {
     style: {
-      height: selectedResource ? calcHeight : undefined,
-      width: isSmallDevice ? '100%' : '234px',
       overflowX: 'hidden',
       overflowY: selectedResource ? 'hidden' : 'auto',
       backgroundColor,
-      maxWidth: isSmallDevice ? '100%' : 'calc(100% - 32px)',
-      maxHeight: isSmallDevice ? '100%' : 'calc(100% - 32px)',
+      ...(isSmallDevice ? {
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+      }
+        : {
+          height: selectedResource ? calcHeight : undefined,
+          width: '234px',
+          maxWidth: 'calc(100% - 32px)',
+          maxHeight: 'calc(100% - 32px)',
+        }),
     },
   };
 };
@@ -51,6 +59,21 @@ const StyledDiv = styled('div')(() => ({
   padding: `${POPOVER_CONTAINER_PADDING}px`,
   paddingBottom: '0px',
 }));
+
+const StyledPopover = styled(Popover, { shouldForwardProp: (p: string) => !['isSmallDevice'].includes(p) })(({ isSmallDevice }: { isSmallDevice: boolean }) => ({
+  '& .MuiPopover-paper': isSmallDevice ? {
+    // Override the top, left so the popover won't irrevocably go outside the viewport.
+    top: '0px !important',
+    left: '0px !important',
+  } : {},
+}));
+
+function resetZoom() {
+  const viewportMetaTag = document.querySelector('meta[name="viewport"]');
+  if (viewportMetaTag instanceof HTMLMetaElement) {
+    viewportMetaTag.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
+  }
+}
 
 /**
  * If a single resource is passed to this component a FoldedListbox is rendered.
@@ -72,6 +95,10 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
   const handleOpen = ({ event }: FoldedListboxClickEvent | { event: React.MouseEvent<HTMLButtonElement, MouseEvent> }) => {
     if (event.currentTarget.contains(event.target as Node) && !constraints?.active) {
       setPopoverOpen(true);
+      if (isSmallDevice) {
+        // Autofocus can cause the browser to zoom so we need to reset zoom.
+        resetZoom();
+      }
     }
   };
   const handleClose = () => {
@@ -212,17 +239,20 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
       {isSingle
         ? <FoldedListbox onClick={handleOpen} resource={resources[0]} stores={stores} />
         : <ExpandButton onClick={handleOpen} opened={popoverOpen} stores={stores} />}
-      <Popover
+      <StyledPopover
         open={popoverOpen}
         onClose={handleClose}
         anchorEl={containerRef.current}
         transitionDuration={transitionDuration}
+        isSmallDevice={isSmallDevice}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        PaperProps={popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme)}
-        anchorReference= {isSmallDevice ? 'anchorPosition' : 'anchorEl'}
+        slotProps={{
+          paper: popoverPaperProps(!!selectedResource, isSmallDevice, stardustTheme, muiTheme),
+        }}
+        anchorReference={isSmallDevice ? 'anchorPosition' : 'anchorEl'}
         anchorPosition= {{ left: 0, top: 0 }}
         marginThreshold={isSmallDevice ? 0 : 16}
         className='listbox-popover'
@@ -237,7 +267,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
             ))}
           </Grid>
         }
-      </Popover>
+      </StyledPopover>
     </StyledDiv>
   );
 };
