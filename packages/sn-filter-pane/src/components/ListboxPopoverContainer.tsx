@@ -65,6 +65,13 @@ const StyledPopover = styled(Popover, { shouldForwardProp: (p: string) => !['isS
   } : {},
 }));
 
+function resetZoom() {
+  const viewportMetaTag = document.querySelector('meta[name="viewport"]');
+  if (viewportMetaTag instanceof HTMLMetaElement) {
+    viewportMetaTag.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0';
+  }
+}
+
 /**
  * If a single resource is passed to this component a FoldedListbox is rendered.
  * When the FoldedListbox is clicked, a Listbox is rendered in a Popover.
@@ -85,6 +92,10 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
   const handleOpen = ({ event }: FoldedListboxClickEvent | { event: React.MouseEvent<HTMLButtonElement, MouseEvent> }) => {
     if (event.currentTarget.contains(event.target as Node) && !constraints?.active) {
       setPopoverOpen(true);
+      if (isSmallDevice) {
+        // Autofocus can cause the browser to zoom so we need to reset zoom.
+        resetZoom();
+      }
     }
   };
   const handleClose = () => {
