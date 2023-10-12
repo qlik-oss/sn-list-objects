@@ -15,7 +15,7 @@ const stylingPanelDef = {
           headerItems: {
             component: 'items',
             ref: 'components',
-            key: 'listBox',
+            key: 'header',
             items: {
               fontWrapperItem: {
                 component: 'inline-wrapper',
@@ -62,7 +62,7 @@ const stylingPanelDef = {
           contentItems: {
             component: 'items',
             ref: 'components',
-            key: 'listBox',
+            key: 'content',
             items: {
               contentFontWrapper: {
                 component: 'inline-wrapper',
@@ -105,47 +105,41 @@ const stylingPanelDef = {
       },
       selectionStateSection: {
         component: 'panel-section',
-            translation: 'properties.selectionState',
+        translation: 'properties.selectionState',
+        items: {
+          selectionItems: {
+            component: 'items',
+            ref: 'components',
+            key: 'palette',
             items: {
-              selectionItems: {
-                component: 'items',
-                ref: 'components',
-                key: 'listBox',
-                items: {
-                  selectedColor: {
-                      show: true,
-                      ref: 'palette.selected',
-                      type: 'object',
-                      component: 'color-picker',
-                      translation: 'Selected',
-                      defaultValue(item, data, args) {
-                          return { color: "#009845" };
-                      }
-                  },
-                  alternativeColor: {
-                      show: true,
-                      ref: 'palette.alternative',
-                      type: 'object',
-                      component: 'color-picker',
-                      translation: 'Alternative',
-                      defaultValue(item, data, args) {
-                          return { color: "#E4E4E4" };
-                      }
-                  },
-                  excludedColor: {
-                      show: true,
-                      ref: 'palette.excluded',
-                      type: 'object',
-                      component: 'color-picker',
-                      translation: 'Excluded',
-                      defaultValue(item, data, args) {
-                          return { color: "#BEBEBE" };
-                      }
-                  },
-              }
-            }
+              selectedColor: {
+                show: true,
+                ref: 'selected',
+                type: 'object',
+                component: 'color-picker',
+                translation: 'Selected',
+                defaultValue: { color: '#009845' },
+              },
+              alternativeColor: {
+                show: true,
+                ref: 'alternative',
+                type: 'object',
+                component: 'color-picker',
+                translation: 'Alternative',
+                defaultValue: { color: '#E4E4E4' },
+              },
+              excludedColor: {
+                show: true,
+                ref: 'excluded',
+                type: 'object',
+                component: 'color-picker',
+                translation: 'Excluded',
+                defaultValue: { color: '#BEBEBE' },
+              },
+            },
+          },
         },
-      }
+      },
     },
   },
 };

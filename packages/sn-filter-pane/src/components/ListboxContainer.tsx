@@ -33,9 +33,11 @@ const ListboxContainer = ({
     env,
     stardustTheme,
     directQueryEnabled,
+    fpLayout,
   } = stores.store.getState();
 
   const { sense } = env as IEnv;
+  const { components } = fpLayout || {};
 
   const dqOptionsOverrides = useDirectQuery({
     directQueryEnabled, layout, listBoxModel: model, constraints,
@@ -49,8 +51,8 @@ const ListboxContainer = ({
     if (!layout || !embed) {
       return;
     }
-    embed.field(layout.qInfo).then((inst) => {
-      setListboxInstance(inst as stardust.FieldInstance);
+    embed.field(layout.qInfo).then((inst: stardust.FieldInstance) => {
+      setListboxInstance(inst);
     });
   }, []);
 
@@ -68,6 +70,7 @@ const ListboxContainer = ({
       direction: options?.direction,
       search: isPopover ? true : 'toggle' as stardust.SearchMode,
       isPopover,
+      components,
     }, dqOptionsOverrides || {});
 
     // @ts-ignore
