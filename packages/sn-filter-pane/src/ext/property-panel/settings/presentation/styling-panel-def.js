@@ -1,3 +1,10 @@
+const MIN_FONT_SIZE = 5;
+const MAX_FONT_SIZE = 24;
+
+function adjustToRange(value, min = MIN_FONT_SIZE, max = MAX_FONT_SIZE) {
+  return Math.max(min, Math.min(max, Math.floor(value)));
+}
+
 const stylingPanelDef = {
   stylingPanel: {
     component: 'styling-panel',
@@ -22,11 +29,11 @@ const stylingPanelDef = {
                 items: {
                   fontSizeItem: {
                     component: 'integer',
-                    ref: 'header.fontSize',
+                    ref: 'fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
                     min: 5,
-                    max: 300,
+                    max: MAX_FONT_SIZE,
                     defaultValue(item, data, args) {
                       const currentTheme = args.theme.current();
                       return parseInt(
@@ -35,14 +42,13 @@ const stylingPanelDef = {
                       );
                     },
                     change(data) {
-                      data.header.fontSize = !data.header.fontSize
-                        ? data.header.fontSize
-                        : Math.max(5, Math.min(300, Math.floor(data.header.fontSize)));
+                      const value = !data.fontSize ? data.fontSize : Math.floor(data.fontSize);
+                      data.fontSize = adjustToRange(value);
                     },
                   },
                   fontColorItem: {
                     show: true,
-                    ref: 'header.fontColor',
+                    ref: 'fontColor',
                     component: 'color-picker',
                     defaultValue(item, data, args) {
                       const currentTheme = args.theme.current();
@@ -69,11 +75,11 @@ const stylingPanelDef = {
                 items: {
                   contentFontSize: {
                     component: 'integer',
-                    ref: 'content.fontSize',
+                    ref: 'fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
                     min: 5,
-                    max: 300,
+                    max: MAX_FONT_SIZE,
                     defaultValue(item, data, args) {
                       const currentTheme = args.theme.current();
                       return parseInt(
@@ -82,17 +88,16 @@ const stylingPanelDef = {
                       );
                     },
                     change(data) {
-                      data.content.fontSize = !data.content.fontSize
-                        ? data.content.fontSize
-                        : Math.max(5, Math.min(300, Math.floor(data.content.fontSize)));
+                      const value = !data.fontSize ? data.fontSize : Math.floor(data.fontSize);
+                      data.fontSize = adjustToRange(value);
                     },
                   },
                   contentFontColor: {
                     show: true,
-                    ref: 'content.fontColor',
+                    ref: 'fontColor',
                     type: 'object',
                     component: 'color-picker',
-                    defaultValue(item, data, args) {
+                    defaultValue(_item, _data, args) {
                       const currentTheme = args.theme.current();
                       return { color: currentTheme.object?.listBox?.content?.color ?? currentTheme.color };
                     },
