@@ -32,7 +32,7 @@ const stylingPanelDef = {
                     ref: 'fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
-                    min: 5,
+                    min: MIN_FONT_SIZE,
                     max: MAX_FONT_SIZE,
                     defaultValue(item, data, args) {
                       const currentTheme = args.theme.current();
@@ -78,7 +78,7 @@ const stylingPanelDef = {
                     ref: 'fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
-                    min: 5,
+                    min: MIN_FONT_SIZE,
                     max: MAX_FONT_SIZE,
                     defaultValue(item, data, args) {
                       const currentTheme = args.theme.current();
