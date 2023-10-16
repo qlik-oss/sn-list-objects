@@ -5,6 +5,12 @@ function adjustToRange(value, min = MIN_FONT_SIZE, max = MAX_FONT_SIZE) {
   return Math.max(min, Math.min(max, Math.floor(value)));
 }
 
+function getDefaultColor({ theme }) {
+  const currentTheme = theme.current();
+  const defaultColor = currentTheme.object?.listBox?.content?.color ?? currentTheme.color;
+  return defaultColor;
+}
+
 const stylingPanelDef = {
   stylingPanel: {
     component: 'styling-panel',
@@ -47,10 +53,9 @@ const stylingPanelDef = {
                     },
                   },
                   fontColorItem: {
-                    show: true,
                     ref: 'fontColor',
                     component: 'color-picker',
-                    defaultValue(item, data, args) {
+                    defaultValue(_item, _data, args) {
                       const currentTheme = args.theme.current();
                       return { color: currentTheme.object?.listBox?.title?.main?.color ?? currentTheme.color };
                     },
@@ -80,7 +85,7 @@ const stylingPanelDef = {
                     width: 9,
                     min: MIN_FONT_SIZE,
                     max: MAX_FONT_SIZE,
-                    defaultValue(item, data, args) {
+                    defaultValue(_item, _data, args) {
                       const currentTheme = args.theme.current();
                       return parseInt(
                         currentTheme.object?.listBox?.content?.fontSize ?? currentTheme.fontSize,
@@ -93,14 +98,21 @@ const stylingPanelDef = {
                     },
                   },
                   contentFontColor: {
-                    show: true,
                     ref: 'fontColor',
                     type: 'object',
                     component: 'color-picker',
                     defaultValue(_item, _data, args) {
-                      const currentTheme = args.theme.current();
-                      return { color: currentTheme.object?.listBox?.content?.color ?? currentTheme.color };
+                      const defaultColor = getDefaultColor({ theme: args.theme });
+                      return { color: defaultColor };
                     },
+                  },
+                  useContrastColor: {
+                    ref: 'useContrastColor',
+                    type: 'boolean',
+                    grouped: true,
+                    component: 'checkbox',
+                    translation: 'properties.styling.autoContrastColor',
+                    defaultValue: true,
                   },
                 },
               },
@@ -110,7 +122,7 @@ const stylingPanelDef = {
       },
       selectionStateSection: {
         component: 'panel-section',
-        translation: 'properties.selectionState',
+        translation: 'properties.styling.selectionState',
         items: {
           selectionItems: {
             component: 'items',
@@ -118,28 +130,39 @@ const stylingPanelDef = {
             key: 'palette',
             items: {
               selectedColor: {
-                show: true,
                 ref: 'selected',
                 type: 'object',
                 component: 'color-picker',
-                translation: 'Selected',
+                translation: 'Object.Listbox.Selected',
                 defaultValue: { color: '#009845' },
               },
               alternativeColor: {
-                show: true,
                 ref: 'alternative',
                 type: 'object',
                 component: 'color-picker',
-                translation: 'Alternative',
+                translation: 'Object.Listbox.Alternative',
                 defaultValue: { color: '#E4E4E4' },
               },
               excludedColor: {
-                show: true,
                 ref: 'excluded',
                 type: 'object',
                 component: 'color-picker',
-                translation: 'Excluded',
+                translation: 'Object.Listbox.Excluded',
                 defaultValue: { color: '#BEBEBE' },
+              },
+              selectedExcludedColor: {
+                ref: 'selectedExcluded',
+                type: 'object',
+                component: 'color-picker',
+                translation: 'Object.Listbox.SelectedExcluded',
+                defaultValue: { color: '#A9A9A9' },
+              },
+              possibleColor: {
+                ref: 'possible',
+                type: 'object',
+                component: 'color-picker',
+                translation: 'Object.Listbox.Possible',
+                defaultValue: { color: '#FFFFFF' },
               },
             },
           },
