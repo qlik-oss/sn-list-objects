@@ -88,8 +88,8 @@
     "@nebula.js/stardust": ">=4.5.0"
   },
   "dependencies": {
-    "@mui/icons-material": "5.14.12",
-    "@mui/material": "5.14.12",
+    "@mui/icons-material": "5.14.13",
+    "@mui/material": "5.14.13",
     "extend": "^3.0.2",
     "lodash": "4.17.21",
     "uuid": "^9.0.0"
