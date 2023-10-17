@@ -127,7 +127,7 @@ const stylingPanelDef = {
           selectionItems: {
             component: 'items',
             ref: 'components',
-            key: 'palette',
+            key: 'selections',
             items: {
               selectedColor: {
                 ref: 'selected',
