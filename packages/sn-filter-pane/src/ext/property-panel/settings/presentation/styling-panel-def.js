@@ -28,14 +28,14 @@ const stylingPanelDef = {
           headerItems: {
             component: 'items',
             ref: 'components',
-            key: 'header',
+            key: 'theme',
             items: {
               fontWrapperItem: {
                 component: 'inline-wrapper',
                 items: {
                   fontSizeItem: {
                     component: 'integer',
-                    ref: 'fontSize',
+                    ref: 'header.fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
                     min: MIN_FONT_SIZE,
@@ -53,7 +53,7 @@ const stylingPanelDef = {
                     },
                   },
                   fontColorItem: {
-                    ref: 'fontColor',
+                    ref: 'header.fontColor',
                     component: 'color-picker',
                     defaultValue(_item, _data, args) {
                       const currentTheme = args.theme.current();
@@ -73,14 +73,14 @@ const stylingPanelDef = {
           contentItems: {
             component: 'items',
             ref: 'components',
-            key: 'content',
+            key: 'theme',
             items: {
               contentFontWrapper: {
                 component: 'inline-wrapper',
                 items: {
                   contentFontSize: {
                     component: 'integer',
-                    ref: 'fontSize',
+                    ref: 'content.fontSize',
                     translation: 'properties.fontSize',
                     width: 9,
                     min: MIN_FONT_SIZE,
@@ -98,7 +98,7 @@ const stylingPanelDef = {
                     },
                   },
                   contentFontColor: {
-                    ref: 'fontColor',
+                    ref: 'content.fontColor',
                     type: 'object',
                     component: 'color-picker',
                     defaultValue(_item, _data, args) {
@@ -107,7 +107,7 @@ const stylingPanelDef = {
                     },
                   },
                   useContrastColor: {
-                    ref: 'useContrastColor',
+                    ref: 'content.useContrastColor',
                     type: 'boolean',
                     grouped: true,
                     component: 'checkbox',
@@ -127,38 +127,38 @@ const stylingPanelDef = {
           selectionItems: {
             component: 'items',
             ref: 'components',
-            key: 'selections',
+            key: 'theme',
             items: {
               selectedColor: {
-                ref: 'selected',
+                ref: 'selections.selected',
                 type: 'object',
                 component: 'color-picker',
                 translation: 'Object.Listbox.Selected',
                 defaultValue: { color: '#009845' },
               },
               alternativeColor: {
-                ref: 'alternative',
+                ref: 'selections.alternative',
                 type: 'object',
                 component: 'color-picker',
                 translation: 'Object.Listbox.Alternative',
                 defaultValue: { color: '#E4E4E4' },
               },
               excludedColor: {
-                ref: 'excluded',
+                ref: 'selections.excluded',
                 type: 'object',
                 component: 'color-picker',
                 translation: 'Object.Listbox.Excluded',
                 defaultValue: { color: '#BEBEBE' },
               },
               selectedExcludedColor: {
-                ref: 'selectedExcluded',
+                ref: 'selections.selectedExcluded',
                 type: 'object',
                 component: 'color-picker',
                 translation: 'Object.Listbox.SelectedExcluded',
                 defaultValue: { color: '#A9A9A9' },
               },
               possibleColor: {
-                ref: 'possible',
+                ref: 'selections.possible',
                 type: 'object',
                 component: 'color-picker',
                 translation: 'Object.Listbox.Possible',
