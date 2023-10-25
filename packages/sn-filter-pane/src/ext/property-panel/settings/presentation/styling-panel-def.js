@@ -40,7 +40,7 @@ export default function getStyling(env) {
                   items: {
                     fontSizeItem: {
                       component: 'dropdown',
-                      ref: 'axis.title.fontSize',
+                      ref: 'header.fontSize',
                       options: getFontSizes({
                         min: 10, max: 24, theme, defaultFontSize,
                       }),
