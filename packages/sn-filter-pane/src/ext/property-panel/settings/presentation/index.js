@@ -1,12 +1,14 @@
-import styling from './styling-panel-def';
+import getStyling from './styling-panel-def';
 
-export default {
-  presentation: {
-    grouped: true,
-    type: 'items',
-    translation: 'properties.presentation',
-    items: {
-      ...styling,
+export default function getPresentation(env) {
+  return {
+    presentation: {
+      grouped: true,
+      type: 'items',
+      translation: 'properties.presentation',
+      items: {
+        ...getStyling(env),
+      },
     },
-  },
-};
+  };
+}
