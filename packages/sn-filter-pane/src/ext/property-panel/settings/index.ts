@@ -1,5 +1,5 @@
 import { IEnv } from '../../../types/types';
-import presentation from './presentation';
+import getPresentation from './presentation';
 
 function getSettings(env: IEnv) {
   const { flags } = env || {};
@@ -19,7 +19,7 @@ function getSettings(env: IEnv) {
   };
 
   if (flags?.isEnabled('IM_4073_FILTERPANE_STYLING')) {
-    Object.assign(settings.items, presentation);
+    Object.assign(settings.items, getPresentation(env));
   }
 
   return settings;
