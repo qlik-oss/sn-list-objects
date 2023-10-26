@@ -266,12 +266,12 @@
   resolved "https://registry.yarnpkg.com/@nebula.js/sn-table/-/sn-table-2.2.3.tgz#d514352763a35bfeeb18c227ede0970b4a2fc2ce"
   integrity sha512-zTqGtlJWZ+JoeDXsg4100uCQ2nQdLBzLk27SPx2NqsBn0Y51HGIQsToTADO7ZG1jog8JC2dXEjXhEcIMRP9xVw==
 
-"@nebula.js/stardust@4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.5.0.tgz#458d753368c12db656689273ce418ec566b9f83c"
-  integrity sha512-2UQxd/25NnGgAEwGXoXT8OuKMs6BZKwoQR6SEPgdp+uL+mVbOhlavnxvTGYi1yUOPBqCVHpy1fMmsvpdY6Ckkg==
+"@nebula.js/stardust@4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.6.0.tgz#e96f23c1acb4088ebf75ce9edfacdadef76272fa"
+  integrity sha512-DPHAvF/QuieeT6m2My74TaPk4ZAxhrvT1l8Lxd5gHWSMa4np9AjGfMLID4TofTgnDC9cK5Qq3MZFsdkQFvM0pw==
   dependencies:
-    "@types/qlik-engineapi" "12.67.14"
+    "@types/qlik-engineapi" "12.67.15"
 
 "@popperjs/core@^2.11.7":
   version "2.11.7"
@@ -283,10 +283,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
-"@types/qlik-engineapi@12.67.14":
-  version "12.67.14"
-  resolved "https://registry.yarnpkg.com/@types/qlik-engineapi/-/qlik-engineapi-12.67.14.tgz#7ff6d194eebc90652803ce1549e865e058db7b5b"
-  integrity sha512-IaceyOBLLYxbL1mX9LgyXw4F5spRsGbAylp9a4+Pq+wrSrUzfNgUbnLtv8K0woE7fV7SRShmMhbKGEXoK7hx9g==
+"@types/qlik-engineapi@12.67.15":
+  version "12.67.15"
+  resolved "https://registry.yarnpkg.com/@types/qlik-engineapi/-/qlik-engineapi-12.67.15.tgz#ff28a286c7c6f8520323b7981bf7c7f756fe6aaa"
+  integrity sha512-y+uAO2gbz1LQJZIl2pEf4OLzr1Xdurs6thsES+O+8Vbar/RtKxdvOVCASpOXp4JHaXw0VhjZyr/zAs/qdtvBzg==
 
 "@types/react-is@^16.7.1 || ^17.0.0":
   version "17.0.4"
