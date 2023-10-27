@@ -1,7 +1,7 @@
 export default () => ({
   instanceConfig: {
     context: {
-      theme: 'senseish',
+      theme: 'theme-tarallo',
     },
   },
   genericObjects: [
@@ -37,7 +37,7 @@ export default () => ({
             bgColor: {
               color: {
                 index: -1,
-                color: '#142d59'
+                color: 'red'
               }
             }
           },
