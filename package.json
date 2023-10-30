@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/qlik-oss/sn-list-objects#readme",
   "devDependencies": {
-    "@nebula.js/cli-serve": "4.6.0",
+    "@nebula.js/cli-serve": "4.6.1",
     "@playwright/test": "1.39.0",
     "@release-it-plugins/workspaces": "3.2.0",
     "@release-it/conventional-changelog": "5.1.1",
