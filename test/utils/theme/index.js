@@ -1,5 +1,6 @@
 import themeGlobal from './theme-global.json';
 import themeScoped from './theme-scoped.json';
+import themeTarallo from './theme-tarallo.json';
 
 export default [
   {
@@ -31,5 +32,9 @@ export default [
   {
     id: 'theme-scoped',
     theme: themeScoped,
+  },
+  {
+    id: 'theme-tarallo',
+    theme: themeTarallo,
   },
 ];

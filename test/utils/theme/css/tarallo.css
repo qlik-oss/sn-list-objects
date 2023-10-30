@@ -1,0 +1,9 @@
+.qv-chart-component{
+    font-size              :  12px;
+}
+
+.qv-object .qv-inner-object{
+    background              : rgba(38, 20, 66, 0.4);
+    font-weight            : normal;
+    font-style             : normal;
+}
