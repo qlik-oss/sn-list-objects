@@ -10,6 +10,7 @@ import DrillDown from './drillDown';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 import KEYS from '../keys';
 import getSizes from './get-sizes';
+import { IStyles } from '../../hooks/types/components';
 
 export interface FoldedListboxClickEvent {
   event: React.MouseEvent<HTMLObjectElement | HTMLDivElement>;
@@ -24,7 +25,7 @@ export interface FoldedListboxProps {
 }
 interface StyledGridProps {
   constraints?: stardust.Constraints;
-  stardustTheme?: stardust.Theme;
+  styles?: IStyles;
   isInPopover: boolean;
   height: number;
 }
@@ -48,10 +49,10 @@ const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].inc
   }),
 );
 
-const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'stardustTheme', 'isInPopover', 'height'].includes(p as string) })<StyledGridProps>(
+const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'styles', 'isInPopover', 'height'].includes(p as string) })<StyledGridProps>(
   ({
     constraints,
-    stardustTheme,
+    styles,
     isInPopover,
     height,
   }) => {
@@ -67,8 +68,8 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       ':hover': !constraints?.active && {
         border: '1px solid #595959',
       },
-      backgroundColor: getListboxStyle('', 'backgroundColor', stardustTheme) ?? '#FFFFFF',
-      color: getListboxStyle('title.main', 'color', stardustTheme) ?? '#404040',
+      backgroundColor: styles?.listbox.backgroundColor ?? '#FFFFFF',
+      color: styles?.listbox.color,
       width: isInPopover ? `calc(100% - ${2 * popoverPadding}px` : '100%',
       '&:focus:not(:hover)': {
         boxShadow: 'inset 0 0 0 2px #3F8AB3 !important',
@@ -80,11 +81,12 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
   },
 );
 
-const Title = styled(Typography, { shouldForwardProp: (p) => !['stardustTheme'].includes(p as string) })<{ stardustTheme?: stardust.Theme }>(
-  ({ stardustTheme }) => ({
-    fontSize: '13px',
-    fontFamily: getListboxStyle('title.main', 'fontFamily', stardustTheme) ?? '"Source Sans Pro", sans-serif',
-    fontWeight: getListboxStyle('title.main', 'fontWeight', stardustTheme) ?? '700',
+const Title = styled(Typography, { shouldForwardProp: (p) => !['styles'].includes(p as string) })<{ styles?: IStyles }>(
+  ({ styles }) => ({
+    color: styles?.header?.color,
+    fontSize: styles?.header?.fontSize,
+    fontFamily: styles?.header?.fontFamily,
+    fontWeight: styles?.header?.fontWeight,
   }),
 );
 
@@ -93,7 +95,7 @@ export const FoldedListbox = ({
 }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const {
-    constraints, stardustTheme, options, translator, containerSize,
+    constraints, styles, options, translator, containerSize,
   } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
   const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
@@ -124,7 +126,7 @@ export const FoldedListbox = ({
     <StyledDiv className="folded-listbox" onKeyDown={handleKeyDown} isInPopover={isInPopover}>
       <StyledGrid
         constraints={constraints}
-        stardustTheme={stardustTheme}
+        styles={styles}
         container
         direction='column'
         data-testid={`collapsed-title-${fieldName}`}
@@ -142,7 +144,7 @@ export const FoldedListbox = ({
               </Tooltip>
             }
             <Tooltip title={fieldName} enterDelay={2000}>
-              <Title variant="subtitle2" stardustTheme={stardustTheme} noWrap lineHeight={narrowLarge ? '100%' : 'normal'}>
+              <Title variant="subtitle2" styles={styles} noWrap lineHeight={narrowLarge ? '100%' : 'normal'}>
                 {fieldName}
               </Title>
             </Tooltip>

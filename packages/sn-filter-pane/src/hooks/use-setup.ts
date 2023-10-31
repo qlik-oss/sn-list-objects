@@ -1,11 +1,12 @@
 import {
-  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useTheme, useSelections, useKeyboard, useAppLayout,
+  useEmbed, useApp, useLayout, useModel, useOptions, useConstraints, useState, useTranslator, useSelections, useKeyboard, useAppLayout,
 } from '@nebula.js/stardust';
 import { create } from '../store';
 import { IEnv } from '../types/types';
 import { IFilterPaneLayout, IListBoxOptions, INxAppLayout } from './types';
 import useRenderTrackerService from '../services/render-tracker';
 import isDirectQueryEnabled from './direct-query/is-direct-query-enabled';
+import useStyling from './use-styling';
 
 export default function useSetup(env: IEnv) {
   const [stores] = useState(() => create());
@@ -19,7 +20,7 @@ export default function useSetup(env: IEnv) {
   const app = useApp() as EngineAPI.IApp;
   const model = useModel();
   const embed = useEmbed();
-  const stardustTheme = useTheme();
+  const styles = useStyling({ components: fpLayout?.components });
   const selections = useSelections();
   const keyboard = useKeyboard();
   const renderTracker = useRenderTrackerService();
@@ -37,7 +38,7 @@ export default function useSetup(env: IEnv) {
     constraints,
     translator,
     embed,
-    stardustTheme,
+    styles,
     selections,
     keyboard,
     renderTracker,
