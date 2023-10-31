@@ -1,9 +1,15 @@
-import { Theme as MuiTheme } from '@mui/material';
 import { Theme as StardustTheme } from '@nebula.js/stardust';
 
 export type IThemeComponent = {
   key: 'theme',
-  header: {
+  content?: {
+    fontSize?: string;
+    fontColor?: {
+      color?: string;
+    },
+    useContrastColor?: boolean;
+  },
+  header?: {
     fontColor?: {
       color?: string;
     };
