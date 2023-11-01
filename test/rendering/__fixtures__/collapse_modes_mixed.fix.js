@@ -119,6 +119,26 @@ export default () => ({
           showDetails: true,
           showDetailsExpression: false,
           visualization: 'sn-filter-pane',
+
+          // Components added to ensure the headers (and filterpane background) behave correctly.
+          components: [{
+            key: 'general',
+            bgColor: {
+              index: 6,
+              color: '#4477aa'
+            },
+          }, {
+            key: 'theme',
+            header: {
+              fontColor: {
+                index: -1,
+                color: '#b01622'
+              },
+              fontSize: '24px',
+              fontFamily: 'Bangers, fantasy', // should not have any effect on collapsed currently
+              fontSize: '24px' // should not have any effect on collapsed (decided because of limited space)
+            }
+          }]
         };
       },
     },
