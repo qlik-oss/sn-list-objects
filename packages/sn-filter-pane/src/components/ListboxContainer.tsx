@@ -31,7 +31,7 @@ const ListboxContainer = ({
     options,
     renderTracker,
     env,
-    stardustTheme,
+    styles,
     directQueryEnabled,
     fpLayout,
   } = stores.store.getState();
@@ -43,7 +43,7 @@ const ListboxContainer = ({
     directQueryEnabled, layout, listBoxModel: model, constraints,
   });
 
-  const showBorder = !sense || inSelection || stardustTheme?.getStyle('', '', '_cards');
+  const showBorder = !sense || inSelection || styles?.stardustTheme?.getStyle('', '', '_cards');
 
   const [key] = useState(uid());
 

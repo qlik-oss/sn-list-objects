@@ -1,4 +1,5 @@
 import { IListLayout as GlobalIListLayout, IGenericListPropertiesMissing as IGenericListPropertiesMissingGlobal, INxAppLayoutGlobal } from '../../../../../types/global';
+import { IComponent } from './components';
 
 export type IListLayout = GlobalIListLayout;
 export type IGenericListPropertiesMissing = IGenericListPropertiesMissingGlobal;
@@ -48,7 +49,7 @@ export interface IFilterPaneLayout {
   layoutOptions?: {
     compactData?: boolean,
   }
-  components?: object[],
+  components?: IComponent[],
 }
 
 export interface IListboxResource {
