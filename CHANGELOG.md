@@ -1,5 +1,17 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.17.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.16.0...v0.17.0) (2023-11-01)
+
+
+### Features
+
+* new use styling hook and support for collapsed title styling ([#373](https://github.com/qlik-oss/sn-list-objects/issues/373)) ([cff81ee](https://github.com/qlik-oss/sn-list-objects/commit/cff81eebb8fd8a0c6d795e1292d400a6ad38a588))
+
+
+### Bug Fixes
+
+* **deps:** update minor and patch ([#371](https://github.com/qlik-oss/sn-list-objects/issues/371)) ([b1e957c](https://github.com/qlik-oss/sn-list-objects/commit/b1e957c623f5746ad6b5de0be940934d7589c0af))
+
 ## [0.16.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.15.2...v0.16.0) (2023-10-25)
 
 
