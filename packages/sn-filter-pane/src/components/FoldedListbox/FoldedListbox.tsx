@@ -35,8 +35,6 @@ interface StyledDivProps {
 
 const POPOVER_PADDING = 2;
 
-const getListboxStyle = (path: string, prop: string, t?: stardust.Theme) => t?.getStyle('object.listBox', path, prop);
-
 const StyledDiv = styled('div', { shouldForwardProp: (p) => !['isInPopover'].includes(p as string) })<StyledDivProps>(
   ({ isInPopover }) => ({
     '&:focus': {
