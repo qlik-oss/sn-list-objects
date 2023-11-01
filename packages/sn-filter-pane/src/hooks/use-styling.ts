@@ -65,8 +65,8 @@ export default function useStyling({ components = [] }: ICreateStylingArgs): ISt
       fontWeight: getListboxStyle('title.main', 'fontWeight') || '700',
     },
 
-    // TODO: Theme(s) are only exposed here temporarilly. The idea is to remove
-    // both muiTheme and stardustTheme and instead let them populate the merged style.
+    // The theme is only exposed here temporarilly. The idea is to not expose any theme directly,
+    // but instead let them populate the merged style. Remove when possible.
     stardustTheme,
   };
 

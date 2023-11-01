@@ -32,7 +32,7 @@ export const ExpandButton = ({
       height = containerSize.height - POPOVER_CONTAINER_PADDING - 1;
     }
     return {
-      backgroundColor: styles?.backgroundColor ?? styles?.stardustTheme?.getStyle('object', '', 'listBox.backgroundColor') ?? '#FFFFFF',
+      backgroundColor: styles?.listbox.backgroundColor,
       width: '100%',
       height,
       border: '1px solid #B3B3B3',
