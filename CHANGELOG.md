@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.17.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.0...v0.17.1) (2023-11-02)
+
+
+### Bug Fixes
+
+* hover color and expand last item ([#375](https://github.com/qlik-oss/sn-list-objects/issues/375)) ([7c030b8](https://github.com/qlik-oss/sn-list-objects/commit/7c030b8eda921fbe285ea6647c128692fcb95775))
+
 ## [0.17.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.16.0...v0.17.0) (2023-11-01)
 
 
