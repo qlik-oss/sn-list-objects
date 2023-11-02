@@ -140,11 +140,12 @@ export default function useHandleResize({
     sortColumnItemsByFieldOrder(columnsTemp, resources);
 
     // Now that we have the expected field order in place, ensure that the last
-    // non-collapsed item of the first column is expanded to 100%, to fill out the space.
+    // non-collapsed item of the first column fills out the remaining space.
     const colItems = columnsTemp[0]?.items || [];
     const lastItem = colItems[colItems.length - 1];
     if (lastItem && !columnsTemp[0]?.hiddenItems && !lastItem.neverExpanded) {
-      lastItem.height = DEFAULT_CSS_HEIGHT;
+      const pxHeight = size.height - estimateColumnHeight({ ...columnsTemp, items: colItems.slice(0, colItems.length - 1) });
+      lastItem.height = pxHeight ? `${pxHeight}px` : DEFAULT_CSS_HEIGHT;
     }
 
     setOverflowingResources(overflowing);
