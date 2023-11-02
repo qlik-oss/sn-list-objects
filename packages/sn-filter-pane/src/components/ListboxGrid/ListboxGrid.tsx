@@ -124,20 +124,20 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         overflow="hidden"
       >
 
-        {!!columns?.length && columns?.map((column: IColumn, i: number) => (
-          <ColumnGrid key={i} widthPercent={100 / columns.length}>
-            <Column lastColumn={!isRtl ? columns.length === i + 1 : i === 0}>
-              {!!column?.items?.length && column.items.map((item: IListboxResource, j: number) => (
+        {!!columns?.length && columns?.map((column: IColumn, columnIndex: number) => (
+          <ColumnGrid key={columnIndex} widthPercent={100 / columns.length}>
+            <Column lastColumn={!isRtl ? columns.length === columnIndex + 1 : columnIndex === 0}>
+              {!!column?.items?.length && column.items.map((item: IListboxResource, itemIndex: number) => (
                 <ColumnItem
                   key={item.id}
-                  lastItem={column.items?.length === j + 1 && !column.hiddenItems}
+                  lastItem={column.items?.length === itemIndex + 1 && !column.hiddenItems}
                   listItem={item}
                 >
                   {item.expand
                     ? <ListboxContainer
                       layout={item.layout}
                       model={item.model}
-                      borderBottom={(column.items?.length === j + 1) || !item.fullyExpanded}
+                      borderBottom={(column.items?.length === itemIndex + 1) || !item.fullyExpanded}
                       handleActive={handleActive}
                       stores={stores}
                     ></ListboxContainer>

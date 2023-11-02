@@ -152,13 +152,6 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
   let expandedHeight;
   let leftOverHeight = initialLeftOverHeight;
 
-  // sortedItems.forEach((itm) => {
-  //   if (!itm.alwaysExpanded) {
-  //     itm.expand = false;
-  //     itm.height = DEFAULT_CSS_HEIGHT;
-  //   }
-  // });
-
   for (i = 0; i < sortedItems.length; i++) {
     item = sortedItems[i];
     if (item.cardinal && !item.fullyExpanded) {

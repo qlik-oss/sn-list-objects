@@ -32,12 +32,14 @@ export const ExpandButton = ({
       height = containerSize.height - POPOVER_CONTAINER_PADDING - 1;
     }
     return {
-      backgroundColor: styles?.listbox.backgroundColor,
-      width: '100%',
-      height,
-      border: '1px solid #B3B3B3',
-      borderRadius: '3px',
-      justifyContent: 'end',
+      '&.MuiButton-root': {
+        justifyContent: 'end',
+        width: '100%',
+        height,
+        borderRadius: '3px',
+        backgroundColor: styles?.listbox.backgroundColor,
+        border: '1px solid #B3B3B3',
+      },
     };
   });
 
