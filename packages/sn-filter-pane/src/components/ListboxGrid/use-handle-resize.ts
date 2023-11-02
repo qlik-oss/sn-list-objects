@@ -17,7 +17,6 @@ import { IListboxResource } from '../../hooks/types';
 import { IStore } from '../../store';
 import { getSadItems, moveItemToOverflow } from './distribute-always-expanded';
 import { estimateColumnHeight } from './distribute-resources-counting';
-import { DEFAULT_CSS_HEIGHT } from './grid-constants';
 
 const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
   renderTracker?.setNumberOfListboxes(listboxCount);
