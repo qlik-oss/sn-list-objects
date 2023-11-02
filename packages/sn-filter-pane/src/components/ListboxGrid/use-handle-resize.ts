@@ -17,6 +17,7 @@ import { IListboxResource } from '../../hooks/types';
 import { IStore } from '../../store';
 import { getSadItems, moveItemToOverflow } from './distribute-always-expanded';
 import { estimateColumnHeight } from './distribute-resources-counting';
+import { DEFAULT_CSS_HEIGHT } from './grid-constants';
 
 const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
   renderTracker?.setNumberOfListboxes(listboxCount);
@@ -137,6 +138,14 @@ export default function useHandleResize({
     ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
 
     sortColumnItemsByFieldOrder(columnsTemp, resources);
+
+    // Now that we have the expected field order in place, ensure that the last
+    // non-collapsed item of the first column is expanded to 100%, to fill out the space.
+    const colItems = columnsTemp[0]?.items || [];
+    const lastItem = colItems[colItems.length - 1];
+    if (!lastItem.neverExpanded) {
+      lastItem.height = DEFAULT_CSS_HEIGHT;
+    }
 
     setOverflowingResources(overflowing);
     setColumns(columnsTemp);
