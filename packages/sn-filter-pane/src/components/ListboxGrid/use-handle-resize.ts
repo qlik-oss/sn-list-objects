@@ -143,7 +143,7 @@ export default function useHandleResize({
     // non-collapsed item of the first column is expanded to 100%, to fill out the space.
     const colItems = columnsTemp[0]?.items || [];
     const lastItem = colItems[colItems.length - 1];
-    if (!lastItem.neverExpanded) {
+    if (lastItem && !columnsTemp[0]?.hiddenItems && !lastItem.neverExpanded) {
       lastItem.height = DEFAULT_CSS_HEIGHT;
     }
 
