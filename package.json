@@ -1,6 +1,6 @@
 {
   "name": "@qlik-oss/sn-list-objects",
-  "version": "0.13.6",
+  "version": "0.13.7",
   "description": "Workspace for sn-listbox and sn-filter-pane",
   "scripts": {
     "release": "release-it",

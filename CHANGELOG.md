@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.13.7](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.6...v0.13.7) (2023-11-08)
+
+
+### Bug Fixes
+
+* prevent user lock in and visually destructed list boxes on small devices ([#365](https://github.com/qlik-oss/sn-list-objects/issues/365)) ([e92cea6](https://github.com/qlik-oss/sn-list-objects/commit/e92cea673d3662b03542ba9b8c00babfe7ad04ee))
+
 ### [0.13.6](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.5...v0.13.6) (2023-08-02)
 
 
