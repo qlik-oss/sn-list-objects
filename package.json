@@ -21,7 +21,7 @@
     "@nebula.js/cli-serve": "4.6.1",
     "@playwright/test": "1.39.0",
     "@release-it-plugins/workspaces": "3.2.0",
-    "@release-it/conventional-changelog": "5.1.1",
+    "@release-it/conventional-changelog": "7.0.2",
     "conventional-recommended-bump": "7.0.1",
     "release-it": "15.11.0",
     "semver": "7.5.4"
