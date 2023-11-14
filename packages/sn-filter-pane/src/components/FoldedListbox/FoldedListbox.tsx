@@ -66,7 +66,7 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
       ':hover': !constraints?.active && {
         border: '1px solid #595959',
       },
-      backgroundColor: styles?.listbox.backgroundColor ?? '#FFFFFF',
+      ...styles?.listbox.background,
       color: styles?.listbox.color,
       width: isInPopover ? `calc(100% - ${2 * popoverPadding}px` : '100%',
       '&:focus:not(:hover)': {

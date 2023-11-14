@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import extend from 'extend';
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import { stardust } from '@nebula.js/stardust';
 import { IListLayout } from '../hooks/types';
 import type { IStores } from '../store';
@@ -17,6 +17,14 @@ interface ListboxContainerProps {
   closePopover?: () => void;
   isPopover?: boolean;
 }
+
+const StyledBox = styled(Box, { shouldForwardProp: (p: string) => !['showBorder', 'showBorderBottom'].includes(p) })(({ showBorder, showBorderBottom }: { showBorder: boolean, showBorderBottom: boolean }) => ({
+  height: '100%',
+  border: showBorder ? '1px solid #d9d9d9' : '1px solid transparent',
+  borderBottom: (showBorder && showBorderBottom) ? '1px solid #d9d9d9' : 0,
+  borderRadius: '4px',
+  overflow: 'hidden',
+}));
 
 const ListboxContainer = ({
   layout, model, borderBottom, handleActive, stores, closePopover, isPopover,
@@ -105,12 +113,9 @@ const ListboxContainer = ({
   }, [listboxInstance]);
 
   return (
-    <Box
-      height='100%'
-      border={showBorder ? '1px solid #d9d9d9' : '1px solid transparent'}
-      borderBottom={(showBorder && borderBottom) ? '1px solid #d9d9d9' : 0}
-      borderRadius='4px'
-      overflow='hidden'
+    <StyledBox
+      showBorder={!!showBorder}
+      showBorderBottom={!!borderBottom}
       ref={elRef}
       data-testid="filterpane-listbox-container"
     />

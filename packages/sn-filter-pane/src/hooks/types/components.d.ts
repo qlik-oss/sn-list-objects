@@ -1,14 +1,14 @@
 import { Theme as StardustTheme } from '@nebula.js/stardust';
 
 export type IThemeComponent = {
-  key: 'theme',
+  key: 'theme';
   content?: {
     fontSize?: string;
     fontColor?: {
       color?: string;
-    },
+    };
     useContrastColor?: boolean;
-  },
+  };
   header?: {
     fontColor?: {
       color?: string;
@@ -16,6 +16,24 @@ export type IThemeComponent = {
     fontSize?: string;
     fontFamily?: string;
     fontWeight?: string;
+  };
+  background?: {
+    // useColorExpression?: string;
+    // colorExpression?: string;
+    // mode?: string;
+    color?: {
+      color?: string;
+      index?: number;
+    };
+    image?: {
+      expressionUrl?: string;
+      mode?: 'media' | 'expression';
+      mediaUrl?: { qStaticContentUrl?: { qUrl?: string } };
+      url?: { qStaticContentUrl?: { qUrl?: string } };
+      position?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center-center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+      sizing?: ISizing;
+      size?: ISizing;
+    }
   };
 };
 
@@ -40,19 +58,25 @@ export type ISelectionsComponent = {
 export type IComponent = IThemeComponent | ISelectionsComponent;
 
 export interface IStyles {
-  backgroundColor?: string;
   listbox: {
-    backgroundColor?: string;
+    background: {
+      color?: string;
+      image?: {
+        url?: string;
+        position?: string;
+        size?: string;
+      }
+    };
     color?: string;
-  };
-  popover: {
-    backgroundColor?: string;
-  };
-  header?: {
+  }
+  header: {
     color?: string;
     fontSize?: string;
     fontFamily?: string;
     fontWeight?: string;
+  };
+  popover: {
+    backgroundColor?: string; // TODO: should we allow customisable background image in popover mode
   };
   stardustTheme: StardustTheme;
 }

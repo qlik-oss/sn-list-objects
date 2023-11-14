@@ -20,7 +20,7 @@ export default function useSetup(env: IEnv) {
   const app = useApp() as EngineAPI.IApp;
   const model = useModel();
   const embed = useEmbed();
-  const styles = useStyling({ components: fpLayout?.components });
+  const styles = useStyling({ app, components: fpLayout?.components });
   const selections = useSelections();
   const keyboard = useKeyboard();
   const renderTracker = useRenderTrackerService();

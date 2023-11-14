@@ -3,6 +3,7 @@ import muiTheme from '../theme/theme';
 import {
   IComponent, ISelectionsComponent, IStyles, IThemeComponent,
 } from './types/components';
+import { resolveBgImage } from './styling-utils';
 
 type IComponentOverrides = {
   theme?: IThemeComponent;
@@ -10,6 +11,7 @@ type IComponentOverrides = {
 };
 
 interface ICreateStylingArgs {
+  app?: EngineAPI.IApp,
   components?: IComponent[];
 }
 
@@ -39,23 +41,31 @@ function getOverridesAsObject(components: IComponent[] = []): IComponentOverride
  *
  * They are generally overridden in above order.
  */
-export default function useStyling({ components = [] }: ICreateStylingArgs): IStyles {
+export default function useStyling({ app, components = [] }: ICreateStylingArgs): IStyles {
   const stardustTheme = useStardustTheme();
   const componentsOverrides = getOverridesAsObject(components);
-
   const getListboxStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.listBox', path, prop);
+  const listboxBackgroundColor = componentsOverrides.theme?.background?.color?.color || getListboxStyle('', 'backgroundColor') || muiTheme?.palette.background.default || '#ffffff';
 
-  const backgroundColor = stardustTheme?.getStyle('object', '', 'filterpane.backgroundColor');
+  const imgDef = componentsOverrides.theme?.background?.image;
+  const bgImage = resolveBgImage({ bgImage: imgDef }, app);
 
   const mergedStyle = {
-    backgroundColor,
     listbox: {
-      backgroundColor: getListboxStyle('', 'backgroundColor') || muiTheme?.palette.background.default || '#ffffff',
+      background: {
+        color: listboxBackgroundColor,
+        backgroundColor: listboxBackgroundColor,
+        backgroundImage: bgImage?.url ? `url('${bgImage.url}')` : undefined,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: bgImage?.size,
+        backgroundPosition: bgImage?.pos,
+        opacity: 1, // to override qlik disabled button style
+      },
       color: componentsOverrides.theme?.header?.fontColor?.color || getListboxStyle('title.main', 'color') || '#404040',
     },
     popover: {
       // Do not permit transparent or non-colored popovers.
-      backgroundColor: !backgroundColor || backgroundColor === 'transparent' ? muiTheme?.palette.background.default : backgroundColor,
+      backgroundColor: !bgImage?.url && (!listboxBackgroundColor || listboxBackgroundColor === 'transparent') ? muiTheme?.palette.background.default : listboxBackgroundColor,
     },
     header: {
       // Listbox style included here because it is applied on collapsed headers, which resides in Filter pane code.
