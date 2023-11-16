@@ -1,5 +1,7 @@
 import { Theme as StardustTheme } from '@nebula.js/stardust';
 
+export type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
+
 export type IThemeComponent = {
   key: 'theme';
   content?: {
@@ -18,9 +20,9 @@ export type IThemeComponent = {
     fontWeight?: string;
   };
   background?: {
-    // useColorExpression?: string;
-    // colorExpression?: string;
-    // mode?: string;
+    useColorExpression?: string;
+    colorExpression?: string;
+    mode?: string;
     color?: {
       color?: string;
       index?: number;

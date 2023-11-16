@@ -195,6 +195,7 @@ export default function getStyling(env) {
                       component: 'dropdown',
                       ref: 'background.useColorExpression',
                       translation: 'properties.color',
+                      defaultValue: false,
                       options: [
                         {
                           value: false,

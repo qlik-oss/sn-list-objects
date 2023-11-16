@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 // This code originates from Nebula.js
 
+import { ISizing } from './types/components';
+
 const imageSizingToCssProperty = {
   originalSize: 'auto auto',
   alwaysFit: 'contain',
@@ -21,8 +23,6 @@ const positionToCss = {
   'bottom-center': 'bottom center',
   'bottom-right': 'bottom right',
 };
-
-type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
 
 type ImageDefComponent = {
   useImage?: 'media';
