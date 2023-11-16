@@ -85,7 +85,7 @@
     "typescript": "5.2.2"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": ">=4.6.1"
+    "@nebula.js/stardust": ">=4.7.0"
   },
   "dependencies": {
     "@mui/icons-material": "5.14.16",
