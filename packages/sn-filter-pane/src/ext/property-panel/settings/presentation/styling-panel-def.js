@@ -193,7 +193,7 @@ export default function getStyling(env) {
                     useColorExpression: {
                       type: 'boolean',
                       component: 'dropdown',
-                      ref: 'background.useColorExpression',
+                      ref: 'background.useExpression',
                       translation: 'properties.color',
                       defaultValue: false,
                       options: [
@@ -213,7 +213,7 @@ export default function getStyling(env) {
                       ref: 'background.colorExpression',
                       translation: 'Common.Expression',
                       expression: 'optional',
-                      show: (data) => data?.background?.useColorExpression,
+                      show: (data) => data?.background?.useExpression,
                     },
                     colorPicker: {
                       type: 'object',
@@ -223,7 +223,7 @@ export default function getStyling(env) {
                       disableNone: false,
                       defaultValue: styleDefaults.COLOR,
                       dualOutput: true,
-                      show: (data) => !data?.background?.useColorExpression,
+                      show: (data) => !data?.background?.useExpression,
                     },
                   },
                 },
