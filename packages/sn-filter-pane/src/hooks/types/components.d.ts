@@ -2,23 +2,28 @@ import { Theme as StardustTheme } from '@nebula.js/stardust';
 
 export type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
 
+type IFontStyle = {
+  bold?: boolean;
+  normal?: boolean;
+  underline?: boolean;
+  italic?: boolean;
+};
+
+type IFontStyles = {
+  fontColor?: {
+    color?: string;
+  };
+  fontSize?: string;
+  fontFamily?: string;
+  fontStyle?: IFontStyle;
+}
+
 export type IThemeComponent = {
   key: 'theme';
-  content?: {
-    fontSize?: string;
-    fontColor?: {
-      color?: string;
-    };
+  content?: IFontStyles & {
     useContrastColor?: boolean;
   };
-  header?: {
-    fontColor?: {
-      color?: string;
-    };
-    fontSize?: string;
-    fontFamily?: string;
-    fontWeight?: string;
-  };
+  header?: IFontStyles;
   background?: {
     useColorExpression?: string;
     colorExpression?: string;

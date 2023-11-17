@@ -7,6 +7,8 @@ export default function getStyling(env) {
   const { translator, flags, anything } = env || {};
   const { theme } = anything?.sense || {};
 
+  const stylingPart2 = flags?.isEnabled('IM_5452_FILTERPANE_STYLING');
+
   const fontResolver = createFontResolver({
     theme,
     translator,
@@ -48,15 +50,24 @@ export default function getStyling(env) {
               ref: 'components',
               key: 'theme',
               items: {
-                fontFamilyItem: {
-                  component: 'dropdown',
-                  ref: 'header.fontFamily',
-                  options: () => fontResolver.getOptions('header.fontFamily'),
-                  defaultValue: () => fontResolver.getDefaultValue('header.fontFamily'),
-                },
+                ...(stylingPart2 ? {
+                  fontFamilyItem: {
+                    component: 'dropdown',
+                    ref: 'header.fontFamily',
+                    options: () => fontResolver.getOptions('header.fontFamily'),
+                    defaultValue: () => fontResolver.getDefaultValue('header.fontFamily'),
+                  },
+                } : {}),
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
+                    fontStyle: {
+                      type: 'array',
+                      component: 'font-style-buttons',
+                      width: false,
+                      ref: 'header.fontStyle',
+                      defaultValue: ['bold'],
+                    },
                     fontSizeItem: {
                       component: 'dropdown',
                       ref: 'header.fontSize',
@@ -88,20 +99,29 @@ export default function getStyling(env) {
               ref: 'components',
               key: 'theme',
               items: {
-                contentFontWrapper: {
+                ...(stylingPart2 ? {
+                  fontFamilyItem: {
+                    component: 'dropdown',
+                    ref: 'content.fontFamily',
+                    options: () => fontResolver.getOptions('content.fontFamily'),
+                    defaultValue: () => fontResolver.getDefaultValue('content.fontFamily'),
+                  },
+                } : {}),
+                fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
-                    fontFamilyItem: {
-                      component: 'dropdown',
-                      ref: 'content.fontFamily',
-                      options: () => fontResolver.getOptions('content.fontFamily'),
-                      defaultValue: () => fontResolver.getDefaultValue('content.fontFamily'),
+                    fontStyle: {
+                      type: 'array',
+                      component: 'font-style-buttons',
+                      width: false,
+                      ref: 'content.fontStyle',
+                      defaultValue: ['normal'],
                     },
                     contentFontSizeItem: {
                       component: 'dropdown',
                       ref: 'content.fontSize',
                       options: getFontSizes({
-                        min: 5, max: 24, theme, defaultFontSize,
+                        min: 5, max: 18, theme, defaultFontSize,
                       }),
                       defaultValue: defaultContentFontSize,
                     },
@@ -179,143 +199,146 @@ export default function getStyling(env) {
             },
           },
         },
-        backgroundOptions: {
-          component: 'panel-section',
-          translation: 'properties.background.options',
-          items: {
-            background: {
-              items: {
-                backgroundColor: {
-                  ref: 'components',
-                  key: 'theme',
-                  type: 'items',
-                  items: {
-                    useColorExpression: {
-                      type: 'boolean',
-                      component: 'dropdown',
-                      ref: 'background.useExpression',
-                      translation: 'properties.color',
-                      defaultValue: false,
-                      options: [
-                        {
-                          value: false,
-                          translation: 'properties.colorMode.primary',
-                        },
-                        {
-                          value: true,
-                          translation: 'properties.colorMode.byExpression',
-                        },
-                      ],
-                    },
-                    colorExpression: {
-                      type: 'string',
-                      component: 'input-field-expression',
-                      ref: 'background.colorExpression',
-                      translation: 'Common.Expression',
-                      expression: 'optional',
-                      show: (data) => data?.background?.useExpression,
-                    },
-                    colorPicker: {
-                      type: 'object',
-                      component: 'color-picker',
-                      ref: 'background.color',
-                      translation: 'properties.color.used',
-                      disableNone: false,
-                      defaultValue: styleDefaults.COLOR,
-                      dualOutput: true,
-                      show: (data) => !data?.background?.useExpression,
+
+        ...(stylingPart2 ? {
+          backgroundOptions: {
+            component: 'panel-section',
+            translation: 'properties.background.options',
+            items: {
+              background: {
+                items: {
+                  backgroundColor: {
+                    ref: 'components',
+                    key: 'theme',
+                    type: 'items',
+                    items: {
+                      useColorExpression: {
+                        type: 'boolean',
+                        component: 'dropdown',
+                        ref: 'background.useExpression',
+                        translation: 'properties.color',
+                        defaultValue: false,
+                        options: [
+                          {
+                            value: false,
+                            translation: 'properties.colorMode.primary',
+                          },
+                          {
+                            value: true,
+                            translation: 'properties.colorMode.byExpression',
+                          },
+                        ],
+                      },
+                      colorExpression: {
+                        type: 'string',
+                        component: 'input-field-expression',
+                        ref: 'background.colorExpression',
+                        translation: 'Common.Expression',
+                        expression: 'optional',
+                        show: (data) => data?.background?.useExpression,
+                      },
+                      colorPicker: {
+                        type: 'object',
+                        component: 'color-picker',
+                        ref: 'background.color',
+                        translation: 'properties.color.used',
+                        disableNone: false,
+                        defaultValue: styleDefaults.COLOR,
+                        dualOutput: true,
+                        show: (data) => !data?.background?.useExpression,
+                      },
                     },
                   },
-                },
-                backgroundImage: {
-                  type: 'items',
-                  ref: 'components',
-                  key: 'theme',
-                  items: {
-                    backgroundImageMode: {
-                      component: 'dropdown',
-                      ref: 'background.image.mode',
-                      translation: 'properties.backgroundImage',
-                      defaultValue: styleDefaults.BGIMAGE_MODE,
-                      options: [
-                        {
-                          value: 'none',
-                          translation: 'Background.None',
+                  backgroundImage: {
+                    type: 'items',
+                    ref: 'components',
+                    key: 'theme',
+                    items: {
+                      backgroundImageMode: {
+                        component: 'dropdown',
+                        ref: 'background.image.mode',
+                        translation: 'properties.backgroundImage',
+                        defaultValue: styleDefaults.BGIMAGE_MODE,
+                        options: [
+                          {
+                            value: 'none',
+                            translation: 'Background.None',
+                          },
+                          {
+                            value: 'media',
+                            translation: 'MediaLibrary.Header',
+                          },
+                        ],
+                        change(data = {}) {
+                          data.background = data.background || {};
+                          data.background.image = data.background.image || {};
+                          data.background.image.qStaticContentUrlDef = data.background.image.qStaticContentUrlDef || {};
+                          data.background.image.url = data.background.image.url || {};
                         },
-                        {
-                          value: 'media',
-                          translation: 'MediaLibrary.Header',
-                        },
-                      ],
-                      change(data = {}) {
-                        data.background = data.background || {};
-                        data.background.image = data.background.image || {};
-                        data.background.image.qStaticContentUrlDef = data.background.image.qStaticContentUrlDef || {};
-                        data.background.image.url = data.background.image.url || {};
                       },
-                    },
-                    MediaLibrary: {
-                      component: 'media-library-button',
-                      ref: 'background.image.url',
-                      translation: 'MediaLibrary.Header',
-                      show(data) {
-                        return data?.background?.image?.mode === 'media';
+                      MediaLibrary: {
+                        component: 'media-library-button',
+                        ref: 'background.image.url',
+                        translation: 'MediaLibrary.Header',
+                        show(data) {
+                          return data?.background?.image?.mode === 'media';
+                        },
                       },
-                    },
-                    imageSize: {
-                      component: 'dropdown',
-                      ref: 'background.image.size',
-                      defaultValue: styleDefaults.BACKGROUND_SIZE,
-                      options: [
-                        {
-                          value: 'auto',
-                          translation: 'properties.backgroundImage.originalSize',
+                      imageSize: {
+                        component: 'dropdown',
+                        ref: 'background.image.size',
+                        defaultValue: styleDefaults.BACKGROUND_SIZE,
+                        options: [
+                          {
+                            value: 'auto',
+                            translation: 'properties.backgroundImage.originalSize',
+                          },
+                          {
+                            value: 'alwaysFit',
+                            translation: 'properties.backgroundImage.sizeAlwaysFit',
+                          },
+                          {
+                            value: 'fitWidth',
+                            translation: 'properties.backgroundImage.sizeFitWidth',
+                          },
+                          {
+                            value: 'fitHeight',
+                            translation: 'properties.backgroundImage.sizeFitHeight',
+                          },
+                          {
+                            value: 'stretchFit',
+                            translation: 'properties.backgroundImage.sizeStretch',
+                          },
+                          {
+                            value: 'alwaysFill',
+                            translation: 'properties.backgroundImage.sizeAlwaysFill',
+                          },
+                        ],
+                        change: (data) => {
+                          if (data?.background?.image?.position) {
+                            data.background.image.position = styleDefaults.BGIMAGE_POSITION;
+                          }
                         },
-                        {
-                          value: 'alwaysFit',
-                          translation: 'properties.backgroundImage.sizeAlwaysFit',
-                        },
-                        {
-                          value: 'fitWidth',
-                          translation: 'properties.backgroundImage.sizeFitWidth',
-                        },
-                        {
-                          value: 'fitHeight',
-                          translation: 'properties.backgroundImage.sizeFitHeight',
-                        },
-                        {
-                          value: 'stretchFit',
-                          translation: 'properties.backgroundImage.sizeStretch',
-                        },
-                        {
-                          value: 'alwaysFill',
-                          translation: 'properties.backgroundImage.sizeAlwaysFill',
-                        },
-                      ],
-                      change: (data) => {
-                        if (data?.background?.image?.position) {
-                          data.background.image.position = styleDefaults.BGIMAGE_POSITION;
-                        }
+                        show: (data) => data?.background?.image?.mode === 'media'
+                          && !!data?.background?.image?.url?.qStaticContentUrlDef?.qUrl,
                       },
-                      show: (data) => data?.background?.image?.mode === 'media'
-                        && !!data?.background?.image?.url?.qStaticContentUrlDef?.qUrl,
-                    },
-                    position: {
-                      component: 'position-grid',
-                      ref: 'background.image.position',
-                      translation: 'properties.backgroundImage.position',
-                      defaultValue: styleDefaults.BGIMAGE_POSITION,
-                      currentSizeRef: 'background.size',
-                      show: (data) => data?.background?.image?.mode === 'media'
-                        && data?.background?.image?.url?.qStaticContentUrlDef?.qUrl
-                        && data?.background?.image?.size !== 'stretchFit',
+                      position: {
+                        component: 'position-grid',
+                        ref: 'background.image.position',
+                        translation: 'properties.backgroundImage.position',
+                        defaultValue: styleDefaults.BGIMAGE_POSITION,
+                        currentSizeRef: 'background.size',
+                        show: (data) => data?.background?.image?.mode === 'media'
+                          && data?.background?.image?.url?.qStaticContentUrlDef?.qUrl
+                          && data?.background?.image?.size !== 'stretchFit',
+                      },
                     },
                   },
                 },
               },
             },
           },
-        },
+        } : {}),
       },
     },
   };

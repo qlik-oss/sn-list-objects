@@ -81,10 +81,8 @@ const StyledGrid = styled(Grid, { shouldForwardProp: (p) => !['constraints', 'st
 
 const Title = styled(Typography, { shouldForwardProp: (p) => !['styles'].includes(p as string) })<{ styles?: IStyles }>(
   ({ styles }) => ({
-    color: styles?.header?.color,
+    ...(styles?.header || {}),
     fontSize: '13px', // hard-coded since space is limited in collapsed mode
-    fontFamily: styles?.header?.fontFamily,
-    fontWeight: styles?.header?.fontWeight,
   }),
 );
 
