@@ -16,6 +16,7 @@ type IFontStyles = {
   fontSize?: string;
   fontFamily?: string;
   fontStyle?: IFontStyle;
+  fontWeight?: string | number;
 }
 
 export type IThemeComponent = {
