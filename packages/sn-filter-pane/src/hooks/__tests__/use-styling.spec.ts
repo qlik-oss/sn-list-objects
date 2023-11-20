@@ -48,6 +48,7 @@ describe('use styling', () => {
           fontSize: 'ComponentPx',
           fontFamily: 'ComponentFontFamily',
           fontWeight: 'ComponentFontWeight',
+          fontStyle: { bold: true },
         },
       },
     ];
@@ -68,8 +69,8 @@ describe('use styling', () => {
       header: {
         color: 'ComponentHeader',
         fontSize: 'ComponentPx',
-        fontFamily: 'object.listBox/title.main/fontFamily',
-        fontWeight: 'object.listBox/title.main/fontWeight',
+        fontFamily: 'ComponentFontFamily',
+        fontWeight: 'bold',
       },
       stardustTheme: {},
     });
