@@ -53,7 +53,7 @@
     "@nebula.js/cli": "4.6.1",
     "@nebula.js/cli-build": "4.6.1",
     "@nebula.js/cli-sense": "4.6.1",
-    "@nebula.js/cli-serve": "4.6.1",
+    "@nebula.js/cli-serve": "file:../../nebula.js-cli-serve-v4.7.0.tgz",
     "@rollup/plugin-typescript": "11.1.5",
     "@scriptappy/cli": "0.10.0",
     "@scriptappy/from-jsdoc": "0.19.0",
