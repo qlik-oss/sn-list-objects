@@ -37,8 +37,8 @@ export const ExpandButton = ({
         width: '100%',
         height,
         borderRadius: '3px',
-        backgroundColor: styles?.listbox.backgroundColor,
         border: '1px solid #B3B3B3',
+        ...styles?.listbox.background,
       },
     };
   });

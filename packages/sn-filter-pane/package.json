@@ -92,6 +92,7 @@
     "@mui/material": "5.14.16",
     "extend": "^3.0.2",
     "lodash": "4.17.21",
+    "qlik-chart-modules": "^0.59.0",
     "uuid": "^9.0.0"
   }
 }

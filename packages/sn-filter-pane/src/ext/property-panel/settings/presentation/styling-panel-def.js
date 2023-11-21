@@ -1,8 +1,23 @@
 /* eslint-disable no-param-reassign */
-import { getFontSizes } from './styling-utils/font-utils';
+import { fontResolver as createFontResolver } from 'qlik-chart-modules';
+import { getFontSizes, parseFontWeight } from './styling-utils/font-utils';
+import styleDefaults from './style-defaults';
 
 export default function getStyling(env) {
-  const { theme } = env?.anything?.sense || {};
+  const { translator, flags, anything } = env || {};
+  const { theme } = anything?.sense || {};
+
+  const stylingPart2 = flags?.isEnabled('IM_5452_FILTERPANE_STYLING');
+
+  const fontResolver = createFontResolver({
+    theme,
+    translator,
+    config: {
+      id: 'filterpane',
+      paths: ['header', 'content', 'title'],
+    },
+    flags,
+  });
 
   const getListBoxStyle = (p = '') => {
     // Utility func to prevent specifying 3 arguments for a simple property retrieval.
@@ -15,6 +30,7 @@ export default function getStyling(env) {
   const defaultFontSize = (getListBoxStyle('title.main.fontSize') ?? getListBoxStyle('fontSize'));
   const defaultContentFontSize = getListBoxStyle('content.fontSize') ?? getListBoxStyle('fontSize');
   const defaultColor = getListBoxStyle('content.color') ?? getListBoxStyle('color');
+  const defaultFontWeight = parseFontWeight(getListBoxStyle('title', 'main.fontWeight')) || 'bold';
 
   const stylingPanelDef = {
     stylingPanel: {
@@ -35,9 +51,24 @@ export default function getStyling(env) {
               ref: 'components',
               key: 'theme',
               items: {
+                ...(stylingPart2 ? {
+                  fontFamilyItem: {
+                    component: 'dropdown',
+                    ref: 'header.fontFamily',
+                    options: () => fontResolver.getOptions('header.fontFamily'),
+                    defaultValue: () => fontResolver.getDefaultValue('header.fontFamily'),
+                  },
+                } : {}),
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
+                    fontStyle: {
+                      type: 'array',
+                      component: 'font-style-buttons',
+                      width: false,
+                      ref: 'header.fontStyle',
+                      defaultValue: [defaultFontWeight],
+                    },
                     fontSizeItem: {
                       component: 'dropdown',
                       ref: 'header.fontSize',
@@ -69,14 +100,29 @@ export default function getStyling(env) {
               ref: 'components',
               key: 'theme',
               items: {
-                contentFontWrapper: {
+                ...(stylingPart2 ? {
+                  fontFamilyItem: {
+                    component: 'dropdown',
+                    ref: 'content.fontFamily',
+                    options: () => fontResolver.getOptions('content.fontFamily'),
+                    defaultValue: () => fontResolver.getDefaultValue('content.fontFamily'),
+                  },
+                } : {}),
+                fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
+                    fontStyle: {
+                      type: 'array',
+                      component: 'font-style-buttons',
+                      width: false,
+                      ref: 'content.fontStyle',
+                      defaultValue: ['normal'],
+                    },
                     contentFontSizeItem: {
                       component: 'dropdown',
                       ref: 'content.fontSize',
                       options: getFontSizes({
-                        min: 5, max: 24, theme, defaultFontSize,
+                        min: 5, max: 18, theme, defaultFontSize,
                       }),
                       defaultValue: defaultContentFontSize,
                     },
@@ -154,6 +200,146 @@ export default function getStyling(env) {
             },
           },
         },
+
+        ...(stylingPart2 ? {
+          backgroundOptions: {
+            component: 'panel-section',
+            translation: 'properties.background.options',
+            items: {
+              background: {
+                items: {
+                  backgroundColor: {
+                    ref: 'components',
+                    key: 'theme',
+                    type: 'items',
+                    items: {
+                      useColorExpression: {
+                        type: 'boolean',
+                        component: 'dropdown',
+                        ref: 'background.useExpression',
+                        translation: 'properties.color',
+                        defaultValue: false,
+                        options: [
+                          {
+                            value: false,
+                            translation: 'properties.colorMode.primary',
+                          },
+                          {
+                            value: true,
+                            translation: 'properties.colorMode.byExpression',
+                          },
+                        ],
+                      },
+                      colorExpression: {
+                        type: 'string',
+                        component: 'input-field-expression',
+                        ref: 'background.colorExpression',
+                        translation: 'Common.Expression',
+                        expression: 'optional',
+                        show: (data) => data?.background?.useExpression,
+                      },
+                      colorPicker: {
+                        type: 'object',
+                        component: 'color-picker',
+                        ref: 'background.color',
+                        translation: 'properties.color.used',
+                        disableNone: false,
+                        defaultValue: styleDefaults.COLOR,
+                        dualOutput: true,
+                        show: (data) => !data?.background?.useExpression,
+                      },
+                    },
+                  },
+                  backgroundImage: {
+                    type: 'items',
+                    ref: 'components',
+                    key: 'theme',
+                    items: {
+                      backgroundImageMode: {
+                        component: 'dropdown',
+                        ref: 'background.image.mode',
+                        translation: 'properties.backgroundImage',
+                        defaultValue: styleDefaults.BGIMAGE_MODE,
+                        options: [
+                          {
+                            value: 'none',
+                            translation: 'Background.None',
+                          },
+                          {
+                            value: 'media',
+                            translation: 'MediaLibrary.Header',
+                          },
+                        ],
+                        change(data = {}) {
+                          data.background = data.background || {};
+                          data.background.image = data.background.image || {};
+                          data.background.image.qStaticContentUrlDef = data.background.image.qStaticContentUrlDef || {};
+                          data.background.image.url = data.background.image.url || {};
+                        },
+                      },
+                      MediaLibrary: {
+                        component: 'media-library-button',
+                        ref: 'background.image.url',
+                        translation: 'MediaLibrary.Header',
+                        show(data) {
+                          return data?.background?.image?.mode === 'media';
+                        },
+                      },
+                      imageSize: {
+                        component: 'dropdown',
+                        ref: 'background.image.size',
+                        defaultValue: styleDefaults.BACKGROUND_SIZE,
+                        options: [
+                          {
+                            value: 'auto',
+                            translation: 'properties.backgroundImage.originalSize',
+                          },
+                          {
+                            value: 'alwaysFit',
+                            translation: 'properties.backgroundImage.sizeAlwaysFit',
+                          },
+                          {
+                            value: 'fitWidth',
+                            translation: 'properties.backgroundImage.sizeFitWidth',
+                          },
+                          {
+                            value: 'fitHeight',
+                            translation: 'properties.backgroundImage.sizeFitHeight',
+                          },
+                          {
+                            value: 'stretchFit',
+                            translation: 'properties.backgroundImage.sizeStretch',
+                          },
+                          {
+                            value: 'alwaysFill',
+                            translation: 'properties.backgroundImage.sizeAlwaysFill',
+                          },
+                        ],
+                        change: (data) => {
+                          if (data?.background?.image?.position) {
+                            data.background.image.position = styleDefaults.BGIMAGE_POSITION;
+                          }
+                        },
+                        show: (data) => data?.background?.image?.mode === 'media'
+                          && !!data?.background?.image?.url?.qStaticContentUrlDef?.qUrl,
+                      },
+                      position: {
+                        component: 'position-grid',
+                        ref: 'background.image.position',
+                        translation: 'properties.backgroundImage.position',
+                        defaultValue: styleDefaults.BGIMAGE_POSITION,
+                        currentSizeRef: 'background.size',
+                        show: (data) => data?.background?.image?.mode === 'media'
+                          && data?.background?.image?.url?.qStaticContentUrlDef?.qUrl
+                          && data?.background?.image?.size !== 'stretchFit',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        } : {}),
       },
     },
   };

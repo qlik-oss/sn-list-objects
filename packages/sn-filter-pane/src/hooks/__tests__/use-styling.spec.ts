@@ -19,13 +19,14 @@ describe('use styling', () => {
     const components: IComponent[] = [];
     const styles = useStyling({ components });
     expect(styles).toMatchObject({
-      backgroundColor: 'object//filterpane.backgroundColor',
       listbox: {
-        backgroundColor: 'object.listBox//backgroundColor',
-        color: 'object.listBox/title.main/color',
+        background: {
+          backgroundColor: 'object.listBox//backgroundColor',
+          color: 'object.listBox//backgroundColor',
+        },
       },
       popover: {
-        backgroundColor: 'object//filterpane.backgroundColor',
+        backgroundColor: 'object.listBox//backgroundColor',
       },
       header: {
         color: 'object.listBox/title.main/color',
@@ -47,25 +48,31 @@ describe('use styling', () => {
           fontSize: 'ComponentPx',
           fontFamily: 'ComponentFontFamily',
           fontWeight: 'ComponentFontWeight',
+          fontStyle: { bold: true },
         },
       },
     ];
     const styles = useStyling({ components });
     expect(styles).toMatchObject({
-      backgroundColor: 'object//filterpane.backgroundColor',
       listbox: {
-        backgroundColor: 'object.listBox//backgroundColor',
+        background: {
+          color: 'object.listBox//backgroundColor',
+          backgroundColor: 'object.listBox//backgroundColor',
+          backgroundRepeat: 'no-repeat',
+          opacity: 1,
+        },
         color: 'ComponentHeader',
       },
       popover: {
-        backgroundColor: 'object//filterpane.backgroundColor',
+        backgroundColor: 'object.listBox//backgroundColor',
       },
       header: {
         color: 'ComponentHeader',
         fontSize: 'ComponentPx',
-        fontFamily: 'object.listBox/title.main/fontFamily',
-        fontWeight: 'object.listBox/title.main/fontWeight',
+        fontFamily: 'ComponentFontFamily',
+        fontWeight: 'bold',
       },
+      stardustTheme: {},
     });
   });
 });
