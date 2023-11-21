@@ -74,9 +74,9 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
       color: componentsOverrides.theme?.header?.fontColor?.color || getListboxStyle('title.main', 'color'),
       fontSize: componentsOverrides.theme?.header?.fontSize || getListboxStyle('title.main', 'fontSize') || '13px',
       fontFamily: componentsOverrides.theme?.header?.fontFamily || getListboxStyle('title.main', 'fontFamily') || '"Source Sans Pro", sans-serif',
-      fontWeight: (headerFontStyle.bold && 'bold') || (headerFontStyle.normal && 'normal') || getListboxStyle('title.main', 'fontWeight') || 'bold',
+      fontWeight: (headerFontStyle.bold && 'bold') || (headerFontStyle.bold === false && 'normal') || getListboxStyle('title.main', 'fontWeight') || 'bold',
       textDecoration: headerFontStyle.underline ? 'underline' : 'initial',
-      fontStyle: (headerFontStyle.italic && 'italic') || (headerFontStyle.normal && 'normal') || getListboxStyle('title.main', 'fontStyle') || 'initial',
+      fontStyle: (headerFontStyle.italic && 'italic') || (headerFontStyle.italic === false && 'normal') || getListboxStyle('title.main', 'fontStyle') || 'initial',
     },
     // The theme is only exposed here temporarilly. The idea is to not expose any theme directly,
     // but instead let them populate the merged style. Remove when possible.

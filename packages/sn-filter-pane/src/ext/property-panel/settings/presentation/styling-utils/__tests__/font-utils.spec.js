@@ -1,4 +1,4 @@
-import { getFontSizes, getRange } from '../font-utils';
+import { getFontSizes, getRange, parseFontWeight } from '../font-utils';
 
 describe('font-utils', () => {
   describe('getRange', () => {
@@ -46,6 +46,22 @@ describe('font-utils', () => {
         {
           value: '12px', label: '12px', groupHeader: false, disabled: false,
         }]);
+    });
+  });
+
+  describe('parseFontWeight', () => {
+    it('should parse like pro', () => {
+      expect(parseFontWeight('')).toEqual(undefined);
+      expect(parseFontWeight('700')).toEqual(700);
+      expect(parseFontWeight(700)).toEqual(700);
+      expect(parseFontWeight(' bold ')).toEqual('bold');
+      expect(parseFontWeight('bold')).toEqual('bold');
+      expect(parseFontWeight(' normal ')).toEqual('normal');
+      expect(parseFontWeight('normal')).toEqual('normal');
+      expect(parseFontWeight('0')).toEqual(0);
+      expect(parseFontWeight(0)).toEqual(0);
+      const s = Symbol('s');
+      expect(parseFontWeight(s)).toEqual(undefined, 'and should not throw');
     });
   });
 });

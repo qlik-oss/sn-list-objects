@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { fontResolver as createFontResolver } from 'qlik-chart-modules';
-import { getFontSizes } from './styling-utils/font-utils';
+import { getFontSizes, parseFontWeight } from './styling-utils/font-utils';
 import styleDefaults from './style-defaults';
 
 export default function getStyling(env) {
@@ -14,7 +14,7 @@ export default function getStyling(env) {
     translator,
     config: {
       id: 'filterpane',
-      paths: ['header', 'content'],
+      paths: ['header', 'content', 'title'],
     },
     flags,
   });
@@ -30,6 +30,7 @@ export default function getStyling(env) {
   const defaultFontSize = (getListBoxStyle('title.main.fontSize') ?? getListBoxStyle('fontSize'));
   const defaultContentFontSize = getListBoxStyle('content.fontSize') ?? getListBoxStyle('fontSize');
   const defaultColor = getListBoxStyle('content.color') ?? getListBoxStyle('color');
+  const defaultFontWeight = parseFontWeight(getListBoxStyle('title', 'main.fontWeight')) || 'bold';
 
   const stylingPanelDef = {
     stylingPanel: {
@@ -66,7 +67,7 @@ export default function getStyling(env) {
                       component: 'font-style-buttons',
                       width: false,
                       ref: 'header.fontStyle',
-                      defaultValue: ['bold'],
+                      defaultValue: [defaultFontWeight],
                     },
                     fontSizeItem: {
                       component: 'dropdown',

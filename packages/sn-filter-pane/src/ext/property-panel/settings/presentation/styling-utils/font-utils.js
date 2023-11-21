@@ -56,3 +56,27 @@ export function getFontSizes({
 
   return fontSizesWithHeaders;
 }
+
+const isNumber = (n) => typeof (n) === 'number' && !Number.isNaN(n);
+
+export function parseFontWeight(theValue) {
+  const SUPPORTED_FONT_WEIGHT_STRINGS = [
+    'normal',
+    'bold',
+  ];
+
+  const value = theValue?.trim?.() ?? theValue;
+  let v;
+  try {
+    v = Number.parseInt(value, 10);
+  } catch (_) {
+    // do nothing
+  }
+  if (isNumber(v)) {
+    return v; // let the browser handle the rest of the validation
+  }
+  if (SUPPORTED_FONT_WEIGHT_STRINGS.includes(value)) {
+    return value;
+  }
+  return undefined;
+}
