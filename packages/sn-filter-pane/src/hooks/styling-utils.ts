@@ -30,10 +30,8 @@ type ImageDefComponent = {
     expressionUrl?: string;
     mode?: 'media' | 'expression';
     mediaUrl?: { qStaticContentUrl?: { qUrl?: string } };
-    url?: { qStaticContentUrl?: { qUrl?: string } };
     position?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center-center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
     sizing?: ISizing;
-    size?: ISizing;
   }
 };
 
@@ -68,7 +66,7 @@ function getBackgroundPosition(bgComp: ImageDefComponent) {
 
 function getBackgroundSize(bgComp: ImageDefComponent) {
   let bkgImageSize = imageSizingToCssProperty.originalSize;
-  const size = bgComp?.bgImage?.sizing || bgComp?.bgImage?.size;
+  const size = bgComp?.bgImage?.sizing;
   if (size) {
     bkgImageSize = imageSizingToCssProperty[size];
   }
@@ -85,7 +83,7 @@ export function resolveBgImage(bgComp: ImageDefComponent, app?: EngineAPI.IApp) 
   if (bgImageDef) {
     let url = '' as string | undefined;
     if (bgImageDef.mode === 'media' || bgComp.useImage === 'media') {
-      const urlObj = bgImageDef?.mediaUrl || bgImageDef?.url;
+      const urlObj = bgImageDef?.mediaUrl;
       const { qUrl } = urlObj?.qStaticContentUrl || {};
       url = qUrl ? decodeURIComponent(qUrl) : undefined;
       url = resolveImageUrl(app, url);
