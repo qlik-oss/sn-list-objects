@@ -110,7 +110,7 @@ export function balanceColumns(size: ISize, columns: IColumn[], resources: IList
       const itemCount = Math.floor(collapsedItems / collapsed.length) + extraItems;
 
       // However, we should only push items to first column if it can fit more listboxes…
-      if (size.height >= estimateColumnHeight({ ...column, itemCount, items: resources.slice(index, index + itemCount) })) {
+      if (size.height >= estimateColumnHeight({ ...column, itemCount, items: resources.slice(index, index + itemCount) }, size.width)) {
         column.itemCount = itemCount;
       }
     });
@@ -136,15 +136,15 @@ export function assignListboxesToColumns(columns: IColumn[], resources: IListbox
   return { columns, overflowing: resourcesTail };
 }
 
-const setFullyExpanded = (item: IListboxResource) => {
+const setFullyExpanded = (item: IListboxResource, size: ISize) => {
   if (!item.expand) {
     return;
   }
   item.fullyExpanded = true;
-  item.height = `${getListBoxMaxHeight(item)}px`;
+  item.height = `${getListBoxMaxHeight(item, size.width)}px`;
 };
 
-function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, hiddenItems = false) {
+function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLeftOverHeight: number, size: ISize, hiddenItems = false) {
   if (!sortedItems) return;
   let i;
   let item;
@@ -158,13 +158,13 @@ function expandUntilFull(sortedItems: IListboxResource[] | undefined, initialLef
       // 1. Calculate column height without the target item, then
       // 2. Subtract the target's expanded height to see if it fits.
       const itemsSliced = [...sortedItems.slice(0, i), ...sortedItems.slice(i + 1)];
-      leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: itemsSliced, hiddenItems });
-      expandedHeight = getListBoxMaxHeight(item) + ITEM_SPACING;
+      leftOverHeight = initialLeftOverHeight - estimateColumnHeight({ items: itemsSliced, hiddenItems }, size.width);
+      expandedHeight = getListBoxMaxHeight(item, size.width) + ITEM_SPACING;
       fitsExpanded = leftOverHeight >= expandedHeight;
       item.fitsExpanded = fitsExpanded; // fits fully expanded (or collapsed, if neverExpanded is true)
       if (fitsExpanded && !item.neverExpanded) {
         item.expand = true;
-        setFullyExpanded(item);
+        setFullyExpanded(item, size);
       } else if (item.neverExpanded) {
         item.expand = false;
       } else {
@@ -250,7 +250,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
 
     if (column.expand) {
       if ((sortedItems.length ?? 0) > 1) {
-        expandUntilFull(sortedItems, innerHeight, column.hiddenItems);
+        expandUntilFull(sortedItems, innerHeight, size, column.hiddenItems);
       } else if (expandProps.isSingleGridLayout && !sortedItems[0]?.neverExpanded) {
         // Ensure we set expand to true in this corner case (product designer request).
         const hasRoom = haveRoomToExpandOne(size, sortedItems[0], isSmallDevice, expandProps);
@@ -258,7 +258,7 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
           column.items[0].expand = true;
         }
       }
-      leftOverHeight = estimateColumnHeight(column);
+      leftOverHeight = estimateColumnHeight(column, size.width);
 
       const collapsedItems = sortedItems?.filter((item) => !item.expand);
 
@@ -269,11 +269,11 @@ export const calculateExpandPriority = (columns: IColumn[], size: ISize, expandP
           if ((sortedItems?.length ?? 0) > 1) {
             // Should set fixed height only when there are multiple items in columns, otherwise 100% height from default value
             const spacing = 2 + (collapsedItems.length === 1 ? 0 : ITEM_SPACING);
-            item.height = `${size.height - estimateColumnHeight({ items: collapsedItems }) - spacing}px`;
+            item.height = `${size.height - estimateColumnHeight({ items: collapsedItems }, size.width) - spacing}px`;
           }
         }
         item.expand = item.expand || !!(item.alwaysExpanded && item.fitsExpanded);
-        setFullyExpanded(item);
+        setFullyExpanded(item, size);
       }
     }
     const expandedInColumn = columnItems?.filter((item) => item.expand) ?? [];
@@ -293,7 +293,7 @@ export function adjustOverflowColumn(overflowColumn: IColumn, size: ISize, overf
   // Is there enough room for the newly added overflow dropdown?
   // If not, move one item in the overflow column into the dropdown.
   // const newOverflowing = [...overflowing];
-  const tooBig = (size.height < estimateColumnHeight(overflowColumn)) && overflowColumn.items?.length;
+  const tooBig = (size.height < estimateColumnHeight(overflowColumn, size.width)) && overflowColumn.items?.length;
   const itemToMove = overflowColumn.items?.[overflowColumn.items.length - 1];
   if (tooBig && itemToMove) {
     const movedItemsObj = moveItemToOverflow(itemToMove, overflowColumn, overflowing);

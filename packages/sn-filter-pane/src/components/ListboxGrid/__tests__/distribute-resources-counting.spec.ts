@@ -17,19 +17,19 @@ describe('distribute resources countng functions', () => {
   describe('getListBoxMinHeight should return correct height for different settings', () => {
     it('hasHeader: true, collapse: never, dense: false', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(77);
+      expect(getListBoxMinHeight(resource)).toEqual(81);
     });
     it('hasHeader: true, collapse: never, dense: true', () => {
       const resource = { hasHeader: true, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(68);
+      expect(getListBoxMinHeight(resource)).toEqual(72);
     });
     it('hasHeader: false, collapse: never, dense: false', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: false } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(29);
+      expect(getListBoxMinHeight(resource)).toEqual(33);
     });
     it('hasHeader: false, collapse: never, dense: true', () => {
       const resource = { hasHeader: false, layout: { layoutOptions: { collapseMode: 'never', dense: true } } } as IListboxResource;
-      expect(getListBoxMinHeight(resource)).toEqual(20);
+      expect(getListBoxMinHeight(resource)).toEqual(24);
     });
 
     describe('asCollapsed == true should always return collapsed height', () => {
@@ -195,6 +195,7 @@ describe('distribute resources countng functions', () => {
   });
 
   describe('getListBoxMaxHeight', () => {
+    const width = 300;
     it('should calculate like a pro', () => {
       expect(getListBoxMaxHeight({
         cardinal: 3,
@@ -202,7 +203,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(135);
+      } as IListboxResource, width)).toEqual(155);
     });
     it('should calculate like a pro with dense', () => {
       expect(getListBoxMaxHeight({
@@ -211,7 +212,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(108);
+      } as IListboxResource, width)).toEqual(128);
     });
     it('should account for no header', () => {
       expect(getListBoxMaxHeight({
@@ -220,7 +221,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: false,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(87);
+      } as IListboxResource, width)).toEqual(107);
     });
     it('should account for alwaysExpanded', () => {
       expect(getListBoxMaxHeight({
@@ -229,7 +230,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: true,
-      } as IListboxResource)).toEqual(135);
+      } as IListboxResource, width)).toEqual(155);
     });
     it('should account for neverExpanded', () => {
       expect(getListBoxMaxHeight({
@@ -243,9 +244,9 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'always',
           },
         },
-      } as IListboxResource)).toEqual(34);
+      } as IListboxResource, width)).toEqual(42);
     });
-    it('should return 0 when cardinal is 0 and no header', () => {
+    it('cardinal is 0 and no header should still estimate based on 1 row', () => {
       expect(getListBoxMaxHeight({
         cardinal: 0,
         dense: false,
@@ -257,9 +258,9 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'auto',
           },
         },
-      } as IListboxResource)).toEqual(0);
+      } as IListboxResource, width)).toEqual(41);
     });
-    it('should account for header when cardinal is 0', () => {
+    it('should account for header and one row although cardinal is 0', () => {
       expect(getListBoxMaxHeight({
         cardinal: 0,
         dense: false,
@@ -271,11 +272,12 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'auto',
           },
         },
-      } as IListboxResource)).toEqual(48);
+      } as IListboxResource, width)).toEqual(89);
     });
   });
 
   describe('estimateColumnHeight', () => {
+    const width = 300;
     it('should estimate like a wizard', () => {
       expect(estimateColumnHeight({
         items: [
@@ -283,13 +285,13 @@ describe('distribute resources countng functions', () => {
           getResource('always'),
           getResource('never'),
         ],
-      })).toEqual(171);
+      }, width)).toEqual(175);
     });
 
     it('should only count the padding', () => {
       expect(estimateColumnHeight({
         items: [],
-      })).toEqual(2);
+      }, width)).toEqual(2);
     });
   });
 });

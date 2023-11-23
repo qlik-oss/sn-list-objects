@@ -1,8 +1,15 @@
 export interface IListLayout extends EngineAPI.IGenericListLayout {
   title: string;
   qStateName: string;
+  checkboxes: boolean;
   qInfo: {
     qId: string;
+  },
+  qListObject: {
+    frequencyEnabled?: boolean;
+    qDimensionInfo: {
+      qCardinal?: boolean;
+    }
   },
   layoutOptions?: {
     dense: boolean;
@@ -15,7 +22,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
       maxRows?: number;
       auto?: boolean;
     };
-    layoutOrder?: 'row' | 'grid';
+    layoutOrder?: 'row' | 'column';
   },
   showTitle?: boolean,
   qHasSoftPatches?: boolean;

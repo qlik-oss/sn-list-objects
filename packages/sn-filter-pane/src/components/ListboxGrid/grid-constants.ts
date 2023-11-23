@@ -1,6 +1,8 @@
 export const COLLAPSED_HEIGHT = 34;
 export const BUTTON_HEIGHT = 34;
 export const ITEM_SPACING = 8;
+export const ITEM_MIN_WIDTH = 56; // from Nebula (make sure to sync)
+export const REMOVE_TICK_LIMIT = 80; // from Nebula (make sure to sync)
 export const COLUMN_MIN_WIDTH = 160;
 export const COLUMN_SPACING = 16;
 export const EXPANDED_HEADER_HEIGHT = 48;

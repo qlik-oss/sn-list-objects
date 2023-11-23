@@ -99,7 +99,7 @@ export default function useHandleResize({
         overflowColumn.hiddenItems = true;
 
         sadItems[0].expand = true;
-        const tooBig = estimateColumnHeight(column) > size.height;
+        const tooBig = estimateColumnHeight(column, size.width) > size.height;
         if (tooBig) {
           sadItems[0].expand = false;
         }
