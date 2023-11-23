@@ -37,10 +37,8 @@ export type IThemeComponent = {
       expressionUrl?: string;
       mode?: 'media' | 'expression';
       mediaUrl?: { qStaticContentUrl?: { qUrl?: string } };
-      url?: { qStaticContentUrl?: { qUrl?: string } };
       position?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center-center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
       sizing?: ISizing;
-      size?: ISizing;
     }
   };
 };

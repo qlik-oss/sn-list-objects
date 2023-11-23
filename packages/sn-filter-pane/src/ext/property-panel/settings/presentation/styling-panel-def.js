@@ -274,12 +274,12 @@ export default function getStyling(env) {
                           data.background = data.background || {};
                           data.background.image = data.background.image || {};
                           data.background.image.qStaticContentUrlDef = data.background.image.qStaticContentUrlDef || {};
-                          data.background.image.url = data.background.image.url || {};
+                          data.background.image.mediaUrl = data.background.image.mediaUrl || {};
                         },
                       },
                       MediaLibrary: {
                         component: 'media-library-button',
-                        ref: 'background.image.url',
+                        ref: 'background.image.mediaUrl',
                         translation: 'MediaLibrary.Header',
                         show(data) {
                           return data?.background?.image?.mode === 'media';
@@ -287,7 +287,7 @@ export default function getStyling(env) {
                       },
                       imageSize: {
                         component: 'dropdown',
-                        ref: 'background.image.size',
+                        ref: 'background.image.sizing',
                         defaultValue: styleDefaults.BACKGROUND_SIZE,
                         options: [
                           {
@@ -321,17 +321,17 @@ export default function getStyling(env) {
                           }
                         },
                         show: (data) => data?.background?.image?.mode === 'media'
-                          && !!data?.background?.image?.url?.qStaticContentUrlDef?.qUrl,
+                          && !!data?.background?.image?.mediaUrl?.qStaticContentUrlDef?.qUrl,
                       },
                       position: {
                         component: 'position-grid',
                         ref: 'background.image.position',
                         translation: 'properties.backgroundImage.position',
                         defaultValue: styleDefaults.BGIMAGE_POSITION,
-                        currentSizeRef: 'background.size',
+                        currentSizeRef: 'background.sizing',
                         show: (data) => data?.background?.image?.mode === 'media'
-                          && data?.background?.image?.url?.qStaticContentUrlDef?.qUrl
-                          && data?.background?.image?.size !== 'stretchFit',
+                          && data?.background?.image?.mediaUrl?.qStaticContentUrlDef?.qUrl
+                          && data?.background?.image?.sizing !== 'stretchFit',
                       },
                     },
                   },
