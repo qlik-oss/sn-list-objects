@@ -11,6 +11,7 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
   // to get a filled height in this case, without padding,
   let paddingY = 0;
   if (isGridMode) {
+    // Only grid mode has a padding between the items.
     paddingY = 4;
   }
   return innerHeight + paddingY;
@@ -58,7 +59,8 @@ export function getGridModeRowCount({ layout, cardinal, width }: { layout: IList
   if (layoutOrder === 'row') {
     const itemWidth = getItemMinWidth(layout || {});
     const estimatedColumnCount = Math.floor(width / itemWidth);
-    const columnCount = Math.max(1, Math.min(maxVisibleColumns?.maxColumns || 3, estimatedColumnCount));
+    const explicitColumnCount = maxVisibleColumns?.auto ? undefined : maxVisibleColumns?.maxColumns;
+    const columnCount = Math.max(1, Math.min(explicitColumnCount || Infinity, estimatedColumnCount));
     rowCount = Math.ceil(cardinal / columnCount);
   } else if (layoutOrder === 'column') {
     rowCount = maxVisibleRows.maxRows || 3;

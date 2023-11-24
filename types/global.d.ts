@@ -16,6 +16,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
     dataLayout?: 'grid' | 'singleColumn';
     collapseMode?: 'auto' | 'always' | 'never';
     maxVisibleColumns?: {
+      auto?: boolean;
       maxColumns?: number;
     };
     maxVisibleRows?: {
