@@ -9,7 +9,10 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
   const innerHeight = dense ? DENSE_ROW_HEIGHT : rowHeight;
   // We subtract this padding later, if single row and grid mode,
   // to get a filled height in this case, without padding,
-  const paddingY = 4;
+  let paddingY = 0;
+  if (isGridMode) {
+    paddingY = 4;
+  }
   return innerHeight + paddingY;
 };
 

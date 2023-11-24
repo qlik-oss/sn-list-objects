@@ -229,11 +229,7 @@ describe('distribute resources', () => {
           },
         },
       };
-      const resources: IListboxResource[] = [{
-        ...resource,
-      } as IListboxResource, {
-        ...resource,
-      } as IListboxResource];
+      const resources: IListboxResource[] = [{ ...resource } as unknown as IListboxResource, { ...resource } as unknown as IListboxResource];
 
       const size: ISize = {
         height: 1277,
@@ -248,10 +244,10 @@ describe('distribute resources', () => {
       const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps, isSmallDevice);
       expect(result[0].items?.[1].fullyExpanded).toBe(false);
       expect(result[0].items?.[0].expand).toBe(true);
-      expect(result[0].items?.[1].height).toBe('353px');
+      expect(result[0].items?.[1].height).toBe('457px');
       expect(result[0].items?.[0].fullyExpanded).toBe(true);
       expect(result[0].items?.[1].expand).toBe(true);
-      expect(result[0].items?.[0].height).toBe('914px');
+      expect(result[0].items?.[0].height).toBe('810px');
     });
   });
 
