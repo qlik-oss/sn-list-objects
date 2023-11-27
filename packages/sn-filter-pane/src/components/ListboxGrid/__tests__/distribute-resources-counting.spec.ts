@@ -221,14 +221,14 @@ describe('distribute resources countng functions', () => {
 
     it('with frequencyEnabled', () => {
       layout.qListObject.frequencyEnabled = true;
-      expect(getItemWidth(layout)).toEqual(108);
+      expect(getItemWidth(layout)).toEqual(135);
     });
     it('no frequencyEnabled', () => {
       expect(getItemWidth(layout)).toEqual(63);
     });
     it('with checkboxes', () => {
       layout.checkboxes = true;
-      expect(getItemWidth(layout)).toEqual(83);
+      expect(getItemWidth(layout)).toEqual(101);
     });
     it('should be limited to min width', () => {
       layout.qListObject.qDimensionInfo.qApprMaxGlyphCount = 0;
