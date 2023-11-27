@@ -8,7 +8,8 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   qListObject: {
     frequencyEnabled?: boolean;
     qDimensionInfo: {
-      qCardinal?: boolean;
+      qCardinal?: number;
+      qApprMaxGlyphCount?: number;
     }
   },
   layoutOptions?: {

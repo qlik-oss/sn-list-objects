@@ -244,10 +244,10 @@ describe('distribute resources', () => {
       const { columns: result } = calculateExpandPriority(mergedColumns, size, expandProps, isSmallDevice);
       expect(result[0].items?.[1].fullyExpanded).toBe(false);
       expect(result[0].items?.[0].expand).toBe(true);
-      expect(result[0].items?.[1].height).toBe('457px');
+      expect(result[0].items?.[1].height).toBe('465px');
       expect(result[0].items?.[0].fullyExpanded).toBe(true);
       expect(result[0].items?.[1].expand).toBe(true);
-      expect(result[0].items?.[0].height).toBe('810px');
+      expect(result[0].items?.[0].height).toBe('802px');
     });
   });
 

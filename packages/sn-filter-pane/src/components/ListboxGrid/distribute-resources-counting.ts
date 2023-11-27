@@ -1,6 +1,6 @@
 import { IListLayout, IListboxResource } from '../../hooks/types';
 import {
-  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, LIST_ROW_HEIGHT, DENSE_ROW_HEIGHT, GRID_ROW_HEIGHT, ITEM_MIN_WIDTH, REMOVE_TICK_LIMIT,
+  COLLAPSED_HEIGHT, COLUMN_MIN_WIDTH, COLUMN_SPACING, EXPANDED_HEADER_HEIGHT, ITEM_SPACING, LIST_ROW_HEIGHT, DENSE_ROW_HEIGHT, GRID_ROW_HEIGHT, ITEM_MIN_WIDTH, REMOVE_TICK_LIMIT, ITEM_MAX_WIDTH, TICK_WIDTH, FREQUENCY_ADD_WIDTH, CHAR_WIDTH, CHECKBOX_ADD_WIDTH, SCROLL_BAR_WIDTH,
 } from './grid-constants';
 import { ExpandProps, IColumn, ISize } from './interfaces';
 
@@ -17,18 +17,29 @@ const getExpandedRowHeight = (dense: boolean, isGridMode = false) => {
   return innerHeight + paddingY;
 };
 
-const getItemMinWidth = (layout: IListLayout) => {
+/**
+ * Simulate the item width calculation in nebula listboxes, to get a fair
+ * estimate of how wide each item will become.
+ */
+export const getItemWidth = (layout: IListLayout) => {
   const { checkboxes, qListObject } = layout;
   const { frequencyEnabled = false } = qListObject;
 
-  const FREQUENCY_ADD_WIDTH = 20; // to be precise, this should depend on freq text length but wth
-  const CHECKBOX_ADD_WIDTH = 20;
-  const TICK_WIDTH = 20;
-  let itemMinWidth = ITEM_MIN_WIDTH + (frequencyEnabled ? FREQUENCY_ADD_WIDTH : 0) + (checkboxes ? CHECKBOX_ADD_WIDTH : 0);
-  if (!checkboxes && itemMinWidth >= REMOVE_TICK_LIMIT) {
-    itemMinWidth += TICK_WIDTH;
-  }
+  const getConditionalWidths = (w: number) => (frequencyEnabled ? FREQUENCY_ADD_WIDTH : 0)
+    + (checkboxes ? CHECKBOX_ADD_WIDTH : 0)
+    + ((!checkboxes && w >= REMOVE_TICK_LIMIT) ? TICK_WIDTH : 0);
+
+  const textWidth = (qListObject?.qDimensionInfo?.qApprMaxGlyphCount ?? 1) * CHAR_WIDTH;
+  const columnAutoWidth = textWidth + getConditionalWidths(textWidth);
+  const itemMinWidth = Math.min(ITEM_MAX_WIDTH, Math.max(ITEM_MIN_WIDTH, columnAutoWidth));
   return itemMinWidth;
+};
+
+export const getColumnWidth = (fullWidth: number, nbrColumns: number) => {
+  const columnPaddingX = 8;
+  const totalSpaceBetweenColumns = Math.max(0, nbrColumns - 1) * columnPaddingX;
+  const columnWidth = (fullWidth - totalSpaceBetweenColumns) / nbrColumns;
+  return Math.min(fullWidth, Math.max(0, columnWidth));
 };
 
 export function getListBoxMinHeight(resource: IListboxResource, outerWidth = false, asCollapsed = false) {
@@ -50,16 +61,17 @@ export function getListBoxMinHeight(resource: IListboxResource, outerWidth = fal
   return h;
 }
 
-export function getGridModeRowCount({ layout, cardinal, width }: { layout: IListLayout, cardinal: number, width: number }) {
+export function getGridModeRowCount({ layout, cardinal, columnWidth }: { layout: IListLayout, cardinal: number, columnWidth: number }) {
   let rowCount = 1;
   const {
-    maxVisibleRows = {}, layoutOrder, maxVisibleColumns,
+    maxVisibleRows = {}, layoutOrder, maxVisibleColumns = {},
   } = layout?.layoutOptions || {};
 
   if (layoutOrder === 'row') {
-    const itemWidth = getItemMinWidth(layout || {});
-    const estimatedColumnCount = Math.floor(width / itemWidth);
-    const explicitColumnCount = maxVisibleColumns?.auto ? undefined : maxVisibleColumns?.maxColumns;
+    const itemWidth = getItemWidth(layout || {});
+    const estimatedColumnCount = Math.floor(columnWidth / itemWidth);
+    const explicitColumnCount = !maxVisibleColumns.auto && maxVisibleColumns.maxColumns ? maxVisibleColumns.maxColumns : undefined;
+
     const columnCount = Math.max(1, Math.min(explicitColumnCount || Infinity, estimatedColumnCount));
     rowCount = Math.ceil(cardinal / columnCount);
   } else if (layoutOrder === 'column') {
@@ -125,7 +137,7 @@ export function getExpandedHeightLimit(expandProps: ExpandProps) {
   return heightLimit;
 }
 
-export const getListBoxMaxHeight = (item: IListboxResource, width: number) => {
+export const getListBoxMaxHeight = (item: IListboxResource, columnWidth: number) => {
   const {
     cardinal, dense, hasHeader, neverExpanded, layout,
   } = item || {};
@@ -137,13 +149,16 @@ export const getListBoxMaxHeight = (item: IListboxResource, width: number) => {
     maxHeight = getListBoxMinHeight(item);
   } else {
     const isGridMode = dataLayout === 'grid';
-    const rowCount = Math.max(1, isGridMode ? getGridModeRowCount({ cardinal, layout: item.layout, width }) : cardinal);
+    const rowCount = Math.max(1, isGridMode ? getGridModeRowCount({ cardinal, layout: item.layout, columnWidth }) : cardinal);
     maxHeight = rowCount * getExpandedRowHeight(dense, isGridMode) + (hasHeader ? EXPANDED_HEADER_HEIGHT : 0);
-    if (isGridMode && rowCount === 1) {
-      maxHeight -= 4; // remove padding to fill height
+    if (isGridMode) {
+      maxHeight += ITEM_SPACING;
+      if (rowCount === 1) {
+        const totalPaddingY = 4;
+        maxHeight -= totalPaddingY; // remove padding to fill height
+      }
     }
   }
-  maxHeight += ITEM_SPACING;
   return maxHeight;
 };
 
@@ -151,7 +166,7 @@ export const getListBoxMaxHeight = (item: IListboxResource, width: number) => {
  * Iterate through all items in the column and summarise the height of all
  * individual listboxes.
  */
-export function estimateColumnHeight(column: IColumn, width: number, atMinSize = false) {
+export function estimateColumnHeight(column: IColumn, columnWidth: number, atMinSize = false) {
   let totHeight = 2;
   column.items?.forEach((item) => {
     const {
@@ -162,7 +177,7 @@ export function estimateColumnHeight(column: IColumn, width: number, atMinSize =
       totHeight += getListBoxMinHeight(item, false, atMinSize);
     } else if (expand || item.alwaysExpanded) {
       if (fullyExpanded) {
-        totHeight += getListBoxMaxHeight(item, width);
+        totHeight += getListBoxMaxHeight(item, columnWidth);
       } else if (height) {
         const h = Number.parseFloat(height);
         totHeight += (h || getListBoxMinHeight(item));
@@ -181,7 +196,7 @@ export function estimateColumnHeight(column: IColumn, width: number, atMinSize =
   return totHeight;
 }
 
-export const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice: boolean, expandProps: ExpandProps) => {
+export const haveRoomToExpandOne = (size: ISize, columnWidth: number, column: IColumn, isSmallDevice: boolean, expandProps: ExpandProps) => {
   if (isSmallDevice) {
     return false;
   }
@@ -193,7 +208,7 @@ export const haveRoomToExpandOne = (size: ISize, column: IColumn, isSmallDevice:
     // eslint-disable-next-line no-param-reassign
     column.items[0].expand = column.items[0].expand ?? hasRoom;
   } else {
-    const spaceLeft = size.height - estimateColumnHeight(column, size.width);
+    const spaceLeft = size.height - estimateColumnHeight(column, columnWidth);
     hasRoom = spaceLeft >= expandLimit;
   }
   return hasRoom;
