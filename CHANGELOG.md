@@ -1,5 +1,13 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.17.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.1...v0.17.2) (2023-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update minor and patch ([#376](https://github.com/qlik-oss/sn-list-objects/issues/376)) ([b0308b7](https://github.com/qlik-oss/sn-list-objects/commit/b0308b7aca33d2230a98e38692b309d61c97668d))
+* **sn-filter-pane:** conform to nebulas naming of background image properties ([#386](https://github.com/qlik-oss/sn-list-objects/issues/386)) ([203b179](https://github.com/qlik-oss/sn-list-objects/commit/203b1792a4472eaa5fbf44c93043d126f4df9a79))
+
 ### [0.17.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.0...v0.17.1) (2023-11-02)
 
 
