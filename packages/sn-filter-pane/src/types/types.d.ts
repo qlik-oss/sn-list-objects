@@ -1,5 +1,6 @@
 interface ISense {
-  isSmallDevice: () => boolean,
+  isSmallDevice?: () => boolean,
+  theme?: stardust.Theme;
 }
 
 export interface IEnv {

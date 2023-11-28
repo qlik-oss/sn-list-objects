@@ -17,7 +17,7 @@ export interface FoldedPopoverProps {
   stores: IStores;
 }
 
-const getPopoverPaperProps = (selectedResource: boolean, isSmallDevice:boolean, styles?: IStyles): PaperProps => {
+const getPopoverPaperProps = (selectedResource: boolean, isSmallDevice: boolean, styles?: IStyles): PaperProps => {
   const backgroundColor = styles?.popover.backgroundColor;
   const calcHeight = isSmallDevice ? '100%' : '330px';
   return {
