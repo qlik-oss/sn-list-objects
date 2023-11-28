@@ -1,7 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 // This code originates from Nebula.js
 
-import { ISizing } from './types/components';
+import { stardust } from '@nebula.js/stardust';
+import { ISizing, IThemeComponent } from './types/components';
 
 const imageSizingToCssProperty = {
   originalSize: 'auto auto',
@@ -97,4 +98,23 @@ export function resolveBgImage(bgComp: ImageDefComponent, app?: EngineAPI.IApp) 
     return url ? { url, pos, size } : undefined;
   }
   return undefined;
+}
+
+interface IResolveBgColor {
+  stardustTheme?: stardust.Theme & { validateColor?: (exp?: string) => string }; // TODO: extend stardust theme type
+  themeOverrides?: IThemeComponent;
+}
+
+export function resolveBgColor({ stardustTheme, themeOverrides }: IResolveBgColor) {
+  let color;
+  const bgColor = themeOverrides?.background;
+  if (!bgColor) {
+    return color;
+  }
+  if (bgColor?.useExpression && bgColor.colorExpression) {
+    color = stardustTheme?.validateColor?.(bgColor.colorExpression);
+  } else if (bgColor?.color) {
+    color = stardustTheme?.getColorPickerColor(bgColor?.color, false);
+  }
+  return color;
 }

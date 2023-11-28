@@ -82,6 +82,8 @@ export default function useHandleResize({
       columnsTemp[0].expand = true;
     }
 
+    const columnWidth = size.width / columnsTemp.length;
+
     [...columnsTemp].reverse().slice(0).forEach((column: IColumn) => {
       const { items = [] } = column;
       [...items].some(() => {
@@ -99,7 +101,7 @@ export default function useHandleResize({
         overflowColumn.hiddenItems = true;
 
         sadItems[0].expand = true;
-        const tooBig = estimateColumnHeight(column) > size.height;
+        const tooBig = estimateColumnHeight(column, size.width) > size.height;
         if (tooBig) {
           sadItems[0].expand = false;
         }
@@ -130,7 +132,7 @@ export default function useHandleResize({
 
     if (!isSingleColumn && overflowing.length > 0) {
       // Ensure the overflow column adjusts for the overflow dropdown button, if any.
-      adjustOverflowColumn(columnsTemp[columnsTemp.length - 1], size, overflowing);
+      adjustOverflowColumn(columnsTemp[columnsTemp.length - 1], size, columnWidth, overflowing);
     }
 
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);

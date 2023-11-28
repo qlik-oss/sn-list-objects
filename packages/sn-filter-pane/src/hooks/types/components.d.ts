@@ -2,6 +2,11 @@ import { Theme as StardustTheme } from '@nebula.js/stardust';
 
 export type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
 
+export type IColor = {
+  color?: string;
+  index?: number;
+}
+
 type IFontStyle = {
   bold?: boolean;
   normal?: boolean;
@@ -26,13 +31,10 @@ export type IThemeComponent = {
   };
   header?: IFontStyles;
   background?: {
-    useColorExpression?: string;
+    useExpression?: string;
     colorExpression?: string;
     mode?: string;
-    color?: {
-      color?: string;
-      index?: number;
-    };
+    color?: IColor;
     image?: {
       expressionUrl?: string;
       mode?: 'media' | 'expression';

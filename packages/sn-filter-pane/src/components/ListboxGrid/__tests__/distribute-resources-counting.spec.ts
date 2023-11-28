@@ -1,6 +1,6 @@
-import { IListboxResource } from '../../../hooks/types';
+import { IListLayout, IListboxResource } from '../../../hooks/types';
 import {
-  countListBoxes, doAllFit, estimateColumnHeight, getExpandedHeightLimit, getListBoxMaxHeight, getListBoxMinHeight, getMaxColumns, howManyListBoxesFit,
+  countListBoxes, doAllFit, estimateColumnHeight, getColumnWidth, getExpandedHeightLimit, getItemWidth, getListBoxMaxHeight, getListBoxMinHeight, getMaxColumns, howManyListBoxesFit,
 } from '../distribute-resources-counting';
 import { ExpandProps, ISize } from '../interfaces';
 
@@ -194,7 +194,54 @@ describe('distribute resources countng functions', () => {
     });
   });
 
+  describe('getColumnWidth', () => {
+    it('should calculate column width like a pro', () => {
+      expect(getColumnWidth(100, 2)).toEqual(46);
+      expect(getColumnWidth(100, 12)).toEqual(1);
+      expect(getColumnWidth(100, 100)).toEqual(0);
+      expect(getColumnWidth(100, 0)).toEqual(100);
+      expect(getColumnWidth(NaN, NaN)).toEqual(NaN);
+    });
+  });
+
+  describe('getItemWidth', () => {
+    let layout = {} as IListLayout;
+
+    beforeEach(() => {
+      layout = {
+        checkboxes: false,
+        qListObject: {
+          frequencyEnabled: false,
+          qDimensionInfo: {
+            qApprMaxGlyphCount: 7,
+          },
+        },
+      } as IListLayout;
+    });
+
+    it('with frequencyEnabled', () => {
+      layout.qListObject.frequencyEnabled = true;
+      expect(getItemWidth(layout)).toEqual(135);
+    });
+    it('no frequencyEnabled', () => {
+      expect(getItemWidth(layout)).toEqual(63);
+    });
+    it('with checkboxes', () => {
+      layout.checkboxes = true;
+      expect(getItemWidth(layout)).toEqual(101);
+    });
+    it('should be limited to min width', () => {
+      layout.qListObject.qDimensionInfo.qApprMaxGlyphCount = 0;
+      expect(getItemWidth(layout)).toEqual(56);
+    });
+    it('should be limited to max width', () => {
+      layout.qListObject.qDimensionInfo.qApprMaxGlyphCount = 100;
+      expect(getItemWidth(layout)).toEqual(150);
+    });
+  });
+
   describe('getListBoxMaxHeight', () => {
+    const width = 300;
     it('should calculate like a pro', () => {
       expect(getListBoxMaxHeight({
         cardinal: 3,
@@ -202,7 +249,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(135);
+      } as IListboxResource, width)).toEqual(135);
     });
     it('should calculate like a pro with dense', () => {
       expect(getListBoxMaxHeight({
@@ -211,7 +258,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(108);
+      } as IListboxResource, width)).toEqual(108);
     });
     it('should account for no header', () => {
       expect(getListBoxMaxHeight({
@@ -220,7 +267,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: false,
         neverExpanded: false,
         alwaysExpanded: false,
-      } as IListboxResource)).toEqual(87);
+      } as IListboxResource, width)).toEqual(87);
     });
     it('should account for alwaysExpanded', () => {
       expect(getListBoxMaxHeight({
@@ -229,7 +276,7 @@ describe('distribute resources countng functions', () => {
         hasHeader: true,
         neverExpanded: false,
         alwaysExpanded: true,
-      } as IListboxResource)).toEqual(135);
+      } as IListboxResource, width)).toEqual(135);
     });
     it('should account for neverExpanded', () => {
       expect(getListBoxMaxHeight({
@@ -243,9 +290,9 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'always',
           },
         },
-      } as IListboxResource)).toEqual(34);
+      } as IListboxResource, width)).toEqual(34);
     });
-    it('should return 0 when cardinal is 0 and no header', () => {
+    it('cardinal is 0 and no header should still estimate based on 1 row', () => {
       expect(getListBoxMaxHeight({
         cardinal: 0,
         dense: false,
@@ -257,9 +304,9 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'auto',
           },
         },
-      } as IListboxResource)).toEqual(0);
+      } as IListboxResource, width)).toEqual(29);
     });
-    it('should account for header when cardinal is 0', () => {
+    it('should account for header and one row although cardinal is 0', () => {
       expect(getListBoxMaxHeight({
         cardinal: 0,
         dense: false,
@@ -271,11 +318,12 @@ describe('distribute resources countng functions', () => {
             collapseMode: 'auto',
           },
         },
-      } as IListboxResource)).toEqual(48);
+      } as IListboxResource, width)).toEqual(77);
     });
   });
 
   describe('estimateColumnHeight', () => {
+    const width = 300;
     it('should estimate like a wizard', () => {
       expect(estimateColumnHeight({
         items: [
@@ -283,13 +331,13 @@ describe('distribute resources countng functions', () => {
           getResource('always'),
           getResource('never'),
         ],
-      })).toEqual(171);
+      }, width)).toEqual(171);
     });
 
     it('should only count the padding', () => {
       expect(estimateColumnHeight({
         items: [],
-      })).toEqual(2);
+      }, width)).toEqual(2);
     });
   });
 });

@@ -229,11 +229,7 @@ describe('distribute resources', () => {
           },
         },
       };
-      const resources: IListboxResource[] = [{
-        ...resource,
-      } as IListboxResource, {
-        ...resource,
-      } as IListboxResource];
+      const resources: IListboxResource[] = [{ ...resource } as unknown as IListboxResource, { ...resource } as unknown as IListboxResource];
 
       const size: ISize = {
         height: 1277,

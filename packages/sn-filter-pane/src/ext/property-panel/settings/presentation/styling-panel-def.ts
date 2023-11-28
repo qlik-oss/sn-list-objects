@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 import { fontResolver as createFontResolver } from 'qlik-chart-modules';
 import { getFontSizes, parseFontWeight } from './styling-utils/font-utils';
 import styleDefaults from './style-defaults';
+import { IEnv } from '../../../../types/types';
 
-export default function getStyling(env) {
-  const { translator, flags, anything } = env || {};
-  const { theme } = anything?.sense || {};
+export default function getStyling(env: IEnv) {
+  const { translator, flags, sense } = env || {};
+  const { theme } = sense || {};
 
   const stylingPart2 = flags?.isEnabled('IM_5452_FILTERPANE_STYLING');
 
@@ -30,7 +32,7 @@ export default function getStyling(env) {
   const defaultFontSize = (getListBoxStyle('title.main.fontSize') ?? getListBoxStyle('fontSize'));
   const defaultContentFontSize = getListBoxStyle('content.fontSize') ?? getListBoxStyle('fontSize');
   const defaultColor = getListBoxStyle('content.color') ?? getListBoxStyle('color');
-  const defaultFontWeight = parseFontWeight(getListBoxStyle('title', 'main.fontWeight')) || 'bold';
+  const defaultFontWeight = parseFontWeight(getListBoxStyle('title.main.fontWeight')) || 'bold';
 
   const stylingPanelDef = {
     stylingPanel: {
@@ -62,13 +64,15 @@ export default function getStyling(env) {
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
-                    fontStyle: {
-                      type: 'array',
-                      component: 'font-style-buttons',
-                      width: false,
-                      ref: 'header.fontStyle',
-                      defaultValue: [defaultFontWeight],
-                    },
+                    ...(stylingPart2 ? {
+                      fontStyle: {
+                        type: 'array',
+                        component: 'font-style-buttons',
+                        width: false,
+                        ref: 'header.fontStyle',
+                        defaultValue: [defaultFontWeight],
+                      },
+                    } : {}),
                     fontSizeItem: {
                       component: 'dropdown',
                       ref: 'header.fontSize',
@@ -111,13 +115,15 @@ export default function getStyling(env) {
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
-                    fontStyle: {
-                      type: 'array',
-                      component: 'font-style-buttons',
-                      width: false,
-                      ref: 'content.fontStyle',
-                      defaultValue: ['normal'],
-                    },
+                    ...(stylingPart2 ? {
+                      fontStyle: {
+                        type: 'array',
+                        component: 'font-style-buttons',
+                        width: false,
+                        ref: 'content.fontStyle',
+                        defaultValue: ['normal'],
+                      },
+                    } : {}),
                     contentFontSizeItem: {
                       component: 'dropdown',
                       ref: 'content.fontSize',
@@ -236,7 +242,7 @@ export default function getStyling(env) {
                         ref: 'background.colorExpression',
                         translation: 'Common.Expression',
                         expression: 'optional',
-                        show: (data) => data?.background?.useExpression,
+                        show: (data: any) => data?.background?.useExpression,
                       },
                       colorPicker: {
                         type: 'object',
@@ -246,7 +252,7 @@ export default function getStyling(env) {
                         disableNone: false,
                         defaultValue: styleDefaults.COLOR,
                         dualOutput: true,
-                        show: (data) => !data?.background?.useExpression,
+                        show: (data: any) => !data?.background?.useExpression,
                       },
                     },
                   },
@@ -270,7 +276,7 @@ export default function getStyling(env) {
                             translation: 'MediaLibrary.Header',
                           },
                         ],
-                        change(data = {}) {
+                        change(data: any = {}) {
                           data.background = data.background || {};
                           data.background.image = data.background.image || {};
                           data.background.image.qStaticContentUrlDef = data.background.image.qStaticContentUrlDef || {};
@@ -281,7 +287,7 @@ export default function getStyling(env) {
                         component: 'media-library-button',
                         ref: 'background.image.mediaUrl',
                         translation: 'MediaLibrary.Header',
-                        show(data) {
+                        show(data: any) {
                           return data?.background?.image?.mode === 'media';
                         },
                       },
@@ -315,12 +321,12 @@ export default function getStyling(env) {
                             translation: 'properties.backgroundImage.sizeAlwaysFill',
                           },
                         ],
-                        change: (data) => {
+                        change: (data: any) => {
                           if (data?.background?.image?.position) {
                             data.background.image.position = styleDefaults.BGIMAGE_POSITION;
                           }
                         },
-                        show: (data) => data?.background?.image?.mode === 'media'
+                        show: (data: any) => data?.background?.image?.mode === 'media'
                           && !!data?.background?.image?.mediaUrl?.qStaticContentUrlDef?.qUrl,
                       },
                       position: {
@@ -329,7 +335,7 @@ export default function getStyling(env) {
                         translation: 'properties.backgroundImage.position',
                         defaultValue: styleDefaults.BGIMAGE_POSITION,
                         currentSizeRef: 'background.sizing',
-                        show: (data) => data?.background?.image?.mode === 'media'
+                        show: (data: any) => data?.background?.image?.mode === 'media'
                           && data?.background?.image?.mediaUrl?.qStaticContentUrlDef?.qUrl
                           && data?.background?.image?.sizing !== 'stretchFit',
                       },

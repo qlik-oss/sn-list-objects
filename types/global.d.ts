@@ -1,21 +1,27 @@
 export interface IListLayout extends EngineAPI.IGenericListLayout {
   title: string;
   qStateName: string;
+  checkboxes: boolean;
   qInfo: {
     qId: string;
+  },
+  qListObject: {
+    frequencyEnabled?: boolean;
+    qDimensionInfo: EngineAPI.INxDimensionInfo;
   },
   layoutOptions?: {
     dense: boolean;
     dataLayout?: 'grid' | 'singleColumn';
     collapseMode?: 'auto' | 'always' | 'never';
     maxVisibleColumns?: {
+      auto?: boolean;
       maxColumns?: number;
     };
     maxVisibleRows?: {
       maxRows?: number;
       auto?: boolean;
     };
-    layoutOrder?: 'row' | 'grid';
+    layoutOrder?: 'row' | 'column';
   },
   showTitle?: boolean,
   qHasSoftPatches?: boolean;

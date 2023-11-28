@@ -3,7 +3,7 @@ import muiTheme from '../theme/theme';
 import {
   IComponent, ISelectionsComponent, IStyles, IThemeComponent,
 } from './types/components';
-import { resolveBgImage } from './styling-utils';
+import { resolveBgColor, resolveBgImage } from './styling-utils';
 
 type IComponentOverrides = {
   theme?: IThemeComponent;
@@ -45,18 +45,21 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
   const stardustTheme = useStardustTheme();
   const componentsOverrides = getOverridesAsObject(components);
   const getListboxStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.listBox', path, prop);
-  const listboxBackgroundColor = componentsOverrides.theme?.background?.color?.color || getListboxStyle('', 'backgroundColor') || muiTheme?.palette.background.default || '#ffffff';
 
   const imgDef = componentsOverrides.theme?.background?.image;
   const bgImage = resolveBgImage({ bgImage: imgDef }, app);
+  const listboxBgColor = resolveBgColor({ stardustTheme, themeOverrides: componentsOverrides.theme })
+    || getListboxStyle('', 'backgroundColor')
+    || muiTheme?.palette.background.default
+    || '#ffffff';
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
 
   const mergedStyle = {
     listbox: {
       background: {
-        color: listboxBackgroundColor,
-        backgroundColor: listboxBackgroundColor,
+        color: listboxBgColor,
+        backgroundColor: listboxBgColor,
         backgroundImage: bgImage?.url ? `url('${bgImage.url}')` : undefined,
         backgroundRepeat: 'no-repeat',
         backgroundSize: bgImage?.size,
@@ -67,7 +70,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
     },
     popover: {
       // Do not permit transparent or non-colored popovers.
-      backgroundColor: !bgImage?.url && (!listboxBackgroundColor || listboxBackgroundColor === 'transparent') ? muiTheme?.palette.background.default : listboxBackgroundColor,
+      backgroundColor: !bgImage?.url && (!listboxBgColor || listboxBgColor === 'transparent') ? muiTheme?.palette.background.default : listboxBgColor,
     },
     header: {
       // Listbox style included here because it is applied on collapsed headers, which resides in Filter pane code.
