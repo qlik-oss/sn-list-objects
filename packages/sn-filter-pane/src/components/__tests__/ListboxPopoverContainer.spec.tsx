@@ -28,12 +28,12 @@ const getResource = (id: string) => ({
     },
   },
 });
-const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResource(String(i)) as IListboxResource }));
+const resources: IListboxResource[] = [...Array(4)].map((_, i) => ({ ...getResource(String(i)) as unknown as IListboxResource }));
 
 describe('ListboxPopoverContainer render', () => {
   it('should render FoldedListbox with fieldname when one resource is provided', () => {
     const { queryByText } = render(
-      <ListboxPopoverContainer resources={[getResource('123') as IListboxResource]} stores={create()} />,
+      <ListboxPopoverContainer resources={[getResource('123') as unknown as IListboxResource]} stores={create()} />,
     );
     expect(queryByText('Foo')).toBeTruthy();
   });

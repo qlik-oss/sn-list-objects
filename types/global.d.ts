@@ -7,10 +7,7 @@ export interface IListLayout extends EngineAPI.IGenericListLayout {
   },
   qListObject: {
     frequencyEnabled?: boolean;
-    qDimensionInfo: {
-      qCardinal?: number;
-      qApprMaxGlyphCount?: number;
-    }
+    qDimensionInfo: EngineAPI.INxDimensionInfo;
   },
   layoutOptions?: {
     dense: boolean;
