@@ -64,13 +64,15 @@ export default function getStyling(env: IEnv) {
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
-                    fontStyle: {
-                      type: 'array',
-                      component: 'font-style-buttons',
-                      width: false,
-                      ref: 'header.fontStyle',
-                      defaultValue: [defaultFontWeight],
-                    },
+                    ...(stylingPart2 ? {
+                      fontStyle: {
+                        type: 'array',
+                        component: 'font-style-buttons',
+                        width: false,
+                        ref: 'header.fontStyle',
+                        defaultValue: [defaultFontWeight],
+                      },
+                    } : {}),
                     fontSizeItem: {
                       component: 'dropdown',
                       ref: 'header.fontSize',
@@ -113,13 +115,15 @@ export default function getStyling(env: IEnv) {
                 fontWrapperItem: {
                   component: 'inline-wrapper',
                   items: {
-                    fontStyle: {
-                      type: 'array',
-                      component: 'font-style-buttons',
-                      width: false,
-                      ref: 'content.fontStyle',
-                      defaultValue: ['normal'],
-                    },
+                    ...(stylingPart2 ? {
+                      fontStyle: {
+                        type: 'array',
+                        component: 'font-style-buttons',
+                        width: false,
+                        ref: 'content.fontStyle',
+                        defaultValue: ['normal'],
+                      },
+                    } : {}),
                     contentFontSizeItem: {
                       component: 'dropdown',
                       ref: 'content.fontSize',
