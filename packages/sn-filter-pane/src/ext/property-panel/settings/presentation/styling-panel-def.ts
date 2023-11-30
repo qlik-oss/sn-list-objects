@@ -40,6 +40,8 @@ export default function getStyling(env: IEnv) {
       chartType: 'filterpane',
       translation: 'LayerStyleEditor.component.styling',
       chartTitle: 'Object.FilterPane',
+      generalTabTitle: 'Object.FilterPane',
+      tabTitle: 'Object.Listboxes',
       useBackground: true,
       subtitle: 'LayerStyleEditor.component.styling',
       useGeneral: true,
