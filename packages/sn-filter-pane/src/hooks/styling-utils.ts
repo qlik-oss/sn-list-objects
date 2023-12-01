@@ -119,10 +119,20 @@ export function resolveBgColor({ stardustTheme, themeOverrides }: IResolveBgColo
   return color;
 }
 
-type IGetListboxStyle = (path: string, prop: string) => string | undefined;
+type IGetFilterPaneStyle = (path: string, prop: string) => string | undefined;
 
-export function resolveBorder(getListboxStyle: IGetListboxStyle, comp?: IGeneralComponent) {
-  const borderColor = comp?.borderColor || getListboxStyle('', 'borderColor');
-  const borderWidth = comp?.borderWidth || getListboxStyle('', 'borderWidth');
-  return borderWidth && borderColor ? `${borderWidth} solid ${borderColor}` : undefined;
+export function resolveBorder(getFilterPaneStyle: IGetFilterPaneStyle, comp?: IGeneralComponent) {
+  const borderColor = comp?.borderColor || getFilterPaneStyle('', 'borderColor');
+  if (comp && !comp.borderWidth) {
+    return false;
+  }
+
+  let hasBorderWidth;
+  try {
+    const n = Number.parseInt((`${comp?.borderWidth}` || getFilterPaneStyle('', 'borderWidth') || '0'), 10);
+    hasBorderWidth = typeof (n) === 'number' && !Number.isNaN(n);
+  } catch (_) {
+    return false;
+  }
+  return !!(borderColor && hasBorderWidth);
 }

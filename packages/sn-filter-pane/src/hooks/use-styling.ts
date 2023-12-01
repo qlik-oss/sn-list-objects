@@ -46,6 +46,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
   const stardustTheme = useStardustTheme();
   const componentsOverrides = getOverridesAsObject(components);
   const getListboxStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.listBox', path, prop);
+  const getFilterPaneStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.filterpane', path, prop);
 
   const imgDef = componentsOverrides.theme?.background?.image;
   const bgImage = resolveBgImage({ bgImage: imgDef }, app);
@@ -55,7 +56,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
     || '#ffffff';
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
-  const showBorder = !!resolveBorder(getListboxStyle, componentsOverrides.general);
+  const showBorder = !!resolveBorder(getFilterPaneStyle, componentsOverrides.general);
 
   const mergedStyle = {
     showBorder: !!(showBorder || stardustTheme?.getStyle('', '', '_cards')),
