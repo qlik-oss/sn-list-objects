@@ -69,7 +69,7 @@ export type ISelectionsComponent = {
   }
 };
 
-export type IComponent = IThemeComponent | ISelectionsComponent;
+export type IComponent = IThemeComponent | ISelectionsComponent | IGeneralComponent;
 
 export interface IStyles {
   showBorder: boolean;

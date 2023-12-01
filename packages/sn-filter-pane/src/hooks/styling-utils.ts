@@ -121,18 +121,19 @@ export function resolveBgColor({ stardustTheme, themeOverrides }: IResolveBgColo
 
 type IGetFilterPaneStyle = (path: string, prop: string) => string | undefined;
 
+const isNumber = (n: unknown) => typeof (n) === 'number' && !Number.isNaN(n);
+
+const parseCssNumber = (px: unknown) => {
+  const n = typeof (px) === 'string' ? Number.parseInt(px, 10) : px;
+  return isNumber(n) ? n : undefined;
+};
+
 export function resolveBorder(getFilterPaneStyle: IGetFilterPaneStyle, comp?: IGeneralComponent) {
   const borderColor = comp?.borderColor || getFilterPaneStyle('', 'borderColor');
-  if (comp && !comp.borderWidth) {
+  if (comp && !parseCssNumber(comp.borderWidth)) {
     return false;
   }
 
-  let hasBorderWidth;
-  try {
-    const n = Number.parseInt((`${comp?.borderWidth}` || getFilterPaneStyle('', 'borderWidth') || '0'), 10);
-    hasBorderWidth = typeof (n) === 'number' && !Number.isNaN(n);
-  } catch (_) {
-    return false;
-  }
+  const hasBorderWidth = parseCssNumber(`${comp?.borderWidth}` || getFilterPaneStyle('', 'borderWidth'));
   return !!(borderColor && hasBorderWidth);
 }

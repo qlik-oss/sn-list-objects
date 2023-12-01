@@ -59,7 +59,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
   const showBorder = !!resolveBorder(getFilterPaneStyle, componentsOverrides.general);
 
   const mergedStyle = {
-    showBorder: !!(showBorder || stardustTheme?.getStyle('', '', '_cards')),
+    showBorder,
     listbox: {
       background: {
         color: listboxBgColor,
