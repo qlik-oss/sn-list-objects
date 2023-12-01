@@ -47,6 +47,12 @@ export type IThemeComponent = {
 
 type ISelectionColor = { color: string };
 
+export type IGeneralComponent = {
+  key: 'general',
+  borderWidth?: number;
+  borderColor?: string;
+};
+
 export type ISelectionsComponent = {
   key: 'selections',
   colors: {
@@ -66,6 +72,7 @@ export type ISelectionsComponent = {
 export type IComponent = IThemeComponent | ISelectionsComponent;
 
 export interface IStyles {
+  showBorder: boolean;
   listbox: {
     background: {
       color?: string;
@@ -86,5 +93,4 @@ export interface IStyles {
   popover: {
     backgroundColor?: string; // TODO: should we allow customisable background image in popover mode
   };
-  stardustTheme: StardustTheme;
 }

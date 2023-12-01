@@ -2,7 +2,7 @@
 // This code originates from Nebula.js
 
 import { stardust } from '@nebula.js/stardust';
-import { ISizing, IThemeComponent } from './types/components';
+import { IGeneralComponent, ISizing, IThemeComponent } from './types/components';
 
 const imageSizingToCssProperty = {
   originalSize: 'auto auto',
@@ -117,4 +117,12 @@ export function resolveBgColor({ stardustTheme, themeOverrides }: IResolveBgColo
     color = stardustTheme?.getColorPickerColor(bgColor?.color, false);
   }
   return color;
+}
+
+type IGetListboxStyle = (path: string, prop: string) => string | undefined;
+
+export function resolveBorder(getListboxStyle: IGetListboxStyle, comp?: IGeneralComponent) {
+  const borderColor = comp?.borderColor || getListboxStyle('', 'borderColor');
+  const borderWidth = comp?.borderWidth || getListboxStyle('', 'borderWidth');
+  return borderWidth && borderColor ? `${borderWidth} solid ${borderColor}` : undefined;
 }
