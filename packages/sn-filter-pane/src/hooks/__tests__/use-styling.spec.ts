@@ -54,6 +54,7 @@ describe('use styling', () => {
     ];
     const styles = useStyling({ components });
     expect(styles).toMatchObject({
+      showBorder: true,
       listbox: {
         background: {
           color: 'object.listBox//backgroundColor',
@@ -72,7 +73,6 @@ describe('use styling', () => {
         fontFamily: 'ComponentFontFamily',
         fontWeight: 'bold',
       },
-      stardustTheme: {},
     });
   });
 });
