@@ -72,7 +72,6 @@ describe('use styling', () => {
         fontFamily: 'ComponentFontFamily',
         fontWeight: 'bold',
       },
-      stardustTheme: {},
     });
   });
 });

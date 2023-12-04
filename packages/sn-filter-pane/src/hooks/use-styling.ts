@@ -81,9 +81,6 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
       textDecoration: headerFontStyle.underline ? 'underline' : 'initial',
       fontStyle: (headerFontStyle.italic && 'italic') || (headerFontStyle.italic === false && 'normal') || getListboxStyle('title.main', 'fontStyle') || 'initial',
     },
-    // The theme is only exposed here temporarilly. The idea is to not expose any theme directly,
-    // but instead let them populate the merged style. Remove when possible.
-    stardustTheme,
   };
 
   return mergedStyle;

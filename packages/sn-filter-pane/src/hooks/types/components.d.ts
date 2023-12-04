@@ -1,5 +1,3 @@
-import { Theme as StardustTheme } from '@nebula.js/stardust';
-
 export type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
 
 export type IColor = {
@@ -86,5 +84,4 @@ export interface IStyles {
   popover: {
     backgroundColor?: string; // TODO: should we allow customisable background image in popover mode
   };
-  stardustTheme: StardustTheme;
 }
