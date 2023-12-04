@@ -39,7 +39,6 @@ const ListboxContainer = ({
     options,
     renderTracker,
     env,
-    styles,
     directQueryEnabled,
     fpLayout,
   } = stores.store.getState();
@@ -51,7 +50,7 @@ const ListboxContainer = ({
     directQueryEnabled, layout, listBoxModel: model, constraints,
   });
 
-  const showBorder = styles?.showBorder || !sense || inSelection;
+  const showBorder = !sense || inSelection;
 
   const [key] = useState(uid());
 

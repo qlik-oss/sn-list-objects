@@ -1,12 +1,11 @@
 import { useTheme as useStardustTheme } from '@nebula.js/stardust';
 import muiTheme from '../theme/theme';
 import {
-  IComponent, IGeneralComponent, ISelectionsComponent, IStyles, IThemeComponent,
+  IComponent, ISelectionsComponent, IStyles, IThemeComponent,
 } from './types/components';
-import { resolveBgColor, resolveBgImage, hasBorder } from './styling-utils';
+import { resolveBgColor, resolveBgImage } from './styling-utils';
 
 type IComponentOverrides = {
-  general?: IGeneralComponent;
   theme?: IThemeComponent;
   selections?: ISelectionsComponent;
 };
@@ -16,7 +15,7 @@ interface ICreateStylingArgs {
   components?: IComponent[];
 }
 
-const SUPPORTED_COMPONENTS = ['general', 'theme', 'selections'];
+const SUPPORTED_COMPONENTS = ['theme', 'selections'];
 
 function getOverridesAsObject(components: IComponent[] = []): IComponentOverrides {
   // Currently supporting components "theme" and "selections".
@@ -46,7 +45,6 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
   const stardustTheme = useStardustTheme();
   const componentsOverrides = getOverridesAsObject(components);
   const getListboxStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.listBox', path, prop);
-  const getFilterPaneStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.filterpane', path, prop);
 
   const imgDef = componentsOverrides.theme?.background?.image;
   const bgImage = resolveBgImage({ bgImage: imgDef }, app);
@@ -56,10 +54,8 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
     || '#ffffff';
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
-  const showBorder = hasBorder(getFilterPaneStyle, componentsOverrides.general);
 
   const mergedStyle = {
-    showBorder,
     listbox: {
       background: {
         color: listboxBgColor,

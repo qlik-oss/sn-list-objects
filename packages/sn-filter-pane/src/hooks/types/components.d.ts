@@ -1,5 +1,3 @@
-import { Theme as StardustTheme } from '@nebula.js/stardust';
-
 export type ISizing = 'originalSize' | 'alwaysFit' | 'fitWidth' | 'fitHeight' | 'stretchFit' | 'alwaysFill';
 
 export type IColor = {
@@ -47,12 +45,6 @@ export type IThemeComponent = {
 
 type ISelectionColor = { color: string };
 
-export type IGeneralComponent = {
-  key: 'general',
-  borderWidth?: number;
-  borderColor?: string;
-};
-
 export type ISelectionsComponent = {
   key: 'selections',
   colors: {
@@ -72,7 +64,6 @@ export type ISelectionsComponent = {
 export type IComponent = IThemeComponent | ISelectionsComponent | IGeneralComponent;
 
 export interface IStyles {
-  showBorder: boolean;
   listbox: {
     background: {
       color?: string;

@@ -2,7 +2,7 @@
 // This code originates from Nebula.js
 
 import { stardust } from '@nebula.js/stardust';
-import { IGeneralComponent, ISizing, IThemeComponent } from './types/components';
+import { ISizing, IThemeComponent } from './types/components';
 
 const imageSizingToCssProperty = {
   originalSize: 'auto auto',
@@ -117,23 +117,4 @@ export function resolveBgColor({ stardustTheme, themeOverrides }: IResolveBgColo
     color = stardustTheme?.getColorPickerColor(bgColor?.color, false);
   }
   return color;
-}
-
-type IGetFilterPaneStyle = (path: string, prop: string) => string | undefined;
-
-const isNumber = (n: unknown) => typeof (n) === 'number' && !Number.isNaN(n);
-
-const parseCssNumber = (px: unknown) => {
-  const n = typeof (px) === 'string' ? Number.parseInt(px, 10) : px;
-  return isNumber(n) ? n : undefined;
-};
-
-export function hasBorder(getFilterPaneStyle: IGetFilterPaneStyle, comp?: IGeneralComponent) {
-  const borderColor = comp?.borderColor || getFilterPaneStyle('', 'borderColor');
-  if (comp && !parseCssNumber(comp.borderWidth)) {
-    return false;
-  }
-
-  const hasBorderWidth = parseCssNumber(`${comp?.borderWidth}` || getFilterPaneStyle('', 'borderWidth'));
-  return !!(borderColor && hasBorderWidth);
 }

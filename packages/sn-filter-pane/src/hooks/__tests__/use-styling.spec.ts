@@ -1,5 +1,5 @@
 import * as stars from '@nebula.js/stardust';
-import { IComponent, IGeneralComponent, IThemeComponent } from '../types/components';
+import { IComponent, IThemeComponent } from '../types/components';
 import useStyling from '../use-styling';
 
 jest.mock('@nebula.js/stardust');
@@ -54,7 +54,6 @@ describe('use styling', () => {
     ];
     const styles = useStyling({ components });
     expect(styles).toMatchObject({
-      showBorder: false,
       listbox: {
         background: {
           color: 'object.listBox//backgroundColor',
@@ -74,29 +73,5 @@ describe('use styling', () => {
         fontWeight: 'bold',
       },
     });
-  });
-
-  it('show border if width and color exist', () => {
-    const components: IGeneralComponent[] = [
-      {
-        key: 'general',
-        borderColor: 'green',
-        borderWidth: 2,
-      },
-    ];
-    const styles = useStyling({ components });
-    expect(styles.showBorder).toEqual(true);
-  });
-
-  it('always hide border if general component exists but 0 width provided', () => {
-    const components: IGeneralComponent[] = [
-      {
-        key: 'general',
-        borderColor: 'green',
-        borderWidth: 0,
-      },
-    ];
-    const styles = useStyling({ components });
-    expect(styles.showBorder).toEqual(false);
   });
 });
