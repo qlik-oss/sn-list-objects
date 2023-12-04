@@ -61,7 +61,7 @@ export type ISelectionsComponent = {
   }
 };
 
-export type IComponent = IThemeComponent | ISelectionsComponent | IGeneralComponent;
+export type IComponent = IThemeComponent | ISelectionsComponent;
 
 export interface IStyles {
   listbox: {
