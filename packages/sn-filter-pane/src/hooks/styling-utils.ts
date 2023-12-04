@@ -128,7 +128,7 @@ const parseCssNumber = (px: unknown) => {
   return isNumber(n) ? n : undefined;
 };
 
-export function resolveBorder(getFilterPaneStyle: IGetFilterPaneStyle, comp?: IGeneralComponent) {
+export function hasBorder(getFilterPaneStyle: IGetFilterPaneStyle, comp?: IGeneralComponent) {
   const borderColor = comp?.borderColor || getFilterPaneStyle('', 'borderColor');
   if (comp && !parseCssNumber(comp.borderWidth)) {
     return false;

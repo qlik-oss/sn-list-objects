@@ -3,7 +3,7 @@ import muiTheme from '../theme/theme';
 import {
   IComponent, IGeneralComponent, ISelectionsComponent, IStyles, IThemeComponent,
 } from './types/components';
-import { resolveBgColor, resolveBgImage, resolveBorder } from './styling-utils';
+import { resolveBgColor, resolveBgImage, hasBorder } from './styling-utils';
 
 type IComponentOverrides = {
   general?: IGeneralComponent;
@@ -56,7 +56,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
     || '#ffffff';
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
-  const showBorder = !!resolveBorder(getFilterPaneStyle, componentsOverrides.general);
+  const showBorder = hasBorder(getFilterPaneStyle, componentsOverrides.general);
 
   const mergedStyle = {
     showBorder,
