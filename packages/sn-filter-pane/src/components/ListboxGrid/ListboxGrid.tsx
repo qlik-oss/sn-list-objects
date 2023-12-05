@@ -91,12 +91,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     preventDefaultBehavior(event);
   };
 
-  const handleFocus = useCallback(() => {
-    // Reset focus on small devices due to auto focus.
-    if (sense?.isSmallDevice?.()) {
-      resetZoom();
-    }
-  }, [sense?.isSmallDevice?.()]);
+  const handleFocus = sense?.isSmallDevice?.() ? () => resetZoom() : undefined;
 
   useFocusListener(gridRef, keyboard);
 
