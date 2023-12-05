@@ -21,6 +21,7 @@ import KEYS from '../keys';
 import useFocusListener from '../../hooks/use-focus-listener';
 import findNextIndex from './find-next-index';
 import { IEnv } from '../../types/types';
+import resetZoom from '../../utils/reset-zoom';
 
 function ListboxGrid({ stores }: { stores: IStores }) {
   const { store, resourceStore } = stores;
@@ -89,6 +90,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     preventDefaultBehavior(event);
   };
 
+  const handleFocus = sense?.isSmallDevice?.() ? () => resetZoom() : undefined;
+
   useFocusListener(gridRef, keyboard);
 
   const isRtl = options.direction === 'rtl';
@@ -116,6 +119,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         className="filter-pane-container"
         container
         onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
         sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}
         columns={columns?.length}
         ref={gridRef as unknown as () => HTMLObjectElement}
