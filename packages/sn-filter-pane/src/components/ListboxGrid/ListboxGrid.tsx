@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useEffect, useRef, useSyncExternalStore,
 } from 'react';
 import { Grid } from '@mui/material';
