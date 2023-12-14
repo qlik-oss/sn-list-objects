@@ -215,11 +215,11 @@ export default function getStyling(env: IEnv) {
             translation: 'properties.background.options',
             items: {
               background: {
+                ref: 'components',
+                key: 'theme',
+                type: 'items',
                 items: {
                   backgroundColor: {
-                    ref: 'components',
-                    key: 'theme',
-                    type: 'items',
                     items: {
                       useColorExpression: {
                         type: 'boolean',

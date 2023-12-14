@@ -67,11 +67,12 @@ export interface IStyles {
   listbox: {
     background: {
       color?: string;
-      image?: {
-        url?: string;
-        position?: string;
-        size?: string;
-      }
+      backgroundColor?: string;
+      backgroundImage?: string;
+      backgroundRepeat?: string;
+      backgroundSize?: string;
+      backgroundPosition?: string;
+      opacity?: number;
     };
     color?: string;
   }
