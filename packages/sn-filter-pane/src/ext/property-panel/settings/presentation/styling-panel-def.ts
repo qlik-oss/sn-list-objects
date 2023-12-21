@@ -4,6 +4,7 @@ import { fontResolver as createFontResolver } from 'qlik-chart-modules';
 import { getFontSizes, parseFontWeight } from './styling-utils/font-utils';
 import styleDefaults from './style-defaults';
 import { IEnv } from '../../../../types/types';
+import { IComponent } from '../../../../hooks/types/components';
 
 export default function getStyling(env: IEnv) {
   const { translator, flags, sense } = env || {};
@@ -213,6 +214,14 @@ export default function getStyling(env: IEnv) {
           backgroundOptions: {
             component: 'panel-section',
             translation: 'properties.background.options',
+            reset(data: any, _def: any, args: any) {
+              // Without this reset function, the entire section will be reset.
+              const themeComponent = data?.components?.find((component: IComponent) => component?.key === 'theme');
+              if (themeComponent) {
+                themeComponent.background = {};
+                args?.saveProperties?.(args.properties); // explicit save needed
+              }
+            },
             items: {
               background: {
                 items: {
