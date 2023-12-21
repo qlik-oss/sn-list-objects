@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.17.4](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.3...v0.17.4) (2023-12-21)
+
+
+### Bug Fixes
+
+* **sn-filter-pane:** move background definition so reset only affects this setting ([#395](https://github.com/qlik-oss/sn-list-objects/issues/395)) ([610449b](https://github.com/qlik-oss/sn-list-objects/commit/610449b64b8a3288a2be035bbfe95aeaab4de837))
+
 ### [0.17.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.2...v0.17.3) (2023-12-05)
 
 
