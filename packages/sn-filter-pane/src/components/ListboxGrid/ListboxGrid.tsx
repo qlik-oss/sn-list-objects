@@ -24,6 +24,7 @@ import { RenderTrackerService } from '../../services/render-tracker';
 import useFocusListener from '../../hooks/use-focus-listener';
 import findNextIndex from './find-next-index';
 import { IEnv } from '../../types/types';
+import resetZoom from '../../utils/reset-zoom';
 
 const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
   renderTracker?.setNumberOfListboxes(listboxCount);
@@ -117,6 +118,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     preventDefaultBehavior(event);
   };
 
+  const handleFocus = sense?.isSmallDevice?.() ? () => resetZoom() : undefined;
+
   useFocusListener(gridRef, keyboard);
 
   const isRtl = options.direction === 'rtl';
@@ -146,6 +149,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         className="filter-pane-container"
         container
         onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
         sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}
         columns={columns?.length}
         ref={gridRef as unknown as () => HTMLDivElement}
