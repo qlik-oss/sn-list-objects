@@ -24,6 +24,7 @@ import { RenderTrackerService } from '../../services/render-tracker';
 import useFocusListener from '../../hooks/use-focus-listener';
 import findNextIndex from './find-next-index';
 import { IEnv } from '../../types/types';
+import resetZoom from '../../utils/reset-zoom';
 
 const prepareRenderTracker = (listboxCount: number, renderTracker?: RenderTrackerService) => {
   renderTracker?.setNumberOfListboxes(listboxCount);
@@ -116,6 +117,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
     preventDefaultBehavior(event);
   };
 
+  const handleFocus = sense?.isSmallDevice?.() ? () => resetZoom() : undefined;
+
   useFocusListener(gridRef, keyboard);
 
   const isRtl = options.direction === 'rtl';
@@ -141,7 +144,18 @@ function ListboxGrid({ stores }: { stores: IStores }) {
   return (
     <>
       <ElementResizeListener onResize={dHandleResize.current} />
-      <Grid className="filter-pane-container" container onKeyDown={handleKeyDown} sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }} columns={columns?.length} ref={gridRef as unknown as () => HTMLDivElement} spacing={0} height='100%' overflow="hidden">
+      <Grid
+        className="filter-pane-container"
+        container
+        onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
+        sx={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}
+        columns={columns?.length}
+        ref={gridRef as unknown as () => HTMLObjectElement}
+        spacing={0}
+        height='100%'
+        overflow="hidden"
+      >
 
         {!!columns?.length && columns?.map((column: IColumn, i: number) => (
           <ColumnGrid key={i} widthPercent={100 / columns.length}>
