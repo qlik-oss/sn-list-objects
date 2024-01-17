@@ -1,5 +1,12 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.13.8](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.7...v0.13.8) (2024-01-17)
+
+
+### Bug Fixes
+
+* **sn-filter-pane:** reset zoom for all scenarios ([#392](https://github.com/qlik-oss/sn-list-objects/issues/392)) ([#407](https://github.com/qlik-oss/sn-list-objects/issues/407)) ([a72abe9](https://github.com/qlik-oss/sn-list-objects/commit/a72abe9903d248ffeecd72ba48e74efb9f69e399))
+
 ### [0.13.7](https://github.com/qlik-oss/sn-list-objects/compare/v0.13.6...v0.13.7) (2023-11-08)
 
 
