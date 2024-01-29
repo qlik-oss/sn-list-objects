@@ -65,9 +65,11 @@ const ListboxContainer = ({
         selectDisabled: () => !allowSelect, // can we hook this into the selections api?
         focusSearch: isPopover,
       },
+      // showLock: false,
       direction: options?.direction,
-      search: isPopover ? true : 'toggle' as stardust.SearchMode,
+      search: true, // isPopover ? true : 'toggle' as stardust.SearchMode,
       isPopover,
+      // toolbar: true,
     }, dqOptionsOverrides || {});
 
     // @ts-ignore
