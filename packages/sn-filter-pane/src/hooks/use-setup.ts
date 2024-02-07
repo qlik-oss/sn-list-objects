@@ -18,6 +18,7 @@ export default function useSetup(env: IEnv) {
   const constraints = useConstraints();
   const translator = useTranslator();
   const app = useApp() as EngineAPI.IApp;
+  console.log('hey hey');
   const model = useModel();
   const embed = useEmbed();
   const styles = useStyling({ app, components: fpLayout?.components });
