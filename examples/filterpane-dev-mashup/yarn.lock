@@ -266,10 +266,10 @@
   resolved "https://registry.yarnpkg.com/@nebula.js/sn-table/-/sn-table-2.2.3.tgz#d514352763a35bfeeb18c227ede0970b4a2fc2ce"
   integrity sha512-zTqGtlJWZ+JoeDXsg4100uCQ2nQdLBzLk27SPx2NqsBn0Y51HGIQsToTADO7ZG1jog8JC2dXEjXhEcIMRP9xVw==
 
-"@nebula.js/stardust@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.8.1.tgz#131aea819c4d0ad5875249d4d693e23a92a86b7b"
-  integrity sha512-jOX1giqbDTz6VJ9oO5twtmaZ1BIL724FDvgw0M05WVpDy22NxNd+zuHbrYc4fH4kjchZcJ7OXoJMKdINuUqWUg==
+"@nebula.js/stardust@4.12.0":
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.12.0.tgz#76a5e991c3d22efed1c652ff404ee151760e6ddf"
+  integrity sha512-CjX6EyyAAQQypq28socCGh7cGvS1oo/pPjHbLjahf6kWNBLUB3mr0Qdq5RrGUmKL3HYM+sfFTfMDGAJZY22zfQ==
   dependencies:
     "@types/qlik-engineapi" "12.67.16"
 
