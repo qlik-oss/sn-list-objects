@@ -226,6 +226,7 @@ export const ListboxPopoverContainer = ({ resources, stores }: FoldedPopoverProp
         anchorEl={containerRef.current}
         transitionDuration={transitionDuration}
         isSmallDevice={isSmallDevice}
+        disableScrollLock
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
