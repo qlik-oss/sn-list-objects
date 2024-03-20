@@ -94,7 +94,8 @@ export const FoldedListbox = ({
     constraints, styles, options, translator, containerSize,
   } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
-  const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
+  const { qDimensionInfo } = resource.layout.qListObject;
+  const isDrillDown = qDimensionInfo.qGrouping === 'H';
   const {
     gridHeight, narrowSmall, narrowLarge,
   } = getSizes(containerSize, isInPopover);
@@ -149,7 +150,7 @@ export const FoldedListbox = ({
         {!narrowLarge
           && <Grid item width='100%' height={narrowSmall ? '100%' : undefined}>
             <SelectionSegmentsIndicator
-              qDimensionInfo={resource.layout.qListObject.qDimensionInfo} fullHeight={narrowSmall}
+              qDimensionInfo={qDimensionInfo} fullHeight={narrowSmall} styles={styles}
             ></SelectionSegmentsIndicator>
           </Grid>
         }
