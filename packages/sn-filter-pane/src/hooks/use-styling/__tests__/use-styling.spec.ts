@@ -4,7 +4,7 @@ import useStyling from '..';
 
 jest.mock('@nebula.js/stardust');
 
-describe.only('use styling', () => {
+describe('use styling', () => {
   beforeAll(() => {
     jest.spyOn(stars, 'useTheme').mockImplementation(() => ({
       getStyle: (ns, path, prop) => `${ns}/${path}/${prop}`,
