@@ -1,19 +1,9 @@
 import { useTheme as useStardustTheme } from '@nebula.js/stardust';
-import muiTheme from '../theme/theme';
-import {
-  IComponent, ISelectionsComponent, IStyles, IThemeComponent,
-} from './types/components';
-import { resolveBgColor, resolveBgImage } from './styling-utils';
-
-type IComponentOverrides = {
-  theme?: IThemeComponent;
-  selections?: ISelectionsComponent;
-};
-
-interface ICreateStylingArgs {
-  app?: EngineAPI.IApp,
-  components?: IComponent[];
-}
+import muiTheme from '../../theme/theme';
+import { IComponent, IStyles } from '../types/components';
+import { resolveBgColor, resolveBgImage } from '../styling-utils';
+import { IComponentOverrides, ICreateStylingArgs } from './types';
+import getSelectionsStyle from './selections-style';
 
 const SUPPORTED_COMPONENTS = ['theme', 'selections'];
 
@@ -55,6 +45,8 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
 
+  const selections = getSelectionsStyle({ componentsOverrides, stardustTheme });
+
   const mergedStyle = {
     listbox: {
       background: {
@@ -67,6 +59,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
         opacity: 1, // to override qlik disabled button style
       },
       color: componentsOverrides.theme?.header?.fontColor?.color || getListboxStyle('title.main', 'color') || '#404040',
+      selections,
     },
     popover: {
       // Do not permit transparent or non-colored popovers.

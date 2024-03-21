@@ -1,6 +1,6 @@
 import * as stars from '@nebula.js/stardust';
-import { IComponent, IThemeComponent } from '../types/components';
-import useStyling from '../use-styling';
+import { IComponent, IThemeComponent } from '../../types/components';
+import useStyling from '..';
 
 jest.mock('@nebula.js/stardust');
 

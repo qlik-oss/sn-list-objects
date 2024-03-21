@@ -75,6 +75,13 @@ export interface IStyles {
       opacity?: number;
     };
     color?: string;
+    selections: {
+      selected: string;
+      alternative: string;
+      excluded: string;
+      selectedExcluded: string;
+      possible: string;
+    }
   }
   header: {
     color?: string;
