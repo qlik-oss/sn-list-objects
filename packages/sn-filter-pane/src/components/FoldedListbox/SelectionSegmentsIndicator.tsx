@@ -20,7 +20,7 @@ const SelectionSegmentsIndicator = ({ qDimensionInfo, fullHeight, styles }: Sele
   const { selections = {} as ISelectionsComponent['colors'] } = styles?.listbox || {};
 
   // The keys also determine the order in which the sections will be rendered.
-  const keys: SelectionState[] = ['selected', 'selectedExcluded', 'possible', 'alternative', 'excluded'];
+  const keys = ['selected', 'selectedExcluded', 'possible', 'alternative', 'excluded'] as const;
   const segments = keys.map((key: SelectionState) => ({
     key,
     style: {
