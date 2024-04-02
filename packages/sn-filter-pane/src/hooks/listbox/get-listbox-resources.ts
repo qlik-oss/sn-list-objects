@@ -14,12 +14,7 @@ class ChildObjectLayoutFetcher {
     this.onUpdate = onUpdate;
   }
 
-  updateLayout(id: string, layout: IListLayout) {
-    const state = this.childStates[id];
-    if (!state) {
-      return;
-    }
-    state.layout = layout;
+  maybeTriggerUpdate() {
     const allLayoutsAreReady = this.childIds.every((id) => this.childStates[id].layout !== undefined);
     if (allLayoutsAreReady) {
       const resources = this.childIds.map((id) => ({
@@ -29,6 +24,15 @@ class ChildObjectLayoutFetcher {
       }));
       this.onUpdate(resources);
     }
+  }
+
+  updateLayout(id: string, layout: IListLayout) {
+    const state = this.childStates[id];
+    if (!state) {
+      return;
+    }
+    state.layout = layout;
+    this.maybeTriggerUpdate();
   }
 
   removeChild(id: string) {
@@ -85,6 +89,11 @@ class ChildObjectLayoutFetcher {
       return;
     }
     this.updateChildren(childIds);
+
+    // trigger extra update (even if no child object layout changes)
+    // currently needed to rerender ListboxGrid for any other type of change
+    // TODO: refactor to make update flows more easy to understand
+    this.maybeTriggerUpdate();
   }
 }
 
