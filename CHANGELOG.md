@@ -1,5 +1,17 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.18.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.5...v0.18.0) (2024-04-02)
+
+
+### Features
+
+* **sn-filter-pane:** use selected styles in segment line ([#418](https://github.com/qlik-oss/sn-list-objects/issues/418)) ([4469bdc](https://github.com/qlik-oss/sn-list-objects/commit/4469bdc2b2bc6620e1043daa19cb59bc4b59b26b))
+
+
+### Bug Fixes
+
+* update then child object layout changes ([#420](https://github.com/qlik-oss/sn-list-objects/issues/420)) ([093f367](https://github.com/qlik-oss/sn-list-objects/commit/093f3679f7c2c710ee1935636ec91baa1c15b6af))
+
 ### [0.17.5](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.4...v0.17.5) (2024-03-14)
 
 
