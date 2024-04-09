@@ -6,7 +6,7 @@ import React from 'react';
 import { IListboxResource } from '../../hooks/types';
 import useFieldName from '../../hooks/use-field-name';
 import type { IStores } from '../../store';
-import DrillDown from './drillDown';
+import DimensionIcon from './DimensionIcon';
 import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 import KEYS from '../keys';
 import getSizes from './get-sizes';
@@ -94,7 +94,6 @@ export const FoldedListbox = ({
     constraints, styles, options, translator, containerSize,
   } = stores.store.getState();
   const isRtl = options.direction === 'rtl';
-  const isDrillDown = resource.layout.qListObject.qDimensionInfo.qGrouping === 'H';
   const {
     gridHeight, narrowSmall, narrowLarge,
   } = getSizes(containerSize, isInPopover);
@@ -132,13 +131,7 @@ export const FoldedListbox = ({
       >
         {!narrowSmall
           && <Grid container flexGrow={1} alignItems="center" sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px' height={narrowLarge ? '100%' : undefined}>
-            {isDrillDown
-              && <Tooltip title={translator?.get('Listbox.DrillDown')} enterDelay={2000}>
-                <div>
-                  <DrillDown style={{ fontSize: '12px', padding: isRtl ? '0 0 0 6px' : '0 6px 0 0' }} />
-                </div>
-              </Tooltip>
-            }
+            <DimensionIcon type={resource.layout.qListObject.qDimensionInfo.qGrouping} translator={translator} isRtl={isRtl}/>
             <Tooltip title={fieldName} enterDelay={2000}>
               <Title variant="subtitle2" styles={styles} noWrap lineHeight={narrowLarge ? '100%' : 'normal'}>
                 {fieldName}
