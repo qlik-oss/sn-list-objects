@@ -1,5 +1,36 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.18.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.18.0...v0.18.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* also trigger update if all child objects have layout but are not changed ([#422](https://github.com/qlik-oss/sn-list-objects/issues/422)) ([c3e7339](https://github.com/qlik-oss/sn-list-objects/commit/c3e733971038c4ad08ee3831c923d85d3d8e418d))
+
+## [0.18.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.5...v0.18.0) (2024-04-02)
+
+
+### Features
+
+* **sn-filter-pane:** use selected styles in segment line ([#418](https://github.com/qlik-oss/sn-list-objects/issues/418)) ([4469bdc](https://github.com/qlik-oss/sn-list-objects/commit/4469bdc2b2bc6620e1043daa19cb59bc4b59b26b))
+
+
+### Bug Fixes
+
+* update then child object layout changes ([#420](https://github.com/qlik-oss/sn-list-objects/issues/420)) ([093f367](https://github.com/qlik-oss/sn-list-objects/commit/093f3679f7c2c710ee1935636ec91baa1c15b6af))
+
+### [0.17.5](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.4...v0.17.5) (2024-03-14)
+
+
+### Bug Fixes
+
+* **deps:** update minor and patch ([#403](https://github.com/qlik-oss/sn-list-objects/issues/403)) ([d53b7ce](https://github.com/qlik-oss/sn-list-objects/commit/d53b7ce1ffc363dfcc024d2f922cac15d1724ce1))
+* **deps:** update minor and patch ([#408](https://github.com/qlik-oss/sn-list-objects/issues/408)) ([5002dc1](https://github.com/qlik-oss/sn-list-objects/commit/5002dc123e14a3920898942f7dce56ef1cafbc37))
+* **deps:** update minor and patch ([#410](https://github.com/qlik-oss/sn-list-objects/issues/410)) ([3678257](https://github.com/qlik-oss/sn-list-objects/commit/36782576fb522bc4cd912de98895301cf2584ebd))
+* **deps:** update minor and patch ([#411](https://github.com/qlik-oss/sn-list-objects/issues/411)) ([a950cb5](https://github.com/qlik-oss/sn-list-objects/commit/a950cb5eb6ac2aaac07cd1ed5728dec375d77740))
+* **deps:** update minor and patch to v5.15.1 ([#400](https://github.com/qlik-oss/sn-list-objects/issues/400)) ([233cdfd](https://github.com/qlik-oss/sn-list-objects/commit/233cdfdce1bf32ac983a5848e4227e4a8ae966ad))
+* **sn-filter-pane:** disable popover messing with body tag ([#416](https://github.com/qlik-oss/sn-list-objects/issues/416)) ([2f1441e](https://github.com/qlik-oss/sn-list-objects/commit/2f1441e137b83edb34f719bd2410ea8fb276a6d4))
+
 ### [0.17.4](https://github.com/qlik-oss/sn-list-objects/compare/v0.17.3...v0.17.4) (2023-12-21)
 
 
