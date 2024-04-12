@@ -132,7 +132,7 @@ export const FoldedListbox = ({
       >
         {!narrowSmall
           && <Grid container flexGrow={1} alignItems="center" sx={{ flexDirection: isRtl ? 'row-reverse' : 'row', flexWrap: 'nowrap' }} padding='0 8px' height={narrowLarge ? '100%' : undefined}>
-            <DimensionIcon type={resource.layout.qListObject.qDimensionInfo.qGrouping} translator={translator} isRtl={isRtl}/>
+            <DimensionIcon type={qDimensionInfo.qGrouping} translator={translator} isRtl={isRtl}/>
             <Tooltip title={fieldName} enterDelay={2000}>
               <Title variant="subtitle2" styles={styles} noWrap lineHeight={narrowLarge ? '100%' : 'normal'}>
                 {fieldName}
