@@ -2,11 +2,13 @@ import { useState } from '@nebula.js/stardust';
 import { IStores } from '../../store';
 import { IFilterPaneLayout, IListLayout, ListboxResourcesArr } from '../types';
 
-
 class ChildObjectLayoutFetcher {
   private app: EngineAPI.IApp;
+
   private onUpdate: (resources: ListboxResourcesArr) => void;
+
   private childIds: string[] = [];
+
   private childStates: Record<string, ChildState> = {};
 
   constructor(app: EngineAPI.IApp, onUpdate: (resources: ListboxResourcesArr) => void) {
@@ -37,10 +39,10 @@ class ChildObjectLayoutFetcher {
 
   removeChild(id: string) {
     const state = this.childStates[id];
-    if(!state) {
+    if (!state) {
       return;
     }
-    this.childIds = this.childIds.filter(childId => childId !== id);
+    this.childIds = this.childIds.filter((childId) => childId !== id);
     delete this.childStates[id];
     state.destroy();
   }
@@ -50,7 +52,7 @@ class ChildObjectLayoutFetcher {
       model: undefined,
       layout: undefined,
       destroy: () => {},
-    }
+    };
     const model = await this.app.getObject(id);
     const state = this.childStates[id];
     if (!state) {
@@ -72,13 +74,13 @@ class ChildObjectLayoutFetcher {
   }
 
   updateChildren(newChildIds: string[]) {
-    const addedIds = newChildIds.filter(id => !this.childIds.includes(id));
-    const removedId = this.childIds.filter(id => !newChildIds.includes(id));
+    const addedIds = newChildIds.filter((id) => !this.childIds.includes(id));
+    const removedId = this.childIds.filter((id) => !newChildIds.includes(id));
     this.childIds = newChildIds;
-    for(const id of removedId) {
+    for (const id of removedId) {
       this.removeChild(id);
     }
-    for(const id of addedIds) {
+    for (const id of addedIds) {
       this.addChild(id);
     }
   }
@@ -102,19 +104,21 @@ function useRef<T>() {
   return ref;
 }
 
-export default function useListBoxResources(stores: IStores) {
+export default function useListBoxResources(stores: IStores, isMounted: ()=> boolean) {
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
   const { store, resourceStore } = stores;
   const { app, fpLayout } = store.getState();
   const childObjectLayoutFetcherRef = useRef<ChildObjectLayoutFetcher>();
   if (!childObjectLayoutFetcherRef.current && app && resourceStore) {
     childObjectLayoutFetcherRef.current = new ChildObjectLayoutFetcher(app, (resources) => {
-      resourceStore.setState({ resources })
-      setResourcesReady(true);
-    })
+      if (isMounted()) {
+        resourceStore.setState({ resources });
+        setResourcesReady(true);
+      }
+    });
   }
   if (childObjectLayoutFetcherRef.current && fpLayout) {
-    childObjectLayoutFetcherRef.current.update(fpLayout)
+    childObjectLayoutFetcherRef.current.update(fpLayout);
   }
   return { resourcesReady };
 }
