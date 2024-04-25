@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "jsx": "react",
     "allowJs": true,
     "checkJs": false,

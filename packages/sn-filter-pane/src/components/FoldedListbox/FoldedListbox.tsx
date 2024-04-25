@@ -11,6 +11,7 @@ import SelectionSegmentsIndicator from './SelectionSegmentsIndicator';
 import KEYS from '../keys';
 import getSizes from './get-sizes';
 import { IStyles } from '../../hooks/types/components';
+import useTranslations from '../../hooks/use-translations';
 
 export interface FoldedListboxClickEvent {
   event: React.MouseEvent<HTMLObjectElement | HTMLDivElement>;
@@ -91,8 +92,9 @@ export const FoldedListbox = ({
 }: FoldedListboxProps) => {
   const fieldName = useFieldName(resource.layout);
   const {
-    constraints, styles, options, translator, containerSize,
+    constraints, styles, options, translator: t, containerSize,
   } = stores.store.getState();
+  const translator = useTranslations({ translator: t });
   const isRtl = options.direction === 'rtl';
   const { qDimensionInfo } = resource.layout.qListObject;
   const {
