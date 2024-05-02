@@ -23,7 +23,7 @@
     "@release-it-plugins/workspaces": "3.2.0",
     "@release-it/conventional-changelog": "5.1.1",
     "conventional-recommended-bump": "7.0.1",
-    "release-it": "15.11.0",
+    "release-it": "17.2.1",
     "semver": "7.5.4"
   }
 }
