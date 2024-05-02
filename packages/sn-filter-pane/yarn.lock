@@ -2288,7 +2288,30 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@nebula.js/cli-build@4.9.0", "@nebula.js/cli-build@^4.9.0":
+"@nebula.js/cli-build@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-5.0.1.tgz#c3c0570c42c0f4bb8b81074a4152d345d7a3e3ef"
+  integrity sha512-cX5W+610YKdo91BkbKYbw5C3injSlRD7nTsTiEwvR4rtZHbKCzwCehvAb5KwbY5gFnYohtjNtkVuM63yXHFysQ==
+  dependencies:
+    "@babel/cli" "7.24.1"
+    "@babel/core" "7.24.4"
+    "@babel/plugin-transform-react-jsx" "7.23.4"
+    "@babel/preset-env" "7.24.4"
+    "@rollup/plugin-babel" "6.0.4"
+    "@rollup/plugin-commonjs" "25.0.7"
+    "@rollup/plugin-json" "6.1.0"
+    "@rollup/plugin-node-resolve" "15.2.3"
+    "@rollup/plugin-replace" "5.0.5"
+    "@rollup/plugin-terser" "0.4.4"
+    chalk "4.1.2"
+    extend "3.0.2"
+    postcss "^8.4.38"
+    rollup "4.14.2"
+    rollup-plugin-postcss "4.0.2"
+    rollup-plugin-sourcemaps "0.6.3"
+    yargs "17.7.2"
+
+"@nebula.js/cli-build@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-4.9.0.tgz#9633d82e4be2c1d720a9a88e39513a4cd12ac639"
   integrity sha512-+G61+Enbz7yTqnWbELEst94s38zTliOmfm+CCBiZtsxLS7n+KnDYClXMutczA9U+D5EmdVqvU6689tcqNkwhNQ==
@@ -2446,6 +2469,13 @@
   integrity sha512-RgVfl5hWMkxN1h/uZj8FVESvPuBJ/uf6ly6GTj0GONnkfoBN5KC0MSz+PN2OLDgYXMhtG0mWpTrkiOjoxAIevw==
   dependencies:
     "@rollup/pluginutils" "^5.0.1"
+
+"@rollup/plugin-json@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-json/-/plugin-json-6.1.0.tgz#fbe784e29682e9bb6dee28ea75a1a83702e7b805"
+  integrity sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==
+  dependencies:
+    "@rollup/pluginutils" "^5.1.0"
 
 "@rollup/plugin-node-resolve@15.2.3":
   version "15.2.3"
@@ -7552,6 +7582,11 @@ nanoid@^3.3.6:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.6.tgz#443380c856d6e9f9824267d960b4236ad583ea4c"
   integrity sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==
 
+nanoid@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
+  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
+
 natural-compare-lite@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare-lite/-/natural-compare-lite-1.4.0.tgz#17b09581988979fddafe0201e931ba933c96cbb4"
@@ -8287,6 +8322,15 @@ postcss@^8.4.31:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+postcss@^8.4.38:
+  version "8.4.38"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.38.tgz#b387d533baf2054288e337066d81c6bee9db9e0e"
+  integrity sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==
+  dependencies:
+    nanoid "^3.3.7"
+    picocolors "^1.0.0"
+    source-map-js "^1.2.0"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -9156,7 +9200,7 @@ sockjs@^0.3.24:
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
 
-"source-map-js@>=0.6.2 <2.0.0":
+"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.2.0.tgz#16b809c162517b5b8c3e7dcd315a2a5c2612b2af"
   integrity sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==
