@@ -30,7 +30,7 @@
   "scripts": {
     "start": "nebula serve --type filterpane --mode development",
     "build": "nebula build --core core --mode production --typescript",
-    "build:dev": "nebula build --core core --mode development --typescript --systemjs false",
+    "build:dev": "nebula build --core core --mode development --typescript --systemjs true",
     "build:watch": "nebula build --core core --mode development -w",
     "lint": "eslint src",
     "sense": "nebula sense",
@@ -41,7 +41,10 @@
     "types:check": "tsc --noEmit",
     "link:nebula": "yarn link '@nebula.js/cli-serve' && echo 'To use react from nebula replace react and react-dom version number \nin package.json e.g. 18.2.0 with:' && echo '\"file:\\c' && (readlink -f ./node_modules/@nebula.js/cli-serve | sed -r 's/\\/commands\\/serve/\\/node_modules\\/react\"/g') && echo '\"file:\\c' && (readlink -f ./node_modules/@nebula.js/cli-serve | sed -r 's/\\/commands\\/serve/\\/node_modules\\/react-dom\"/g')",
     "debug-in-sense": "../../scripts/link-to-sense.sh",
-    "spec": "sy from-jsdoc -c ./api-spec/props.conf.js"
+    "spec": "sy from-jsdoc -c ./api-spec/props.conf.js",
+    "start:mfe": "nebula serve --mfe --type sn-filter-pane --core core --mode development --typescript --systemjs true",
+    "locale:generate": "node src/locale/scripts/generate-all.mjs",
+    "locale:verify": "node src/locale/tools/verify-translations.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -82,7 +85,8 @@
     "react-dom": "18.2.0",
     "react-resizable": "3.0.5",
     "sass": "^1.62.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "globby": "^14.0.1"
   },
   "peerDependencies": {
     "@nebula.js/stardust": ">=4.8.1"

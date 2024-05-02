@@ -1,0 +1,14 @@
+{
+  "Listbox_DrillDown": {
+    "id": "Listbox.DrillDown",
+    "locale": {
+      "en-US": "Drill-down dimension"
+    }
+  },
+  "Listbox_Cyclic": {
+    "id": "Listbox.Cyclic",
+    "locale": {
+      "en-US": "Cyclic dimension"
+    }
+  }
+}
