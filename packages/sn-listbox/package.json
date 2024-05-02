@@ -42,7 +42,7 @@
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
     "@mui/material": "5.15.6",
-    "@nebula.js/cli": "4.9.0",
+    "@nebula.js/cli": "5.0.1",
     "@nebula.js/cli-build": "5.0.1",
     "@nebula.js/cli-sense": "5.0.1",
     "@nebula.js/cli-serve": "4.9.0",
