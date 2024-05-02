@@ -55,7 +55,7 @@
     "@emotion/styled": "11.11.0",
     "@nebula.js/cli": "4.9.0",
     "@nebula.js/cli-build": "4.9.0",
-    "@nebula.js/cli-sense": "4.9.0",
+    "@nebula.js/cli-sense": "5.0.1",
     "@nebula.js/cli-serve": "4.9.0",
     "@rollup/plugin-typescript": "11.1.6",
     "@scriptappy/cli": "0.10.0",
