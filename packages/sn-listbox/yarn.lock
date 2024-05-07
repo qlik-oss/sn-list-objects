@@ -2308,14 +2308,14 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.2"
 
-"@nebula.js/cli-create@^4.9.0":
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-4.9.0.tgz#92ae4caea4d14cc958a2055db06857541050b2d1"
-  integrity sha512-WH1Lp6q/HlHSzeltIC0hvfPSskodCbaTJbQj+U5yQvHXsKqYb+gBqboIcxuSTCAbzcrMdWttib5oNisNeTaVHg==
+"@nebula.js/cli-create@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-create/-/cli-create-5.0.1.tgz#9e0f6712289cfc918e9d7db4fd14d01ab29c9890"
+  integrity sha512-+nfpvKUd3AEpcw3yY01PnB4XIVTn6QFcoSK7mpRnHLK3jymXWl+QW8YJwL33HK++cuMZQQ1L0GfAEKVjcLqOpA==
   dependencies:
     chalk "4.1.2"
-    ejs "3.1.9"
-    fs-extra "11.1.1"
+    ejs "3.1.10"
+    fs-extra "11.2.0"
     inquirer "8.2.6"
 
 "@nebula.js/cli-sense@5.0.1":
@@ -2362,12 +2362,12 @@
     ws "8.14.2"
     yargs "17.7.2"
 
-"@nebula.js/cli@4.9.0":
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-4.9.0.tgz#6b65055db25d14586f09de3e3a17a99fce943273"
-  integrity sha512-LQu6KZJLk7kaBdJJKVQbGYxtT873d4VCCOCmvFoKvN9WOghTFZDJx2ZZrvc5kCTkBZ7VjJAYSqz+iQzv9r9+rg==
+"@nebula.js/cli@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli/-/cli-5.0.1.tgz#46e8a71d0ad262354c561961acd89203c04b8ecf"
+  integrity sha512-h8TQmMHKWJDuy81QwIpOGhkkU6zpojBalQz4DGGLA7BCQYiCEAxHOAqUr5gK9ccG8Jwq+MB9J7Tv373XvaPpiA==
   dependencies:
-    "@nebula.js/cli-create" "^4.9.0"
+    "@nebula.js/cli-create" "^5.0.1"
     import-cwd "3.0.0"
     yargs "17.7.2"
 
@@ -4669,10 +4669,10 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
-ejs@3.1.9:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.9.tgz#03c9e8777fe12686a9effcef22303ca3d8eeb361"
-  integrity sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==
+ejs@3.1.10:
+  version "3.1.10"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.10.tgz#69ab8358b14e896f80cc39e62087b88500c3ac3b"
+  integrity sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==
   dependencies:
     jake "^10.8.5"
 
@@ -5552,15 +5552,6 @@ fs-constants@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-constants/-/fs-constants-1.0.0.tgz#6be0de9be998ce16af8afc24497b9ee9b7ccd9ad"
   integrity sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==
-
-fs-extra@11.1.1:
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.1.1.tgz#da69f7c39f3b002378b0954bb6ae7efdc0876e2d"
-  integrity sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==
-  dependencies:
-    graceful-fs "^4.2.0"
-    jsonfile "^6.0.1"
-    universalify "^2.0.0"
 
 fs-extra@11.2.0:
   version "11.2.0"
