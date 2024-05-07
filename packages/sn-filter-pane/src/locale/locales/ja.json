@@ -1,0 +1,12 @@
+{
+  "Listbox.Cyclic": {
+    "value": "サイクリック軸",
+    "comment": "Tooltip for the cyclic icons on the dimension titles in charts",
+    "version": "2+VabLdASiihdRc+9UcgPg=="
+  },
+  "Listbox.DrillDown": {
+    "value": "軸をドリルダウン",
+    "comment": "Tooltip for the drill-down icons on the dimension titles in charts",
+    "version": "7Sxzrzvp0DxSuZ7S05v+HQ=="
+  }
+}
