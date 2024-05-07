@@ -1,0 +1,12 @@
+{
+  "Listbox.Cyclic": {
+    "value": "Dimensão cíclica",
+    "comment": "Tooltip for the cyclic icons on the dimension titles in charts",
+    "version": "2+VabLdASiihdRc+9UcgPg=="
+  },
+  "Listbox.DrillDown": {
+    "value": "Dimensão de detalhamento",
+    "comment": "Tooltip for the drill-down icons on the dimension titles in charts",
+    "version": "7Sxzrzvp0DxSuZ7S05v+HQ=="
+  }
+}
