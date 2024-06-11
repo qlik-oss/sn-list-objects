@@ -71,7 +71,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
       columnsTemp,
       size,
       expandProps,
-      isSmallDevice
+      isSmallDevice,
     ));
 
     // If there is one or more always expanded listboxes which cannot expand (i.e. a "sad" item), move the last
@@ -117,7 +117,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
             columnsTemp,
             size,
             expandProps,
-            isSmallDevice
+            isSmallDevice,
           ));
           return false;
         });
@@ -128,7 +128,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
       columnsTemp,
       size,
       expandProps,
-      isSmallDevice
+      isSmallDevice,
     ));
 
     // Move listboxes which should always be expanded, but do not have room to expand; into the overflow dropdown.
@@ -144,7 +144,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
         columnsTemp,
         size,
         expandProps,
-        isSmallDevice
+        isSmallDevice,
       ));
       if (!wasMoved) {
         break;
@@ -161,7 +161,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
       columnsTemp,
       size,
       expandProps,
-      isSmallDevice
+      isSmallDevice,
     ));
 
     sortColumnItemsByFieldOrder(columnsTemp, resources);
@@ -176,7 +176,7 @@ export default function useHandleResize({ resources, gridRef, store, env, render
 
   const handleResizeMemo = useCallback(() => {
     handleResize();
-  }, [resourceIds, resourceLayouts, containerWidth, containerHeight]);
+  }, [resourceIds, ...resourceLayouts, containerWidth, containerHeight]);
 
   // This extra resize listener is needed for fixing fullscreen in Win Chrome, where
   // resize is not triggered when scrollbar goes away (possibly for other edge cases too).
