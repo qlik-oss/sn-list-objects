@@ -60,7 +60,7 @@ class ChildObjectLayoutFetcher {
     }
     state.model = model;
     const onChanged = async () => {
-      const layout = await model.getLayout() as unknown as IListLayout;
+      const layout = (await model.getLayout()) as unknown as IListLayout;
       this.updateLayout(id, layout);
     };
     model.on('changed', onChanged);
@@ -104,7 +104,7 @@ function useRef<T>() {
   return ref;
 }
 
-export default function useListBoxResources(stores: IStores, isMounted: ()=> boolean) {
+export default function useListBoxResources(stores: IStores, isMounted: () => boolean) {
   const [resourcesReady, setResourcesReady] = useState<boolean>(false);
   const { store, resourceStore } = stores;
   const { app, fpLayout } = store.getState();
@@ -120,7 +120,10 @@ export default function useListBoxResources(stores: IStores, isMounted: ()=> boo
   if (childObjectLayoutFetcherRef.current && fpLayout) {
     childObjectLayoutFetcherRef.current.update(fpLayout);
   }
-  return { resourcesReady };
+  return {
+    resourcesReady,
+    destroy: () => childObjectLayoutFetcherRef.current?.updateChildren([]),
+  };
 }
 
 interface ChildState {

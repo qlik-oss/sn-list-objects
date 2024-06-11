@@ -5,7 +5,7 @@ import { IContainerElement } from './types';
 import { render, teardown } from '../components/root';
 
 export default function useRender(stores: IStores) {
-  const [mounted] = useState<{current: boolean}>({ current: true });
+  const [mounted] = useState<{ current: boolean }>({ current: true });
   const { store } = stores;
 
   const { app, fpLayout } = store.getState();
@@ -13,11 +13,14 @@ export default function useRender(stores: IStores) {
 
   const isMounted = () => mounted.current;
 
-  const { resourcesReady } = useListBoxResources(stores, isMounted);
+  const { resourcesReady, destroy } = useListBoxResources(stores, isMounted);
 
   // Trigger a re-render only when components have changed in the filterpane layout.
   // (Note that useEffect equality check is shallow and therefore requires a hash.)
-  const componentsHash = (fpLayout?.components || []).sort().map((c: object) => JSON.stringify(c)).join(',');
+  const componentsHash = (fpLayout?.components || [])
+    .sort()
+    .map((c: object) => JSON.stringify(c))
+    .join(',');
 
   useEffect(() => {
     mounted.current = true;
@@ -28,6 +31,7 @@ export default function useRender(stores: IStores) {
     return () => {
       mounted.current = false;
       teardown(root);
+      destroy();
     };
   }, [resourcesReady, componentsHash]);
 }
