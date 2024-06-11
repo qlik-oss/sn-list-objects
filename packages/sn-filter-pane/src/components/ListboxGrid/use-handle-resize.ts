@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
-import {
-  MutableRefObject, useCallback, useEffect, useState,
-} from 'react';
+import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { RenderTrackerService } from '../../services/render-tracker';
 import getWidthHeight from './get-size';
 import {
-  setDefaultValues, balanceColumns, calculateColumns, calculateExpandPriority, assignListboxesToColumns,
+  setDefaultValues,
+  balanceColumns,
+  calculateColumns,
+  calculateExpandPriority,
+  assignListboxesToColumns,
   hasHeader,
   moveAlwaysExpandedToOverflow,
   adjustOverflowColumn,
@@ -33,13 +35,7 @@ interface IUseHandleResize {
   renderTracker?: RenderTrackerService;
 }
 
-export default function useHandleResize({
-  resources,
-  gridRef,
-  store,
-  env,
-  renderTracker,
-}: IUseHandleResize) {
+export default function useHandleResize({ resources, gridRef, store, env, renderTracker }: IUseHandleResize) {
   const { sense } = env as IEnv;
 
   const [overflowingResources, setOverflowingResources] = useState<IListboxResource[]>([]);
@@ -71,7 +67,12 @@ export default function useHandleResize({
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
 
     ({ columns: columnsTemp, overflowing } = assignListboxesToColumns(columnsTemp, resources, isSmallDevice));
-    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(
+      columnsTemp,
+      size,
+      expandProps,
+      isSmallDevice
+    ));
 
     // If there is one or more always expanded listboxes which cannot expand (i.e. a "sad" item), move the last
     // collapsable listbox to the overflow menu until either a) all sad items are happy, or b) all collapsable
@@ -84,36 +85,51 @@ export default function useHandleResize({
 
     const columnWidth = size.width / columnsTemp.length;
 
-    [...columnsTemp].reverse().slice(0).forEach((column: IColumn) => {
-      const { items = [] } = column;
-      [...items].some(() => {
-        const sadItems = getSadItems(column.items || []);
-        const columnHasSadItems = sadItems.length > 0;
-        const lastCollapsable = [...items].reverse().find((itm: IListboxResource) => !itm.alwaysExpanded && !overflowing.includes(itm));
-        if (!columnHasSadItems || !lastCollapsable) {
-          return true; // nothing more we can do, break loop
-        }
-        const movedItemsObj = moveItemToOverflow(lastCollapsable, column, overflowing);
-        overflowing = [...movedItemsObj.overflowing];
-        const columnIndex = columnsTemp.indexOf(column);
-        columnsTemp[columnIndex].items = movedItemsObj.columnItems;
-        columnsTemp[columnIndex].itemCount = movedItemsObj.columnItems.length;
-        overflowColumn.hiddenItems = true;
+    [...columnsTemp]
+      .reverse()
+      .slice(0)
+      .forEach((column: IColumn) => {
+        const { items = [] } = column;
+        [...items].some(() => {
+          const sadItems = getSadItems(column.items || []);
+          const columnHasSadItems = sadItems.length > 0;
+          const lastCollapsable = [...items]
+            .reverse()
+            .find((itm: IListboxResource) => !itm.alwaysExpanded && !overflowing.includes(itm));
+          if (!columnHasSadItems || !lastCollapsable) {
+            return true; // nothing more we can do, break loop
+          }
+          const movedItemsObj = moveItemToOverflow(lastCollapsable, column, overflowing);
+          overflowing = [...movedItemsObj.overflowing];
+          const columnIndex = columnsTemp.indexOf(column);
+          columnsTemp[columnIndex].items = movedItemsObj.columnItems;
+          columnsTemp[columnIndex].itemCount = movedItemsObj.columnItems.length;
+          overflowColumn.hiddenItems = true;
 
-        sadItems[0].expand = true;
-        const tooBig = estimateColumnHeight(column, size.width) > size.height;
-        if (tooBig) {
-          sadItems[0].expand = false;
-        }
+          sadItems[0].expand = true;
+          const tooBig = estimateColumnHeight(column, size.width) > size.height;
+          if (tooBig) {
+            sadItems[0].expand = false;
+          }
 
-        columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
-        ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
-        return false;
+          columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
+          ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(
+            columnsTemp,
+            size,
+            expandProps,
+            isSmallDevice
+          ));
+          return false;
+        });
       });
-    });
 
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
-    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(
+      columnsTemp,
+      size,
+      expandProps,
+      isSmallDevice
+    ));
 
     // Move listboxes which should always be expanded, but do not have room to expand; into the overflow dropdown.
     // This is done iteratively by:
@@ -124,7 +140,12 @@ export default function useHandleResize({
     for (let i = 0, len = resources.length; i < len; i++) {
       ({ columns: columnsTemp, overflowing, wasMoved } = moveAlwaysExpandedToOverflow(columnsTemp, overflowing, size));
       columnsTemp = columnsTemp.filter((column) => !(column.itemCount === 0 && !column.hiddenItems)); // remove empty columns resulting from moving listboxes
-      ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+      ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(
+        columnsTemp,
+        size,
+        expandProps,
+        isSmallDevice
+      ));
       if (!wasMoved) {
         break;
       }
@@ -136,7 +157,12 @@ export default function useHandleResize({
     }
 
     columnsTemp = balanceColumns(size, columnsTemp, resources, isSmallDevice, expandProps);
-    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(columnsTemp, size, expandProps, isSmallDevice));
+    ({ columns: columnsTemp, expandedItemsCount } = calculateExpandPriority(
+      columnsTemp,
+      size,
+      expandProps,
+      isSmallDevice
+    ));
 
     sortColumnItemsByFieldOrder(columnsTemp, resources);
 
@@ -146,10 +172,11 @@ export default function useHandleResize({
   };
 
   const resourceIds = resources.map((item) => item?.id).join(',');
+  const resourceLayouts = resources.map((item) => item?.layout); // make it react to new layout objects (fetched using "pure layout")
 
   const handleResizeMemo = useCallback(() => {
     handleResize();
-  }, [resourceIds, containerWidth, containerHeight]);
+  }, [resourceIds, resourceLayouts, containerWidth, containerHeight]);
 
   // This extra resize listener is needed for fixing fullscreen in Win Chrome, where
   // resize is not triggered when scrollbar goes away (possibly for other edge cases too).
