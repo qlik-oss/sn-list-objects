@@ -5,7 +5,8 @@
   "scripts": {
     "release": "release-it",
     "test:rendering": "playwright test --config=./test/rendering/playwright.config.rendering.js",
-    "test:integration": "playwright test --config=./test/integration/playwright.config.integration.js"
+    "test:integration": "playwright test --config=./test/integration/playwright.config.integration.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,13 @@
     "@release-it-plugins/workspaces": "4.2.0",
     "@release-it/conventional-changelog": "5.1.1",
     "conventional-recommended-bump": "7.0.1",
-    "prettier": "^3.3.2",
-    "pretty-quick": "^4.0.0",
+    "husky": "9.0.11",
+    "lint-staged": "15.2.6",
+    "prettier": "3.3.2",
     "release-it": "17.2.1",
     "semver": "7.5.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
   }
 }
