@@ -45,7 +45,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
 
-  const selections = getSelectionsStyle({ componentsOverrides, stardustTheme });
+  const selections = getSelectionsStyle({ componentsOverrides, stardustTheme, getListboxStyle });
 
   const mergedStyle = {
     listbox: {
