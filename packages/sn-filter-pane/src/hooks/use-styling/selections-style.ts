@@ -15,7 +15,7 @@ enum SelectionType {
   Possible = 'possible'
 }
 
-const DEFAULT_COLORS: Record<SelectionType, string> = {
+export const DEFAULT_COLORS: Record<SelectionType, string> = {
   selected: '#009845',
   alternative: '#E4E4E4',
   excluded: '#A9A9A9',
