@@ -23,8 +23,16 @@ describe('getSelectionsStyle', () => {
     expect(callGetStyle()).toEqual(DEFAULT_COLORS);
   });
 
+  it('should not return colors from theme, when flag is disabled', () => {
+    getListboxStyle = (path: string, prop: string) => prop;
+    env.flags = { isEnabled: () => false };
+
+    expect(callGetStyle()).toEqual(DEFAULT_COLORS);
+  });
+
   it('should return colors from theme', () => {
     getListboxStyle = (path: string, prop: string) => prop;
+    env.flags = { isEnabled: () => true };
 
     expect(callGetStyle()).toEqual({
       selected: 'dataColors.selected',
