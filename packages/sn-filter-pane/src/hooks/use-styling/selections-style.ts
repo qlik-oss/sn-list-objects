@@ -31,8 +31,10 @@ export default function getSelectionsStyle({
   getListboxStyle,
   env,
 }: IGetSelectionStyles) {
-  // eslint-disable-next-line no-confusing-arrow
-  const getThemeDataColor = (type: SelectionType) => env?.flags?.isEnabled('PS_22149_THEME_SELECTION_COLORS') ? getListboxStyle('', `dataColors.${type}`) : undefined;
+  const getThemeDataColor = (type: SelectionType) => {
+    const isEnabled = env?.flags?.isEnabled('PS_22149_THEME_SELECTION_COLORS');
+    return isEnabled ? getListboxStyle('', `dataColors.${type}`) : undefined;
+  };
 
   const getColor = (type: SelectionType) => {
     const componentColor = componentsOverrides?.selections?.colors?.[type];

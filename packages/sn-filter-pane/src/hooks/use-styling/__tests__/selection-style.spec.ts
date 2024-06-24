@@ -47,10 +47,10 @@ describe('getSelectionsStyle', () => {
     componentsOverrides.selections = {
       colors: {
         selected: { color: '#AAAAAA' },
-        alternative: { color: '#BBBBBB'},
-        excluded: { color: '#CCCCCC'},
-        selectedExcluded: { color: '#DDDDDD'},
-        possible: { color: '#EEEEEE'},
+        alternative: { color: '#BBBBBB' },
+        excluded: { color: '#CCCCCC' },
+        selectedExcluded: { color: '#DDDDDD' },
+        possible: { color: '#EEEEEE' },
       },
     } as ISelectionsComponent;
     stardustTheme.getColorPickerColor = (c: {color: string, index: number}): string => c.color;
