@@ -31,7 +31,7 @@ function getOverridesAsObject(components: IComponent[] = []): IComponentOverride
  *
  * They are generally overridden in above order.
  */
-export default function useStyling({ app, components = [] }: ICreateStylingArgs): IStyles {
+export default function useStyling({ app, components = [], env }: ICreateStylingArgs): IStyles {
   const stardustTheme = useStardustTheme();
   const componentsOverrides = getOverridesAsObject(components);
   const getListboxStyle = (path: string, prop: string) => stardustTheme?.getStyle('object.listBox', path, prop);
@@ -45,7 +45,7 @@ export default function useStyling({ app, components = [] }: ICreateStylingArgs)
 
   const headerFontStyle = componentsOverrides.theme?.header?.fontStyle || {};
 
-  const selections = getSelectionsStyle({ componentsOverrides, stardustTheme, getListboxStyle });
+  const selections = getSelectionsStyle({ componentsOverrides, stardustTheme, getListboxStyle, env });
 
   const mergedStyle = {
     listbox: {

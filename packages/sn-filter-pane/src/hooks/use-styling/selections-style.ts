@@ -1,10 +1,12 @@
 import { stardust } from '@nebula.js/stardust';
 import { IComponentOverrides } from './types';
+import { IEnv } from '../../types/types';
 
 interface IGetSelectionStyles {
   componentsOverrides: IComponentOverrides;
   stardustTheme: stardust.Theme,
   getListboxStyle: (path: string, prop: string) => string | undefined
+  env?: IEnv
 }
 
 enum SelectionType {
@@ -23,11 +25,19 @@ export const DEFAULT_COLORS: Record<SelectionType, string> = {
   possible: '#FFFFFF',
 };
 
-export default function getSelectionsStyle({ componentsOverrides, stardustTheme, getListboxStyle }: IGetSelectionStyles) {
+export default function getSelectionsStyle({
+  componentsOverrides,
+  stardustTheme,
+  getListboxStyle,
+  env,
+}: IGetSelectionStyles) {
+  // eslint-disable-next-line no-confusing-arrow
+  const getThemeDataColor = (type: SelectionType) => env?.flags?.isEnabled('PS_22149_THEME_SELECTION_COLORS') ? getListboxStyle('', `dataColors.${type}`) : undefined;
+
   const getColor = (type: SelectionType) => {
     const componentColor = componentsOverrides?.selections?.colors?.[type];
-    const evaluatedColorFromComponents = componentColor && stardustTheme?.getColorPickerColor ? stardustTheme.getColorPickerColor(componentColor, false) : undefined;
-    return evaluatedColorFromComponents || getListboxStyle('', `dataColors.${type}`) || DEFAULT_COLORS[type];
+    const evaluatedColorFromComponents = componentColor && stardustTheme?.getColorPickerColor(componentColor);
+    return evaluatedColorFromComponents || getThemeDataColor(type) || DEFAULT_COLORS[type];
   };
 
   return {

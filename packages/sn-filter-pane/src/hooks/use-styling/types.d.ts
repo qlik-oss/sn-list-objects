@@ -1,3 +1,4 @@
+import { IEnv } from '../../types/types';
 import {
   IComponent, ISelectionsComponent, IThemeComponent,
 } from '../types/components';
@@ -10,4 +11,5 @@ export type IComponentOverrides = {
 export interface ICreateStylingArgs {
   app?: EngineAPI.IApp,
   components?: IComponent[];
+  env?: IEnv
 }
