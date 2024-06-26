@@ -1,5 +1,11 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+## [0.19.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.18.3...v0.19.0) (2024-06-26)
+
+### Features
+
+- use selection colors from theme ([#442](https://github.com/qlik-oss/sn-list-objects/issues/442)) ([119368e](https://github.com/qlik-oss/sn-list-objects/commit/119368ec0ee5bc133b3b190baae23715df53708f))
+
 ### [0.18.3](https://github.com/qlik-oss/sn-list-objects/compare/v0.18.2...v0.18.3) (2024-06-25)
 
 ### [0.18.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.18.1...v0.18.2) (2024-06-13)
