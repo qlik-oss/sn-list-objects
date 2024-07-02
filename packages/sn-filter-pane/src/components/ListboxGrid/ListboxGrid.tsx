@@ -71,6 +71,7 @@ function ListboxGrid({ stores }: { stores: IStores }) {
         // @ts-ignore
         keyboard.blur?.(true);
       }
+      preventDefaultBehavior(event);
     } else if ([KEYS.LEFT, KEYS.RIGHT, KEYS.UP, KEYS.DOWN].includes(event.key)) {
       let elementToFocus;
       const listboxList = gridRef?.current?.querySelectorAll && gridRef?.current?.querySelectorAll<HTMLElement>('.listbox-container,.listbox-popover-container');
@@ -86,8 +87,8 @@ function ListboxGrid({ stores }: { stores: IStores }) {
           elementToFocus.focus();
         }
       }
+      preventDefaultBehavior(event);
     }
-    preventDefaultBehavior(event);
   };
 
   const handleFocus = sense?.isSmallDevice?.() ? () => resetZoom() : undefined;
