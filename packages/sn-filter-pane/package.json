@@ -56,7 +56,7 @@
     "@nebula.js/cli": "5.0.1",
     "@nebula.js/cli-build": "5.0.1",
     "@nebula.js/cli-sense": "5.0.1",
-    "@nebula.js/cli-serve": "4.9.0",
+    "@nebula.js/cli-serve": "5.3.0",
     "@rollup/plugin-typescript": "11.1.6",
     "@scriptappy/cli": "0.10.0",
     "@scriptappy/from-jsdoc": "0.19.0",

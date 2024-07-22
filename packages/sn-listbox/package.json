@@ -45,7 +45,7 @@
     "@nebula.js/cli": "5.0.1",
     "@nebula.js/cli-build": "5.0.1",
     "@nebula.js/cli-sense": "5.0.1",
-    "@nebula.js/cli-serve": "4.9.0",
+    "@nebula.js/cli-serve": "5.3.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/enigma.js": "^2.2.2",
     "@types/jest": "^29.2.1",
