@@ -53,10 +53,10 @@
     "@babel/preset-typescript": "^7.18.6",
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
-    "@nebula.js/cli": "5.0.1",
-    "@nebula.js/cli-build": "5.0.1",
-    "@nebula.js/cli-sense": "5.0.1",
-    "@nebula.js/cli-serve": "4.9.0",
+    "@nebula.js/cli": "5.3.0",
+    "@nebula.js/cli-build": "5.3.0",
+    "@nebula.js/cli-sense": "5.3.0",
+    "@nebula.js/cli-serve": "5.3.0",
     "@rollup/plugin-typescript": "11.1.6",
     "@scriptappy/cli": "0.10.0",
     "@scriptappy/from-jsdoc": "0.19.0",
@@ -89,7 +89,7 @@
     "globby": "^14.0.1"
   },
   "peerDependencies": {
-    "@nebula.js/stardust": ">=4.8.1"
+    "@nebula.js/stardust": ">=5.3.0"
   },
   "dependencies": {
     "@mui/icons-material": "5.15.6",

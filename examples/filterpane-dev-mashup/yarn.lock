@@ -266,12 +266,10 @@
   resolved "https://registry.yarnpkg.com/@nebula.js/sn-table/-/sn-table-2.2.3.tgz#d514352763a35bfeeb18c227ede0970b4a2fc2ce"
   integrity sha512-zTqGtlJWZ+JoeDXsg4100uCQ2nQdLBzLk27SPx2NqsBn0Y51HGIQsToTADO7ZG1jog8JC2dXEjXhEcIMRP9xVw==
 
-"@nebula.js/stardust@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-4.8.1.tgz#131aea819c4d0ad5875249d4d693e23a92a86b7b"
-  integrity sha512-jOX1giqbDTz6VJ9oO5twtmaZ1BIL724FDvgw0M05WVpDy22NxNd+zuHbrYc4fH4kjchZcJ7OXoJMKdINuUqWUg==
-  dependencies:
-    "@types/qlik-engineapi" "12.67.16"
+"@nebula.js/stardust@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@nebula.js/stardust/-/stardust-5.3.0.tgz#569bb544a032f02dbb05cb5aa4c6aca4ede4e825"
+  integrity sha512-ZXImaVCnUAVbEdi8Ra7UU0H6a+ajSzzZlR670fPfkmbWUPhIC6FQ0N+RlkXTrE9gJvZH7LftUdxCmE5TgND8Sw==
 
 "@popperjs/core@^2.11.7":
   version "2.11.7"
@@ -282,11 +280,6 @@
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
-
-"@types/qlik-engineapi@12.67.16":
-  version "12.67.16"
-  resolved "https://registry.yarnpkg.com/@types/qlik-engineapi/-/qlik-engineapi-12.67.16.tgz#3c4d3c6282275cfd7ce2efb393098bb6d0a82caf"
-  integrity sha512-NiwMX6zrV162lRcupTdrgoT2YtKZy97zJ70rRGLdJTWcaMOWUgAhM1ufzhmp3ir1KlNArI4Ds8ojfxA80SpwKQ==
 
 "@types/react-is@^16.7.1 || ^17.0.0":
   version "17.0.4"
