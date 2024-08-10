@@ -92,8 +92,8 @@
     "@nebula.js/stardust": ">=5.3.0"
   },
   "dependencies": {
-    "@mui/icons-material": "5.16.6",
-    "@mui/material": "5.16.6",
+    "@mui/icons-material": "5.16.7",
+    "@mui/material": "5.16.7",
     "extend": "^3.0.2",
     "lodash": "4.17.21",
     "qlik-chart-modules": "^0.73.0",
