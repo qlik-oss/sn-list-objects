@@ -18,7 +18,7 @@ enum SelectionType {
 }
 
 export const DEFAULT_COLORS: Record<SelectionType, string> = {
-  selected: '#009845',
+  selected: '#00873D',
   alternative: '#E4E4E4',
   excluded: '#A9A9A9',
   selectedExcluded: '#A9A9A9',
