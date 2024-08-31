@@ -1335,10 +1335,10 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@nebula.js/cli-build@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-5.4.0.tgz#a2ca8fe6964b62a5cb2950797ec2683f60ea314a"
-  integrity sha512-v3fGE/f7VdTE/XAyj25FFXEjh6CiPapoByAGwE0W+I4zXeuGD4h3P1wyPU/niII7HXWtJONVtbtLch0paMFN9w==
+"@nebula.js/cli-build@^5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-build/-/cli-build-5.4.2.tgz#84faff07a07034c61994ce3e2cce844e919c7bef"
+  integrity sha512-BKRkWHK68LP6+3jgH5eArkgsT2xAPmzzKwZfRoczvxZFWPw10X1AWV+17aPunA8z152I/6v5dsOXKYvNlZlqrA==
   dependencies:
     "@babel/cli" "7.24.8"
     "@babel/core" "7.25.2"
@@ -1358,12 +1358,12 @@
     rollup-plugin-sourcemaps "0.6.3"
     yargs "17.7.2"
 
-"@nebula.js/cli-serve@5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-5.4.0.tgz#06c4e8a721382454fe24f6ac9f687a9f4c8b3930"
-  integrity sha512-5f67pppZsEO3c+igaxe3UQnBa8IHiSyjs3Q6e6IeHGpxNDqStaVEUL01hg6PUsELJdWlIPRM7mUZq8KMB9aDNw==
+"@nebula.js/cli-serve@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@nebula.js/cli-serve/-/cli-serve-5.4.2.tgz#d4eacacf35f8195fcf9cdb8ecae20f2b35ade930"
+  integrity sha512-F8WAIn0z+2yvRQQ4HI8Geh7zfWRoaO8VJfp8f3z9oa79h1v03138u4DBdKJ+ad/qE37wJJIZ8kR2QeITtzx3KA==
   dependencies:
-    "@nebula.js/cli-build" "^5.4.0"
+    "@nebula.js/cli-build" "^5.4.2"
     "@qlik/sdk" "0.27.1"
     body-parser "1.20.2"
     chalk "4.1.2"
