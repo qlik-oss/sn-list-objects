@@ -1,5 +1,15 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.19.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.19.0...v0.19.1) (2024-09-02)
+
+### Bug Fixes
+
+- check if theme available ([#456](https://github.com/qlik-oss/sn-list-objects/issues/456)) ([94760c8](https://github.com/qlik-oss/sn-list-objects/commit/94760c8291f4c1602335d955693051728d730a2c))
+- correct green color ([#455](https://github.com/qlik-oss/sn-list-objects/issues/455)) ([02b8196](https://github.com/qlik-oss/sn-list-objects/commit/02b81963cc90791c87b99cf564318fde1fb342e4))
+- **deps:** update material-ui monorepo to v6 (major) ([#458](https://github.com/qlik-oss/sn-list-objects/issues/458)) ([184e248](https://github.com/qlik-oss/sn-list-objects/commit/184e24876f5f6eba236b7c621f604df197f16314))
+- **deps:** update minor and patch ([#451](https://github.com/qlik-oss/sn-list-objects/issues/451)) ([b67dc2f](https://github.com/qlik-oss/sn-list-objects/commit/b67dc2fd094c7fa4d9f31e58409b5073c8a56ab3))
+- should not preventDefaultBehaviour on keys that are not handled by the component ([#444](https://github.com/qlik-oss/sn-list-objects/issues/444)) ([f50586a](https://github.com/qlik-oss/sn-list-objects/commit/f50586a884732d0eeabd7b2eb5efc4f7c7f5a4f4))
+
 ## [0.19.0](https://github.com/qlik-oss/sn-list-objects/compare/v0.18.3...v0.19.0) (2024-06-26)
 
 ### Features
