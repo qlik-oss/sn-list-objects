@@ -29,11 +29,9 @@ export function getRange(min, max) {
 }
 
 // TODO Move and make generic so that other chart can also use it
-export function getFontSizes({
-  min = 10, max = 24, theme, defaultFontSize,
-}) {
+export function getFontSizes({ min = 10, max = 24, theme, defaultFontSize }) {
   const standardFontSizes = getRange(min, max + 1).map((v) => `${v}px`);
-  const fromTheme = theme.getStyle('', '', 'fontSizes') || [];
+  const fromTheme = theme?.getStyle('', '', 'fontSizes') || [];
   const customFontSizes = [...new Set([defaultFontSize, ...fromTheme])];
 
   const fontSizesWithHeaders = [
@@ -51,19 +49,15 @@ export function getFontSizes({
       groupHeader: true,
     },
     ...standardFontSizes.map(fontSizesToValueLabel),
-
   ];
 
   return fontSizesWithHeaders;
 }
 
-const isNumber = (n) => typeof (n) === 'number' && !Number.isNaN(n);
+const isNumber = (n) => typeof n === 'number' && !Number.isNaN(n);
 
 export function parseFontWeight(theValue) {
-  const SUPPORTED_FONT_WEIGHT_STRINGS = [
-    'normal',
-    'bold',
-  ];
+  const SUPPORTED_FONT_WEIGHT_STRINGS = ['normal', 'bold'];
 
   const value = theValue?.trim?.() ?? theValue;
   let v;
