@@ -7,6 +7,7 @@ import theme from '../theme/theme';
 import type { IStores } from '../store';
 
 export function render(element: IContainerElement, stores: IStores) {
+  console.log('render', element);
   const root = createRoot(element);
   root.render(
     <ThemeProvider theme={theme}>
