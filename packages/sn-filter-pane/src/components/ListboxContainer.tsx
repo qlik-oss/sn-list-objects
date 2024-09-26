@@ -78,6 +78,7 @@ const ListboxContainer = ({
       search: isPopover ? true : 'toggle' as stardust.SearchMode,
       isPopover,
       components,
+      disablePortal: false,
     }, dqOptionsOverrides || {});
 
     // @ts-ignore
