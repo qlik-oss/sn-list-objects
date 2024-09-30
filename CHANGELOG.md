@@ -1,5 +1,14 @@
 # Changelog for sn-filter-pane and sn-listbox
 
+### [0.19.2](https://github.com/qlik-oss/sn-list-objects/compare/v0.19.1...v0.19.2) (2024-09-30)
+
+### Bug Fixes
+
+- **deps:** update minor and patch ([#460](https://github.com/qlik-oss/sn-list-objects/issues/460)) ([c2d15d6](https://github.com/qlik-oss/sn-list-objects/commit/c2d15d60baba64c476cb02adf840221af744143d))
+- **deps:** update minor and patch ([#461](https://github.com/qlik-oss/sn-list-objects/issues/461)) ([b9661f7](https://github.com/qlik-oss/sn-list-objects/commit/b9661f71da27ba7f3792f3af3c32f3910dcafbd3))
+- **deps:** update minor and patch ([#464](https://github.com/qlik-oss/sn-list-objects/issues/464)) ([c2256f6](https://github.com/qlik-oss/sn-list-objects/commit/c2256f643e896ba4bda55e56b6f15ab404ecd889))
+- use disbalePortal option to fix more menu ([#462](https://github.com/qlik-oss/sn-list-objects/issues/462)) ([0f045a4](https://github.com/qlik-oss/sn-list-objects/commit/0f045a463a07bcb08752d6673fb0c68df590a2f0))
+
 ### [0.19.1](https://github.com/qlik-oss/sn-list-objects/compare/v0.19.0...v0.19.1) (2024-09-02)
 
 ### Bug Fixes
