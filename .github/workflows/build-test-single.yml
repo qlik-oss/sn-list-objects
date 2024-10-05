@@ -41,6 +41,6 @@ jobs:
         yarn run test --maxWorkers=2 --coverage
         ../../test/bin/cc-test-reporter format-coverage -t lcov -o ../../coverage/codeclimate.${{ inputs.package }}.json ../packages/${{ inputs.package }}/coverage/lcov.info
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         path: coverage/codeclimate.${{ inputs.package }}.json
