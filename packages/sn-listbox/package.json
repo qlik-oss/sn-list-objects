@@ -41,11 +41,11 @@
     "@babel/preset-typescript": "^7.18.6",
     "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
-    "@mui/material": "6.1.2",
-    "@nebula.js/cli": "5.5.0",
-    "@nebula.js/cli-build": "5.5.0",
-    "@nebula.js/cli-sense": "5.5.0",
-    "@nebula.js/cli-serve": "5.5.0",
+    "@mui/material": "6.1.4",
+    "@nebula.js/cli": "5.7.1",
+    "@nebula.js/cli-build": "5.7.1",
+    "@nebula.js/cli-sense": "5.7.1",
+    "@nebula.js/cli-serve": "5.7.1",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/enigma.js": "^2.2.2",
     "@types/jest": "^29.2.1",
@@ -53,8 +53,8 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/systemjs": "^6.1.1",
-    "@typescript-eslint/eslint-plugin": "8.8.0",
-    "@typescript-eslint/parser": "8.8.0",
+    "@typescript-eslint/eslint-plugin": "8.9.0",
+    "@typescript-eslint/parser": "8.9.0",
     "babel-eslint": "^10.1.0",
     "eslint": "8.57.1",
     "eslint-config-airbnb-base": "15.0.0",
@@ -68,7 +68,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sass": "^1.62.0",
-    "typescript": "5.6.2"
+    "typescript": "5.6.3"
   },
   "peerDependencies": {
     "@nebula.js/stardust": ">=5.3.0"
