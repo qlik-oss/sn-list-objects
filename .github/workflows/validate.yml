@@ -17,7 +17,7 @@ jobs:
       - run: yarn playwright install --with-deps
       - run: yarn run test:rendering
         id: rendering 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() && steps.rendering.conclusion == 'failure' }}
         with:
           name: rendering-output
@@ -25,7 +25,7 @@ jobs:
           retention-days: 3
       - run: yarn run test:integration
         id: integration
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() && steps.integration.conclusion == 'failure' }}
         with:
           name: integration-output
